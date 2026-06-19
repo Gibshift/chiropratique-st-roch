@@ -70,6 +70,7 @@ export interface Config {
     services: Service;
     conditions: Condition;
     professionals: Professional;
+    reviews: Review;
     pages: Page;
     posts: Post;
     media: Media;
@@ -95,6 +96,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     conditions: ConditionsSelect<false> | ConditionsSelect<true>;
     professionals: ProfessionalsSelect<false> | ProfessionalsSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -452,6 +454,22 @@ export interface Professional {
     title?: string | null;
     description?: string | null;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews".
+ */
+export interface Review {
+  id: number;
+  authorName: string;
+  rating: number;
+  source?: ('google' | 'facebook' | 'other') | null;
+  reviewText: string;
+  reviewDate?: string | null;
+  isFeatured?: boolean | null;
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1169,6 +1187,10 @@ export interface PayloadLockedDocument {
         value: number | Professional;
       } | null)
     | ({
+        relationTo: 'reviews';
+        value: number | Review;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -1326,6 +1348,21 @@ export interface ProfessionalsSelect<T extends boolean = true> {
         title?: T;
         description?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews_select".
+ */
+export interface ReviewsSelect<T extends boolean = true> {
+  authorName?: T;
+  rating?: T;
+  source?: T;
+  reviewText?: T;
+  reviewDate?: T;
+  isFeatured?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }
