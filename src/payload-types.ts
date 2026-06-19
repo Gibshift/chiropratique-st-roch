@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     services: Service;
+    conditions: Condition;
     pages: Page;
     posts: Post;
     media: Media;
@@ -91,6 +92,7 @@ export interface Config {
   };
   collectionsSelect: {
     services: ServicesSelect<false> | ServicesSelect<true>;
+    conditions: ConditionsSelect<false> | ConditionsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -316,6 +318,75 @@ export interface FolderInterface {
     totalDocs?: number;
   };
   folderType?: 'media'[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "conditions".
+ */
+export interface Condition {
+  id: number;
+  title: string;
+  /**
+   * Exemple : douleur-lombaire, sciatique, douleur-cervicale
+   */
+  slug: string;
+  shortDescription: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  commonSymptoms?:
+    | {
+        symptom: string;
+        id?: string | null;
+      }[]
+    | null;
+  whenToConsult?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  relatedServices?: (number | Service)[] | null;
+  /**
+   * Lien de prise de rendez-vous lié à cette condition, si différent du lien général
+   */
+  janeUrl?: string | null;
+  featuredImage?: (number | null) | Media;
+  isFeatured?: boolean | null;
+  order?: number | null;
+  seo?: {
+    /**
+     * Titre affiché dans Google
+     */
+    title?: string | null;
+    /**
+     * Courte description pour Google
+     */
+    description?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -1025,6 +1096,10 @@ export interface PayloadLockedDocument {
         value: number | Service;
       } | null)
     | ({
+        relationTo: 'conditions';
+        value: number | Condition;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -1115,6 +1190,36 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   shortDescription?: T;
   description?: T;
+  janeUrl?: T;
+  featuredImage?: T;
+  isFeatured?: T;
+  order?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "conditions_select".
+ */
+export interface ConditionsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  shortDescription?: T;
+  intro?: T;
+  commonSymptoms?:
+    | T
+    | {
+        symptom?: T;
+        id?: T;
+      };
+  whenToConsult?: T;
+  relatedServices?: T;
   janeUrl?: T;
   featuredImage?: T;
   isFeatured?: T;
