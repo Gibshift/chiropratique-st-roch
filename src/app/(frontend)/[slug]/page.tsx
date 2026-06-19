@@ -13,6 +13,8 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
+import { ClinicHomePage } from '@/components/home/ClinicHomePage'
+
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
@@ -50,6 +52,19 @@ export default async function Page({ params: paramsPromise }: Args) {
   const decodedSlug = decodeURIComponent(slug)
   const url = '/' + decodedSlug
   let page: RequiredDataFromCollectionSlug<'pages'> | null
+
+  if (decodedSlug === 'home') {
+  return (
+    <article>
+      <PageClient />
+      <PayloadRedirects disableNotFound url={url} />
+
+      {draft && <LivePreviewListener />}
+
+      <ClinicHomePage />
+    </article>
+  )
+}
 
   page = await queryPageBySlug({
     slug: decodedSlug,
