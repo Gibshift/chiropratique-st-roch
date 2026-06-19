@@ -120,10 +120,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -2004,6 +2006,54 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  clinicName: string;
+  /**
+   * Lien utilisé par les boutons Prendre rendez-vous.
+   */
+  mainJaneUrl: string;
+  /**
+   * Code iframe fourni par Jane, si on veut l’utiliser plus tard.
+   */
+  janeEmbedCode?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  address?: {
+    street?: string | null;
+    city?: string | null;
+    province?: string | null;
+    postalCode?: string | null;
+  };
+  /**
+   * URL ou iframe Google Maps pour afficher la carte sur le site.
+   */
+  googleMapsEmbedUrl?: string | null;
+  openingHours?:
+    | {
+        day: string;
+        hours: string;
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?: {
+    facebook?: string | null;
+    instagram?: string | null;
+    googleBusiness?: string | null;
+  };
+  announcement?: {
+    enabled?: boolean | null;
+    message?: string | null;
+    linkLabel?: string | null;
+    linkUrl?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2043,6 +2093,51 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  clinicName?: T;
+  mainJaneUrl?: T;
+  janeEmbedCode?: T;
+  phone?: T;
+  email?: T;
+  address?:
+    | T
+    | {
+        street?: T;
+        city?: T;
+        province?: T;
+        postalCode?: T;
+      };
+  googleMapsEmbedUrl?: T;
+  openingHours?:
+    | T
+    | {
+        day?: T;
+        hours?: T;
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        facebook?: T;
+        instagram?: T;
+        googleBusiness?: T;
+      };
+  announcement?:
+    | T
+    | {
+        enabled?: T;
+        message?: T;
+        linkLabel?: T;
+        linkUrl?: T;
       };
   updatedAt?: T;
   createdAt?: T;
