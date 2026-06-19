@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     services: Service;
     conditions: Condition;
+    professionals: Professional;
     pages: Page;
     posts: Post;
     media: Media;
@@ -93,6 +94,7 @@ export interface Config {
   collectionsSelect: {
     services: ServicesSelect<false> | ServicesSelect<true>;
     conditions: ConditionsSelect<false> | ConditionsSelect<true>;
+    professionals: ProfessionalsSelect<false> | ProfessionalsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -385,6 +387,69 @@ export interface Condition {
     /**
      * Courte description pour Google
      */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "professionals".
+ */
+export interface Professional {
+  id: number;
+  name: string;
+  /**
+   * Exemple : marie-dupont
+   */
+  slug: string;
+  /**
+   * Exemple : Chiropraticienne, Ostéopathe, Massothérapeute
+   */
+  title: string;
+  shortBio: string;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  approach?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  photo?: (number | null) | Media;
+  relatedServices?: (number | Service)[] | null;
+  relatedConditions?: (number | Condition)[] | null;
+  /**
+   * Lien de prise de rendez-vous spécifique à ce professionnel
+   */
+  janeUrl?: string | null;
+  isFeatured?: boolean | null;
+  isActive?: boolean | null;
+  order?: number | null;
+  seo?: {
+    title?: string | null;
     description?: string | null;
   };
   updatedAt: string;
@@ -1100,6 +1165,10 @@ export interface PayloadLockedDocument {
         value: number | Condition;
       } | null)
     | ({
+        relationTo: 'professionals';
+        value: number | Professional;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -1223,6 +1292,33 @@ export interface ConditionsSelect<T extends boolean = true> {
   janeUrl?: T;
   featuredImage?: T;
   isFeatured?: T;
+  order?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "professionals_select".
+ */
+export interface ProfessionalsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  title?: T;
+  shortBio?: T;
+  bio?: T;
+  approach?: T;
+  photo?: T;
+  relatedServices?: T;
+  relatedConditions?: T;
+  janeUrl?: T;
+  isFeatured?: T;
+  isActive?: T;
   order?: T;
   seo?:
     | T
