@@ -3,6 +3,11 @@ import type { CollectionConfig } from 'payload'
 export const Services: CollectionConfig = {
   slug: 'services',
 
+  labels: {
+    singular: 'Service',
+    plural: 'Services',
+  },
+
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'isFeatured', 'order'],

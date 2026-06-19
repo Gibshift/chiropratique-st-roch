@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const Conditions: CollectionConfig = {
   slug: 'conditions',
+  labels: {
+    singular: 'Condition traitée',
+    plural: 'Conditions traitées',
+  },
 
   admin: {
     useAsTitle: 'title',
