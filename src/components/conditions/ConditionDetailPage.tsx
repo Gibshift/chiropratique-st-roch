@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
+import RichText from '@/components/RichText'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
 
@@ -107,17 +108,27 @@ export async function ConditionDetailPage({ slug }: Props) {
             </div>
           )}
 
-          <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
-            <p>
-              Cette page servira à expliquer la condition, les signes fréquents, les moments où il
-              peut être pertinent de consulter et les services qui peuvent être liés.
-            </p>
+          {condition.intro ? (
+            <div className="mt-10 rounded-3xl border border-zinc-200 bg-white p-8">
+                <RichText data={condition.intro} />
+            </div>
+            ) : (
+            <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
+                <p>
+                Le contenu principal de cette condition pourra être ajouté dans l’admin.
+                </p>
+            </div>
+            )}
 
-            <p>
-              Le contenu pourra être enrichi dans l’admin afin d’améliorer le référencement naturel
-              et d’offrir une information claire aux patients avant la prise de rendez-vous.
-            </p>
-          </div>
+          {condition.whenToConsult && (
+            <div className="mt-12 rounded-3xl bg-zinc-100 p-8">
+                <h3 className="text-2xl font-bold">Quand consulter?</h3>
+
+                <div className="mt-6">
+                <RichText data={condition.whenToConsult} />
+                </div>
+            </div>
+            )}      
 
           {condition.relatedServices?.length > 0 && (
             <div className="mt-12">

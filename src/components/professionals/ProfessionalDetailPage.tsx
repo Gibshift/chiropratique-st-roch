@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
+import RichText from '@/components/RichText'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
 
@@ -122,17 +123,27 @@ export async function ProfessionalDetailPage({ slug }: Props) {
             </p>
           </div>
 
-          <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
-            <p>
-              Cette page servira à présenter plus en détail le parcours, l’approche clinique et les
-              services offerts par ce professionnel.
-            </p>
+          {professional.bio ? (
+            <div className="mt-10 rounded-3xl border border-zinc-200 bg-white p-8">
+                <RichText data={professional.bio} />
+            </div>
+            ) : (
+            <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
+                <p>
+                La biographie complète de ce professionnel pourra être ajoutée dans l’admin.
+                </p>
+            </div>
+            )}
 
-            <p>
-              Le contenu pourra être enrichi dans l’admin avec une biographie complète, une approche
-              personnalisée et des liens vers les services ou conditions traitées.
-            </p>
-          </div>
+            {professional.approach && (
+                <div className="mt-12 rounded-3xl bg-zinc-100 p-8">
+                    <h3 className="text-2xl font-bold">Approche clinique</h3>
+
+                    <div className="mt-6">
+                    <RichText data={professional.approach} />
+                    </div>
+                </div>
+                )}
 
           {professional.relatedServices?.length > 0 && (
             <div className="mt-12">

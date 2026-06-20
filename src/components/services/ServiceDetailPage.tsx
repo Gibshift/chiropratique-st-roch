@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
+import RichText from '@/components/RichText'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
 
@@ -90,17 +91,17 @@ export async function ServiceDetailPage({ slug }: Props) {
             </p>
           </div>
 
-          <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
-            <p>
-              Cette page servira à présenter plus en détail le service, les raisons de consulter,
-              le type d’approche utilisée et les situations où ce soin peut être pertinent.
-            </p>
-
-            <p>
-              Le contenu pourra être enrichi dans l’admin afin d’améliorer le référencement naturel
-              et d’aider les patients à mieux comprendre le service avant de prendre rendez-vous.
-            </p>
-          </div>
+          {service.description ? (
+            <div className="mt-10 rounded-3xl border border-zinc-200 bg-white p-8">
+              <RichText data={service.description} />
+            </div>
+          ) : (
+            <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
+              <p>
+                Le contenu complet de ce service pourra être ajouté dans l’admin.
+              </p>
+            </div>
+          )}
         </div>
 
         <aside className="h-fit rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
