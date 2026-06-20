@@ -29,15 +29,19 @@ import { slugField } from 'payload'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
+
+  labels: {
+    singular: 'Article',
+    plural: 'Articles',
+  },
+
   access: {
     create: authenticated,
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  // This config controls what's populated by default when a post is referenced
-  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'posts'>
+
   defaultPopulate: {
     title: true,
     slug: true,
@@ -47,7 +51,9 @@ export const Posts: CollectionConfig<'posts'> = {
       description: true,
     },
   },
+
   admin: {
+    group: 'Blogue',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) =>
@@ -65,20 +71,24 @@ export const Posts: CollectionConfig<'posts'> = {
       }),
     useAsTitle: 'title',
   },
+
   fields: [
     {
       name: 'title',
       type: 'text',
+      label: 'Titre',
       required: true,
     },
     {
       type: 'tabs',
       tabs: [
         {
+          label: 'Contenu',
           fields: [
             {
               name: 'heroImage',
               type: 'upload',
+              label: 'Image principale',
               relationTo: 'media',
             },
             {
@@ -96,17 +106,18 @@ export const Posts: CollectionConfig<'posts'> = {
                   ]
                 },
               }),
-              label: false,
+              label: 'Contenu de l’article',
               required: true,
             },
           ],
-          label: 'Content',
         },
         {
+          label: 'Relations',
           fields: [
             {
               name: 'relatedPosts',
               type: 'relationship',
+              label: 'Articles reliés',
               admin: {
                 position: 'sidebar',
               },
@@ -123,6 +134,7 @@ export const Posts: CollectionConfig<'posts'> = {
             {
               name: 'categories',
               type: 'relationship',
+              label: 'Catégories',
               admin: {
                 position: 'sidebar',
               },
@@ -130,7 +142,6 @@ export const Posts: CollectionConfig<'posts'> = {
               relationTo: 'categories',
             },
           ],
-          label: 'Meta',
         },
         {
           name: 'meta',
@@ -147,13 +158,9 @@ export const Posts: CollectionConfig<'posts'> = {
             MetaImageField({
               relationTo: 'media',
             }),
-
             MetaDescriptionField({}),
             PreviewField({
-              // if the `generateUrl` function is configured
               hasGenerateFn: true,
-
-              // field paths to match the target field for data
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
@@ -164,6 +171,7 @@ export const Posts: CollectionConfig<'posts'> = {
     {
       name: 'publishedAt',
       type: 'date',
+      label: 'Date de publication',
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',
@@ -184,15 +192,13 @@ export const Posts: CollectionConfig<'posts'> = {
     {
       name: 'authors',
       type: 'relationship',
+      label: 'Auteurs',
       admin: {
         position: 'sidebar',
       },
       hasMany: true,
       relationTo: 'users',
     },
-    // This field is only used to populate the user data via the `populateAuthors` hook
-    // This is because the `user` collection has access control locked to protect user privacy
-    // GraphQL will also not return mutated user data that differs from the underlying schema
     {
       name: 'populatedAuthors',
       type: 'array',
@@ -216,15 +222,17 @@ export const Posts: CollectionConfig<'posts'> = {
     },
     slugField(),
   ],
+
   hooks: {
     afterChange: [revalidatePost],
     afterRead: [populateAuthors],
     afterDelete: [revalidateDelete],
   },
+
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 100,
       },
       schedulePublish: true,
     },
