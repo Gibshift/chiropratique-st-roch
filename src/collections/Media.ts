@@ -14,24 +14,41 @@ import { authenticated } from '../access/authenticated'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-export const Media: CollectionConfig = {
+export const Media: CollectionConfig<'media'> = {
   slug: 'media',
+
+  labels: {
+    singular: 'Média',
+    plural: 'Médias',
+  },
+
   folders: true,
+
   access: {
     create: authenticated,
     delete: authenticated,
     read: anyone,
     update: authenticated,
   },
+
+  admin: {
+    group: 'Médias',
+  },
+
   fields: [
     {
       name: 'alt',
       type: 'text',
-      //required: true,
+      label: 'Texte alternatif',
+      admin: {
+        description:
+          'Courte description de l’image pour l’accessibilité et le référencement.',
+      },
     },
     {
       name: 'caption',
       type: 'richText',
+      label: 'Légende',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
           return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
@@ -39,8 +56,8 @@ export const Media: CollectionConfig = {
       }),
     },
   ],
+
   upload: {
-    // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload
     staticDir: path.resolve(dirname, '../../public/media'),
     adminThumbnail: 'thumbnail',
     focalPoint: true,

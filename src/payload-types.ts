@@ -214,6 +214,9 @@ export interface Service {
  */
 export interface Media {
   id: number;
+  /**
+   * Courte description de l’image pour l’accessibilité et le référencement.
+   */
   alt?: string | null;
   caption?: {
     root: {
