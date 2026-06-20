@@ -15,145 +15,215 @@ export const SiteSettings: GlobalConfig = {
 
   fields: [
     {
-      name: 'clinicName',
-      type: 'text',
-      label: 'Nom de la clinique',
-      defaultValue: 'Chiropratique St-Roch',
-      required: true,
-    },
-    {
-      name: 'mainJaneUrl',
-      type: 'text',
-      label: 'Lien Jane principal',
-      defaultValue: 'https://chiropratiquestroch.janeapp.com/embed/book_online',
-      required: true,
-      admin: {
-        description: 'Lien utilisé par les boutons Prendre rendez-vous.',
-      },
-    },
-    {
-      name: 'janeEmbedCode',
-      type: 'textarea',
-      label: 'Code iframe Jane',
-      defaultValue:
-        "<iframe frameborder='0' height='28' scrolling='no' src='https://chiropratiquestroch.janeapp.com/embed/book_online' width='177'></iframe>",
-      admin: {
-        description: 'Code iframe fourni par Jane, si on veut l’utiliser plus tard.',
-      },
-    },
-    {
-      name: 'phone',
-      type: 'text',
-      label: 'Téléphone',
-    },
-    {
-      name: 'email',
-      type: 'email',
-      label: 'Courriel',
-    },
-    {
-      name: 'address',
-      type: 'group',
-      label: 'Adresse',
-      fields: [
+      type: 'tabs',
+      tabs: [
         {
-          name: 'street',
-          type: 'text',
-          label: 'Rue',
+          label: 'Clinique',
+          fields: [
+            {
+              name: 'clinicName',
+              type: 'text',
+              label: 'Nom de la clinique',
+              defaultValue: 'Chiropratique St-Roch',
+              required: true,
+            },
+          ],
         },
         {
-          name: 'city',
-          type: 'text',
-          label: 'Ville',
-          defaultValue: 'Québec',
+          label: 'Rendez-vous Jane',
+          fields: [
+            {
+              name: 'mainJaneUrl',
+              type: 'text',
+              label: 'Lien Jane principal',
+              defaultValue: 'https://chiropratiquestroch.janeapp.com/embed/book_online',
+              required: true,
+              admin: {
+                description:
+                  'Lien utilisé par tous les boutons « Prendre rendez-vous » du site.',
+              },
+            },
+            {
+              name: 'janeEmbedCode',
+              type: 'textarea',
+              label: 'Code iframe Jane',
+              defaultValue:
+                "<iframe frameborder='0' height='28' scrolling='no' src='https://chiropratiquestroch.janeapp.com/embed/book_online' width='177'></iframe>",
+              admin: {
+                description:
+                  'Code iframe fourni par Jane. On le garde ici si on veut l’utiliser plus tard.',
+              },
+            },
+          ],
         },
         {
-          name: 'province',
-          type: 'text',
-          label: 'Province',
-          defaultValue: 'Québec',
+          label: 'Coordonnées',
+          fields: [
+            {
+              name: 'phone',
+              type: 'text',
+              label: 'Téléphone',
+              admin: {
+                description: 'Exemple : 581.742.3808',
+              },
+            },
+            {
+              name: 'email',
+              type: 'email',
+              label: 'Courriel',
+            },
+            {
+              name: 'address',
+              type: 'group',
+              label: 'Adresse',
+              fields: [
+                {
+                  name: 'street',
+                  type: 'text',
+                  label: 'Rue',
+                  admin: {
+                    description: 'Exemple : 440 Rue Saint-Joseph E',
+                  },
+                },
+                {
+                  name: 'city',
+                  type: 'text',
+                  label: 'Ville',
+                  defaultValue: 'Québec',
+                },
+                {
+                  name: 'province',
+                  type: 'text',
+                  label: 'Province',
+                  defaultValue: 'QC',
+                },
+                {
+                  name: 'postalCode',
+                  type: 'text',
+                  label: 'Code postal',
+                  admin: {
+                    description: 'Exemple : G1K 7Y1',
+                  },
+                },
+              ],
+            },
+            {
+              name: 'googleMapsEmbedUrl',
+              type: 'text',
+              label: 'Carte Google Maps',
+              admin: {
+                description:
+                  'Colle ici le code iframe complet de Google Maps ou seulement l’URL qui commence par https://www.google.com/maps/embed.',
+              },
+            },
+          ],
         },
         {
-          name: 'postalCode',
-          type: 'text',
-          label: 'Code postal',
-        },
-      ],
-    },
-    {
-      name: 'googleMapsEmbedUrl',
-      type: 'text',
-      label: 'Lien Google Map intégré',
-      admin: {
-        description: 'URL ou iframe Google Maps pour afficher la carte sur le site.',
-      },
-    },
-    {
-      name: 'openingHours',
-      type: 'array',
-      label: 'Heures d’ouverture',
-      fields: [
-        {
-          name: 'day',
-          type: 'text',
-          label: 'Jour',
-          required: true,
-        },
-        {
-          name: 'hours',
-          type: 'text',
-          label: 'Heures',
-          required: true,
-        },
-      ],
-    },
-    {
-      name: 'socialLinks',
-      type: 'group',
-      label: 'Réseaux sociaux',
-      fields: [
-        {
-          name: 'facebook',
-          type: 'text',
-          label: 'Facebook',
+          label: 'Heures d’ouverture',
+          fields: [
+            {
+              name: 'openingHours',
+              type: 'array',
+              label: 'Heures d’ouverture',
+              labels: {
+                singular: 'Journée',
+                plural: 'Journées',
+              },
+              admin: {
+                description:
+                  'Ces heures apparaissent sur la page Contact, dans le pied de page et dans les données SEO locales.',
+                initCollapsed: true,
+              },
+              fields: [
+                {
+                  name: 'day',
+                  type: 'text',
+                  label: 'Jour',
+                  required: true,
+                  admin: {
+                    description: 'Exemple : Lundi',
+                  },
+                },
+                {
+                  name: 'hours',
+                  type: 'text',
+                  label: 'Heures',
+                  required: true,
+                  admin: {
+                    description: 'Exemple : 08h - 20h ou Fermé',
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
-          name: 'instagram',
-          type: 'text',
-          label: 'Instagram',
+          label: 'Réseaux sociaux',
+          fields: [
+            {
+              name: 'socialLinks',
+              type: 'group',
+              label: 'Réseaux sociaux',
+              fields: [
+                {
+                  name: 'facebook',
+                  type: 'text',
+                  label: 'Facebook',
+                },
+                {
+                  name: 'instagram',
+                  type: 'text',
+                  label: 'Instagram',
+                },
+                {
+                  name: 'googleBusiness',
+                  type: 'text',
+                  label: 'Google Business Profile',
+                  admin: {
+                    description:
+                      'Lien vers la fiche Google de la clinique, si disponible.',
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
-          name: 'googleBusiness',
-          type: 'text',
-          label: 'Google Business Profile',
-        },
-      ],
-    },
-    {
-      name: 'announcement',
-      type: 'group',
-      label: 'Bandeau d’annonce',
-      fields: [
-        {
-          name: 'enabled',
-          type: 'checkbox',
-          label: 'Activer le bandeau',
-          defaultValue: false,
-        },
-        {
-          name: 'message',
-          type: 'text',
-          label: 'Message',
-        },
-        {
-          name: 'linkLabel',
-          type: 'text',
-          label: 'Texte du lien',
-        },
-        {
-          name: 'linkUrl',
-          type: 'text',
-          label: 'URL du lien',
+          label: 'Annonce',
+          fields: [
+            {
+              name: 'announcement',
+              type: 'group',
+              label: 'Bandeau d’annonce',
+              admin: {
+                description:
+                  'Optionnel. Sert à afficher un message temporaire sur le site plus tard.',
+              },
+              fields: [
+                {
+                  name: 'enabled',
+                  type: 'checkbox',
+                  label: 'Activer le bandeau',
+                  defaultValue: false,
+                },
+                {
+                  name: 'message',
+                  type: 'text',
+                  label: 'Message',
+                },
+                {
+                  name: 'linkLabel',
+                  type: 'text',
+                  label: 'Texte du lien',
+                },
+                {
+                  name: 'linkUrl',
+                  type: 'text',
+                  label: 'URL du lien',
+                },
+              ],
+            },
+          ],
         },
       ],
     },

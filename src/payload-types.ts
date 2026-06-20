@@ -1955,6 +1955,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Ces liens apparaissent dans le menu principal du site.
+   */
   navItems?:
     | {
         link: {
@@ -1984,6 +1987,9 @@ export interface Header {
  */
 export interface Footer {
   id: number;
+  /**
+   * Ces liens apparaissent dans le pied de page du site.
+   */
   navItems?:
     | {
         link: {
@@ -2015,28 +2021,46 @@ export interface SiteSetting {
   id: number;
   clinicName: string;
   /**
-   * Lien utilisé par les boutons Prendre rendez-vous.
+   * Lien utilisé par tous les boutons « Prendre rendez-vous » du site.
    */
   mainJaneUrl: string;
   /**
-   * Code iframe fourni par Jane, si on veut l’utiliser plus tard.
+   * Code iframe fourni par Jane. On le garde ici si on veut l’utiliser plus tard.
    */
   janeEmbedCode?: string | null;
+  /**
+   * Exemple : 581.742.3808
+   */
   phone?: string | null;
   email?: string | null;
   address?: {
+    /**
+     * Exemple : 440 Rue Saint-Joseph E
+     */
     street?: string | null;
     city?: string | null;
     province?: string | null;
+    /**
+     * Exemple : G1K 7Y1
+     */
     postalCode?: string | null;
   };
   /**
-   * URL ou iframe Google Maps pour afficher la carte sur le site.
+   * Colle ici le code iframe complet de Google Maps ou seulement l’URL qui commence par https://www.google.com/maps/embed.
    */
   googleMapsEmbedUrl?: string | null;
+  /**
+   * Ces heures apparaissent sur la page Contact, dans le pied de page et dans les données SEO locales.
+   */
   openingHours?:
     | {
+        /**
+         * Exemple : Lundi
+         */
         day: string;
+        /**
+         * Exemple : 08h - 20h ou Fermé
+         */
         hours: string;
         id?: string | null;
       }[]
@@ -2044,8 +2068,14 @@ export interface SiteSetting {
   socialLinks?: {
     facebook?: string | null;
     instagram?: string | null;
+    /**
+     * Lien vers la fiche Google de la clinique, si disponible.
+     */
     googleBusiness?: string | null;
   };
+  /**
+   * Optionnel. Sert à afficher un message temporaire sur le site plus tard.
+   */
   announcement?: {
     enabled?: boolean | null;
     message?: string | null;
