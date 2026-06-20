@@ -167,12 +167,21 @@ export interface UserAuthOperations {
  */
 export interface Service {
   id: number;
+  /**
+   * Exemple : Chiropratique, Ostéopathie, Massothérapie.
+   */
   title: string;
   /**
-   * Exemple : chiropratique, osteopathie, massotherapie
+   * Texte utilisé dans l’URL. Exemple : chiropratique, osteopathie, massotherapie.
    */
   slug: string;
+  /**
+   * Court texte affiché sur les cartes de services et les aperçus.
+   */
   shortDescription: string;
+  /**
+   * Texte complet affiché sur la page individuelle du service.
+   */
   description?: {
     root: {
       type: string;
@@ -189,19 +198,28 @@ export interface Service {
     [k: string]: unknown;
   } | null;
   /**
-   * Lien de prise de rendez-vous pour ce service
+   * Image optionnelle utilisée pour représenter ce service.
+   */
+  featuredImage?: (number | null) | Media;
+  /**
+   * Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.
    */
   janeUrl?: string | null;
-  featuredImage?: (number | null) | Media;
+  /**
+   * Active ce service dans la section Services de la page d’accueil.
+   */
   isFeatured?: boolean | null;
+  /**
+   * Plus le chiffre est bas, plus le service apparaît haut dans les listes.
+   */
   order?: number | null;
   seo?: {
     /**
-     * Titre affiché dans Google
+     * Titre affiché dans Google. Si vide, le nom du service sera utilisé.
      */
     title?: string | null;
     /**
-     * Courte description pour Google
+     * Courte description pour Google. Idéalement environ 150 à 160 caractères.
      */
     description?: string | null;
   };
@@ -336,12 +354,21 @@ export interface FolderInterface {
  */
 export interface Condition {
   id: number;
+  /**
+   * Exemple : Douleur lombaire, Sciatique, Douleur cervicale.
+   */
   title: string;
   /**
-   * Exemple : douleur-lombaire, sciatique, douleur-cervicale
+   * Texte utilisé dans l’URL. Exemple : douleur-lombaire, sciatique, douleur-cervicale.
    */
   slug: string;
+  /**
+   * Court texte affiché sur les cartes de conditions et les aperçus.
+   */
   shortDescription: string;
+  /**
+   * Texte principal affiché sur la page individuelle de la condition.
+   */
   intro?: {
     root: {
       type: string;
@@ -357,12 +384,9 @@ export interface Condition {
     };
     [k: string]: unknown;
   } | null;
-  commonSymptoms?:
-    | {
-        symptom: string;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * Section optionnelle pour expliquer quand il peut être pertinent de consulter.
+   */
   whenToConsult?: {
     root: {
       type: string;
@@ -378,21 +402,42 @@ export interface Condition {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Image optionnelle utilisée pour représenter cette condition.
+   */
+  featuredImage?: (number | null) | Media;
+  /**
+   * Liste courte de symptômes fréquents associés à cette condition.
+   */
+  commonSymptoms?:
+    | {
+        symptom: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Services de la clinique qui peuvent être liés à cette condition.
+   */
   relatedServices?: (number | Service)[] | null;
   /**
-   * Lien de prise de rendez-vous lié à cette condition, si différent du lien général
+   * Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.
    */
   janeUrl?: string | null;
-  featuredImage?: (number | null) | Media;
+  /**
+   * Active cette condition dans la section Conditions traitées de la page d’accueil.
+   */
   isFeatured?: boolean | null;
+  /**
+   * Plus le chiffre est bas, plus la condition apparaît haut dans les listes.
+   */
   order?: number | null;
   seo?: {
     /**
-     * Titre affiché dans Google
+     * Titre affiché dans Google. Si vide, le nom de la condition sera utilisé.
      */
     title?: string | null;
     /**
-     * Courte description pour Google
+     * Courte description pour Google. Idéalement environ 150 à 160 caractères.
      */
     description?: string | null;
   };
@@ -405,16 +450,25 @@ export interface Condition {
  */
 export interface Professional {
   id: number;
+  /**
+   * Nom affiché sur le site.
+   */
   name: string;
   /**
-   * Exemple : marie-dupont
+   * Texte utilisé dans l’URL. Exemple : marie-dupont, jean-tremblay.
    */
   slug: string;
   /**
-   * Exemple : Chiropraticienne, Ostéopathe, Massothérapeute
+   * Exemple : Chiropraticienne, Ostéopathe, Massothérapeute.
    */
   title: string;
+  /**
+   * Court texte affiché sur les cartes de professionnels et les aperçus.
+   */
   shortBio: string;
+  /**
+   * Texte complet affiché sur la page individuelle du professionnel.
+   */
   bio?: {
     root: {
       type: string;
@@ -430,6 +484,9 @@ export interface Professional {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Section optionnelle pour présenter son approche, sa façon de travailler ou ses intérêts cliniques.
+   */
   approach?: {
     root: {
       type: string;
@@ -445,18 +502,42 @@ export interface Professional {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Photo utilisée sur la page équipe et sur la page individuelle.
+   */
   photo?: (number | null) | Media;
+  /**
+   * Services associés à ce professionnel.
+   */
   relatedServices?: (number | Service)[] | null;
+  /**
+   * Conditions que ce professionnel traite souvent ou qui peuvent être liées à sa pratique.
+   */
   relatedConditions?: (number | Condition)[] | null;
   /**
-   * Lien de prise de rendez-vous spécifique à ce professionnel
+   * Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.
    */
   janeUrl?: string | null;
-  isFeatured?: boolean | null;
+  /**
+   * Si désactivé, ce professionnel ne sera pas affiché sur le site.
+   */
   isActive?: boolean | null;
+  /**
+   * Active ce professionnel dans la section Équipe de la page d’accueil.
+   */
+  isFeatured?: boolean | null;
+  /**
+   * Plus le chiffre est bas, plus le professionnel apparaît haut dans les listes.
+   */
   order?: number | null;
   seo?: {
+    /**
+     * Titre affiché dans Google. Si vide, le nom du professionnel sera utilisé.
+     */
     title?: string | null;
+    /**
+     * Courte description pour Google. Idéalement environ 150 à 160 caractères.
+     */
     description?: string | null;
   };
   updatedAt: string;
@@ -468,12 +549,30 @@ export interface Professional {
  */
 export interface Review {
   id: number;
+  /**
+   * Nom affiché avec l’avis. Exemple : Marie D.
+   */
   authorName: string;
+  /**
+   * Note de 1 à 5 étoiles.
+   */
   rating: number;
   source?: ('google' | 'facebook' | 'other') | null;
+  /**
+   * Texte affiché sur le site.
+   */
   reviewText: string;
+  /**
+   * Optionnel. Date où l’avis a été publié.
+   */
   reviewDate?: string | null;
+  /**
+   * Active cet avis dans la section Avis de la page d’accueil.
+   */
   isFeatured?: boolean | null;
+  /**
+   * Plus le chiffre est bas, plus l’avis apparaît haut dans les listes.
+   */
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -1286,8 +1385,8 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   shortDescription?: T;
   description?: T;
-  janeUrl?: T;
   featuredImage?: T;
+  janeUrl?: T;
   isFeatured?: T;
   order?: T;
   seo?:
@@ -1308,16 +1407,16 @@ export interface ConditionsSelect<T extends boolean = true> {
   slug?: T;
   shortDescription?: T;
   intro?: T;
+  whenToConsult?: T;
+  featuredImage?: T;
   commonSymptoms?:
     | T
     | {
         symptom?: T;
         id?: T;
       };
-  whenToConsult?: T;
   relatedServices?: T;
   janeUrl?: T;
-  featuredImage?: T;
   isFeatured?: T;
   order?: T;
   seo?:
@@ -1344,8 +1443,8 @@ export interface ProfessionalsSelect<T extends boolean = true> {
   relatedServices?: T;
   relatedConditions?: T;
   janeUrl?: T;
-  isFeatured?: T;
   isActive?: T;
+  isFeatured?: T;
   order?: T;
   seo?:
     | T
