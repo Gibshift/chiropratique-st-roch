@@ -583,6 +583,9 @@ export interface Review {
  */
 export interface Page {
   id: number;
+  /**
+   * Titre interne et titre principal de la page.
+   */
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
@@ -627,6 +630,9 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
+  /**
+   * Sections flexibles du template Payload. À utiliser seulement pour des pages libres ou spéciales.
+   */
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
     title?: string | null;
