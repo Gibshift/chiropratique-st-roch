@@ -13,6 +13,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { FixedAppointmentButton } from '@/components/FixedAppointmentButton'
+import { LocalBusinessJsonLd } from '@/components/seo/LocalBusinessJsonLd'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+          <LocalBusinessJsonLd />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
