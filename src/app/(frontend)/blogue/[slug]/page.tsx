@@ -6,8 +6,8 @@ import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
+import { getOpenGraphImages } from '@/utilities/seo'
 
-import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from '../../posts/[slug]/page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -134,9 +134,49 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const post: any = await queryPostBySlug({ slug: decodedSlug })
 
-  return generateMeta({ doc: post })
+  if (!post) {
+    return {
+      title: 'Article | Chiropratique St-Roch',
+      description:
+        'Consultez les articles de Chiropratique St-Roch sur la santé musculosquelettique, la prévention et les soins multidisciplinaires.',
+    }
+  }
+
+  const title = post.meta?.title || post.title || 'Article santé'
+  const description =
+    post.meta?.description ||
+    'Article de Chiropratique St-Roch sur la santé musculosquelettique, la prévention et les soins multidisciplinaires.'
+
+  const url = `/blogue/${post.slug}`
+  const images = getOpenGraphImages(post.heroImage, post.title)
+
+  return {
+    title,
+    description,
+
+    alternates: {
+      canonical: url,
+    },
+
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'article',
+      siteName: 'Chiropratique St-Roch',
+      locale: 'fr_CA',
+      images,
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images,
+    },
+  }
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
