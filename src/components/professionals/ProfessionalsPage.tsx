@@ -1,38 +1,20 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 export async function ProfessionalsPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, professionals] = await Promise.all([
-    payload.findGlobal({
-      slug: 'site-settings' as any,
-      depth: 0,
-    }),
-
-    payload.find({
-      collection: 'professionals' as any,
-      limit: 100,
-      depth: 2,
-      sort: 'order',
-      where: {
-        isActive: {
-          equals: true,
-        },
+  const professionals = await payload.find({
+    collection: 'professionals' as any,
+    limit: 100,
+    depth: 1,
+    sort: 'order',
+    where: {
+      isActive: {
+        equals: true,
       },
-    }),
-  ])
-
-  const janeUrl =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'mainJaneUrl' in siteSettings &&
-    typeof siteSettings.mainJaneUrl === 'string' &&
-    siteSettings.mainJaneUrl.length > 0
-      ? siteSettings.mainJaneUrl
-      : FALLBACK_JANE_URL
+    },
+  })
 
   return (
     <main className="bg-white text-zinc-950">
@@ -45,11 +27,9 @@ export async function ProfessionalsPage() {
           </h1>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
-            Découvrez les professionnels de la clinique, leurs services, leur approche et prenez
-            rendez-vous directement en ligne.
+            Découvrez les professionnels de la clinique, leurs services, leur approche et leurs
+            intérêts cliniques.
           </p>
-
-         
         </div>
       </section>
 
@@ -86,7 +66,10 @@ export async function ProfessionalsPage() {
                   <div className="flex flex-1 flex-col p-6">
                     <div className="flex-1">
                       <h2 className="text-2xl font-bold">{professional.name}</h2>
-                      <p className="mt-1 font-semibold text-red-700">{professional.title}</p>
+
+                      <p className="mt-1 font-semibold text-red-700">
+                        {professional.title}
+                      </p>
 
                       <p className="mt-4 leading-7 text-zinc-600">
                         {professional.shortBio}
@@ -109,6 +92,7 @@ export async function ProfessionalsPage() {
         ) : (
           <div className="rounded-3xl bg-zinc-100 p-10 text-center">
             <h2 className="text-2xl font-bold">Aucun professionnel publié pour le moment.</h2>
+
             <p className="mt-3 text-zinc-600">
               Ajoute des professionnels dans l’admin Payload pour les afficher ici.
             </p>

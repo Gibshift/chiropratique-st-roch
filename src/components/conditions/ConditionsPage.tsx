@@ -1,33 +1,15 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 export async function ConditionsPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, conditions] = await Promise.all([
-    payload.findGlobal({
-      slug: 'site-settings' as any,
-      depth: 0,
-    }),
-
-    payload.find({
-      collection: 'conditions' as any,
-      limit: 100,
-      depth: 1,
-      sort: 'order',
-    }),
-  ])
-
-  const janeUrl =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'mainJaneUrl' in siteSettings &&
-    typeof siteSettings.mainJaneUrl === 'string' &&
-    siteSettings.mainJaneUrl.length > 0
-      ? siteSettings.mainJaneUrl
-      : FALLBACK_JANE_URL
+  const conditions = await payload.find({
+    collection: 'conditions' as any,
+    limit: 100,
+    depth: 1,
+    sort: 'order',
+  })
 
   return (
     <main className="bg-white text-zinc-950">
@@ -43,7 +25,6 @@ export async function ConditionsPage() {
             Cette section regroupe les conditions fréquemment rencontrées à la clinique afin de vous
             aider à trouver de l’information claire avant de consulter.
           </p>
-
         </div>
       </section>
 
@@ -77,6 +58,7 @@ export async function ConditionsPage() {
         ) : (
           <div className="rounded-3xl bg-zinc-100 p-10 text-center">
             <h2 className="text-2xl font-bold">Aucune condition publiée pour le moment.</h2>
+
             <p className="mt-3 text-zinc-600">
               Ajoute des conditions traitées dans l’admin Payload pour les afficher ici.
             </p>

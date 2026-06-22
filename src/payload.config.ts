@@ -17,7 +17,6 @@ import { getServerSideURL } from './utilities/getURL'
 import { Services } from './collections/Services'
 import { Conditions } from './collections/Conditions'
 import { Professionals } from './collections/Professionals'
-import { Reviews } from './collections/Reviews'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -67,7 +66,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Services, Conditions, Professionals, Reviews, Pages, Posts, Media, Categories, Users],
+  collections: [Services, Conditions, Professionals, Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins,

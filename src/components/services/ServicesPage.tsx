@@ -1,33 +1,15 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 export async function ServicesPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, services] = await Promise.all([
-    payload.findGlobal({
-      slug: 'site-settings' as any,
-      depth: 0,
-    }),
-
-    payload.find({
-      collection: 'services' as any,
-      limit: 100,
-      depth: 1,
-      sort: 'order',
-    }),
-  ])
-
-  const janeUrl =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'mainJaneUrl' in siteSettings &&
-    typeof siteSettings.mainJaneUrl === 'string' &&
-    siteSettings.mainJaneUrl.length > 0
-      ? siteSettings.mainJaneUrl
-      : FALLBACK_JANE_URL
+  const services = await payload.find({
+    collection: 'services' as any,
+    limit: 100,
+    depth: 1,
+    sort: 'order',
+  })
 
   return (
     <main className="bg-white text-zinc-950">
@@ -43,8 +25,6 @@ export async function ServicesPage() {
             La clinique regroupe plusieurs professionnels afin d’offrir une approche adaptée aux
             douleurs, tensions, blessures et inconforts du quotidien.
           </p>
-
-          
         </div>
       </section>
 
@@ -78,6 +58,7 @@ export async function ServicesPage() {
         ) : (
           <div className="rounded-3xl bg-zinc-100 p-10 text-center">
             <h2 className="text-2xl font-bold">Aucun service publié pour le moment.</h2>
+
             <p className="mt-3 text-zinc-600">
               Ajoute des services dans l’admin Payload pour les afficher ici.
             </p>

@@ -70,7 +70,6 @@ export interface Config {
     services: Service;
     conditions: Condition;
     professionals: Professional;
-    reviews: Review;
     pages: Page;
     posts: Post;
     media: Media;
@@ -93,7 +92,6 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     conditions: ConditionsSelect<false> | ConditionsSelect<true>;
     professionals: ProfessionalsSelect<false> | ProfessionalsSelect<true>;
-    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -195,10 +193,6 @@ export interface Service {
    * Image optionnelle utilisée pour représenter ce service.
    */
   featuredImage?: (number | null) | Media;
-  /**
-   * Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.
-   */
-  janeUrl?: string | null;
   /**
    * Active ce service dans la section Services de la page d’accueil.
    */
@@ -530,40 +524,6 @@ export interface Professional {
      */
     description?: string | null;
   };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "reviews".
- */
-export interface Review {
-  id: number;
-  /**
-   * Nom affiché avec l’avis. Exemple : Marie D.
-   */
-  authorName: string;
-  /**
-   * Note de 1 à 5 étoiles.
-   */
-  rating: number;
-  source?: ('google' | 'facebook' | 'other') | null;
-  /**
-   * Texte affiché sur le site.
-   */
-  reviewText: string;
-  /**
-   * Optionnel. Date où l’avis a été publié.
-   */
-  reviewDate?: string | null;
-  /**
-   * Active cet avis dans la section Avis de la page d’accueil.
-   */
-  isFeatured?: boolean | null;
-  /**
-   * Plus le chiffre est bas, plus l’avis apparaît haut dans les listes.
-   */
-  order?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1050,10 +1010,6 @@ export interface PayloadLockedDocument {
         value: number | Professional;
       } | null)
     | ({
-        relationTo: 'reviews';
-        value: number | Review;
-      } | null)
-    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -1133,7 +1089,6 @@ export interface ServicesSelect<T extends boolean = true> {
   shortDescription?: T;
   description?: T;
   featuredImage?: T;
-  janeUrl?: T;
   isFeatured?: T;
   order?: T;
   seo?:
@@ -1198,21 +1153,6 @@ export interface ProfessionalsSelect<T extends boolean = true> {
         title?: T;
         description?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "reviews_select".
- */
-export interface ReviewsSelect<T extends boolean = true> {
-  authorName?: T;
-  rating?: T;
-  source?: T;
-  reviewText?: T;
-  reviewDate?: T;
-  isFeatured?: T;
-  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }
