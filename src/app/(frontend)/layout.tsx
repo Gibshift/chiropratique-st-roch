@@ -6,31 +6,34 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { FixedAppointmentButton } from '@/components/FixedAppointmentButton'
+import { LocalBusinessJsonLd } from '@/components/seo/LocalBusinessJsonLd'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
-import { FixedAppointmentButton } from '@/components/FixedAppointmentButton'
-import { LocalBusinessJsonLd } from '@/components/seo/LocalBusinessJsonLd'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+
+const siteUrl = getServerSideURL()
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="fr-CA" suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
+
       <body>
         <Providers>
           <LocalBusinessJsonLd />
+
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
@@ -48,10 +51,46 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  openGraph: mergeOpenGraph(),
+  metadataBase: new URL(siteUrl),
+
+  title: {
+    default: 'Chiropratique St-Roch | Clinique multidisciplinaire à Québec',
+    template: '%s | Chiropratique St-Roch',
+  },
+
+  description:
+    'Chiropratique St-Roch est une clinique multidisciplinaire située à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
+
+  alternates: {
+    canonical: '/',
+  },
+
+  openGraph: {
+    type: 'website',
+    locale: 'fr_CA',
+    url: siteUrl,
+    siteName: 'Chiropratique St-Roch',
+    title: 'Chiropratique St-Roch | Clinique multidisciplinaire à Québec',
+    description:
+      'Clinique multidisciplinaire à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
+  },
+
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    title: 'Chiropratique St-Roch | Clinique multidisciplinaire à Québec',
+    description:
+      'Clinique multidisciplinaire à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
 }
