@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
+import { slugify } from '../utilities/slugify'
 
 export const Conditions: CollectionConfig = {
   slug: 'conditions',
@@ -205,4 +206,16 @@ export const Conditions: CollectionConfig = {
       ],
     },
   ],
+
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data?.title && !data?.slug) {
+          data.slug = slugify(data.title)
+        }
+
+        return data
+      },
+    ],
+  },
 }

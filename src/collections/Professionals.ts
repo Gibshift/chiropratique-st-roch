@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
+import { slugify } from '../utilities/slugify'
 
 export const Professionals: CollectionConfig = {
   slug: 'professionals',
@@ -214,4 +215,15 @@ export const Professionals: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data?.name && !data?.slug) {
+          data.slug = slugify(data.name)
+        }
+
+        return data
+      },
+    ],
+  },
 }
