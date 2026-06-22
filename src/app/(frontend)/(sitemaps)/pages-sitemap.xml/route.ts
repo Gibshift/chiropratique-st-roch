@@ -6,6 +6,7 @@ import { unstable_cache } from 'next/cache'
 const getPagesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
+
     const SITE_URL =
       process.env.NEXT_PUBLIC_SERVER_URL ||
       process.env.VERCEL_PROJECT_PRODUCTION_URL ||
@@ -33,16 +34,32 @@ const getPagesSitemap = unstable_cache(
 
     const defaultSitemap = [
       {
-        loc: `${SITE_URL}/search`,
+        loc: `${SITE_URL}/`,
         lastmod: dateFallback,
       },
       {
-        loc: `${SITE_URL}/posts`,
+        loc: `${SITE_URL}/services`,
+        lastmod: dateFallback,
+      },
+      {
+        loc: `${SITE_URL}/conditions-traitees`,
+        lastmod: dateFallback,
+      },
+      {
+        loc: `${SITE_URL}/professionnels`,
+        lastmod: dateFallback,
+      },
+      {
+        loc: `${SITE_URL}/blogue`,
+        lastmod: dateFallback,
+      },
+      {
+        loc: `${SITE_URL}/contact`,
         lastmod: dateFallback,
       },
     ]
 
-    const sitemap = results.docs
+    const cmsPages = results.docs
       ? results.docs
           .filter((page) => Boolean(page?.slug))
           .map((page) => {
@@ -53,7 +70,11 @@ const getPagesSitemap = unstable_cache(
           })
       : []
 
-    return [...defaultSitemap, ...sitemap]
+    const sitemap = [...defaultSitemap, ...cmsPages].filter(
+      (item, index, array) => array.findIndex((entry) => entry.loc === item.loc) === index,
+    )
+
+    return sitemap
   },
   ['pages-sitemap'],
   {
