@@ -102,21 +102,12 @@ export async function ProfessionalsPage() {
                       </p>
                     </div>
 
-                    <div className="mt-8 flex flex-col gap-3">
+                    <div className="mt-8">
                       <a
                         href={`/professionnels/${professional.slug}`}
-                        className="rounded-full border border-zinc-300 px-5 py-3 text-center font-semibold transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
+                        className="block rounded-full border border-zinc-300 px-5 py-3 text-center font-semibold transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
                       >
                         Voir le profil
-                      </a>
-
-                      <a
-                        href={professional.janeUrl || janeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-full bg-red-700 px-5 py-3 text-center font-semibold text-white transition hover:bg-red-800"
-                      >
-                        Prendre rendez-vous
                       </a>
                     </div>
                   </div>

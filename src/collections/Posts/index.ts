@@ -2,7 +2,6 @@ import type { CollectionConfig } from 'payload'
 
 import {
   BlocksFeature,
-  HeadingFeature,
   HorizontalRuleFeature,
 } from '@payloadcms/richtext-lexical'
 import {
@@ -92,10 +91,9 @@ export const Posts: CollectionConfig<'posts'> = {
               name: 'content',
               type: 'richText',
               editor: createClinicRichTextEditor([
-                HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                HorizontalRuleFeature(),
-              ]),
+                  BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                  HorizontalRuleFeature(),
+                ]),
               label: 'Contenu de l’article',
               required: true,
               admin: {

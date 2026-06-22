@@ -6,9 +6,9 @@ import {
 
 export const createClinicRichTextEditor = (extraFeatures: any[] = []) =>
   lexicalEditor({
-    features: ({ rootFeatures }) => {
+    features: ({ defaultFeatures }) => {
       return [
-        ...rootFeatures,
+        ...defaultFeatures,
         ...extraFeatures,
         FixedToolbarFeature(),
         InlineToolbarFeature(),

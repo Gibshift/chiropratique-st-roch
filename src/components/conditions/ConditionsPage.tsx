@@ -73,21 +73,12 @@ export async function ConditionsPage() {
                   </p>
                 </div>
 
-                <div className="mt-8 flex flex-col gap-3">
+                <div className="mt-8">
                   <a
                     href={`/conditions-traitees/${condition.slug}`}
-                    className="rounded-full border border-zinc-300 px-5 py-3 text-center font-semibold transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
+                    className="block rounded-full border border-zinc-300 px-5 py-3 text-center font-semibold transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
                   >
                     En savoir plus
-                  </a>
-
-                  <a
-                    href={condition.janeUrl || janeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full bg-red-700 px-5 py-3 text-center font-semibold text-white transition hover:bg-red-800"
-                  >
-                    Prendre rendez-vous
                   </a>
                 </div>
               </article>

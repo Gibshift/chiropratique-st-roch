@@ -28,29 +28,36 @@ type NodeTypes =
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
+
   if (typeof value !== 'object') {
     throw new Error('Expected value to be an object')
   }
+
   const slug = value.slug
-  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
+
+  if (relationTo === 'posts') {
+    return `/blogue/${slug}`
+  }
+
+  return `/${slug}`
 }
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
-    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
+    banner: ({ node }) => <BannerBlock className="col-start-2 mb-8" {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
-        className="col-start-1 col-span-3"
-        imgClassName="m-0"
+        className="col-start-1 col-span-3 my-10"
+        imgClassName="m-0 rounded-2xl"
         {...node.fields}
-        captionClassName="mx-auto max-w-[48rem]"
+        captionClassName="mx-auto mt-3 max-w-[48rem] text-sm text-neutral-500"
         enableGutter={false}
         disableInnerContainer={true}
       />
     ),
-    code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
+    code: ({ node }) => <CodeBlock className="col-start-2 my-8" {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
   },
 })
@@ -63,16 +70,31 @@ type Props = {
 
 export default function RichText(props: Props) {
   const { className, enableProse = true, enableGutter = true, ...rest } = props
+
   return (
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
         'payload-richtext',
-        {
-          container: enableGutter,
-          'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
-        },
+        enableGutter && 'container',
+        !enableGutter && 'max-w-none',
+        enableProse &&
+          [
+            'mx-auto prose md:prose-md lg:prose-lg',
+            'max-w-[74ch]',
+            'prose-p:leading-8 prose-p:text-neutral-700',
+            'prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-neutral-950',
+            'prose-h2:mt-12 prose-h2:mb-4 prose-h2:text-3xl',
+            'prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-2xl',
+            'prose-h4:mt-6 prose-h4:mb-2 prose-h4:text-xl',
+            'prose-strong:font-semibold prose-strong:text-neutral-950',
+            'prose-a:font-medium prose-a:text-red-700 prose-a:no-underline',
+            'hover:prose-a:text-red-900',
+            'prose-ul:my-6 prose-ol:my-6',
+            'prose-li:my-2 prose-li:leading-7',
+            'prose-hr:my-10',
+            'prose-blockquote:border-l-red-700 prose-blockquote:text-neutral-700',
+          ],
         className,
       )}
       {...rest}
