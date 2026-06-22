@@ -140,6 +140,22 @@ export const Conditions: CollectionConfig = {
           ],
         },
         {
+              label: 'Professionnels liés',
+              fields: [
+                {
+                  name: 'relatedProfessionals',
+                  type: 'relationship',
+                  relationTo: 'professionals',
+                  hasMany: true,
+                  label: 'Professionnels liés',
+                  admin: {
+                    description:
+                      'Professionnels à afficher sur la page de cette condition.',
+                  },
+                },
+              ],
+            },
+        {
           label: 'Rendez-vous',
           fields: [
             {

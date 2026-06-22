@@ -134,6 +134,30 @@ export const Posts: CollectionConfig<'posts'> = {
               hasMany: true,
               relationTo: 'categories',
             },
+            {
+              name: 'relatedConditions',
+              type: 'relationship',
+              label: 'Conditions liées',
+              admin: {
+                position: 'sidebar',
+                description:
+                  'Conditions traitées liées à cet article. Utilisé pour suggérer les bons professionnels sur la page de l’article.',
+              },
+              hasMany: true,
+              relationTo: 'conditions',
+            },
+            {
+              name: 'relatedProfessionals',
+              type: 'relationship',
+              label: 'Professionnels liés',
+              admin: {
+                position: 'sidebar',
+                description:
+                  'Professionnels à afficher sur la page de cet article.',
+              },
+              hasMany: true,
+              relationTo: 'professionals',
+            },
           ],
         },
         {

@@ -12,7 +12,7 @@ type Props = {
 export async function ServiceDetailPage({ slug }: Props) {
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, serviceResult] = await Promise.all([
+  const [siteSettings, serviceResult, professionalsResult] = await Promise.all([
     payload.findGlobal({
       slug: 'site-settings' as any,
       depth: 0,
@@ -28,6 +28,18 @@ export async function ServiceDetailPage({ slug }: Props) {
         },
       },
     }),
+
+    payload.find({
+      collection: 'professionals' as any,
+      limit: 100,
+      depth: 1,
+      sort: 'order',
+      where: {
+        isActive: {
+          equals: true,
+        },
+      },
+    }),
   ])
 
   const service: any = serviceResult.docs[0]
@@ -35,6 +47,20 @@ export async function ServiceDetailPage({ slug }: Props) {
   if (!service) {
     notFound()
   }
+
+  const professionalsForService = professionalsResult.docs.filter((professional: any) => {
+    const relatedServices = Array.isArray(professional.relatedServices)
+      ? professional.relatedServices
+      : []
+
+    return relatedServices.some((relatedService: any) => {
+      if (typeof relatedService === 'object') {
+        return relatedService.id === service.id
+      }
+
+      return relatedService === service.id
+    })
+  })
 
   const janeUrl =
     service.janeUrl ||
@@ -46,90 +72,174 @@ export async function ServiceDetailPage({ slug }: Props) {
       ? siteSettings.mainJaneUrl
       : FALLBACK_JANE_URL)
 
+  const imageUrl =
+    service.featuredImage &&
+    typeof service.featuredImage === 'object' &&
+    'url' in service.featuredImage
+      ? service.featuredImage.url
+      : null
+
   return (
     <main className="bg-white text-zinc-950">
-      <section className="border-b border-zinc-200 bg-zinc-950 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <a href="/services" className="font-semibold text-red-300 hover:text-red-200">
-            ← Tous les services
-          </a>
+      <section className="relative overflow-hidden border-b border-zinc-200 bg-zinc-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(185,28,28,0.35),transparent_35%)]" />
 
-          <p className="mt-10 font-semibold text-red-300">Service</p>
-
-          <h1 className="mt-4 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
-            {service.title}
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
-            {service.shortDescription}
-          </p>
-
-          <div className="mt-10">
-            <a
-              href={janeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex rounded-full bg-red-700 px-7 py-4 font-semibold text-white transition hover:bg-red-800"
-            >
-              Prendre rendez-vous
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1fr_420px] lg:px-8 lg:py-28">
+          <div>
+            <a href="/services" className="font-semibold text-red-300 hover:text-red-200">
+              ← Tous les services
             </a>
+
+            <p className="mt-10 font-semibold text-red-300">Service</p>
+
+            <h1 className="mt-4 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
+              {service.title}
+            </h1>
+
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
+              {service.shortDescription}
+            </p>
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={janeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex justify-center rounded-full bg-red-700 px-7 py-4 font-semibold text-white transition hover:bg-red-800"
+              >
+                Prendre rendez-vous
+              </a>
+
+              <a
+                href="/contact"
+                className="inline-flex justify-center rounded-full border border-white/20 px-7 py-4 font-semibold text-white transition hover:bg-white hover:text-zinc-950"
+              >
+                Voir la clinique
+              </a>
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            {imageUrl ? (
+              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-3 shadow-2xl">
+                <img
+                  src={imageUrl}
+                  alt={service.title}
+                  className="h-[440px] w-full rounded-[1.5rem] object-cover"
+                />
+              </div>
+            ) : (
+              <div className="flex h-[440px] items-center justify-center rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center shadow-2xl">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-300">
+                    Chiropratique St-Roch
+                  </p>
+                  <p className="mt-5 text-3xl font-bold">{service.title}</p>
+                  <p className="mt-4 text-zinc-300">
+                    Soins personnalisés au cœur du quartier Saint-Roch.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1fr_360px] lg:px-8">
-        <div>
-          <p className="font-semibold text-red-700">À propos du service</p>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-8 lg:py-24">
+        <article className="min-w-0">
+          <div className="mb-10">
+            <p className="font-semibold text-red-700">À propos du service</p>
 
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-            Un accompagnement adapté à vos besoins.
-          </h2>
-
-          <div className="mt-8 rounded-3xl bg-zinc-100 p-8">
-            <p className="text-lg leading-8 text-zinc-700">
-              {service.shortDescription}
-            </p>
+            <h2 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
+              Une approche claire, humaine et adaptée à votre réalité.
+            </h2>
           </div>
 
           {service.description ? (
-            <div className="mt-10 rounded-3xl border border-zinc-200 bg-white p-8">
-              <RichText data={service.description} />
+            <div className="rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-sm md:p-10">
+              <RichText data={service.description} enableGutter={false} />
             </div>
           ) : (
-            <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
-              <p>
+            <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-8">
+              <p className="text-lg leading-8 text-zinc-700">
                 Le contenu complet de ce service pourra être ajouté dans l’admin.
               </p>
             </div>
           )}
-        </div>
+        </article>
 
-        <aside className="h-fit rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
-            Rendez-vous
-          </p>
+        <aside className="h-fit space-y-6 lg:sticky lg:top-28">
+          <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
+              Professionnels
+            </p>
 
-          <h3 className="mt-3 text-2xl font-bold">
-            Prendre rendez-vous en ligne
-          </h3>
+            <h3 className="mt-3 text-2xl font-bold">Nos professionnels</h3>
 
-          <p className="mt-4 leading-7 text-zinc-600">
-            La prise de rendez-vous se fait avec Jane. Vous serez redirigé vers la plateforme de
-            réservation de la clinique.
-          </p>
+            {professionalsForService.length > 0 ? (
+              <div className="mt-6 space-y-4">
+                {professionalsForService.map((professional: any) => {
+                  const photoUrl =
+                    professional.photo &&
+                    typeof professional.photo === 'object' &&
+                    'url' in professional.photo
+                      ? professional.photo.url
+                      : null
 
-          <a
-            href={janeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 flex rounded-full bg-red-700 px-5 py-3 text-center font-semibold text-white transition hover:bg-red-800"
-          >
-            Prendre rendez-vous
-          </a>
+                  return (
+                    <a
+                      key={professional.id}
+                      href={`/professionnels/${professional.slug}`}
+                      className="group flex gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition hover:border-red-200 hover:shadow-sm"
+                    >
+                      {photoUrl ? (
+                        <img
+                          src={photoUrl}
+                          alt={professional.name}
+                          className="h-14 w-14 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-sm font-bold text-white">
+                          {professional.name?.charAt(0)}
+                        </div>
+                      )}
 
-          <div className="mt-6 border-t border-zinc-200 pt-6">
-            <a href="/contact" className="font-semibold text-red-700 hover:text-red-800">
-              Voir l’emplacement de la clinique
+                      <div>
+                        <p className="font-semibold text-zinc-950 group-hover:text-red-700">
+                          {professional.name}
+                        </p>
+
+                        {professional.title ? (
+                          <p className="mt-1 text-sm leading-5 text-zinc-600">
+                            {professional.title}
+                          </p>
+                        ) : null}
+                      </div>
+                    </a>
+                  )
+                })}
+              </div>
+            ) : (
+              <p className="mt-4 leading-7 text-zinc-600">
+                Les professionnels associés à ce service pourront être liés dans l’admin.
+              </p>
+            )}
+          </div>
+
+          <div className="rounded-[2rem] border border-zinc-200 bg-white p-6">
+            <p className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+              Clinique
+            </p>
+
+            <p className="mt-3 font-semibold">Chiropratique St-Roch</p>
+
+            <p className="mt-2 leading-7 text-zinc-600">
+              440 Rue Saint-Joseph E<br />
+              Québec, QC G1K 7Y1
+            </p>
+
+            <a href="/contact" className="mt-5 inline-flex font-semibold text-red-700 hover:text-red-800">
+              Voir l’emplacement →
             </a>
           </div>
         </aside>

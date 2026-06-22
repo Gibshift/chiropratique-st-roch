@@ -44,16 +44,6 @@ export async function ConditionsPage() {
             aider à trouver de l’information claire avant de consulter.
           </p>
 
-          <div className="mt-10">
-            <a
-              href={janeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex rounded-full bg-red-700 px-7 py-4 font-semibold text-white transition hover:bg-red-800"
-            >
-              Prendre rendez-vous
-            </a>
-          </div>
         </div>
       </section>
 

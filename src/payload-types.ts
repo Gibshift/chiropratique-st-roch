@@ -414,6 +414,10 @@ export interface Condition {
    */
   relatedServices?: (number | Service)[] | null;
   /**
+   * Professionnels à afficher sur la page de cette condition.
+   */
+  relatedProfessionals?: (number | Professional)[] | null;
+  /**
    * Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.
    */
   janeUrl?: string | null;
@@ -674,6 +678,14 @@ export interface Post {
   };
   relatedPosts?: (number | Post)[] | null;
   categories?: (number | Category)[] | null;
+  /**
+   * Conditions traitées liées à cet article. Utilisé pour suggérer les bons professionnels sur la page de l’article.
+   */
+  relatedConditions?: (number | Condition)[] | null;
+  /**
+   * Professionnels à afficher sur la page de cet article.
+   */
+  relatedProfessionals?: (number | Professional)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -1159,6 +1171,7 @@ export interface ConditionsSelect<T extends boolean = true> {
         id?: T;
       };
   relatedServices?: T;
+  relatedProfessionals?: T;
   janeUrl?: T;
   isFeatured?: T;
   order?: T;
@@ -1346,6 +1359,8 @@ export interface PostsSelect<T extends boolean = true> {
   content?: T;
   relatedPosts?: T;
   categories?: T;
+  relatedConditions?: T;
+  relatedProfessionals?: T;
   meta?:
     | T
     | {

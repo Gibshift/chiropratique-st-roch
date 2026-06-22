@@ -3,29 +3,27 @@ import { getPayload } from 'payload'
 import Link from 'next/link'
 import React from 'react'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 export async function BloguePage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [posts, siteSettings] = await Promise.all([
-    payload.find({
-      collection: 'posts',
-      draft: false,
-      limit: 100,
-      overrideAccess: false,
-      pagination: false,
-      sort: '-publishedAt',
-      depth: 1,
-    }),
-    payload.findGlobal({
-      slug: 'site-settings' as any,
-      depth: 0,
-    }),
-  ])
+  const posts = await payload.find({
+    collection: 'posts',
+    draft: false,
+    limit: 100,
+    overrideAccess: false,
+    pagination: false,
+    sort: '-publishedAt',
+    depth: 1,
+  })
 
-  const settings: any = siteSettings || {}
-  const janeUrl = settings.mainJaneUrl || FALLBACK_JANE_URL
+  const featuredPost = posts.docs[0] as any
+
+  const featuredImageUrl =
+    featuredPost?.heroImage &&
+    typeof featuredPost.heroImage === 'object' &&
+    'url' in featuredPost.heroImage
+      ? featuredPost.heroImage.url
+      : null
 
   return (
     <main className="bg-white text-zinc-950">
@@ -35,7 +33,7 @@ export async function BloguePage() {
             Blogue santé
           </p>
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
+          <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_420px] lg:items-end">
             <div>
               <h1 className="max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
                 Conseils, prévention et santé musculosquelettique
@@ -47,21 +45,26 @@ export async function BloguePage() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h2 className="text-xl font-bold">Une douleur persiste?</h2>
-
-              <p className="mt-3 leading-7 text-zinc-300">
-                Vous pouvez prendre rendez-vous directement en ligne avec la clinique.
-              </p>
-
-              <a
-                href={janeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex rounded-full bg-red-700 px-6 py-3 font-semibold text-white transition hover:bg-red-800"
-              >
-                Prendre rendez-vous
-              </a>
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-3 shadow-2xl">
+              {featuredImageUrl ? (
+                <img
+                  src={featuredImageUrl}
+                  alt={featuredPost.title}
+                  className="h-72 w-full rounded-[1.5rem] object-cover"
+                />
+              ) : (
+                <div className="flex h-72 items-center justify-center rounded-[1.5rem] bg-white p-8 text-center text-zinc-950">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-700">
+                      Chiropratique St-Roch
+                    </p>
+                    <p className="mt-5 text-3xl font-bold">Blogue santé</p>
+                    <p className="mt-4 text-zinc-600">
+                      Des repères simples pour mieux comprendre votre corps.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

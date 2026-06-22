@@ -6,7 +6,6 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { FixedAppointmentButton } from '@/components/FixedAppointmentButton'
 import { LocalBusinessJsonLd } from '@/components/seo/LocalBusinessJsonLd'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
@@ -44,7 +43,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           {children}
           <Footer />
-          <FixedAppointmentButton />
         </Providers>
       </body>
     </html>

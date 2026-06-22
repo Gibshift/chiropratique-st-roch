@@ -11,8 +11,6 @@ import { getOpenGraphImages } from '@/utilities/seo'
 import PageClient from '../../posts/[slug]/page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
 
@@ -38,6 +36,7 @@ type Args = {
   }>
 }
 
+
 export default async function BloguePost({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
@@ -46,18 +45,15 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
 
   const payload = await getPayload({ config: configPromise })
 
-  const [post, siteSettings] = await Promise.all([
-    queryPostBySlug({ slug: decodedSlug }),
-    payload.findGlobal({
-      slug: 'site-settings' as any,
-      depth: 0,
-    }),
-  ])
+  const post = await queryPostBySlug({ slug: decodedSlug })
 
   if (!post) return <PayloadRedirects url={url} />
 
-  const settings: any = siteSettings || {}
-  const janeUrl = settings.mainJaneUrl || FALLBACK_JANE_URL
+    const postData: any = post
+
+  const relatedProfessionals = Array.isArray(postData.relatedProfessionals)
+    ? postData.relatedProfessionals
+    : []
 
   const publishedDate =
     typeof post.publishedAt === 'string'
@@ -94,7 +90,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1fr_320px] lg:px-8">
+      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1fr_340px] lg:px-8">
         <div className="min-w-0">
           <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm md:p-10">
             <RichText
@@ -105,24 +101,85 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
           </div>
         </div>
 
-        <aside className="lg:sticky lg:top-28 lg:self-start">
-          <div className="rounded-3xl bg-zinc-950 p-8 text-white">
-            <h2 className="text-2xl font-bold">
-              Besoin d’un rendez-vous?
-            </h2>
-
-            <p className="mt-4 leading-7 text-zinc-300">
-              Si une douleur persiste ou limite vos activités, vous pouvez prendre rendez-vous
-              directement en ligne avec la clinique.
+        <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+          <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
+              Professionnels
             </p>
 
-            <a
-              href={janeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-7 inline-flex rounded-full bg-red-700 px-6 py-3 font-semibold text-white transition hover:bg-red-800"
-            >
-              Prendre rendez-vous
+            <h2 className="mt-3 text-2xl font-bold">
+              Professionnels liés au sujet
+            </h2>
+
+            {relatedProfessionals.length > 0 ? (
+              <div className="mt-6 space-y-4">
+                {relatedProfessionals.map((professional: any) => {
+                  const photoUrl =
+                    professional.photo &&
+                    typeof professional.photo === 'object' &&
+                    'url' in professional.photo
+                      ? professional.photo.url
+                      : null
+
+                  return (
+                    <a
+                      key={professional.id}
+                      href={`/professionnels/${professional.slug}`}
+                      className="group flex gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition hover:border-red-200 hover:shadow-sm"
+                    >
+                      {photoUrl ? (
+                        <img
+                          src={photoUrl}
+                          alt={professional.name}
+                          className="h-14 w-14 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-sm font-bold text-white">
+                          {professional.name?.charAt(0)}
+                        </div>
+                      )}
+
+                      <div>
+                        <p className="font-semibold text-zinc-950 group-hover:text-red-700">
+                          {professional.name}
+                        </p>
+
+                        {professional.title ? (
+                          <p className="mt-1 text-sm leading-5 text-zinc-600">
+                            {professional.title}
+                          </p>
+                        ) : null}
+                      </div>
+                    </a>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="mt-5 rounded-2xl bg-white p-5">
+                <p className="leading-7 text-zinc-600">
+                  Les professionnels liés à ce sujet apparaîtront ici lorsqu’une condition sera
+                  associée à l’article dans l’admin.
+                </p>
+
+                <a
+                  href="/professionnels"
+                  className="mt-5 inline-flex font-semibold text-red-700 hover:text-red-800"
+                >
+                  Voir les professionnels →
+                </a>
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-[2rem] border border-zinc-200 bg-white p-6">
+            <p className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+              Blogue
+            </p>
+
+            <p className="mt-3 font-semibold">Continuer la lecture</p>
+
+            <a href="/blogue" className="mt-5 inline-flex font-semibold text-red-700 hover:text-red-800">
+              Voir tous les articles →
             </a>
           </div>
         </aside>
@@ -188,6 +245,7 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
     collection: 'posts',
     draft,
     limit: 1,
+    depth: 2,
     overrideAccess: draft,
     pagination: false,
     where: {

@@ -3,10 +3,27 @@ import { getPayload } from 'payload'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
 
+function getDailyIndex(length: number) {
+  if (length <= 0) return 0
+
+  const todayInQuebec = new Intl.DateTimeFormat('fr-CA', {
+    timeZone: 'America/Toronto',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date())
+
+  const dateScore = Array.from(todayInQuebec).reduce((total, character) => {
+    return total + character.charCodeAt(0)
+  }, 0)
+
+  return dateScore % length
+}
+
 export async function ClinicHomePage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, services, conditions, professionals, reviews] = await Promise.all([
+  const [siteSettings, services, conditions, professionals, posts] = await Promise.all([
     payload.findGlobal({
       slug: 'site-settings' as any,
       depth: 1,
@@ -49,13 +66,13 @@ export async function ClinicHomePage() {
     }),
 
     payload.find({
-      collection: 'reviews' as any,
-      limit: 6,
-      depth: 0,
-      sort: 'order',
+      collection: 'posts',
+      limit: 50,
+      depth: 1,
+      sort: '-publishedAt',
       where: {
-        isFeatured: {
-          equals: true,
+        _status: {
+          equals: 'published',
         },
       },
     }),
@@ -73,7 +90,16 @@ export async function ClinicHomePage() {
   const hasServices = services.docs.length > 0
   const hasConditions = conditions.docs.length > 0
   const hasProfessionals = professionals.docs.length > 0
-  const hasReviews = reviews.docs.length > 0 
+  const hasPosts = posts.docs.length > 0
+
+  const dailyPost = hasPosts ? posts.docs[getDailyIndex(posts.docs.length)] : null
+
+  const dailyPostImageUrl =
+    dailyPost?.heroImage &&
+    typeof dailyPost.heroImage === 'object' &&
+    'url' in dailyPost.heroImage
+      ? dailyPost.heroImage.url
+      : null
 
   return (
     <main className="bg-white text-zinc-950">
@@ -136,136 +162,155 @@ export async function ClinicHomePage() {
         </div>
       </section>
 
-    {hasServices && (
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="max-w-3xl">
-          <p className="font-semibold text-red-700">Nos services</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
-            Des soins adaptés à votre réalité.
-          </h2>
-          <p className="mt-5 text-lg leading-8 text-zinc-600">
-            Consultez les services offerts à la clinique et prenez rendez-vous facilement avec Jane.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {services.docs.map((service: any) => (
-            <article key={service.id} className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-              <h3 className="text-xl font-bold">{service.title}</h3>
-              <p className="mt-3 text-zinc-600">{service.shortDescription}</p>
-
-              <div className="mt-6 flex gap-3">
-                <a href={`/services/${service.slug}`} className="font-semibold text-red-700 hover:text-red-800">
-                  En savoir plus
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    )}
-
-    {hasConditions && (
-      <section className="bg-zinc-100">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+      {hasServices && (
+        <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <div className="max-w-3xl">
-            <p className="font-semibold text-red-700">Conditions traitées</p>
+            <p className="font-semibold text-red-700">Nos services</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
-              Trouver de l’information selon votre douleur.
+              Des soins adaptés à votre réalité.
             </h2>
+            <p className="mt-5 text-lg leading-8 text-zinc-600">
+              Consultez les services offerts à la clinique et trouvez l’approche qui correspond à
+              votre situation.
+            </p>
           </div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {conditions.docs.map((condition: any) => (
-              <a
-                key={condition.id}
-                href={`/conditions-traitees/${condition.slug}`}
-                className="rounded-2xl bg-white p-5 font-semibold shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-              >
-                {condition.title}
-                <p className="mt-3 text-sm font-normal leading-6 text-zinc-600">
-                  {condition.shortDescription}
-                </p>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {services.docs.map((service: any) => (
+              <article key={service.id} className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+                <h3 className="text-xl font-bold">{service.title}</h3>
+                <p className="mt-3 text-zinc-600">{service.shortDescription}</p>
 
-    {hasProfessionals && (
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="max-w-3xl">
-          <p className="font-semibold text-red-700">Notre équipe</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
-            Des professionnels accessibles et à l’écoute.
-          </h2>
-        </div>
-
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {professionals.docs.map((professional: any) => (
-            <article key={professional.id} className="rounded-3xl border border-zinc-200 p-6">
-              <h3 className="text-xl font-bold">{professional.name}</h3>
-              <p className="mt-1 font-medium text-red-700">{professional.title}</p>
-              <p className="mt-4 text-zinc-600">{professional.shortBio}</p>
-
-              <a
-                href={professional.janeUrl || janeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex font-semibold text-red-700 hover:text-red-800"
-              >
-                Prendre rendez-vous
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-    )}
-    
-    {hasReviews && (
-      <section className="bg-zinc-950 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="font-semibold text-red-300">Avis patients</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
-              Ce que nos patients apprécient.
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {reviews.docs.map((review: any) => (
-              <article key={review.id} className="rounded-3xl bg-white/10 p-6">
-                <p className="text-red-200">{'★'.repeat(review.rating || 5)}</p>
-                <p className="mt-4 leading-7 text-zinc-100">“{review.reviewText}”</p>
-                <p className="mt-5 font-semibold">{review.authorName}</p>
+                <div className="mt-6">
+                  <a href={`/services/${service.slug}`} className="font-semibold text-red-700 hover:text-red-800">
+                    En savoir plus
+                  </a>
+                </div>
               </article>
             ))}
           </div>
-        </div>
-      </section>
-    )}        
+        </section>
+      )}
 
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="rounded-3xl bg-red-700 px-6 py-14 text-center text-white md:px-12">
-          <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
-            Besoin d’un rendez-vous?
-          </h2>
+      {hasConditions && (
+        <section className="bg-zinc-100">
+          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="font-semibold text-red-700">Conditions traitées</p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
+                Trouver de l’information selon votre douleur.
+              </h2>
+            </div>
 
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-red-50">
-            La prise de rendez-vous se fait directement en ligne avec Jane.
-          </p>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {conditions.docs.map((condition: any) => (
+                <a
+                  key={condition.id}
+                  href={`/conditions-traitees/${condition.slug}`}
+                  className="rounded-2xl bg-white p-5 font-semibold shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  {condition.title}
+                  <p className="mt-3 text-sm font-normal leading-6 text-zinc-600">
+                    {condition.shortDescription}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-          <a
-            href={janeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex rounded-full bg-white px-7 py-4 font-semibold text-red-700 transition hover:bg-zinc-100"
-          >
-            Prendre rendez-vous
-          </a>
-        </div>
-      </section>
+      {hasProfessionals && (
+        <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="font-semibold text-red-700">Notre équipe</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
+              Des professionnels accessibles et à l’écoute.
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {professionals.docs.map((professional: any) => (
+              <article key={professional.id} className="rounded-3xl border border-zinc-200 p-6">
+                <h3 className="text-xl font-bold">{professional.name}</h3>
+                <p className="mt-1 font-medium text-red-700">{professional.title}</p>
+                <p className="mt-4 text-zinc-600">{professional.shortBio}</p>
+
+                <a
+                  href={`/professionnels/${professional.slug}`}
+                  className="mt-6 inline-flex font-semibold text-red-700 hover:text-red-800"
+                >
+                  Voir le profil
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {dailyPost && (
+        <section className="bg-zinc-950 text-white">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 lg:grid-cols-[1fr_420px] lg:px-8">
+            <div>
+              <p className="font-semibold text-red-300">À lire aujourd’hui</p>
+
+              <h2 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight md:text-5xl">
+                Un article pour mieux comprendre votre santé musculosquelettique.
+              </h2>
+
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
+                Chaque jour, nous mettons de l’avant un article du blogue pour vous aider à mieux
+                comprendre les douleurs, les tensions, la posture et les habitudes qui influencent
+                le corps.
+              </p>
+
+              <a
+                href="/blogue"
+                className="mt-8 inline-flex rounded-full border border-white/20 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-zinc-950"
+              >
+                Voir tous les articles
+              </a>
+            </div>
+
+            <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-white text-zinc-950 shadow-2xl">
+              {dailyPostImageUrl ? (
+                <img
+                  src={dailyPostImageUrl}
+                  alt={dailyPost.title}
+                  className="h-56 w-full object-cover"
+                />
+              ) : (
+                <div className="flex h-56 items-center justify-center bg-zinc-100 p-8 text-center">
+                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-700">
+                    Blogue santé
+                  </p>
+                </div>
+              )}
+
+              <div className="p-6">
+                <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
+                  Article du jour
+                </p>
+
+                <h3 className="mt-3 text-2xl font-bold">{dailyPost.title}</h3>
+
+                {dailyPost.meta?.description ? (
+                  <p className="mt-4 leading-7 text-zinc-600">
+                    {dailyPost.meta.description}
+                  </p>
+                ) : null}
+
+                <a
+                  href={`/blogue/${dailyPost.slug}`}
+                  className="mt-6 inline-flex font-semibold text-red-700 hover:text-red-800"
+                >
+                  Lire l’article →
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+      )}
     </main>
   )
 }
