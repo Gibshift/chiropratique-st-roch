@@ -34,23 +34,32 @@ export function getAbsoluteUrl(path?: string | null) {
   return `${siteUrl}${cleanPath}`
 }
 
+export function getDefaultOpenGraphImages(
+  alt = 'Chiropratique St-Roch',
+): Metadata['openGraph'] extends { images?: infer Images } ? Images : never {
+  return [
+    {
+      url: getAbsoluteUrl('/og-image') || '/og-image',
+      width: 1200,
+      height: 630,
+      alt,
+    },
+  ] as never
+}
+
 export function getOpenGraphImages(
   image?: PayloadImage | string | number | null,
   fallbackAlt = 'Chiropratique St-Roch',
 ): Metadata['openGraph'] extends { images?: infer Images } ? Images : never {
   if (!image || typeof image !== 'object') {
-    return undefined as never
+    return getDefaultOpenGraphImages(fallbackAlt)
   }
 
-  const imageUrl =
-    image.sizes?.og?.url ||
-    image.sizes?.large?.url ||
-    image.url
-
+  const imageUrl = image.sizes?.og?.url || image.sizes?.large?.url || image.url
   const absoluteUrl = getAbsoluteUrl(imageUrl)
 
   if (!absoluteUrl) {
-    return undefined as never
+    return getDefaultOpenGraphImages(fallbackAlt)
   }
 
   return [
