@@ -14,7 +14,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
     const professionalResult = await payload.find({
     collection: 'professionals' as any,
     limit: 1,
-    depth: 2,
+    depth: 1,
     where: {
       slug: {
         equals: slug,
