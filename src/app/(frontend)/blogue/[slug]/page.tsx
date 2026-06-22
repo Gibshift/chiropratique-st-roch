@@ -8,7 +8,7 @@ import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 import { getOpenGraphImages } from '@/utilities/seo'
 
-import PageClient from '../../posts/[slug]/page.client'
+import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 export async function generateStaticParams() {
