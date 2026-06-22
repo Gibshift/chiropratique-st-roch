@@ -1,6 +1,8 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
+import { getAbsoluteUrl } from '@/utilities/seo'
+
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
 
 const dayMap: Record<string, string> = {
@@ -12,6 +14,14 @@ const dayMap: Record<string, string> = {
   vendredi: 'Friday',
   samedi: 'Saturday',
 }
+
+const clinicServices = [
+  'Chiropratique',
+  'Ostéopathie',
+  'Massothérapie',
+  'Kinésithérapie',
+  'Orthothérapie',
+]
 
 function normalizeTime(value: string) {
   const match = value.match(/(\d{1,2})h/i)
@@ -91,7 +101,11 @@ export async function LocalBusinessJsonLd() {
     '@id': `${siteUrl}/#localbusiness`,
     name: clinicName,
     url: siteUrl,
+    image: getAbsoluteUrl('/og-image'),
+    logo: getAbsoluteUrl('/og-image'),
     telephone: phone,
+    description:
+      'Chiropratique St-Roch est une clinique multidisciplinaire située à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
     address: {
       '@type': 'PostalAddress',
       streetAddress,
@@ -100,8 +114,20 @@ export async function LocalBusinessJsonLd() {
       postalCode,
       addressCountry: 'CA',
     },
+    areaServed: {
+      '@type': 'City',
+      name: 'Québec',
+    },
+    priceRange: '$$',
     sameAs,
     openingHoursSpecification,
+    makesOffer: clinicServices.map((service) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: service,
+      },
+    })),
     potentialAction: {
       '@type': 'ReserveAction',
       target: janeUrl,
