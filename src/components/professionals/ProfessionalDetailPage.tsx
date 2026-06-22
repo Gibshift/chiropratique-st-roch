@@ -3,35 +3,27 @@ import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 type Props = {
   slug: string
 }
 
 export async function ProfessionalDetailPage({ slug }: Props) {
+
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, professionalResult] = await Promise.all([
-    payload.findGlobal({
-      slug: 'site-settings' as any,
-      depth: 0,
-    }),
-
-    payload.find({
-      collection: 'professionals' as any,
-      limit: 1,
-      depth: 2,
-      where: {
-        slug: {
-          equals: slug,
-        },
-        isActive: {
-          equals: true,
-        },
+    const professionalResult = await payload.find({
+    collection: 'professionals' as any,
+    limit: 1,
+    depth: 2,
+    where: {
+      slug: {
+        equals: slug,
       },
-    }),
-  ])
+      isActive: {
+        equals: true,
+      },
+    },
+  })
 
   const professional: any = professionalResult.docs[0]
 
@@ -45,16 +37,6 @@ export async function ProfessionalDetailPage({ slug }: Props) {
     'url' in professional.photo
       ? professional.photo.url
       : null
-
-  const janeUrl =
-    professional.janeUrl ||
-    (siteSettings &&
-    typeof siteSettings === 'object' &&
-    'mainJaneUrl' in siteSettings &&
-    typeof siteSettings.mainJaneUrl === 'string' &&
-    siteSettings.mainJaneUrl.length > 0
-      ? siteSettings.mainJaneUrl
-      : FALLBACK_JANE_URL)
 
   return (
     <main className="bg-white text-zinc-950">
@@ -79,16 +61,6 @@ export async function ProfessionalDetailPage({ slug }: Props) {
               {professional.shortBio}
             </p>
 
-            <div className="mt-10">
-              <a
-                href={janeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex rounded-full bg-red-700 px-7 py-4 font-semibold text-white transition hover:bg-red-800"
-              >
-                Prendre rendez-vous
-              </a>
-            </div>
           </div>
 
           <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
@@ -125,7 +97,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
 
           {professional.bio ? (
             <div className="mt-10 rounded-3xl border border-zinc-200 bg-white p-8">
-                <RichText data={professional.bio} />
+                <RichText data={professional.bio} enableGutter={false} />
             </div>
             ) : (
             <div className="mt-10 space-y-6 text-lg leading-8 text-zinc-700">
@@ -140,7 +112,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
                     <h3 className="text-2xl font-bold">Approche clinique</h3>
 
                     <div className="mt-6">
-                    <RichText data={professional.approach} />
+                    <RichText data={professional.approach} enableGutter={false} />
                     </div>
                 </div>
                 )}
@@ -182,34 +154,54 @@ export async function ProfessionalDetailPage({ slug }: Props) {
           )}
         </div>
 
-        <aside className="h-fit rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+        <aside className="h-fit space-y-6 lg:sticky lg:top-28">
+        ``<div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
-            Rendez-vous
+            Profil
           </p>
 
           <h3 className="mt-3 text-2xl font-bold">
-            Prendre rendez-vous avec {professional.name}
+            Informations liées
           </h3>
 
-          <p className="mt-4 leading-7 text-zinc-600">
-            La prise de rendez-vous se fait directement en ligne avec Jane.
-          </p>
+          <div className="mt-6 space-y-4">
+            {professional.relatedServices?.length > 0 && (
+              <a
+                href="#services-offerts"
+                className="block rounded-2xl border border-zinc-200 bg-white p-4 font-semibold transition hover:border-red-200 hover:text-red-700"
+              >
+                Services offerts →
+              </a>
+            )}
 
-          <a
-            href={janeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 flex rounded-full bg-red-700 px-5 py-3 text-center font-semibold text-white transition hover:bg-red-800"
-          >
-            Prendre rendez-vous
-          </a>
+            {professional.relatedConditions?.length > 0 && (
+              <a
+                href="#conditions-traitees"
+                className="block rounded-2xl border border-zinc-200 bg-white p-4 font-semibold transition hover:border-red-200 hover:text-red-700"
+              >
+                Conditions souvent traitées →
+              </a>
+            )}
 
-          <div className="mt-6 border-t border-zinc-200 pt-6">
-            <a href="/services" className="font-semibold text-red-700 hover:text-red-800">
-              Voir tous les services
+            <a
+              href="/professionnels"
+              className="block rounded-2xl border border-zinc-200 bg-white p-4 font-semibold transition hover:border-red-200 hover:text-red-700"
+            >
+              Tous les professionnels →
             </a>
           </div>
-        </aside>
+        </div>
+
+        <div className="rounded-[2rem] border border-zinc-200 bg-white p-6">
+          <p className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+            Rendez-vous
+          </p>
+
+          <p className="mt-3 leading-7 text-zinc-600">
+            La prise de rendez-vous demeure accessible en tout temps dans le bouton du haut.
+          </p>
+        </div>
+      </aside>
       </section>
     </main>
   )
