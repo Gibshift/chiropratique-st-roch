@@ -174,7 +174,7 @@ export interface Service {
    */
   shortDescription: string;
   /**
-   * Texte complet affiché sur la page individuelle du service.
+   * Texte complet affiché sur la page individuelle du service. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
    */
   description?: {
     root: {
@@ -361,7 +361,7 @@ export interface Condition {
    */
   shortDescription: string;
   /**
-   * Texte principal affiché sur la page individuelle de la condition.
+   * Texte principal affiché sur la page individuelle de la condition. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
    */
   intro?: {
     root: {
@@ -379,7 +379,7 @@ export interface Condition {
     [k: string]: unknown;
   } | null;
   /**
-   * Section optionnelle pour expliquer quand il peut être pertinent de consulter.
+   * Section optionnelle pour expliquer quand il peut être pertinent de consulter. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
    */
   whenToConsult?: {
     root: {
@@ -461,7 +461,7 @@ export interface Professional {
    */
   shortBio: string;
   /**
-   * Texte complet affiché sur la page individuelle du professionnel.
+   * Texte affiché sur la page du professionnel. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
    */
   bio?: {
     root: {
@@ -654,6 +654,9 @@ export interface Post {
   id: number;
   title: string;
   heroImage?: (number | null) | Media;
+  /**
+   * Contenu principal de l’article. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
+   */
   content: {
     root: {
       type: string;

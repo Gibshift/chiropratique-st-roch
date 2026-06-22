@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
+import { clinicRichTextEditor } from '../utilities/clinicRichTextEditor'
 import { slugify } from '../utilities/slugify'
 
 export const Services: CollectionConfig = {
@@ -61,15 +62,17 @@ export const Services: CollectionConfig = {
                   'Court texte affiché sur les cartes de services et les aperçus.',
               },
             },
-            {
-              name: 'description',
-              type: 'richText',
-              label: 'Description complète',
-              admin: {
-                description:
-                  'Texte complet affiché sur la page individuelle du service.',
+                {
+                name: 'description',
+                type: 'richText',
+                label: 'Description complète',
+                editor: clinicRichTextEditor,
+                admin: {
+                  description:
+                    'Texte complet affiché sur la page individuelle du service. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.',
+                  className: 'clinic-rich-text-editor',
+},
               },
-            },
             {
               name: 'featuredImage',
               type: 'upload',

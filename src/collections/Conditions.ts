@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
+import { clinicRichTextEditor } from '../utilities/clinicRichTextEditor'
 import { slugify } from '../utilities/slugify'
 
 export const Conditions: CollectionConfig = {
@@ -61,24 +62,28 @@ export const Conditions: CollectionConfig = {
                   'Court texte affiché sur les cartes de conditions et les aperçus.',
               },
             },
-            {
-              name: 'intro',
-              type: 'richText',
-              label: 'Texte principal',
-              admin: {
-                description:
-                  'Texte principal affiché sur la page individuelle de la condition.',
+              {
+                name: 'intro',
+                type: 'richText',
+                label: 'Texte principal',
+                editor: clinicRichTextEditor,
+                admin: {
+                  description:
+                    'Texte principal affiché sur la page individuelle de la condition. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.',
+                  className: 'clinic-rich-text-editor',
+                },
               },
-            },
-            {
-              name: 'whenToConsult',
-              type: 'richText',
-              label: 'Quand consulter?',
-              admin: {
-                description:
-                  'Section optionnelle pour expliquer quand il peut être pertinent de consulter.',
+                    {
+                name: 'whenToConsult',
+                type: 'richText',
+                label: 'Quand consulter?',
+                editor: clinicRichTextEditor,
+                admin: {
+                  description:
+                    'Section optionnelle pour expliquer quand il peut être pertinent de consulter. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.',
+                  className: 'clinic-rich-text-editor',
+                },
               },
-            },
             {
               name: 'featuredImage',
               type: 'upload',

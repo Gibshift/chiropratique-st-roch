@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
+import { clinicRichTextEditor } from '../utilities/clinicRichTextEditor'
 import { slugify } from '../utilities/slugify'
 
 export const Professionals: CollectionConfig = {
@@ -71,13 +72,15 @@ export const Professionals: CollectionConfig = {
                   'Court texte affiché sur les cartes de professionnels et les aperçus.',
               },
             },
-            {
+              {
               name: 'bio',
               type: 'richText',
-              label: 'Biographie complète',
+              label: 'Biographie',
+              editor: clinicRichTextEditor,
               admin: {
                 description:
-                  'Texte complet affiché sur la page individuelle du professionnel.',
+                  'Texte affiché sur la page du professionnel. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.',
+                className: 'clinic-rich-text-editor',
               },
             },
             {
