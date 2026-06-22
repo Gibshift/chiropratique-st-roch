@@ -211,21 +211,31 @@ export async function ContactPage() {
             )}
           </div>
 
-          <div className="rounded-3xl bg-red-700 p-6 text-white">
-            <h2 className="text-2xl font-bold">Prendre rendez-vous</h2>
-
-            <p className="mt-4 leading-7 text-red-50">
-              La prise de rendez-vous se fait directement en ligne avec Jane.
+          <div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-6 text-white shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-red-300">
+              Avant de vous déplacer
             </p>
 
-            <a
-              href={janeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex rounded-full bg-white px-6 py-3 font-semibold text-red-700 transition hover:bg-zinc-100"
-            >
-              Prendre rendez-vous
-            </a>
+            <h2 className="mt-3 text-2xl font-bold">
+              La clinique est située au cœur de Saint-Roch.
+            </h2>
+
+            <p className="mt-4 leading-7 text-zinc-300">
+              Vérifiez l’adresse, les heures d’ouverture et utilisez la carte pour planifier votre trajet.
+              Pour prendre rendez-vous, le bouton principal est disponible en haut de la page.
+            </p>
+
+            {fullAddress && (
+              <div className="mt-6 rounded-2xl bg-white/10 p-4">
+                <p className="text-sm font-semibold uppercase tracking-wide text-zinc-400">
+                  Adresse
+                </p>
+
+                <p className="mt-2 leading-7 text-white">
+                  {fullAddress}
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -250,7 +260,7 @@ export async function ContactPage() {
             </div>
           )}
         </div>
-      </section>
+           </section>
     </main>
   )
 }
