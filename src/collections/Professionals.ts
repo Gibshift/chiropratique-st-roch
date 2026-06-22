@@ -87,9 +87,11 @@ export const Professionals: CollectionConfig = {
               name: 'approach',
               type: 'richText',
               label: 'Approche clinique',
+              editor: clinicRichTextEditor,
               admin: {
                 description:
-                  'Section optionnelle pour présenter son approche, sa façon de travailler ou ses intérêts cliniques.',
+                  'Section optionnelle pour présenter son approche, sa façon de travailler ou ses intérêts cliniques. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.',
+                className: 'clinic-rich-text-editor',
               },
             },
           ],
@@ -132,20 +134,6 @@ export const Professionals: CollectionConfig = {
               admin: {
                 description:
                   'Conditions que ce professionnel traite souvent ou qui peuvent être liées à sa pratique.',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Rendez-vous',
-          fields: [
-            {
-              name: 'janeUrl',
-              type: 'text',
-              label: 'Lien Jane spécifique',
-              admin: {
-                description:
-                  'Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.',
               },
             },
           ],

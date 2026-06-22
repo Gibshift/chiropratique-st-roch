@@ -418,10 +418,6 @@ export interface Condition {
    */
   relatedProfessionals?: (number | Professional)[] | null;
   /**
-   * Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.
-   */
-  janeUrl?: string | null;
-  /**
    * Active cette condition dans la section Conditions traitées de la page d’accueil.
    */
   isFeatured?: boolean | null;
@@ -483,7 +479,7 @@ export interface Professional {
     [k: string]: unknown;
   } | null;
   /**
-   * Section optionnelle pour présenter son approche, sa façon de travailler ou ses intérêts cliniques.
+   * Section optionnelle pour présenter son approche, sa façon de travailler ou ses intérêts cliniques. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
    */
   approach?: {
     root: {
@@ -512,10 +508,6 @@ export interface Professional {
    * Conditions que ce professionnel traite souvent ou qui peuvent être liées à sa pratique.
    */
   relatedConditions?: (number | Condition)[] | null;
-  /**
-   * Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.
-   */
-  janeUrl?: string | null;
   /**
    * Si désactivé, ce professionnel ne sera pas affiché sur le site.
    */
@@ -1172,7 +1164,6 @@ export interface ConditionsSelect<T extends boolean = true> {
       };
   relatedServices?: T;
   relatedProfessionals?: T;
-  janeUrl?: T;
   isFeatured?: T;
   order?: T;
   seo?:
@@ -1198,7 +1189,6 @@ export interface ProfessionalsSelect<T extends boolean = true> {
   photo?: T;
   relatedServices?: T;
   relatedConditions?: T;
-  janeUrl?: T;
   isActive?: T;
   isFeatured?: T;
   order?: T;

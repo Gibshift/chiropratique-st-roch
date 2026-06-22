@@ -124,51 +124,32 @@ export const Conditions: CollectionConfig = {
           ],
         },
         {
-          label: 'Services reliés',
-          fields: [
-            {
-              name: 'relatedServices',
-              type: 'relationship',
-              relationTo: 'services',
-              hasMany: true,
-              label: 'Services liés',
-              admin: {
-                description:
-                  'Services de la clinique qui peuvent être liés à cette condition.',
-              },
-            },
-          ],
-        },
-        {
-              label: 'Professionnels liés',
-              fields: [
-                {
-                  name: 'relatedProfessionals',
-                  type: 'relationship',
-                  relationTo: 'professionals',
-                  hasMany: true,
-                  label: 'Professionnels liés',
-                  admin: {
-                    description:
-                      'Professionnels à afficher sur la page de cette condition.',
-                  },
+            label: 'Relations',
+            fields: [
+              {
+                name: 'relatedServices',
+                type: 'relationship',
+                relationTo: 'services',
+                hasMany: true,
+                label: 'Services liés',
+                admin: {
+                  description:
+                    'Services de la clinique qui peuvent être liés à cette condition.',
                 },
-              ],
-            },
-        {
-          label: 'Rendez-vous',
-          fields: [
-            {
-              name: 'janeUrl',
-              type: 'text',
-              label: 'Lien Jane spécifique',
-              admin: {
-                description:
-                  'Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.',
               },
-            },
-          ],
-        },
+              {
+                name: 'relatedProfessionals',
+                type: 'relationship',
+                relationTo: 'professionals',
+                hasMany: true,
+                label: 'Professionnels liés',
+                admin: {
+                  description:
+                    'Professionnels à afficher sur la page de cette condition.',
+                },
+              },
+            ],
+          },
         {
           label: 'Affichage',
           fields: [
