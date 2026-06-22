@@ -3,8 +3,6 @@ import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 type Props = {
   slug: string
 }
@@ -12,35 +10,37 @@ type Props = {
 export async function ServiceDetailPage({ slug }: Props) {
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, serviceResult, professionalsResult] = await Promise.all([
-    payload.findGlobal({
-      slug: 'site-settings' as any,
-      depth: 0,
-    }),
-
-    payload.find({
-      collection: 'services' as any,
-      limit: 1,
-      depth: 1,
-      where: {
-        slug: {
-          equals: slug,
-        },
+const [serviceResult, professionalsResult, conditionsResult] = await Promise.all([
+  payload.find({
+    collection: 'services' as any,
+    limit: 1,
+    depth: 1,
+    where: {
+      slug: {
+        equals: slug,
       },
-    }),
+    },
+  }),
 
-    payload.find({
-      collection: 'professionals' as any,
-      limit: 100,
-      depth: 1,
-      sort: 'order',
-      where: {
-        isActive: {
-          equals: true,
-        },
+  payload.find({
+    collection: 'professionals' as any,
+    limit: 100,
+    depth: 1,
+    sort: 'order',
+    where: {
+      isActive: {
+        equals: true,
       },
-    }),
-  ])
+    },
+  }),
+
+  payload.find({
+    collection: 'conditions' as any,
+    limit: 100,
+    depth: 1,
+    sort: 'order',
+  }),
+])
 
   const service: any = serviceResult.docs[0]
 
@@ -62,15 +62,19 @@ export async function ServiceDetailPage({ slug }: Props) {
     })
   })
 
-  const janeUrl =
-    service.janeUrl ||
-    (siteSettings &&
-    typeof siteSettings === 'object' &&
-    'mainJaneUrl' in siteSettings &&
-    typeof siteSettings.mainJaneUrl === 'string' &&
-    siteSettings.mainJaneUrl.length > 0
-      ? siteSettings.mainJaneUrl
-      : FALLBACK_JANE_URL)
+    const conditionsForService = conditionsResult.docs.filter((condition: any) => {
+    const relatedServices = Array.isArray(condition.relatedServices)
+      ? condition.relatedServices
+      : []
+
+    return relatedServices.some((relatedService: any) => {
+      if (typeof relatedService === 'object') {
+        return relatedService.id === service.id
+      }
+
+      return relatedService === service.id
+    })
+  })
 
   const imageUrl =
     service.featuredImage &&
@@ -99,24 +103,6 @@ export async function ServiceDetailPage({ slug }: Props) {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
               {service.shortDescription}
             </p>
-
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={janeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex justify-center rounded-full bg-red-700 px-7 py-4 font-semibold text-white transition hover:bg-red-800"
-              >
-                Prendre rendez-vous
-              </a>
-
-              <a
-                href="/contact"
-                className="inline-flex justify-center rounded-full border border-white/20 px-7 py-4 font-semibold text-white transition hover:bg-white hover:text-zinc-950"
-              >
-                Voir la clinique
-              </a>
-            </div>
           </div>
 
           <div className="hidden lg:block">
@@ -166,6 +152,23 @@ export async function ServiceDetailPage({ slug }: Props) {
               </p>
             </div>
           )}
+                      {conditionsForService.length > 0 && (
+              <div className="mt-12">
+                <h3 className="text-2xl font-bold">Conditions souvent associées</h3>
+
+                <div className="mt-5 grid gap-4 md:grid-cols-2">
+                  {conditionsForService.map((condition: any) => (
+                    <a
+                      key={condition.id}
+                      href={`/conditions-traitees/${condition.slug}`}
+                      className="rounded-2xl bg-zinc-100 p-5 font-semibold transition hover:bg-zinc-200"
+                    >
+                      {condition.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
         </article>
 
         <aside className="h-fit space-y-6 lg:sticky lg:top-28">

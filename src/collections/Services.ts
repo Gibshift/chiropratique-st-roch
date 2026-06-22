@@ -86,20 +86,6 @@ export const Services: CollectionConfig = {
           ],
         },
         {
-          label: 'Rendez-vous',
-          fields: [
-            {
-              name: 'janeUrl',
-              type: 'text',
-              label: 'Lien Jane spécifique',
-              admin: {
-                description:
-                  'Optionnel. Si vide, le site utilisera le lien Jane principal des Réglages du site.',
-              },
-            },
-          ],
-        },
-        {
           label: 'Affichage',
           fields: [
             {
