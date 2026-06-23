@@ -164,6 +164,42 @@ export interface Service {
    */
   title: string;
   /**
+   * Section optionnelle pour expliquer à qui ce service peut s’adresser. Exemple : douleurs, tensions, prévention, récupération, inconforts.
+   */
+  whoIsItFor?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Section optionnelle pour expliquer simplement comment peut se dérouler une rencontre.
+   */
+  whatToExpect?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
    * Texte utilisé dans l’URL. Exemple : chiropratique, osteopathie, massotherapie.
    */
   slug: string;
@@ -210,6 +246,42 @@ export interface Service {
      * Courte description pour Google. Idéalement environ 150 à 160 caractères.
      */
     description?: string | null;
+    /**
+     * Section optionnelle pour expliquer à qui ce service peut s’adresser. Exemple : douleurs, tensions, prévention, récupération, inconforts.
+     */
+    whoIsItFor?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Section optionnelle pour expliquer simplement comment peut se dérouler une rencontre.
+     */
+    whatToExpect?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -1085,6 +1157,8 @@ export interface PayloadMigration {
  */
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
+  whoIsItFor?: T;
+  whatToExpect?: T;
   slug?: T;
   shortDescription?: T;
   description?: T;
@@ -1096,6 +1170,8 @@ export interface ServicesSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        whoIsItFor?: T;
+        whatToExpect?: T;
       };
   updatedAt?: T;
   createdAt?: T;

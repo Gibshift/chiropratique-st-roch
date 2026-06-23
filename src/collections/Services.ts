@@ -42,6 +42,28 @@ export const Services: CollectionConfig = {
               },
             },
             {
+              name: 'whoIsItFor',
+              type: 'richText',
+              label: 'Pour qui?',
+              editor: clinicRichTextEditor,
+              admin: {
+                description:
+                  'Section optionnelle pour expliquer à qui ce service peut s’adresser. Exemple : douleurs, tensions, prévention, récupération, inconforts.',
+                className: 'clinic-rich-text-editor',
+              },
+            },
+            {
+              name: 'whatToExpect',
+              type: 'richText',
+              label: 'Déroulement d’une rencontre',
+              editor: clinicRichTextEditor,
+              admin: {
+                description:
+                  'Section optionnelle pour expliquer simplement comment peut se dérouler une rencontre.',
+                className: 'clinic-rich-text-editor',
+              },
+            },
+            {
               name: 'slug',
               type: 'text',
               label: 'URL du service',
@@ -134,6 +156,28 @@ export const Services: CollectionConfig = {
                   admin: {
                     description:
                       'Courte description pour Google. Idéalement environ 150 à 160 caractères.',
+                  },
+                },
+                {
+                  name: 'whoIsItFor',
+                  type: 'richText',
+                  label: 'Pour qui?',
+                  editor: clinicRichTextEditor,
+                  admin: {
+                    description:
+                      'Section optionnelle pour expliquer à qui ce service peut s’adresser. Exemple : douleurs, tensions, prévention, récupération, inconforts.',
+                    className: 'clinic-rich-text-editor',
+                  },
+                },
+                {
+                  name: 'whatToExpect',
+                  type: 'richText',
+                  label: 'Déroulement d’une rencontre',
+                  editor: clinicRichTextEditor,
+                  admin: {
+                    description:
+                      'Section optionnelle pour expliquer simplement comment peut se dérouler une rencontre.',
+                    className: 'clinic-rich-text-editor',
                   },
                 },
               ],

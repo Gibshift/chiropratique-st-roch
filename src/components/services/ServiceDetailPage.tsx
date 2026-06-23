@@ -152,6 +152,25 @@ const [serviceResult, professionalsResult, conditionsResult] = await Promise.all
               </p>
             </div>
           )}
+          {service.whoIsItFor && (
+              <div className="mt-12 rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 md:p-10">
+                <h3 className="text-2xl font-bold">Pour qui?</h3>
+
+                <div className="mt-6">
+                  <RichText data={service.whoIsItFor} enableGutter={false} />
+                </div>
+              </div>
+            )}
+
+            {service.whatToExpect && (
+              <div className="mt-12 rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-sm md:p-10">
+                <h3 className="text-2xl font-bold">Déroulement d’une rencontre</h3>
+
+                <div className="mt-6">
+                  <RichText data={service.whatToExpect} enableGutter={false} />
+                </div>
+              </div>
+            )}
                       {conditionsForService.length > 0 && (
               <div className="mt-12">
                 <h3 className="text-2xl font-bold">Conditions souvent associées</h3>
