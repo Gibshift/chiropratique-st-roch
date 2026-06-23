@@ -190,7 +190,7 @@ const [serviceResult, professionalsResult, conditionsResult] = await Promise.all
             )}
         </article>
 
-        <aside className="h-fit space-y-6 lg:sticky lg:top-28">
+        <aside className="h-fit space-y-6 lg:sticky lg:top-28 lg:mt-39">
           <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
               Professionnels
