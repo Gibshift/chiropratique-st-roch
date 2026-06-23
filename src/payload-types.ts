@@ -1696,6 +1696,10 @@ export interface SiteSetting {
   id: number;
   clinicName: string;
   /**
+   * Image utilisée en fond dans la première section de la page d’accueil.
+   */
+  homeHeroImage?: (number | null) | Media;
+  /**
    * Lien utilisé par tous les boutons « Prendre rendez-vous » du site.
    */
   mainJaneUrl: string;
@@ -1812,6 +1816,7 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   clinicName?: T;
+  homeHeroImage?: T;
   mainJaneUrl?: T;
   janeEmbedCode?: T;
   phone?: T;

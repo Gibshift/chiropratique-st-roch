@@ -27,6 +27,16 @@ export const SiteSettings: GlobalConfig = {
               defaultValue: 'Chiropratique St-Roch',
               required: true,
             },
+            {
+              name: 'homeHeroImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image de fond de l’accueil',
+              admin: {
+                description:
+                  'Image utilisée en fond dans la première section de la page d’accueil.',
+              },
+            },
           ],
         },
         {
