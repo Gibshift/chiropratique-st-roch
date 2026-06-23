@@ -13,40 +13,52 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { draftMode } from 'next/headers'
 import { getDefaultOpenGraphImages } from '@/utilities/seo'
+import { Barlow_Condensed } from 'next/font/google'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const siteUrl = getServerSideURL()
 
+const barlowCondensed = Barlow_Condensed({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-barlow-condensed',
+  display: 'swap',
+})
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="fr-CA" suppressHydrationWarning>
-      <head>
-        <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-      </head>
+  <html
+    className={cn(GeistSans.variable, GeistMono.variable, barlowCondensed.variable)}
+    lang="fr-CA"
+    suppressHydrationWarning
+  >
+    <head>
+      <InitTheme />
+      <link href="/favicon.ico" rel="icon" sizes="32x32" />
+      <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+    </head>
 
-      <body>
-        <Providers>
-          <LocalBusinessJsonLd />
+    <body>
+      <Providers>
+        <LocalBusinessJsonLd />
 
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+        <AdminBar
+          adminBarProps={{
+            preview: isEnabled,
+          }}
+        />
 
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
-      </body>
-    </html>
-  )
+        <Header />
+        {children}
+        <Footer />
+      </Providers>
+    </body>
+  </html>
+)
 }
 
 export const metadata: Metadata = {

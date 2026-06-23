@@ -10,14 +10,14 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
 
   return (
-    <nav className="flex items-center gap-6">
+    <nav className="flex items-center gap-10">
       {navItems.map(({ link }, i) => {
         return (
           <CMSLink
             key={i}
             {...link}
             appearance="link"
-            className="text-sm font-semibold text-zinc-700 transition hover:text-red-700"
+            className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.2em] text-zinc-950 transition hover:text-red-700"
           />
         )
       })}
