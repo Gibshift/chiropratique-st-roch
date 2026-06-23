@@ -154,8 +154,8 @@ export async function ProfessionalDetailPage({ slug }: Props) {
           )}
         </div>
 
-        <aside className="h-fit space-y-6 lg:sticky lg:top-28">
-        ``<div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
+        <aside className="h-fit space-y-6 lg:sticky lg:top-28 lg:mt-27">
+        <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
             Profil
           </p>

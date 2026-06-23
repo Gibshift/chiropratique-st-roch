@@ -142,7 +142,7 @@ export async function ContactPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-8 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+      <section className="mx-auto grid max-w-7xl items-start gap-8 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div className="space-y-6">
           <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
@@ -239,7 +239,7 @@ export async function ContactPage() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100 shadow-sm">
+        <div className="self-start overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100 shadow-sm">
           {mapSrc ? (
             <iframe
               src={mapSrc}
