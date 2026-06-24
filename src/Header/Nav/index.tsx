@@ -10,14 +10,18 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
 
   return (
-    <nav className="flex items-center gap-10">
+    <nav className="flex items-center gap-5 min-[1800px]:gap-10">
       {navItems.map(({ link }, i) => {
+        const isBlogue = link?.label?.toLowerCase() === 'blogue'
+
         return (
           <CMSLink
             key={i}
             {...link}
             appearance="link"
-            className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.2em] text-zinc-950 transition hover:text-red-700"
+            className={`font-[var(--font-barlow-condensed)] text-[14px] font-medium uppercase leading-none tracking-[0.16em] transition min-[1800px]:text-[15px] min-[1800px]:tracking-[0.2em] ${
+              isBlogue ? 'text-red-600 hover:text-red-300' : 'text-zinc-950 hover:text-red-700'
+            }`}
           />
         )
       })}

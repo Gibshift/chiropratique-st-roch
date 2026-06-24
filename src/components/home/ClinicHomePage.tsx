@@ -281,17 +281,16 @@ export async function ClinicHomePage() {
         {/* voile beige, opaque à gauche, fondu vers le centre */}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_28%,rgba(246,241,232,0.92)_38%,rgba(246,241,232,0.65)_48%,rgba(246,241,232,0.18)_58%,rgba(246,241,232,0)_68%)]" />
 
-        <div className="relative mx-auto flex min-h-[820px] max-w-7xl items-center px-6 lg:px-8">
+        <div className="relative flex min-h-[820px] items-center px-6 lg:px-8 xl:px-12 min-[1600px]:px-20 min-[1800px]:px-28">
           <div className="w-full pt-36 lg:pt-16">
             <div className="max-w-[560px]">
               <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-red-600">
                   Soins manuels · corps en mouvement
               </p>
 
-              <h1 className="mt-8 text-left font-serif text-[4.4rem] leading-[0.95] tracking-[-0.03em] text-zinc-950 lg:text-[5.4rem]">
-                CHIROPRATIQUE
-                <br />
-                <span className="text-red-700">ST-ROCH</span>
+              <h1 className="mt-8 max-w-[620px] text-left font-[var(--font-barlow-condensed)] text-[3.9rem] font-medium uppercase leading-[0.86] tracking-[0.01em] text-zinc-950 sm:text-[4.7rem] lg:text-[5.5rem] lg:tracking-[0.02em]">
+                Chiropratique
+                <span className="block text-red-700">St-Roch</span>
               </h1>
 
               <div className="mt-8 h-[2px] w-14 bg-red-600" />
@@ -326,7 +325,7 @@ export async function ClinicHomePage() {
             </div>
           </div>
         </div>
-        <div className="pointer-events-none absolute right-[3.5%] top-4/10 hidden -translate-y-1/2 lg:block">
+        <div className="pointer-events-none absolute right-6 top-4/10 hidden -translate-y-1/2 lg:right-8 lg:block xl:right-12 min-[1600px]:right-20 min-[1800px]:right-28">
           <p className="text-right text-[40px] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
             Bougez
             <br />
@@ -352,8 +351,8 @@ export async function ClinicHomePage() {
                   <span className="h-px w-16 bg-zinc-300" />
                 </div>
 
-                <h2 className="max-w-md text-4xl font-black leading-[1.02] tracking-[-0.045em] text-zinc-950 md:text-6xl">
-                  Des approches complémentaires, centrées sur vous.
+                <h2 className="font-[var(--font-barlow-condensed)] text-[3rem] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950">
+                  Approches centrées sur vous.
                 </h2>
 
                 <div className="mt-6 h-[3px] w-16 bg-red-700" />
@@ -433,7 +432,7 @@ export async function ClinicHomePage() {
                 <span className="h-px w-16 bg-zinc-300" />
               </div>
 
-              <h2 className="text-4xl font-black leading-[1.04] tracking-[-0.045em] text-zinc-950 md:text-6xl">
+              <h2 className="font-[var(--font-barlow-condensed)] text-[3rem] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950">
                 Des solutions pour ce qui vous limite.
               </h2>
 
@@ -479,7 +478,7 @@ export async function ClinicHomePage() {
                 <span className="h-px w-16 bg-zinc-300" />
               </div>
 
-              <h2 className="text-4xl font-black leading-[1.04] tracking-[-0.045em] text-zinc-950 md:text-6xl">
+              <h2 className="font-[var(--font-barlow-condensed)] text-[4rem] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950 lg:text-[3.0rem]">
                 Une équipe à votre écoute.
               </h2>
 
@@ -556,8 +555,8 @@ export async function ClinicHomePage() {
                 <span className="h-px w-16 bg-zinc-300" />
               </div>
 
-              <h2 className="text-4xl font-black leading-[1.04] tracking-[-0.045em] text-zinc-950 md:text-6xl">
-                Mieux comprendre votre santé musculosquelettique.
+              <h2 className="font-[var(--font-barlow-condensed)] text-[3rem] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950">
+                CONDITIONS TYPIQUE SIMPLIFIÉES.
               </h2>
 
               <div className="mt-6 h-[3px] w-16 bg-red-700" />
