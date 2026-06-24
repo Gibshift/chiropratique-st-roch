@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { ConditionDetailPage } from '@/components/conditions/ConditionDetailPage'
+import { getOpenGraphImages } from '@/utilities/seo'
 
 type Args = {
   params: Promise<{
@@ -37,7 +38,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const result = await payload.find({
     collection: 'conditions' as any,
     limit: 1,
-    depth: 0,
+    depth: 1,
     where: {
       slug: {
         equals: decodedSlug,
@@ -50,12 +51,44 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   if (!condition) {
     return {
       title: 'Condition traitée | Chiropratique St-Roch',
+      description:
+        'Découvrez les conditions traitées chez Chiropratique St-Roch, clinique multidisciplinaire située à Québec.',
     }
   }
 
+  const title = condition.seo?.title || `${condition.title} à Québec`
+  const description =
+    condition.seo?.description ||
+    condition.shortDescription ||
+    `Découvrez des informations sur ${condition.title} et les soins offerts chez Chiropratique St-Roch à Québec.`
+
+  const url = `/conditions-traitees/${condition.slug}`
+  const images = getOpenGraphImages(condition.featuredImage, condition.title)
+
   return {
-    title: condition.seo?.title || `${condition.title} | Chiropratique St-Roch`,
-    description: condition.seo?.description || condition.shortDescription,
+    title,
+    description,
+
+    alternates: {
+      canonical: url,
+    },
+
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'article',
+      siteName: 'Chiropratique St-Roch',
+      locale: 'fr_CA',
+      images,
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images,
+    },
   }
 }
 

@@ -1,4 +1,4 @@
-export const contactPageData = () =>
+export const contact = () =>
   ({
     title: 'Contact',
     slug: 'contact',
