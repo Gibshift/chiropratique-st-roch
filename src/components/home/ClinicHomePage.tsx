@@ -12,7 +12,6 @@ const SERVICE_ORDER = [
   'orthotherapie',
 ]
 
-const SERVICE_NUMBERS = ['01', '02', '03', '04', '05']
 
 function getDailyIndex(length: number) {
   if (length <= 0) return 0
@@ -31,18 +30,51 @@ function getDailyIndex(length: number) {
   return dateScore % length
 }
 
+function ServiceIconBadge({ slug }: { slug: string }) {
+  const imageIcons: Record<string, string> = {
+    chiropratique: '/media/chiropratique-icon.png',
+    osteopathie: '/media/osteopathie-icon.png',
+    massotherapie: '/media/massotherapie-icon.png',
+    kinesitherapie: '/media/kinesitherapie-icon.png',
+    orthotherapie: '/media/orthotherapie-icon.png',
+  }
+
+  const imageSrc = imageIcons[slug]
+
+  return (
+    <div className="relative h-32 w-40 shrink-0 overflow-hidden text-zinc-900">
+      <div className="absolute inset-0 bg-[#ece5dc] [border-radius:52%_48%_55%_45%/46%_58%_42%_54%]" />
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        {imageSrc ? (
+          <img
+            src={imageSrc}
+            alt=""
+            className="relative z-10 h-[118px] w-[135px] object-contain"
+          />
+        ) : (
+          renderServiceIcon(slug)
+        )}
+      </div>
+    </div>
+  )
+}
+
+function ServiceTitle({ title }: { title: string }) {
+  const firstLetter = title.slice(0, 1)
+  const rest = title.slice(1)
+
+  return (
+    <h3 className="font-[var(--font-barlow-condensed)] text-[2rem] font-semibold uppercase leading-none tracking-[0.06em] text-zinc-950">
+      <span className="text-red-600">{firstLetter}</span>
+      {rest}
+    </h3>
+  )
+}
+
 function renderServiceIcon(slug: string) {
   switch (slug) {
-    case 'chiropratique':
-      return <SpineIcon />
-    case 'osteopathie':
-      return <OsteoHandIcon />
-    case 'massotherapie':
-      return <MassageIcon />
-    case 'kinesitherapie':
-      return <KneeIcon />
-    case 'orthotherapie':
-      return <PostureIcon />
+
     default:
       return null
   }
@@ -189,7 +221,7 @@ export async function ClinicHomePage() {
                     d="M1 5H40M35 1L40 5L35 9"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.0"
+                    strokeWidth="2.0"
                     strokeLinecap="square"
                     strokeLinejoin="miter"
                   />
@@ -215,16 +247,16 @@ export async function ClinicHomePage() {
       {/* SERVICES */}
       {hasServices && (
         <section className="border-b border-zinc-200 bg-[#f5f3ee]">
-          <div className="mx-auto max-w-[1700px] px-6 py-20 lg:px-8 xl:px-12 min-[1800px]:px-28">
-            <div className="grid gap-10 xl:grid-cols-[0.95fr_1.55fr] xl:gap-14">
+          <div className="px-6 py-24 lg:px-8 xl:px-12 min-[1600px]:px-20 min-[1800px]:px-28">
+            <div className="grid items-stretch gap-12 xl:grid-cols-[0.9fr_1.6fr] xl:gap-16">
               {/* COLONNE GAUCHE */}
-              <div className="flex flex-col justify-between">
+              <div className="flex h-full max-w-[560px] flex-col">
                 <div>
                   <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                     Services
                   </p>
 
-                  <h2 className="mt-6 max-w-[520px] text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
+                  <h2 className="mt-6 max-w-[520px] text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[4.0rem]">
                     Des approches complémentaires, centrées sur vous.
                   </h2>
 
@@ -232,84 +264,138 @@ export async function ClinicHomePage() {
                 </div>
 
                 {/* IMAGE FAMILLE */}
-                <div className="mt-10 xl:mt-12">
+                <div className="mt-auto pt-12">
                   <img
                     src="/media/services-family.png"
                     alt="Famille illustrée"
-                    className="w-full max-w-[520px] object-contain"
+                    className="w-full max-w-[560px] object-contain"
                   />
                 </div>
               </div>
 
               {/* COLONNE DROITE */}
-              <div className="grid border-l border-t border-zinc-400 bg-transparent md:grid-cols-2 xl:grid-cols-3">
-                {orderedServices.map((service: any, index: number) => {
-                  const isFourth = index === 3
+                <div className="flex flex-col">
+                  {/* RANGÉE 01-02-03 */}
+                  <div className="grid border-l border-t border-zinc-400 md:grid-cols-2 xl:grid-cols-3">
+                    {orderedServices.slice(0, 3).map((service: any, index: number) => {
+                      return (
+                        <Link
+                          key={service.id}
+                          href={`/services/${service.slug}`}
+                          className="group relative flex min-h-[400px] flex-col border-b border-r border-zinc-400 bg-[#f8f6f1] px-8 py-8 transition duration-300 hover:bg-white"
+                        >
+                          
 
-                  return (
-                    <Link
-                      key={service.id}
-                      href={`/services/${service.slug}`}
-                      className="group relative flex min-h-[320px] flex-col justify-between border-b border-r border-zinc-400 bg-[#f8f6f1] px-8 py-8 transition duration-300 hover:bg-white"
-                    >
-                      {/* effet escalier sur la case 04 */}
-                      {isFourth && (
-                        <>
-                          <span className="absolute -left-6 bottom-0 hidden h-16 w-6 border-b border-l border-zinc-400 xl:block" />
-                          <span className="absolute -left-12 bottom-0 hidden h-8 w-6 border-b border-l border-zinc-400 xl:block" />
-                        </>
-                      )}
+                           <div>
+                            <ServiceTitle title={service.title} />
 
-                      <div>
-                        <div className="font-[var(--font-barlow-condensed)] text-[4.4rem] font-light leading-none tracking-[-0.03em] text-red-500">
-                          {SERVICE_NUMBERS[index]}
-                        </div>
-
-                        <h3 className="mt-8 font-[var(--font-barlow-condensed)] text-[1.1rem] font-semibold uppercase tracking-[0.08em] text-zinc-950">
-                          {service.title}
-                        </h3>
-
-                        <p className="mt-5 max-w-[290px] text-[1.05rem] leading-[1.7] text-zinc-700">
-                          {service.shortDescription}
-                        </p>
-                      </div>
-
-                      <div className="mt-8 flex items-end justify-end">
-                        <div className="relative h-24 w-28 text-zinc-800">
-                          <div className="absolute inset-0 rounded-full bg-[#ece5dc]" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            {renderServiceIcon(service.slug)}
+                            <p className="mt-7 max-w-[300px] text-[1.05rem] leading-[1.7] text-zinc-700">
+                              {service.shortDescription}
+                            </p>
                           </div>
+
+                          <div className="absolute right-8 top-[240px] z-10">
+                            <ServiceIconBadge slug={service.slug} />
+                          </div>
+                        </Link>
+                      )
+                    })}
+                  </div>
+
+                  {/* RANGÉE 04-05-06 */}
+                    <div className="grid md:grid-cols-2 xl:grid-cols-[1.08fr_1.08fr_0.84fr]">
+                      {orderedServices.slice(3, 5).map((service: any, index: number) => {
+                        const serviceIndex = index + 3
+                        const isFourth = index === 0
+
+                        return (
+                          <Link
+                            key={service.id}
+                            href={`/services/${service.slug}`}
+                            className={`group relative flex min-h-[400px] flex-col px-8 py-8 transition duration-300 ${
+                              isFourth
+                                ? 'bg-transparent'
+                                : 'border-b border-r border-zinc-400 bg-[#f8f6f1] hover:bg-white'
+                            }`}
+                          >
+                            {isFourth && (
+                              <>
+                                {/* FOND DÉCOUPÉ DE LA CASE 04 */}
+                                <div
+                                  className="absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white"
+                                  style={{
+                                    clipPath:
+                                      'polygon(0 0, 100% 0, 100% 100%, 120px 100%, 120px calc(100% - 40px), 80px calc(100% - 40px), 80px calc(100% - 80px), 40px calc(100% - 80px), 40px calc(100% - 120px), 0 calc(100% - 120px))',
+                                  }}
+                                />
+
+                                {/* CONTOUR NORMAL DE LA CASE 04 */}
+
+                                <span className="pointer-events-none absolute right-0 top-0 h-full w-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-0 left-[120px] right-0 h-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute left-0 top-0 bottom-[120px] w-px bg-zinc-400" />
+
+                                {/* CONTOUR DE L’ESCALIER — 3 MARCHES PLUS HAUTES */}
+                                <span className="pointer-events-none absolute bottom-[120px] left-0 h-px w-[40px] bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[80px] left-[40px] h-[40px] w-px bg-zinc-400" />
+
+                                <span className="pointer-events-none absolute bottom-[80px] left-[40px] h-px w-[40px] bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[40px] left-[80px] h-[40px] w-px bg-zinc-400" />
+
+                                <span className="pointer-events-none absolute bottom-[40px] left-[80px] h-px w-[40px] bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-0 left-[120px] h-[40px] w-px bg-zinc-400" />
+                              </>
+                            )}
+
+                            <div className="relative z-10">
+                              <ServiceTitle title={service.title} />
+
+                              <p className="mt-7 max-w-[300px] text-[1.05rem] leading-[1.7] text-zinc-700">
+                                {service.shortDescription}
+                              </p>
+                            </div>
+
+                            <div className="absolute right-8 top-[240px] z-10">
+                              <ServiceIconBadge slug={service.slug} />
+                            </div>
+                          </Link>
+                        )
+                      })}
+
+                      {/* CASE 06 */}
+                      <Link
+                        href="/services"
+                        className="group relative flex min-h-[400px] flex-col justify-between border-r border-b border-zinc-400 bg-[#f8f6f1] px-8 py-8 transition duration-300 hover:bg-white"
+                      >
+                        <div>
+
+                          <div className="mt-8 h-16 w-28 bg-[radial-gradient(circle,_rgba(220,38,38,0.45)_1px,_transparent_1px)] [background-size:10px_10px]" />
+
+                          <h3 className="mt-12 max-w-[220px] font-[var(--font-barlow-condensed)] text-[2.2rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
+                            Découvrir nos services
+                          </h3>
                         </div>
-                      </div>
-                    </Link>
-                  )
-                })}
 
-                {/* CASE 06 */}
-                <Link
-                  href="/services"
-                  className="group relative flex min-h-[320px] flex-col justify-between border-b border-r border-zinc-400 bg-[#f8f6f1] px-8 py-8 transition duration-300 hover:bg-white"
-                >
-                  <div>
-                    <div className="font-[var(--font-barlow-condensed)] text-[4.4rem] font-light leading-none tracking-[-0.03em] text-red-500">
-                      06
+                        <div className="mt-8 text-red-600">
+                          <svg
+                            aria-hidden="true"
+                            viewBox="0 0 120 18"
+                            className="h-5 w-24 overflow-visible transition-[width] duration-300 ease-out group-hover:w-32"
+                          >
+                            <path
+                              d="M1 9H112M100 2L112 9L100 16"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="square"
+                              strokeLinejoin="miter"
+                            />
+                          </svg>
+                        </div>
+                      </Link>
                     </div>
-
-                    <div className="mt-8 h-16 w-28 bg-[radial-gradient(circle,_rgba(220,38,38,0.45)_1px,_transparent_1px)] [background-size:10px_10px]" />
-
-                    <h3 className="mt-10 max-w-[200px] font-[var(--font-barlow-condensed)] text-[2rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
-                      Découvrir nos services
-                    </h3>
-                  </div>
-
-                  <div className="mt-8 flex items-center gap-4 text-red-600">
-                    <span className="h-[2px] w-12 bg-red-600 transition-all duration-300 group-hover:w-20" />
-                    <span className="text-[2.2rem] leading-none">→</span>
-                  </div>
-                </Link>
-              </div>
             </div>
+           </div> 
           </div>
         </section>
       )}
@@ -466,7 +552,7 @@ export async function ClinicHomePage() {
 
             <a
               href={`/blogue/${dailyPost.slug}`}
-              className="group relative min-h-[360px] overflow-hidden border border-zinc-300 bg-zinc-950"
+              className="group relative min-h-[280px] overflow-hidden border border-zinc-300 bg-zinc-950"
             >
               {dailyPostImageUrl ? (
                 <img
@@ -480,7 +566,7 @@ export async function ClinicHomePage() {
 
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.7)_0%,rgba(0,0,0,0.24)_58%,rgba(0,0,0,0.04)_100%)]" />
 
-              <div className="relative flex min-h-[360px] max-w-md flex-col justify-between p-8 text-white">
+              <div className="relative flex min-h-[280px] max-w-md flex-col justify-between p-8 text-white">
                 <span className="inline-flex border-l-2 border-red-500 pl-3 text-xs font-black uppercase tracking-[0.16em] text-red-300">
                   Article du jour
                 </span>
@@ -553,81 +639,6 @@ function ServiceLineIcon({ index }: { index: number }) {
       <path className={common} d="M42 54 H78" />
       <path className={common} d="M48 106 L60 78 L72 106" />
       <path className={red} d="M34 76 C46 66 74 66 86 76" />
-    </svg>
-  )
-}
-
-function SpineIcon() {
-  return (
-    <svg width="90" height="90" viewBox="0 0 90 90" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M44 10c2 2 2 5 0 7s-2 5 0 7 2 5 0 7-2 5 0 7 2 5 0 7-2 5 0 7" />
-        <path d="M39 17c-4 1-6 4-6 7 0 4 2 6 6 7" />
-        <path d="M49 17c4 1 6 4 6 7 0 4-2 6-6 7" />
-        <path d="M39 31c-4 1-6 4-6 7 0 4 2 6 6 7" />
-        <path d="M49 31c4 1 6 4 6 7 0 4-2 6-6 7" />
-        <path d="M39 45c-4 1-6 4-6 7 0 4 2 6 6 7" />
-        <path d="M49 45c4 1 6 4 6 7 0 4-2 6-6 7" />
-        <path d="M39 59c-4 1-6 4-6 7 0 4 2 6 6 7" />
-        <path d="M49 59c4 1 6 4 6 7 0 4-2 6-6 7" />
-      </g>
-    </svg>
-  )
-}
-
-function OsteoHandIcon() {
-  return (
-    <svg width="120" height="90" viewBox="0 0 120 90" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 65c20-10 34-19 47-33" />
-        <path d="M50 42c-7-3-11-10-5-13 5-2 9 7 13 9" />
-        <path d="M61 37c-5-7-4-14 1-15 5-1 6 8 8 11" />
-        <path d="M68 33c-3-7-2-14 3-14 5 0 5 8 6 12" />
-        <path d="M75 36c-2-7 1-12 5-11 5 1 3 8 3 12" />
-        <path d="M16 65c-5 3-8 7-6 10 3 4 8 2 12-1l10-7 18 6c8 3 14 2 20-1l35-18" />
-      </g>
-    </svg>
-  )
-}
-
-function MassageIcon() {
-  return (
-    <svg width="120" height="90" viewBox="0 0 120 90" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 56c18-5 30-6 44-4 11 2 22 6 33 4 8-1 15-6 24-15" />
-        <path d="M68 45c10-11 16-16 25-23" />
-        <path d="M56 52c7-7 14-12 22-12 5 0 10 2 14 6" />
-        <path d="M64 49c-5-5-11-8-16-5-5 3-4 8 0 10 6 2 14 0 21 4" />
-      </g>
-    </svg>
-  )
-}
-
-function KneeIcon() {
-  return (
-    <svg width="110" height="90" viewBox="0 0 110 90" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M76 13c-7 8-10 16-11 27-1 8-4 14-10 20-5 5-8 12-8 19" />
-        <path d="M58 60c7 0 12 4 14 10" />
-        <path d="M80 13c2 9 1 16-2 24-4 8-4 16 0 26 2 5 2 10 1 16" />
-        <path d="M48 59c5-4 10-6 16-6 7 0 13 3 18 8" />
-      </g>
-    </svg>
-  )
-}
-
-function PostureIcon() {
-  return (
-    <svg width="90" height="110" viewBox="0 0 90 110" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="44" cy="18" r="9" />
-        <path d="M44 27v20" />
-        <path d="M44 47v28" />
-        <path d="M30 42c4 2 8 3 14 3s10-1 14-3" />
-        <path d="M35 75l-4 19" />
-        <path d="M53 75l4 19" />
-        <path d="M44 46c-1 18-1 33 0 50" strokeDasharray="2.5 4" />
-      </g>
     </svg>
   )
 }
