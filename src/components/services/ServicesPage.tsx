@@ -1,5 +1,6 @@
-import configPromise from '@payload-config'
+﻿import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { PageHero } from '@/components/ui/PageHero'
 
 export async function ServicesPage() {
   const payload = await getPayload({ config: configPromise })
@@ -13,20 +14,11 @@ export async function ServicesPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="border-b border-zinc-200 bg-zinc-950 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <p className="font-semibold text-red-300">Services</p>
-
-          <h1 className="mt-4 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
-            Des soins pour vous aider à retrouver du confort dans vos mouvements.
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
-            La clinique regroupe plusieurs professionnels afin d’offrir une approche adaptée aux
-            douleurs, tensions, blessures et inconforts du quotidien.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Services"
+        title="Des soins pour vous aider à retrouver du confort dans vos mouvements."
+        description="La clinique regroupe plusieurs professionnels afin d'offrir une approche adaptée aux douleurs, tensions, blessures et inconforts du quotidien."
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         {services.docs.length > 0 ? (
@@ -60,7 +52,7 @@ export async function ServicesPage() {
             <h2 className="text-2xl font-bold">Aucun service publié pour le moment.</h2>
 
             <p className="mt-3 text-zinc-600">
-              Ajoute des services dans l’admin Payload pour les afficher ici.
+              Ajoute des services dans l'admin Payload pour les afficher ici.
             </p>
           </div>
         )}

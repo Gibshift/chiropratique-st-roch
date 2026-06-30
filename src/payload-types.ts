@@ -703,6 +703,10 @@ export interface Post {
   relatedPosts?: (number | Post)[] | null;
   categories?: (number | Category)[] | null;
   /**
+   * Services de la clinique abordés dans cet article. Utilisé pour la couleur des cartes sur la page d'accueil.
+   */
+  relatedServices?: (number | Service)[] | null;
+  /**
    * Conditions traitées liées à cet article. Utilisé pour suggérer les bons professionnels sur la page de l’article.
    */
   relatedConditions?: (number | Condition)[] | null;
@@ -1365,6 +1369,7 @@ export interface PostsSelect<T extends boolean = true> {
   content?: T;
   relatedPosts?: T;
   categories?: T;
+  relatedServices?: T;
   relatedConditions?: T;
   relatedProfessionals?: T;
   meta?:

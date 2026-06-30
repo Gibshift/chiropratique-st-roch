@@ -1,5 +1,6 @@
-import configPromise from '@payload-config'
+﻿import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { PageHero } from '@/components/ui/PageHero'
 
 export async function ConditionsPage() {
   const payload = await getPayload({ config: configPromise })
@@ -13,20 +14,11 @@ export async function ConditionsPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="border-b border-zinc-200 bg-zinc-950 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <p className="font-semibold text-red-300">Conditions traitées</p>
-
-          <h1 className="mt-4 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
-            Mieux comprendre vos douleurs et vos inconforts.
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
-            Cette section regroupe les conditions fréquemment rencontrées à la clinique afin de vous
-            aider à trouver de l’information claire avant de consulter.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Conditions traitées"
+        title="Mieux comprendre vos douleurs et vos inconforts."
+        description="Cette section regroupe les conditions fréquemment rencontrées à la clinique afin de vous aider à trouver de l'information claire avant de consulter."
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         {conditions.docs.length > 0 ? (
@@ -60,7 +52,7 @@ export async function ConditionsPage() {
             <h2 className="text-2xl font-bold">Aucune condition publiée pour le moment.</h2>
 
             <p className="mt-3 text-zinc-600">
-              Ajoute des conditions traitées dans l’admin Payload pour les afficher ici.
+              Ajoute des conditions traitées dans l'admin Payload pour les afficher ici.
             </p>
           </div>
         )}

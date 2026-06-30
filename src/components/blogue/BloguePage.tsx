@@ -1,7 +1,8 @@
-import configPromise from '@payload-config'
+﻿import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Link from 'next/link'
 import React from 'react'
+import { PageHero } from '@/components/ui/PageHero'
 
 export async function BloguePage() {
   const payload = await getPayload({ config: configPromise })
@@ -16,59 +17,13 @@ export async function BloguePage() {
     depth: 1,
   })
 
-  const featuredPost = posts.docs[0] as any
-
-  const featuredImageUrl =
-    featuredPost?.heroImage &&
-    typeof featuredPost.heroImage === 'object' &&
-    'url' in featuredPost.heroImage
-      ? featuredPost.heroImage.url
-      : null
-
   return (
     <main className="bg-white text-zinc-950">
-      <section className="bg-zinc-950 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-300">
-            Blogue santé
-          </p>
-
-          <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_420px] lg:items-end">
-            <div>
-              <h1 className="max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
-                Conseils, prévention et santé musculosquelettique
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-                Des articles simples et utiles pour mieux comprendre les douleurs, les habitudes
-                de travail, la posture et les raisons de consulter.
-              </p>
-            </div>
-
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-3 shadow-2xl">
-              {featuredImageUrl ? (
-                <img
-                  src={featuredImageUrl}
-                  alt={featuredPost.title}
-                  className="h-72 w-full rounded-[1.5rem] object-cover"
-                />
-              ) : (
-                <div className="flex h-72 items-center justify-center rounded-[1.5rem] bg-white p-8 text-center text-zinc-950">
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-700">
-                      Chiropratique St-Roch
-                    </p>
-                    <p className="mt-5 text-3xl font-bold">Blogue santé</p>
-                    <p className="mt-4 text-zinc-600">
-                      Des repères simples pour mieux comprendre votre corps.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Blogue santé"
+        title="La santé, expliquée simplement."
+        description="Des articles simples et utiles pour mieux comprendre les douleurs, les habitudes de travail, la posture et les raisons de consulter."
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         {posts.docs.length > 0 ? (
@@ -112,7 +67,7 @@ export async function BloguePage() {
                   </p>
 
                   <span className="mt-auto pt-6 font-semibold text-red-700">
-                    Lire l’article →
+                    Lire l'article →
                   </span>
                 </Link>
               )
@@ -123,7 +78,7 @@ export async function BloguePage() {
             <h2 className="text-2xl font-bold">Aucun article publié pour le moment.</h2>
 
             <p className="mt-4 text-zinc-600">
-              Les articles ajoutés dans l’admin apparaîtront ici automatiquement.
+              Les articles ajoutés dans l'admin apparaîtront ici automatiquement.
             </p>
           </div>
         )}

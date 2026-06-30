@@ -19,6 +19,7 @@ interface HeaderClientProps {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
@@ -36,13 +37,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <header
-      className="absolute inset-x-0 top-0 z-50 text-zinc-950"
+      className={`fixed inset-x-0 top-0 z-50 text-zinc-950 transition-all duration-300 ${scrolled ? 'bg-white/95 shadow-sm backdrop-blur-sm' : ''}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="mx-auto max-w-[1200px] px-6 pt-8 lg:px-8">
-        <div className="grid h-24 grid-cols-[auto_auto] items-center justify-between gap-6 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
+      <div className={`mx-auto max-w-[1200px] px-6 lg:px-8 transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}>
+        <div className="grid grid-cols-[auto_auto] items-center justify-between gap-6 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
           <Link href="/" className="flex shrink-0 items-center gap-4">
             <Image
               src="/logo-st-roch.png"

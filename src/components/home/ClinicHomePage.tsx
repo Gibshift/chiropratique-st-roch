@@ -1,4 +1,4 @@
-import configPromise from '@payload-config'
+﻿import configPromise from '@payload-config'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
@@ -13,6 +13,44 @@ const SERVICE_ORDER = [
   'orthotherapie',
 ]
 
+
+const SERVICE_COLORS: Record<string, string> = {
+  chiropratique: '#0c1f3f',
+  osteopathie:   '#082a1a',
+  massotherapie: '#3a0d0d',
+  kinesitherapie:'#261600',
+  orthotherapie: '#170b36',
+}
+
+function buildPostGradient(relatedServices: any[]): string {
+  const colors: string[] = []
+  for (const svc of relatedServices) {
+    const slug = typeof svc === 'object' ? (svc.slug ?? '') : String(svc)
+    const color = SERVICE_COLORS[slug]
+    if (color && !colors.includes(color)) colors.push(color)
+  }
+
+  if (colors.length === 0) return 'linear-gradient(135deg, #18181b 0%, #27272a 100%)'
+  if (colors.length === 1) return `linear-gradient(135deg, ${colors[0]} 0%, #18181b 100%)`
+  const stops = colors.map((c, i) => `${c} ${Math.round((i * 100) / (colors.length - 1))}%`).join(', ')
+  return `linear-gradient(135deg, ${stops})`
+}
+
+function formatDateFR(dateStr: string) {
+  return new Intl.DateTimeFormat('fr-CA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'America/Toronto',
+  }).format(new Date(dateStr))
+}
+
+function getPeriodicIndex(length: number, periodDays: number) {
+  if (length <= 0) return 0
+  const daysSinceEpoch = Math.floor(Date.now() / (1000 * 60 * 60 * 24))
+  const period = Math.floor(daysSinceEpoch / periodDays)
+  return period % length
+}
 
 function getDailyIndex(length: number) {
   if (length <= 0) return 0
@@ -208,13 +246,6 @@ export async function ClinicHomePage() {
 
   const dailyPost = hasPosts ? posts.docs[getDailyIndex(posts.docs.length)] : null
 
-  const dailyPostImageUrl =
-    dailyPost?.heroImage &&
-    typeof dailyPost.heroImage === 'object' &&
-    'url' in dailyPost.heroImage
-      ? dailyPost.heroImage.url
-      : null
-
   const homeHeroImageUrl =
     siteSettings &&
     typeof siteSettings === 'object' &&
@@ -390,7 +421,7 @@ export async function ClinicHomePage() {
                                 <span className="pointer-events-none absolute bottom-0 left-[90px] right-0 h-px bg-zinc-400" />
                                 <span className="pointer-events-none absolute left-0 top-0 bottom-[90px] w-px bg-zinc-400" />
 
-                                {/* CONTOUR DE L’ESCALIER — 3 MARCHES */}
+                                {/* CONTOUR DE L'ESCALIER — 3 MARCHES */}
                                 <span className="pointer-events-none absolute bottom-[90px] left-0 h-px w-[30px] bg-zinc-400" />
                                 <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-[30px] w-px bg-zinc-400" />
 
@@ -622,68 +653,113 @@ export async function ClinicHomePage() {
       )}
 
       {/* BLOGUE */}
-      {dailyPost && (
-        <section className="border-b border-zinc-200 bg-[#f6f1e8]">
-          <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-24 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-            <div>
-              <div className="mb-4">
-                <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
-                  Blogue santé
-                </p>
+      {dailyPost && (() => {
+        const dailyIndex = getDailyIndex(posts.docs.length)
+        const remainingPosts = posts.docs.filter((_: any, i: number) => i !== dailyIndex)
+        const popularIndex = getPeriodicIndex(remainingPosts.length, 4)
+        const popularPost = remainingPosts.length > 0 ? remainingPosts[popularIndex] : null
+        const recentPost = remainingPosts.find((_: any, i: number) => i !== popularIndex) ?? null
+
+        return (
+          <section className="border-b border-zinc-200 bg-[#f6f1e8]">
+            <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
+
+              {/* En-tête section */}
+              <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
+                    Blogue santé
+                  </p>
+                  <h2 className="mt-4 text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
+                    Le neuro-musculo-squelettique, expliquée simplement.
+                  </h2>
+                  <SectionAccent className="mt-6" />
+                </div>
+                <a
+                  href="/blogue"
+                  className="group inline-flex shrink-0 items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                >
+                  Voir tous les articles
+                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
+                </a>
               </div>
 
-              <h2 className="text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
-                Conditions typiques simplifiées.
-              </h2>
+              {/* Grille articles */}
+              <div className="grid gap-1 lg:grid-cols-[1.6fr_1fr]">
 
-              <SectionAccent className="mt-6" />
+                {/* Article du jour — grande carte */}
+                <a
+                  href={`/blogue/${dailyPost.slug}`}
+                  className="group flex min-h-[420px] flex-col overflow-hidden p-8 transition-opacity duration-300 hover:opacity-90"
+                  style={{ background: buildPostGradient(Array.isArray(dailyPost.relatedServices) ? dailyPost.relatedServices : []) }}
+                >
+                  <div>
+                    <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-400">
+                      Article du jour
+                    </span>
+                  </div>
 
-              <a
-                href="/blogue"
-                className="group mt-8 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
-              >
-                Voir les articles
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
-              </a>
-            </div>
+                  <div className="flex flex-1 items-center py-8">
+                    <h3 className="max-w-lg text-[2rem] font-normal leading-[1.05] tracking-[-0.03em] text-white md:text-[2.6rem]">
+                      {dailyPost.title}
+                    </h3>
+                  </div>
 
-            <a
-              href={`/blogue/${dailyPost.slug}`}
-              className="group relative min-h-[280px] overflow-hidden border border-zinc-300 bg-zinc-950"
-            >
-              {dailyPostImageUrl ? (
-                <Image
-                  src={dailyPostImageUrl}
-                  alt={dailyPost.title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover opacity-[0.82] transition duration-500 group-hover:scale-105"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-[#f6e6dd]" />
-              )}
+                  <div className="flex items-center justify-between">
+                    {dailyPost.publishedAt && (
+                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-white/40">
+                        {formatDateFR(dailyPost.publishedAt)}
+                      </span>
+                    )}
+                    <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.18em] text-red-400 transition group-hover:text-red-300">
+                      Lire l'article →
+                    </span>
+                  </div>
+                </a>
 
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.7)_0%,rgba(0,0,0,0.24)_58%,rgba(0,0,0,0.04)_100%)]" />
+                {/* Petites cartes */}
+                <div className="flex flex-col gap-1">
+                  {([
+                    { post: popularPost, label: 'Article populaire' },
+                    { post: recentPost, label: 'À lire aussi' },
+                  ] as { post: any; label: string }[]).filter(({ post }) => post).map(({ post: op, label }) => (
+                    <a
+                      key={op.id}
+                      href={"/blogue/" + op.slug}
+                      className="group flex flex-1 flex-col overflow-hidden p-6 min-h-[300px] lg:min-h-[200px] transition-opacity duration-300 hover:opacity-90"
+                      style={{ background: buildPostGradient(Array.isArray(op.relatedServices) ? op.relatedServices : []) }}
+                    >
+                      <div>
+                        <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-400">
+                          {label}
+                        </span>
+                      </div>
 
-              <div className="relative flex min-h-[280px] max-w-md flex-col justify-between p-8 text-white">
-                <span className="inline-flex border-l-2 border-red-500 pl-3 text-xs font-black uppercase tracking-[0.16em] text-red-300">
-                  Article du jour
-                </span>
+                      <div className="flex flex-1 items-center py-4">
+                        <h3 className="text-xl font-normal leading-[1.05] tracking-[-0.03em] text-white">
+                          {op.title}
+                        </h3>
+                      </div>
 
-                <div>
-                  <h3 className="text-4xl font-black leading-[1.02] tracking-[-0.045em]">
-                    {dailyPost.title}
-                  </h3>
-
-                  <span className="mt-8 inline-flex text-xs font-black uppercase tracking-[0.16em] text-white/70 transition group-hover:text-white">
-                    Lire l’article →
-                  </span>
+                      <div className="flex items-center justify-between">
+                        {op.publishedAt && (
+                          <span className="text-xs font-medium uppercase tracking-[0.14em] text-white/40">
+                            {formatDateFR(op.publishedAt)}
+                          </span>
+                        )}
+                        <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.18em] text-red-400 transition group-hover:text-red-300">
+                          Lire →
+                        </span>
+                      </div>
+                    </a>
+                  ))}
                 </div>
               </div>
-            </a>
-          </div>
-        </section>
-      )}
+
+            </div>
+          </section>
+        )
+      })()}
     </main>
   )
 }

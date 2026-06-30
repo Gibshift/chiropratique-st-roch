@@ -135,6 +135,18 @@ export const Posts: CollectionConfig<'posts'> = {
               relationTo: 'categories',
             },
             {
+              name: 'relatedServices',
+              type: 'relationship',
+              label: 'Services liés',
+              admin: {
+                position: 'sidebar',
+                description:
+                  'Services de la clinique abordés dans cet article. Utilisé pour la couleur des cartes sur la page d\'accueil.',
+              },
+              hasMany: true,
+              relationTo: 'services' as any,
+            },
+            {
               name: 'relatedConditions',
               type: 'relationship',
               label: 'Conditions liées',
