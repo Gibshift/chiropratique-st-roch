@@ -1,4 +1,5 @@
 import configPromise from '@payload-config'
+import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 
@@ -42,15 +43,17 @@ function ServiceIconBadge({ slug }: { slug: string }) {
   const imageSrc = imageIcons[slug]
 
   return (
-    <div className="relative h-32 w-40 shrink-0 overflow-hidden text-zinc-900">
+    <div className="relative h-16 w-20 shrink-0 overflow-hidden text-zinc-900">
       <div className="absolute inset-0 bg-[#ece5dc] [border-radius:52%_48%_55%_45%/46%_58%_42%_54%]" />
 
       <div className="absolute inset-0 flex items-center justify-center">
         {imageSrc ? (
-          <img
+          <Image
             src={imageSrc}
             alt=""
-            className="relative z-10 h-[118px] w-[135px] object-contain"
+            width={72}
+            height={60}
+            className="relative z-10 h-[60px] w-[72px] object-contain"
           />
         ) : (
           renderServiceIcon(slug)
@@ -65,7 +68,7 @@ function ServiceTitle({ title }: { title: string }) {
   const rest = title.slice(1)
 
   return (
-    <h3 className="font-[var(--font-barlow-condensed)] text-[2rem] font-semibold uppercase leading-none tracking-[0.06em] text-zinc-950">
+    <h3 className="font-[var(--font-barlow-condensed)] text-[1.2rem] font-semibold uppercase leading-[1.15] tracking-[0.05em] text-zinc-950">
       <span className="text-red-600">{firstLetter}</span>
       {rest}
     </h3>
@@ -74,10 +77,57 @@ function ServiceTitle({ title }: { title: string }) {
 
 function renderServiceIcon(slug: string) {
   switch (slug) {
-
     default:
       return null
   }
+}
+
+function SectionAccent({ className }: { className?: string }) {
+  return <div className={`h-[3px] w-20 bg-red-600 ${className ?? ''}`} />
+}
+
+function ConditionAccent({ index }: { index: number }) {
+  const configs = [
+    { count: 1, angle: 0 },
+    { count: 2, angle: 22.5 },
+    { count: 3, angle: 45 },
+    { count: 4, angle: 67.5 },
+    { count: 5, angle: 90 },
+  ]
+  const colorPatterns: boolean[][] = [
+    [true],
+    [false, true],
+    [true, false, true],
+    [false, true, false, true],
+    [true, false, true, false, true],
+  ]
+  const { count, angle } = configs[index % configs.length]
+  const colors = colorPatterns[index % colorPatterns.length]
+  const cx = 22
+  const cy = 17
+  const halfLen = 13
+  const gap = 7
+  const startY = cy - ((count - 1) * gap) / 2
+
+  return (
+    <div className="h-[34px]">
+      <svg width="44" height="34" viewBox="0 0 44 34" fill="none">
+        <g transform={`rotate(${angle}, ${cx}, ${cy})`}>
+          {Array.from({ length: count }).map((_, i) => (
+            <line
+              key={i}
+              x1={cx - halfLen}
+              y1={startY + i * gap}
+              x2={cx + halfLen}
+              y2={startY + i * gap}
+              stroke={colors[i] ? '#dc2626' : '#18181b'}
+              strokeWidth="2"
+            />
+          ))}
+        </g>
+      </svg>
+    </div>
+  )
 }
 
 export async function ClinicHomePage() {
@@ -180,25 +230,25 @@ export async function ClinicHomePage() {
       {/* HERO */}
       <section className="relative min-h-[820px] overflow-hidden">
         {homeHeroImageUrl ? (
-          <img src={homeHeroImageUrl} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <Image src={homeHeroImageUrl} alt="" fill priority sizes="100vw" className="object-cover" />
         ) : null}
 
         {/* voile beige, opaque à gauche, fondu vers le centre */}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_28%,rgba(246,241,232,0.92)_38%,rgba(246,241,232,0.65)_48%,rgba(246,241,232,0.18)_58%,rgba(246,241,232,0)_68%)]" />
 
-        <div className="relative flex min-h-[820px] items-center px-6 lg:px-8 xl:px-12 min-[1600px]:px-20 min-[1800px]:px-28">
-          <div className="w-full pt-36 lg:pt-16">
+        <div className="relative flex min-h-[820px] items-center">
+          <div className="relative mx-auto w-full max-w-[1200px] px-6 pt-36 lg:px-8 lg:pt-16">
             <div className="max-w-[560px]">
               <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-red-600">
                 Soins manuels · corps en mouvement
               </p>
 
-              <h1 className="mt-8 max-w-[620px] text-left font-[var(--font-barlow-condensed)] text-[3.9rem] font-medium uppercase leading-[0.86] tracking-[0.01em] text-zinc-950 sm:text-[4.7rem] lg:text-[5.5rem] lg:tracking-[0.02em]">
+              <h1 className="mt-8 max-w-[620px] text-left font-[var(--font-barlow-condensed)] text-[clamp(2.2rem,8vw,5.5rem)] font-medium uppercase leading-[0.86] tracking-[0.01em] text-zinc-950 xl:tracking-[0.02em]">
                 Chiropratique
-                <span className="block text-red-700">St-Roch</span>
+                <span className="block text-red-600">St-Roch</span>
               </h1>
 
-              <div className="mt-8 h-[2px] w-14 bg-red-600" />
+              <SectionAccent className="mt-8" />
 
               <p className="mt-7 max-w-[420px] text-left text-[1.1rem] leading-8 text-zinc-800">
                 Une approche attentive, simple et adaptée à votre réalité.
@@ -228,47 +278,50 @@ export async function ClinicHomePage() {
                 </svg>
               </a>
             </div>
-          </div>
-        </div>
 
-        <div className="pointer-events-none absolute right-6 top-4/10 hidden -translate-y-1/2 lg:right-8 lg:block xl:right-12 min-[1600px]:right-20 min-[1800px]:right-28">
-          <p className="text-right text-[40px] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
-            Bougez
-            <br />
-            mieux.
-            <br />
-            Vivez
-            <br />
-            mieux.
-          </p>
+            <div className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 lg:block lg:right-0 xl:right-4">
+              <p className="text-right text-[40px] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
+                Bougez
+                <br />
+                Mieux.
+                <br />
+                Vivez
+                <br />
+                Mieux.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* SERVICES */}
       {hasServices && (
-        <section className="border-b border-zinc-200 bg-[#f5f3ee]">
-          <div className="px-6 py-24 lg:px-8 xl:px-12 min-[1600px]:px-20 min-[1800px]:px-28">
-            <div className="grid items-stretch gap-12 xl:grid-cols-[0.9fr_1.6fr] xl:gap-16">
+        <section className="border-b border-zinc-200 bg-white">
+          <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
+            <div className="grid items-stretch gap-12 xl:grid-cols-[320px_1fr] xl:gap-16">
               {/* COLONNE GAUCHE */}
-              <div className="flex h-full max-w-[560px] flex-col">
+              <div className="flex h-full flex-col">
                 <div>
                   <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                     Services
                   </p>
 
-                  <h2 className="mt-6 max-w-[520px] text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[4.0rem]">
+                  <h2 className="mt-6 text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3rem]">
                     Des approches complémentaires, centrées sur vous.
                   </h2>
 
-                  <div className="mt-8 h-[3px] w-20 bg-red-600" />
+                  <SectionAccent className="mt-8" />
                 </div>
 
                 {/* IMAGE FAMILLE */}
                 <div className="mt-auto pt-12">
-                  <img
+                  <Image
                     src="/media/services-family.png"
                     alt="Famille illustrée"
-                    className="w-full max-w-[560px] object-contain"
+                    width={560}
+                    height={420}
+                    className="w-full object-contain"
+                    style={{ height: 'auto' }}
                   />
                 </div>
               </div>
@@ -282,19 +335,15 @@ export async function ClinicHomePage() {
                         <Link
                           key={service.id}
                           href={`/services/${service.slug}`}
-                          className="group relative flex min-h-[400px] flex-col border-b border-r border-zinc-400 bg-[#f8f6f1] px-8 py-8 transition duration-300 hover:bg-white"
+                          className="group flex min-h-[300px] min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
                         >
-                          
+                          <ServiceTitle title={service.title} />
 
-                           <div>
-                            <ServiceTitle title={service.title} />
+                          <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">
+                            {service.shortDescription}
+                          </p>
 
-                            <p className="mt-7 max-w-[300px] text-[1.05rem] leading-[1.7] text-zinc-700">
-                              {service.shortDescription}
-                            </p>
-                          </div>
-
-                          <div className="absolute right-8 top-[240px] z-10">
+                          <div className="-mt-10 flex justify-end">
                             <ServiceIconBadge slug={service.slug} />
                           </div>
                         </Link>
@@ -312,7 +361,7 @@ export async function ClinicHomePage() {
                           <Link
                             key={service.id}
                             href={`/services/${service.slug}`}
-                            className={`group relative flex min-h-[400px] flex-col px-8 py-8 transition duration-300 ${
+                            className={`group relative flex min-h-[300px] min-w-0 flex-col overflow-hidden px-5 py-6 transition duration-300 ${
                               isFourth
                                 ? 'bg-transparent'
                                 : 'border-b border-r border-zinc-400 bg-[#f8f6f1] hover:bg-white'
@@ -324,39 +373,45 @@ export async function ClinicHomePage() {
                                 <div
                                   className="absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white"
                                   style={{
-                                    clipPath:
-                                      'polygon(0 0, 100% 0, 100% 100%, 120px 100%, 120px calc(100% - 40px), 80px calc(100% - 40px), 80px calc(100% - 80px), 40px calc(100% - 80px), 40px calc(100% - 120px), 0 calc(100% - 120px))',
+                                    clipPath: [
+                                      "polygon(",
+                                      "0 0, 100% 0, 100% 100%,",
+                                      "90px 100%, 90px calc(100% - 30px),",
+                                      "60px calc(100% - 30px), 60px calc(100% - 60px),",
+                                      "30px calc(100% - 60px), 30px calc(100% - 90px),",
+                                      "0 calc(100% - 90px))",
+                                    ].join(" "),
                                   }}
                                 />
 
                                 {/* CONTOUR NORMAL DE LA CASE 04 */}
 
                                 <span className="pointer-events-none absolute right-0 top-0 h-full w-px bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-0 left-[120px] right-0 h-px bg-zinc-400" />
-                                <span className="pointer-events-none absolute left-0 top-0 bottom-[120px] w-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-0 left-[90px] right-0 h-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute left-0 top-0 bottom-[90px] w-px bg-zinc-400" />
 
-                                {/* CONTOUR DE L’ESCALIER — 3 MARCHES PLUS HAUTES */}
-                                <span className="pointer-events-none absolute bottom-[120px] left-0 h-px w-[40px] bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-[80px] left-[40px] h-[40px] w-px bg-zinc-400" />
+                                {/* CONTOUR DE L’ESCALIER — 3 MARCHES */}
+                                <span className="pointer-events-none absolute bottom-[90px] left-0 h-px w-[30px] bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-[30px] w-px bg-zinc-400" />
 
-                                <span className="pointer-events-none absolute bottom-[80px] left-[40px] h-px w-[40px] bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-[40px] left-[80px] h-[40px] w-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-px w-[30px] bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-[30px] w-px bg-zinc-400" />
 
-                                <span className="pointer-events-none absolute bottom-[40px] left-[80px] h-px w-[40px] bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-0 left-[120px] h-[40px] w-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-px w-[30px] bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-0 left-[90px] h-[30px] w-px bg-zinc-400" />
                               </>
                             )}
 
-                            <div className="relative z-10">
+                            <div className="relative z-10 flex flex-1 flex-col">
                               <ServiceTitle title={service.title} />
 
-                              <p className="mt-7 max-w-[300px] text-[1.05rem] leading-[1.7] text-zinc-700">
+                              <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">
                                 {service.shortDescription}
                               </p>
-                            </div>
 
-                            <div className="absolute right-8 top-[240px] z-10">
-                              <ServiceIconBadge slug={service.slug} />
+                              <div className="-mt-10 flex justify-end">
+                                <ServiceIconBadge slug={service.slug} />
+                              </div>
                             </div>
                           </Link>
                         )
@@ -365,18 +420,17 @@ export async function ClinicHomePage() {
                       {/* CASE 06 */}
                       <Link
                         href="/services"
-                        className="group relative flex min-h-[400px] flex-col justify-between border-r border-b border-zinc-400 bg-[#f8f6f1] px-8 py-8 transition duration-300 hover:bg-white"
+                        className="group relative flex min-h-[300px] min-w-0 flex-col justify-between border-r border-b border-zinc-400 px-5 py-6 transition duration-300"
                       >
-                        <div>
+                        <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-30" />
 
-                          <div className="mt-8 h-16 w-28 bg-[radial-gradient(circle,_rgba(220,38,38,0.45)_1px,_transparent_1px)] [background-size:10px_10px]" />
-
-                          <h3 className="mt-12 max-w-[220px] font-[var(--font-barlow-condensed)] text-[2.2rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
+                        <div className="relative">
+                          <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
                             Découvrir nos services
                           </h3>
                         </div>
 
-                        <div className="mt-8 text-red-600">
+                        <div className="relative mt-4 text-red-600">
                           <svg
                             aria-hidden="true"
                             viewBox="0 0 120 18"
@@ -402,151 +456,194 @@ export async function ClinicHomePage() {
 
       {/* CONDITIONS */}
       {hasConditions && (
-        <section className="relative overflow-hidden border-b border-zinc-200 bg-white">
-          <div className="absolute bottom-0 right-0 hidden h-[62%] w-[58%] lg:block">
-            <QuebecLowerTownIllustration />
-          </div>
+        <section className="border-b border-zinc-200 bg-[#f6f1e8]">
+          <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+            <div className="relative py-24">
 
-          <div className="absolute bottom-0 right-0 hidden h-[62%] w-[58%] bg-[linear-gradient(90deg,#ffffff_0%,rgba(255,255,255,0.92)_28%,rgba(255,255,255,0.2)_55%,rgba(255,255,255,0)_100%)] lg:block" />
-
-          <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8">
-            <div className="max-w-xl">
-              <div className="mb-4 flex items-center gap-4">
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-red-700">
-                  Conditions traitées
-                </p>
-                <span className="h-px w-16 bg-zinc-300" />
-              </div>
-
-              <h2 className="font-[var(--font-barlow-condensed)] text-[3rem] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950">
-                Des solutions pour ce qui vous limite.
-              </h2>
-
-              <div className="mt-6 h-[3px] w-16 bg-red-700" />
+            {/* IMAGE VILLE — bloc rectangulaire, espacé du haut et bas */}
+            <div className="absolute right-0 top-24 bottom-24 hidden w-[42%] overflow-hidden lg:block">
+              <Image
+                src="/media/ville-site-web-complet.png"
+                alt=""
+                fill
+                sizes="480px"
+                className="object-cover object-center"
+              />
+              {/* Fondu discret sur le bord gauche seulement */}
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,rgba(246,241,232,0.6)_12%,rgba(246,241,232,0)_28%)]" />
             </div>
 
-            <div className="mt-14 grid max-w-4xl border-l border-zinc-300 md:grid-cols-5">
-              {conditions.docs.slice(0, 5).map((condition: any, index: number) => (
-                <div key={condition.id} className="border-r border-zinc-300 px-5 py-4">
-                  <div className="mb-5 h-12 w-12">
-                    <ServiceLineIcon index={index} />
-                  </div>
-
-                  <p className="text-sm font-semibold leading-5 text-zinc-900">
-                    {condition.title}
+            <div className="relative">
+              <div className="max-w-[520px]">
+                <div className="mb-4">
+                  <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
+                    Conditions traitées
                   </p>
                 </div>
-              ))}
-            </div>
 
-            <a
-              href="/conditions-traitees"
-              className="mt-12 inline-flex border-b border-zinc-400 pb-1 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition hover:border-red-700"
-            >
-              Voir toutes les conditions →
-            </a>
+                <h2 className="text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
+                  Des solutions pour ce qui vous limite.
+                </h2>
+
+                <SectionAccent className="mt-8" />
+              </div>
+
+              <div className="mt-14 grid max-w-[600px] border-l border-zinc-300 grid-cols-3 md:grid-cols-5">
+                {conditions.docs.slice(0, 5).map((condition: any, index: number) => (
+                  <div key={condition.id} className="flex flex-col items-center border-r border-zinc-300 px-5 py-4 text-center">
+                    <p className="flex-1 font-[var(--font-barlow-condensed)] text-[0.95rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-900">
+                      <span className="text-red-600">{condition.title.slice(0, 1)}</span>
+                      {condition.title.slice(1)}
+                    </p>
+                    <div className="mt-5">
+                      <ConditionAccent index={index} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href="/conditions-traitees"
+                className="group mt-12 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
+              >
+                Voir toutes les conditions
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
+              </a>
+            </div>
+          </div>
           </div>
         </section>
       )}
 
       {/* PROFESSIONNELS */}
       {hasProfessionals && (
-        <section className="border-b border-zinc-200 bg-[#faf9f6]">
-          <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
+        <section className="border-b border-zinc-200 bg-white">
+          <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
             <div>
-              <div className="mb-4 flex items-center gap-4">
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-red-700">
+              <div className="mb-4">
+                <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                   Professionnels
                 </p>
-                <span className="h-px w-16 bg-zinc-300" />
               </div>
 
-              <h2 className="font-[var(--font-barlow-condensed)] text-[3rem] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950">
+              <h2 className="text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
                 Une équipe à votre écoute.
               </h2>
 
-              <div className="mt-6 h-[3px] w-16 bg-red-700" />
+              <SectionAccent className="mt-6" />
 
               <p className="mt-8 max-w-sm text-sm leading-6 text-zinc-600">
                 Des professionnels accessibles pour vous accompagner avec clarté, respect et simplicité.
               </p>
 
-              <a
-                href="/professionnels"
-                className="mt-8 inline-flex border-b border-zinc-400 pb-1 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition hover:border-red-700"
-              >
-                Rencontrer l’équipe →
-              </a>
             </div>
 
-            <div className="grid gap-px bg-zinc-300 md:grid-cols-3">
-              {professionals.docs.slice(0, 3).map((professional: any) => {
+            {(() => {
+              const count = professionals.docs.length
+              const isStaggered = count === 4
+
+              const ProfCard = ({ professional, style }: { professional: any; style?: React.CSSProperties }) => {
                 const photoUrl =
                   professional.photo &&
                   typeof professional.photo === 'object' &&
                   'url' in professional.photo
                     ? professional.photo.url
                     : null
-
                 return (
                   <a
                     key={professional.id}
                     href={`/professionnels/${professional.slug}`}
-                    className="group bg-white"
+                    className="group relative overflow-hidden"
+                    style={style}
                   >
-                    <div className="relative aspect-[4/4.7] overflow-hidden bg-zinc-100">
-                      {photoUrl ? (
-                        <img
-                          src={photoUrl}
-                          alt={professional.name}
-                          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    <div className="relative aspect-square overflow-hidden bg-transparent">
+                      {photoUrl && (
+                        <Image src={photoUrl} alt={professional.name} fill sizes="25vw"
+                          className="object-cover transition duration-500 group-hover:scale-105"
+                          style={{ objectPosition: 'center 15%' }}
                         />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center text-xs font-black uppercase tracking-[0.18em] text-zinc-400">
-                          Photo
-                        </div>
                       )}
-
-                      <div className="absolute right-0 top-0 h-12 w-12 bg-red-700 opacity-0 transition group-hover:opacity-100" />
                     </div>
-
-                    <div className="border-t border-zinc-200 p-5">
-                      <h3 className="font-bold tracking-[-0.02em] text-zinc-950">
-                        {professional.name}
-                      </h3>
-                      <p className="mt-1 text-sm text-zinc-500">{professional.title}</p>
-                    </div>
+                    {photoUrl && (
+                      <div className="pt-2">
+                        <h3 className="text-sm font-bold tracking-[-0.01em] text-zinc-950">{professional.name}</h3>
+                        <p className="mt-0.5 text-xs text-zinc-500">{professional.title}</p>
+                      </div>
+                    )}
                   </a>
                 )
-              })}
-            </div>
+              }
+
+              const CTACard = ({ style }: { style?: React.CSSProperties }) => (
+                <Link
+                  href="/professionnels"
+                  className="group relative flex min-w-0 flex-col justify-between overflow-hidden p-5 transition duration-300"
+                  style={style}
+                >
+                  <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-40" />
+                  <div className="relative">
+                    <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
+                      Rencontrer l'équipe
+                    </h3>
+                  </div>
+                  <div className="relative mt-4 text-red-600">
+                    <svg aria-hidden="true" viewBox="0 0 120 18" className="h-5 w-20 overflow-visible transition-[width] duration-300 ease-out group-hover:w-28">
+                      <path d="M1 9H112M100 2L112 9L100 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </div>
+                </Link>
+              )
+
+              if (isStaggered) {
+                return (
+                  <div className="grid grid-cols-6 gap-1 bg-white">
+                    {professionals.docs.slice(0, 3).map((p: any, i: number) => (
+                      <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 1} / span 2` }} />
+                    ))}
+                    {professionals.docs.slice(3).map((p: any, i: number) => (
+                      <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 2} / span 2` }} />
+                    ))}
+                    <CTACard style={{ gridColumn: '4 / span 2' }} />
+                  </div>
+                )
+              }
+
+              return (
+                <div className="grid grid-cols-3 gap-1 bg-white">
+                  {professionals.docs.slice(0, 5).map((p: any) => (
+                    <ProfCard key={p.id} professional={p} />
+                  ))}
+                  {count < 6 && <CTACard />}
+                </div>
+              )
+            })()}
           </div>
         </section>
       )}
 
       {/* BLOGUE */}
       {dailyPost && (
-        <section className="border-b border-zinc-200 bg-white">
-          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-24 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <section className="border-b border-zinc-200 bg-[#f6f1e8]">
+          <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-24 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
             <div>
-              <div className="mb-4 flex items-center gap-4">
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-red-700">
+              <div className="mb-4">
+                <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                   Blogue santé
                 </p>
-                <span className="h-px w-16 bg-zinc-300" />
               </div>
 
-              <h2 className="font-[var(--font-barlow-condensed)] text-[3rem] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950">
+              <h2 className="text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
                 Conditions typiques simplifiées.
               </h2>
 
-              <div className="mt-6 h-[3px] w-16 bg-red-700" />
+              <SectionAccent className="mt-6" />
 
               <a
                 href="/blogue"
-                className="mt-8 inline-flex border-b border-zinc-400 pb-1 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition hover:border-red-700"
+                className="group mt-8 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
               >
-                Voir les articles →
+                Voir les articles
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
               </a>
             </div>
 
@@ -555,10 +652,12 @@ export async function ClinicHomePage() {
               className="group relative min-h-[280px] overflow-hidden border border-zinc-300 bg-zinc-950"
             >
               {dailyPostImageUrl ? (
-                <img
+                <Image
                   src={dailyPostImageUrl}
                   alt={dailyPost.title}
-                  className="absolute inset-0 h-full w-full object-cover opacity-82 transition duration-500 group-hover:scale-105"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover opacity-[0.82] transition duration-500 group-hover:scale-105"
                 />
               ) : (
                 <div className="absolute inset-0 bg-[#f6e6dd]" />
@@ -589,115 +688,4 @@ export async function ClinicHomePage() {
   )
 }
 
-function ServiceLineIcon({ index }: { index: number }) {
-  const common = 'stroke-zinc-900/70'
-  const red = 'stroke-red-600'
 
-  if (index === 0) {
-    return (
-      <svg viewBox="0 0 120 120" className="h-24 w-24 fill-none stroke-[1.5]">
-        <path className={common} d="M66 12 C46 28 78 38 55 54 C36 68 75 78 52 104" />
-        <path className={red} d="M72 20 L82 30 M61 42 L74 50 M57 66 L70 73 M55 89 L68 96" />
-      </svg>
-    )
-  }
-
-  if (index === 1) {
-    return (
-      <svg viewBox="0 0 120 120" className="h-24 w-24 fill-none stroke-[1.5]">
-        <path className={common} d="M18 78 C42 48 78 48 102 78" />
-        <path className={red} d="M35 72 C45 62 55 62 65 72" />
-        <path className={common} d="M72 74 L96 50" />
-      </svg>
-    )
-  }
-
-  if (index === 2) {
-    return (
-      <svg viewBox="0 0 120 120" className="h-24 w-24 fill-none stroke-[1.5]">
-        <path className={common} d="M14 48 C28 36 42 60 56 48 C70 36 84 60 106 46" />
-        <path className={common} d="M14 64 C28 52 42 76 56 64 C70 52 84 76 106 62" />
-        <path className={red} d="M20 82 H100" />
-      </svg>
-    )
-  }
-
-  if (index === 3) {
-    return (
-      <svg viewBox="0 0 120 120" className="h-24 w-24 fill-none stroke-[1.5]">
-        <path className={common} d="M24 92 H42 V74 H60 V56 H78 V38 H96" />
-        <path className={red} d="M28 30 L52 54" />
-        <path className={red} d="M52 30 L28 54" />
-      </svg>
-    )
-  }
-
-  return (
-    <svg viewBox="0 0 120 120" className="h-24 w-24 fill-none stroke-[1.5]">
-      <circle className={common} cx="60" cy="24" r="12" />
-      <path className={common} d="M60 38 V78" />
-      <path className={common} d="M42 54 H78" />
-      <path className={common} d="M48 106 L60 78 L72 106" />
-      <path className={red} d="M34 76 C46 66 74 66 86 76" />
-    </svg>
-  )
-}
-
-function QuebecLowerTownIllustration() {
-  return (
-    <svg viewBox="0 0 760 300" className="h-full w-full">
-      <rect width="760" height="300" fill="transparent" />
-
-      <defs>
-        <linearGradient id="lowerTownFade" x1="0" x2="1">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.72" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-
-      <rect width="430" height="300" fill="url(#lowerTownFade)" />
-
-      <g fill="none" stroke="#18181b" strokeWidth="1.4" opacity="0.55">
-        <path d="M330 250 V105 L420 68 L505 104 V250" />
-        <path d="M420 68 V250" />
-        <path d="M360 132 H396 M360 162 H396 M360 192 H396" />
-        <path d="M444 132 H480 M444 162 H480 M444 192 H480" />
-
-        <path d="M512 250 V84 L640 42 L725 86 V250" />
-        <path d="M548 118 H584 M548 152 H584 M548 186 H584" />
-        <path d="M620 118 H670 M620 152 H670 M620 186 H670" />
-
-        <path d="M210 250 V140 L300 112 V250" />
-        <path d="M236 164 H274 M236 196 H274" />
-
-        <path d="M92 250 C108 220 142 220 158 250" />
-        <path d="M125 222 V175" />
-        <path d="M112 190 C122 176 138 176 148 190" />
-      </g>
-
-      <rect x="520" y="92" width="92" height="158" fill="#dc2626" opacity="0.9" />
-      <g fill="#ffffff" opacity="0.9">
-        <rect x="542" y="120" width="18" height="28" />
-        <rect x="575" y="120" width="18" height="28" />
-        <rect x="542" y="168" width="18" height="28" />
-        <rect x="575" y="168" width="18" height="28" />
-      </g>
-
-      <path
-        d="M300 250 C360 206 420 210 476 250"
-        stroke="#dc2626"
-        strokeWidth="2"
-        fill="none"
-        opacity="0.9"
-      />
-
-      <g stroke="#18181b" strokeWidth="1" opacity="0.35">
-        <path d="M48 250 C58 222 78 222 88 250" />
-        <path d="M68 224 V196" />
-        <path d="M650 250 C664 222 690 222 704 250" />
-        <path d="M678 224 V192" />
-      </g>
-    </svg>
-  )
-}
