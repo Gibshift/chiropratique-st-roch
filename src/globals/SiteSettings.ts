@@ -199,6 +199,47 @@ export const SiteSettings: GlobalConfig = {
           ],
         },
         {
+          label: 'Images des pages',
+          fields: [
+            {
+              name: 'servicesHeroImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image hero — Services',
+              admin: {
+                description: 'Image de fond de la section hero sur la page Services.',
+              },
+            },
+            {
+              name: 'conditionsHeroImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image hero — Conditions traitees',
+              admin: {
+                description: 'Image de fond de la section hero sur la page Conditions traitees.',
+              },
+            },
+            {
+              name: 'professionalsHeroImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image hero — Professionnels',
+              admin: {
+                description: 'Image de fond de la section hero sur la page Professionnels.',
+              },
+            },
+            {
+              name: 'blogueHeroImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image hero — Blogue',
+              admin: {
+                description: 'Image de fond de la section hero sur la page Blogue.',
+              },
+            },
+          ],
+        },
+        {
           label: 'Annonce',
           fields: [
             {

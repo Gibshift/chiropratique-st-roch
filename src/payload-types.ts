@@ -1758,6 +1758,22 @@ export interface SiteSetting {
     googleBusiness?: string | null;
   };
   /**
+   * Image de fond de la section hero sur la page Services.
+   */
+  servicesHeroImage?: (number | null) | Media;
+  /**
+   * Image de fond de la section hero sur la page Conditions traitees.
+   */
+  conditionsHeroImage?: (number | null) | Media;
+  /**
+   * Image de fond de la section hero sur la page Professionnels.
+   */
+  professionalsHeroImage?: (number | null) | Media;
+  /**
+   * Image de fond de la section hero sur la page Blogue.
+   */
+  blogueHeroImage?: (number | null) | Media;
+  /**
    * Optionnel. Sert à afficher un message temporaire sur le site plus tard.
    */
   announcement?: {
@@ -1849,6 +1865,10 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         instagram?: T;
         googleBusiness?: T;
       };
+  servicesHeroImage?: T;
+  conditionsHeroImage?: T;
+  professionalsHeroImage?: T;
+  blogueHeroImage?: T;
   announcement?:
     | T
     | {

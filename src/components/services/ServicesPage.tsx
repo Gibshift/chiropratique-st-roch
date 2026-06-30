@@ -5,22 +5,27 @@ import { PageHero } from '@/components/ui/PageHero'
 export async function ServicesPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const services = await payload.find({
-    collection: 'services' as any,
-    limit: 100,
-    depth: 1,
-    sort: 'order',
-  })
+  const [services, siteSettings] = await Promise.all([
+    payload.find({ collection: 'services' as any, limit: 100, depth: 1, sort: 'order' }),
+    payload.findGlobal({ slug: 'site-settings' as any, depth: 1 }),
+  ])
+
+  const heroImageUrl =
+    siteSettings?.servicesHeroImage &&
+    typeof siteSettings.servicesHeroImage === 'object' &&
+    'url' in siteSettings.servicesHeroImage
+      ? (siteSettings.servicesHeroImage as any).url
+      : null
 
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        eyebrow="Services"
-        title="Des soins pour vous aider à retrouver du confort dans vos mouvements."
-        description="La clinique regroupe plusieurs professionnels afin d'offrir une approche adaptée aux douleurs, tensions, blessures et inconforts du quotidien."
+        title="Des soins pour vous aider a retrouver du confort dans vos mouvements."
+        description="La clinique regroupe plusieurs professionnels afin d'offrir une approche adaptee aux douleurs, tensions, blessures et inconforts du quotidien."
+        imageUrl={heroImageUrl}
       />
 
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-8">
         {services.docs.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.docs.map((service: any) => (

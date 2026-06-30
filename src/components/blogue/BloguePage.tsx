@@ -7,25 +7,35 @@ import { PageHero } from '@/components/ui/PageHero'
 export async function BloguePage() {
   const payload = await getPayload({ config: configPromise })
 
-  const posts = await payload.find({
-    collection: 'posts',
-    draft: false,
-    limit: 100,
-    overrideAccess: false,
-    pagination: false,
-    sort: '-publishedAt',
-    depth: 1,
-  })
+  const [posts, siteSettings] = await Promise.all([
+    payload.find({
+      collection: 'posts',
+      draft: false,
+      limit: 100,
+      overrideAccess: false,
+      pagination: false,
+      sort: '-publishedAt',
+      depth: 1,
+    }),
+    payload.findGlobal({ slug: 'site-settings' as any, depth: 1 }),
+  ])
+
+  const heroImageUrl =
+    siteSettings?.blogueHeroImage &&
+    typeof siteSettings.blogueHeroImage === 'object' &&
+    'url' in siteSettings.blogueHeroImage
+      ? (siteSettings.blogueHeroImage as any).url
+      : null
 
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        eyebrow="Blogue santé"
-        title="La santé, expliquée simplement."
+        title="La sante, expliquee simplement."
         description="Des articles simples et utiles pour mieux comprendre les douleurs, les habitudes de travail, la posture et les raisons de consulter."
+        imageUrl={heroImageUrl}
       />
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <section className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8">
         {posts.docs.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {posts.docs.map((post: any) => {

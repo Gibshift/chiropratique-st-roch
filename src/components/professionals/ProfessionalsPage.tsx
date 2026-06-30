@@ -5,27 +5,33 @@ import { PageHero } from '@/components/ui/PageHero'
 export async function ProfessionalsPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const professionals = await payload.find({
-    collection: 'professionals' as any,
-    limit: 100,
-    depth: 1,
-    sort: 'order',
-    where: {
-      isActive: {
-        equals: true,
-      },
-    },
-  })
+  const [professionals, siteSettings] = await Promise.all([
+    payload.find({
+      collection: 'professionals' as any,
+      limit: 100,
+      depth: 1,
+      sort: 'order',
+      where: { isActive: { equals: true } },
+    }),
+    payload.findGlobal({ slug: 'site-settings' as any, depth: 1 }),
+  ])
+
+  const heroImageUrl =
+    siteSettings?.professionalsHeroImage &&
+    typeof siteSettings.professionalsHeroImage === 'object' &&
+    'url' in siteSettings.professionalsHeroImage
+      ? (siteSettings.professionalsHeroImage as any).url
+      : null
 
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        eyebrow="Professionnels"
-        title="Une équipe multidisciplinaire au service de votre mieux-être."
-        description="Découvrez les professionnels de la clinique, leurs services, leur approche et leurs intérêts cliniques."
+        title="Une equipe multidisciplinaire au service de votre mieux-etre."
+        description="Decouvrez les professionnels de la clinique, leurs services, leur approche et leurs interets cliniques."
+        imageUrl={heroImageUrl}
       />
 
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-8">
         {professionals.docs.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {professionals.docs.map((professional: any) => {

@@ -5,22 +5,27 @@ import { PageHero } from '@/components/ui/PageHero'
 export async function ConditionsPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const conditions = await payload.find({
-    collection: 'conditions' as any,
-    limit: 100,
-    depth: 1,
-    sort: 'order',
-  })
+  const [conditions, siteSettings] = await Promise.all([
+    payload.find({ collection: 'conditions' as any, limit: 100, depth: 1, sort: 'order' }),
+    payload.findGlobal({ slug: 'site-settings' as any, depth: 1 }),
+  ])
+
+  const heroImageUrl =
+    siteSettings?.conditionsHeroImage &&
+    typeof siteSettings.conditionsHeroImage === 'object' &&
+    'url' in siteSettings.conditionsHeroImage
+      ? (siteSettings.conditionsHeroImage as any).url
+      : null
 
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        eyebrow="Conditions traitées"
         title="Mieux comprendre vos douleurs et vos inconforts."
-        description="Cette section regroupe les conditions fréquemment rencontrées à la clinique afin de vous aider à trouver de l'information claire avant de consulter."
+        description="Cette section regroupe les conditions frequemment rencontrees a la clinique afin de vous aider a trouver de l'information claire avant de consulter."
+        imageUrl={heroImageUrl}
       />
 
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-8">
         {conditions.docs.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {conditions.docs.map((condition: any) => (
