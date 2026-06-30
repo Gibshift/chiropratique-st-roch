@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
 
@@ -123,6 +124,7 @@ function renderServiceIcon(slug: string) {
 function SectionAccent({ className }: { className?: string }) {
   return <div className={`h-[3px] w-20 bg-red-600 ${className ?? ''}`} />
 }
+
 
 function ConditionAccent({ index }: { index: number }) {
   const configs = [
@@ -256,19 +258,34 @@ export async function ClinicHomePage() {
       ? siteSettings.homeHeroImage.url
       : null
 
+  const conditionsSectionImageUrl =
+    siteSettings &&
+    typeof siteSettings === 'object' &&
+    'conditionsSectionImage' in siteSettings &&
+    (siteSettings as any).conditionsSectionImage &&
+    typeof (siteSettings as any).conditionsSectionImage === 'object' &&
+    'url' in (siteSettings as any).conditionsSectionImage
+      ? (siteSettings as any).conditionsSectionImage.url
+      : null
+
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-      <section className="relative min-h-[820px] overflow-hidden">
-        {homeHeroImageUrl ? (
-          <Image src={homeHeroImageUrl} alt="" fill priority sizes="100vw" className="object-cover" />
-        ) : null}
+      <section className="bg-[#f6f1e8]">
+        <div className="relative mx-auto flex min-h-[820px] max-w-[1200px] items-center overflow-hidden px-6 pt-36 lg:px-8 lg:pt-16">
 
-        {/* voile beige, opaque à gauche, fondu vers le centre */}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_28%,rgba(246,241,232,0.92)_38%,rgba(246,241,232,0.65)_48%,rgba(246,241,232,0.18)_58%,rgba(246,241,232,0)_68%)]" />
+          {/* Image côté droit dans le 1200px */}
+          {homeHeroImageUrl && (
+            <div className="absolute inset-y-0 left-0 right-6 lg:right-8">
+              <Image src={homeHeroImageUrl} alt="" fill priority sizes="1200px" className="object-contain object-right-bottom" />
+            </div>
+          )}
 
-        <div className="relative flex min-h-[820px] items-center">
-          <div className="relative mx-auto w-full max-w-[1200px] px-6 pt-36 lg:px-8 lg:pt-16">
+          {/* Voile beige gauche */}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_28%,rgba(246,241,232,0.92)_38%,rgba(246,241,232,0.65)_48%,rgba(246,241,232,0.18)_58%,rgba(246,241,232,0)_68%)]" />
+
+          {/* Contenu */}
+          <div className="relative w-full">
             <div className="max-w-[560px]">
               <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-red-600">
                 Soins manuels · corps en mouvement
@@ -292,7 +309,6 @@ export async function ClinicHomePage() {
                 className="group mt-5 inline-flex min-h-[50px] items-center gap-4 border border-red-600 px-6 text-[11px] font-bold uppercase tracking-[0.16em] text-red-700 transition hover:bg-red-700 hover:text-white"
               >
                 <span>Prendre rendez-vous</span>
-
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 44 10"
@@ -327,7 +343,8 @@ export async function ClinicHomePage() {
 
       {/* SERVICES */}
       {hasServices && (
-        <section className="border-b border-zinc-200 bg-white">
+        <section className="relative z-10 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+          <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
             <div className="grid items-stretch gap-12 xl:grid-cols-[320px_1fr] xl:gap-16">
               {/* COLONNE GAUCHE */}
@@ -360,7 +377,7 @@ export async function ClinicHomePage() {
               {/* COLONNE DROITE */}
                 <div className="flex flex-col">
                   {/* RANGÉE 01-02-03 */}
-                  <div className="grid border-l border-t border-zinc-400 md:grid-cols-2 xl:grid-cols-3">
+                  <div className="grid border-l border-t border-zinc-400 md:grid-cols-3 xl:grid-cols-3">
                     {orderedServices.slice(0, 3).map((service: any, index: number) => {
                       return (
                         <Link
@@ -383,7 +400,7 @@ export async function ClinicHomePage() {
                   </div>
 
                   {/* RANGÉE 04-05-06 */}
-                    <div className="grid md:grid-cols-2 xl:grid-cols-[1.08fr_1.08fr_0.84fr]">
+                    <div className="grid border-l border-zinc-400 xl:border-l-0 md:grid-cols-3 xl:grid-cols-[1.08fr_1.08fr_0.84fr]">
                       {orderedServices.slice(3, 5).map((service: any, index: number) => {
                         const serviceIndex = index + 3
                         const isFourth = index === 0
@@ -394,15 +411,18 @@ export async function ClinicHomePage() {
                             href={`/services/${service.slug}`}
                             className={`group relative flex min-h-[300px] min-w-0 flex-col overflow-hidden px-5 py-6 transition duration-300 ${
                               isFourth
-                                ? 'bg-transparent'
+                                ? 'border-b border-r border-zinc-400 bg-transparent xl:border-b-0 xl:border-r-0'
                                 : 'border-b border-r border-zinc-400 bg-[#f8f6f1] hover:bg-white'
                             }`}
                           >
                             {isFourth && (
                               <>
-                                {/* FOND DÉCOUPÉ DE LA CASE 04 */}
+                                {/* FOND MOBILE — fond plein, pas d'escalier */}
+                                <div className="absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white xl:hidden" />
+
+                                {/* FOND DÉCOUPÉ DE LA CASE 04 — desktop xl seulement */}
                                 <div
-                                  className="absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white"
+                                  className="hidden xl:block absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white"
                                   style={{
                                     clipPath: [
                                       "polygon(",
@@ -415,21 +435,20 @@ export async function ClinicHomePage() {
                                   }}
                                 />
 
-                                {/* CONTOUR NORMAL DE LA CASE 04 */}
+                                {/* CONTOUR NORMAL DE LA CASE 04 — desktop xl seulement */}
+                                <span className="pointer-events-none absolute right-0 top-0 h-full w-px bg-zinc-400 hidden xl:block" />
+                                <span className="pointer-events-none absolute bottom-0 left-[90px] right-0 h-px bg-zinc-400 hidden xl:block" />
+                                <span className="pointer-events-none absolute left-0 top-0 bottom-[90px] w-px bg-zinc-400 hidden xl:block" />
 
-                                <span className="pointer-events-none absolute right-0 top-0 h-full w-px bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-0 left-[90px] right-0 h-px bg-zinc-400" />
-                                <span className="pointer-events-none absolute left-0 top-0 bottom-[90px] w-px bg-zinc-400" />
+                                {/* CONTOUR DE L'ESCALIER — 3 MARCHES — desktop xl seulement */}
+                                <span className="pointer-events-none absolute bottom-[90px] left-0 h-px w-[30px] bg-zinc-400 hidden xl:block" />
+                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
 
-                                {/* CONTOUR DE L'ESCALIER — 3 MARCHES */}
-                                <span className="pointer-events-none absolute bottom-[90px] left-0 h-px w-[30px] bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-[30px] w-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
+                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
 
-                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-px w-[30px] bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-[30px] w-px bg-zinc-400" />
-
-                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-px w-[30px] bg-zinc-400" />
-                                <span className="pointer-events-none absolute bottom-0 left-[90px] h-[30px] w-px bg-zinc-400" />
+                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
+                                <span className="pointer-events-none absolute bottom-0 left-[90px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
                               </>
                             )}
 
@@ -482,29 +501,30 @@ export async function ClinicHomePage() {
             </div>
            </div> 
           </div>
+          </ScrollReveal>
         </section>
       )}
 
       {/* CONDITIONS */}
       {hasConditions && (
-        <section className="border-b border-zinc-200 bg-[#f6f1e8]">
-          <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-            <div className="relative py-24">
+        <section className="relative z-20 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+          <div className="relative mx-auto max-w-[1200px] overflow-hidden px-6 lg:px-8">
+            {/* ILLUSTRATION — pleine hauteur, droite, dans le 1200px */}
+            {conditionsSectionImageUrl && (
+              <div className="absolute top-24 bottom-24 -right-6 hidden w-[62%] lg:-right-8 lg:block">
+                <Image
+                  src={conditionsSectionImageUrl}
+                  alt="Chiropratique St-Roch"
+                  fill
+                  sizes="800px"
+                  className="object-contain object-right-center"
+                />
+                {/* Voile beige à gauche là où l'image chevauche le texte */}
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_8%,rgba(246,241,232,0.7)_25%,rgba(246,241,232,0)_45%)]" />
+              </div>
+            )}
 
-            {/* IMAGE VILLE — bloc rectangulaire, espacé du haut et bas */}
-            <div className="absolute right-0 top-24 bottom-24 hidden w-[42%] overflow-hidden lg:block">
-              <Image
-                src="/media/ville-site-web-complet.png"
-                alt=""
-                fill
-                sizes="480px"
-                className="object-cover object-center"
-              />
-              {/* Fondu discret sur le bord gauche seulement */}
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,rgba(246,241,232,0.6)_12%,rgba(246,241,232,0)_28%)]" />
-            </div>
-
-            <div className="relative">
+            <ScrollReveal><div className="relative py-24">
               <div className="max-w-[520px]">
                 <div className="mb-4">
                   <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
@@ -540,15 +560,15 @@ export async function ClinicHomePage() {
                 Voir toutes les conditions
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
               </a>
-            </div>
-          </div>
+            </div></ScrollReveal>
           </div>
         </section>
       )}
 
       {/* PROFESSIONNELS */}
       {hasProfessionals && (
-        <section className="border-b border-zinc-200 bg-white">
+        <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+          <ScrollReveal>
           <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
             <div>
               <div className="mb-4">
@@ -613,7 +633,7 @@ export async function ClinicHomePage() {
                 >
                   <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-40" />
                   <div className="relative">
-                    <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
+                    <h3 className="font-[var(--font-barlow-condensed)] text-[clamp(1.2rem,3vw,1.8rem)] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
                       Rencontrer l'équipe
                     </h3>
                   </div>
@@ -649,6 +669,7 @@ export async function ClinicHomePage() {
               )
             })()}
           </div>
+          </ScrollReveal>
         </section>
       )}
 
@@ -661,7 +682,8 @@ export async function ClinicHomePage() {
         const recentPost = remainingPosts.find((_: any, i: number) => i !== popularIndex) ?? null
 
         return (
-          <section className="border-b border-zinc-200 bg-[#f6f1e8]">
+          <section className="relative z-40 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+            <ScrollReveal>
             <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
 
               {/* En-tête section */}
@@ -757,11 +779,17 @@ export async function ClinicHomePage() {
               </div>
 
             </div>
+            </ScrollReveal>
           </section>
         )
       })()}
     </main>
   )
 }
+
+
+
+
+
 
 

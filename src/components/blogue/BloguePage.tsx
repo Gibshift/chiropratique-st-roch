@@ -1,8 +1,8 @@
-﻿import configPromise from '@payload-config'
+import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Link from 'next/link'
-import React from 'react'
 import { PageHero } from '@/components/ui/PageHero'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 export async function BloguePage() {
   const payload = await getPayload({ config: configPromise })
@@ -35,7 +35,9 @@ export async function BloguePage() {
         imageUrl={heroImageUrl}
       />
 
-      <section className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8">
+      <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+        <ScrollReveal>
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8">
         {posts.docs.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {posts.docs.map((post: any) => {
@@ -56,19 +58,15 @@ export async function BloguePage() {
                 <Link
                   key={post.id}
                   href={`/blogue/${post.slug}`}
-                  className="group flex min-h-[280px] flex-col rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-md"
+                  className="group flex min-h-[280px] flex-col border border-zinc-200 bg-white p-7 transition hover:border-red-600"
                 >
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-xl font-bold text-red-700">
-                    +
-                  </div>
-
                   {publishedDate && (
-                    <p className="text-sm font-medium text-zinc-500">
+                    <p className="text-xs font-medium uppercase tracking-[0.14em] text-zinc-400">
                       {publishedDate}
                     </p>
                   )}
 
-                  <h2 className="mt-3 text-2xl font-bold tracking-tight text-zinc-950 group-hover:text-red-700">
+                  <h2 className="mt-3 text-xl font-bold tracking-tight text-zinc-950 group-hover:text-red-600">
                     {post.title}
                   </h2>
 
@@ -76,7 +74,7 @@ export async function BloguePage() {
                     {excerpt}
                   </p>
 
-                  <span className="mt-auto pt-6 font-semibold text-red-700">
+                  <span className="mt-auto pt-6 font-semibold text-red-600 transition group-hover:text-red-700">
                     Lire l'article →
                   </span>
                 </Link>
@@ -84,14 +82,13 @@ export async function BloguePage() {
             })}
           </div>
         ) : (
-          <div className="rounded-3xl border border-dashed border-zinc-300 p-10 text-center">
-            <h2 className="text-2xl font-bold">Aucun article publié pour le moment.</h2>
-
-            <p className="mt-4 text-zinc-600">
-              Les articles ajoutés dans l'admin apparaîtront ici automatiquement.
-            </p>
+          <div className="border border-zinc-200 p-10 text-center">
+            <h2 className="text-2xl font-bold text-zinc-950">Aucun article publie pour le moment.</h2>
+            <p className="mt-4 text-zinc-600">Les articles ajoutes dans l'admin apparaitront ici automatiquement.</p>
           </div>
         )}
+        </div>
+        </ScrollReveal>
       </section>
     </main>
   )

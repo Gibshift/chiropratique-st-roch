@@ -1758,6 +1758,10 @@ export interface SiteSetting {
     googleBusiness?: string | null;
   };
   /**
+   * Image decorative affichee a droite dans la section Conditions traitees de la page d'accueil.
+   */
+  conditionsSectionImage?: (number | null) | Media;
+  /**
    * Image de fond de la section hero sur la page Services.
    */
   servicesHeroImage?: (number | null) | Media;
@@ -1865,6 +1869,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         instagram?: T;
         googleBusiness?: T;
       };
+  conditionsSectionImage?: T;
   servicesHeroImage?: T;
   conditionsHeroImage?: T;
   professionalsHeroImage?: T;

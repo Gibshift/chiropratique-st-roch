@@ -202,6 +202,15 @@ export const SiteSettings: GlobalConfig = {
           label: 'Images des pages',
           fields: [
             {
+              name: 'conditionsSectionImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image section Conditions (page d\'accueil)',
+              admin: {
+                description: 'Image decorative affichee a droite dans la section Conditions traitees de la page d\'accueil.',
+              },
+            },
+            {
               name: 'servicesHeroImage',
               type: 'upload',
               relationTo: 'media',
