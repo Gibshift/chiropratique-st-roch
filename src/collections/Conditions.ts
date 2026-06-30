@@ -154,6 +154,21 @@ export const Conditions: CollectionConfig = {
           label: 'Affichage',
           fields: [
             {
+              name: 'categorie',
+              type: 'select',
+              label: 'Catégorie',
+              admin: {
+                description: 'Catégorie de la condition pour le regroupement sur la page Conditions traitées.',
+              },
+              options: [
+                { label: 'Membres inférieurs', value: 'membres-inferieurs' },
+                { label: 'Membres supérieurs', value: 'membres-superieurs' },
+                { label: 'Dos et sacrum', value: 'dos-sacrum' },
+                { label: 'Tête et cou', value: 'tete-cou' },
+                { label: 'Mâchoire', value: 'machoire' },
+              ],
+            },
+            {
               name: 'isFeatured',
               type: 'checkbox',
               label: 'Afficher sur la page d’accueil',

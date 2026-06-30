@@ -6,20 +6,20 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 function getGridClass(count: number) {
   if (count === 1) return 'grid-cols-1 max-w-sm'
-  if (count === 2) return 'grid-cols-2'
-  if (count === 4 || count === 5) return 'grid-cols-6'
-  return 'md:grid-cols-2 lg:grid-cols-3'
+  if (count === 2) return 'grid-cols-1 md:grid-cols-2'
+  if (count === 4 || count === 5) return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-6'
+  return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
 }
 
 function getCardClass(index: number, total: number) {
   if (total === 4) {
-    if (index < 3) return 'col-span-2'
-    return 'col-start-3 col-span-2'
+    if (index < 3) return 'lg:col-span-2'
+    return 'lg:col-start-3 lg:col-span-2'
   }
   if (total === 5) {
-    if (index < 3) return 'col-span-2'
-    if (index === 3) return 'col-start-2 col-span-2'
-    return 'col-start-4 col-span-2'
+    if (index < 3) return 'lg:col-span-2'
+    if (index === 3) return 'lg:col-start-2 lg:col-span-2'
+    return 'lg:col-start-4 lg:col-span-2'
   }
   return ''
 }

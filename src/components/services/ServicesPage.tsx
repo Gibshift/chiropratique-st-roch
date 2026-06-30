@@ -1,27 +1,16 @@
-﻿import configPromise from '@payload-config'
+import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import Image from 'next/image'
 import { PageHero } from '@/components/ui/PageHero'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
-function getGridClass(count: number) {
-  if (count === 1) return 'grid-cols-1 max-w-sm'
-  if (count === 2) return 'grid-cols-2'
-  if (count === 4 || count === 5) return 'grid-cols-6'
-  return 'md:grid-cols-2 lg:grid-cols-3'
-}
-
-function getCardClass(index: number, total: number) {
-  if (total === 4) {
-    if (index < 3) return 'col-span-2'
-    return 'col-start-3 col-span-2'
-  }
-  if (total === 5) {
-    if (index < 3) return 'col-span-2'
-    if (index === 3) return 'col-start-2 col-span-2'
-    return 'col-start-4 col-span-2'
-  }
-  return ''
-}
+const cardHeights = [
+  'lg:h-[180px]',
+  'lg:h-[320px]',
+  'lg:h-[240px]',
+  'lg:h-[400px]',
+  'lg:h-[120px]',
+]
 
 export async function ServicesPage() {
   const payload = await getPayload({ config: configPromise })
@@ -38,48 +27,93 @@ export async function ServicesPage() {
       ? (siteSettings.servicesHeroImage as any).url
       : null
 
-  const count = services.docs.length
-
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        title="Des soins adaptes a votre realite."
-        description="La clinique regroupe plusieurs professionnels afin d'offrir une approche adaptee aux douleurs, tensions, blessures et inconforts du quotidien."
+        title="Des soins adaptés à votre réalité."
+        description="La clinique regroupe plusieurs professionnels afin d'offrir une approche adaptée aux douleurs, tensions, blessures et inconforts du quotidien."
         imageUrl={heroImageUrl}
       />
 
-      <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+      <section className="relative z-10 -mt-4 overflow-x-hidden bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <ScrollReveal>
-        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-8">
-        {count > 0 ? (
-          <div className={`grid gap-6 ${getGridClass(count)}`}>
-            {services.docs.map((service: any, index: number) => (
-              <article
-                key={service.id}
-                className={`flex flex-col border border-zinc-200 bg-white p-6 ${getCardClass(index, count)}`}
-              >
-                <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-zinc-950">{service.title}</h2>
-                  <p className="mt-4 leading-7 text-zinc-600">{service.shortDescription}</p>
+          <div className="relative mx-auto max-w-[1200px] px-6 lg:px-8">
+
+            {/* Image décorative — femme montant l'escalier */}
+            <div
+              className="pointer-events-none absolute hidden lg:block"
+              style={{ bottom: '32px', left: 'calc(13% - 310px)' }}
+            >
+              <Image
+                src="/media/femme-monte-escalier-services.png"
+                alt=""
+                width={291}
+                height={432}
+                className="object-contain object-bottom"
+              />
+            </div>
+
+            {/* Image décorative — femme escaladant le mur de Kinésithérapie */}
+            <div
+              className="pointer-events-none absolute hidden lg:block"
+              style={{ bottom: '145px', left: 'calc(80% - 150px)', transform: 'rotate(8deg)' }}
+            >
+              <Image
+                src="/media/homme-escalade-services.png"
+                alt=""
+                width={205}
+                height={346}
+                className="object-contain object-bottom"
+              />
+            </div>
+
+            {/* Intro multidisciplinarité */}
+            <div className="pb-10 pt-16 text-center lg:pb-14 lg:pt-24">
+              <h2 className="mx-auto max-w-[800px] font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,2.5vw,2rem)] font-medium uppercase leading-[1.0] tracking-[0.02em] text-zinc-950">
+                <span className="text-red-600">P</span>lusieurs services sous un même toit, mais pourquoi?
+              </h2>
+              <p className="mx-auto mt-8 max-w-[860px] text-[1.05rem] leading-8 text-zinc-500">
+                Parce que chaque patient est différent, nous croyons qu'une seule expertise ne suffit pas à répondre à tous les besoins en santé. C'est pourquoi, depuis plus de 15 ans, nous réunissons plusieurs professionnels sous un même toit pour vous offrir des soins complets et adaptés à vous.
+              </p>
+            </div>
+
+            {/* Grille des services — hauteurs variées */}
+            {services.docs.length > 0 ? (
+              <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 lg:items-end">
+                  {services.docs.map((service: any, index: number) => {
+                    const title = (service.title as string).toUpperCase()
+                    const firstLetter = title.charAt(0)
+                    const rest = title.slice(1)
+                    const height = cardHeights[index] ?? 'lg:h-[200px]'
+
+                    return (
+                      <a
+                        key={service.id}
+                        href={`/services/${service.slug}`}
+                        className={`group flex flex-col justify-end min-h-[140px] border border-zinc-200 bg-white px-6 pb-8 pt-6 transition hover:bg-zinc-50 lg:-ml-[1px] lg:min-h-0 lg:pt-0 first:lg:ml-0 ${height}`}
+                      >
+                        <h3 className="font-[var(--font-barlow-condensed)] text-[clamp(1.1rem,1.5vw,1.35rem)] font-medium uppercase leading-none tracking-[0.02em]">
+                          <span className="text-red-600">{firstLetter}</span>
+                          <span className="text-zinc-950">{rest}</span>
+                        </h3>
+                        <span className="mt-4 inline-flex items-center gap-1 text-[0.85rem] font-semibold text-red-600 transition group-hover:gap-2">
+                          En savoir plus <span>→</span>
+                        </span>
+                      </a>
+                    )
+                  })}
                 </div>
-                <div className="mt-8">
-                  <a
-                    href={`/services/${service.slug}`}
-                    className="block border border-zinc-300 px-5 py-3 text-center font-semibold text-zinc-950 transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
-                  >
-                    En savoir plus
-                  </a>
-                </div>
-              </article>
-            ))}
+
+              </div>
+            ) : (
+              <div className="border border-zinc-200 p-10 text-center">
+                <h2 className="text-2xl font-bold text-zinc-950">Aucun service publie pour le moment.</h2>
+                <p className="mt-3 text-zinc-600">Ajoute des services dans l'admin Payload pour les afficher ici.</p>
+              </div>
+            )}
+
           </div>
-        ) : (
-          <div className="border border-zinc-200 p-10 text-center">
-            <h2 className="text-2xl font-bold text-zinc-950">Aucun service publie pour le moment.</h2>
-            <p className="mt-3 text-zinc-600">Ajoute des services dans l'admin Payload pour les afficher ici.</p>
-          </div>
-        )}
-        </div>
         </ScrollReveal>
       </section>
     </main>

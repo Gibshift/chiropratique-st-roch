@@ -484,6 +484,10 @@ export interface Condition {
    */
   relatedProfessionals?: (number | Professional)[] | null;
   /**
+   * Catégorie de la condition pour le regroupement sur la page Conditions traitées.
+   */
+  categorie?: ('membres-inferieurs' | 'membres-superieurs' | 'dos-sacrum' | 'tete-cou' | 'machoire') | null;
+  /**
    * Active cette condition dans la section Conditions traitées de la page d’accueil.
    */
   isFeatured?: boolean | null;
@@ -1199,6 +1203,7 @@ export interface ConditionsSelect<T extends boolean = true> {
       };
   relatedServices?: T;
   relatedProfessionals?: T;
+  categorie?: T;
   isFeatured?: T;
   order?: T;
   seo?:

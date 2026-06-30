@@ -23,8 +23,8 @@ export function PageHero({ title, description, imageUrl, pattern, children }: Pa
         />
       )}
 
-      <div className="relative mx-auto flex min-h-[820px] max-w-[1200px] flex-col items-center justify-center px-6 pt-36 text-center lg:px-8 lg:pt-16">
-        <h1 className="mx-auto max-w-[1000px] font-[var(--font-barlow-condensed)] text-[clamp(2.4rem,6vw,4.8rem)] font-medium uppercase leading-[0.9] tracking-[0.01em] text-zinc-950">
+      <div className="relative mx-auto flex min-h-[580px] max-w-[1200px] flex-col items-center justify-center px-6 pt-32 text-center lg:px-8 lg:pt-20">
+        <h1 className="mx-auto max-w-[1000px] font-[var(--font-barlow-condensed)] text-[clamp(2.4rem,6vw,4.8rem)] font-medium uppercase leading-[1.15] tracking-[0.06em] text-zinc-950">
           {title}
         </h1>
 
