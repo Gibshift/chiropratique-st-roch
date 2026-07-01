@@ -266,34 +266,36 @@ export async function ClinicHomePage() {
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-      <section className="bg-[#f6f1e8]">
-        <div className="relative mx-auto flex min-h-[820px] max-w-[1200px] items-center overflow-hidden px-6 pt-36 lg:px-8 lg:pt-16">
+      <section className="relative min-h-[82vh] bg-[#f6f1e8]">
 
-          {/* Image côté droit dans le 1200px */}
+          {/* Photo — commence à 33% du bord gauche */}
           {homeHeroImageUrl && (
-            <div className="absolute inset-y-0 left-0 right-6 lg:right-8">
-              <Image src={homeHeroImageUrl} alt="" fill priority sizes="1200px" className="object-contain object-right-bottom" />
+            <div className="absolute bottom-0 right-0 top-0 left-[33%]">
+              <Image src={homeHeroImageUrl} alt="" fill priority sizes="67vw" className="object-cover object-left" />
             </div>
           )}
 
-          {/* Voile beige gauche */}
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_28%,rgba(246,241,232,0.92)_38%,rgba(246,241,232,0.65)_48%,rgba(246,241,232,0.18)_58%,rgba(246,241,232,0)_68%)]" />
+          {/* Fondu — plein beige sur et après la ligne, fond vers transparent */}
+          <div className="pointer-events-none absolute inset-y-0 left-[33%] w-[15%] bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_20%,rgba(246,241,232,0)_100%)]" />
 
-          {/* Contenu */}
-          <div className="relative w-full">
-            <div className="max-w-[560px]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-red-600">
+          {/* Contenu full-width — s'étale sur toute la hauteur du hero */}
+          <div className="relative flex min-h-[70vh] w-full items-stretch justify-between px-6 lg:px-20 xl:px-28">
+
+            {/* Gauche — bloc groupé, centré verticalement */}
+            <div className="flex w-full flex-col pt-60 pb-20 lg:max-w-[33%]">
+
+              <p className="whitespace-nowrap text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
                 Soins manuels · corps en mouvement
               </p>
 
-              <h1 className="mt-8 max-w-[620px] text-left font-[var(--font-barlow-condensed)] text-[clamp(2.2rem,8vw,5.5rem)] font-medium uppercase leading-[1.0] tracking-[0.01em] text-zinc-950 xl:tracking-[0.02em]">
+              <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,8vw,8rem)] font-medium uppercase leading-[1.0] tracking-[0.01em] text-zinc-950">
                 Chiropratique
-                <span className="block text-red-600">St-Roch</span>
+                <span className="block whitespace-nowrap text-red-600">St-Roch</span>
               </h1>
 
-              <SectionAccent className="mt-8" />
+              <SectionAccent className="mt-7" />
 
-              <p className="mt-7 max-w-[420px] text-left text-[1.1rem] leading-8 text-zinc-800">
+              <p className="mt-7 text-[1.25rem] leading-8 text-zinc-800">
                 Une clinique, plusieurs disciplines,<br />une seule priorité : vous.
               </p>
 
@@ -301,7 +303,7 @@ export async function ClinicHomePage() {
                 href={janeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-5 inline-flex min-h-[50px] items-center gap-4 border border-red-600 px-6 text-[11px] font-bold uppercase tracking-[0.16em] text-red-700 transition hover:bg-red-700 hover:text-white"
+                className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-700 transition hover:bg-red-700 hover:text-white"
               >
                 <span>Prendre rendez-vous</span>
                 <svg
@@ -321,19 +323,15 @@ export async function ClinicHomePage() {
               </a>
             </div>
 
-            <div className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 lg:block lg:right-0 xl:right-4">
-              <p className="text-right text-[40px] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
-                Bougez
-                <br />
-                Mieux.
-                <br />
-                Vivez
-                <br />
-                Mieux.
+            {/* Droite — BOUGEZ MIEUX aligné avec le top de CHIROPRATIQUE */}
+            <div className="pointer-events-none hidden shrink-0 self-start mt-[17.3rem] lg:flex lg:items-stretch lg:gap-3">
+              <div className="my-[0.5em] w-[2px] shrink-0 bg-red-600" />
+              <p className="text-left text-[clamp(1.6rem,2.8vw,2.4rem)] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
+                Bougez<br />Mieux.<br />Vivez<br />Mieux.
               </p>
             </div>
+
           </div>
-        </div>
       </section>
 
       {/* SERVICES */}

@@ -45,28 +45,28 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 text-zinc-950 transition-all duration-300 ${scrolled ? 'bg-white/95 shadow-sm backdrop-blur-sm' : ''}`}
+      className={`fixed inset-x-0 top-0 z-50 text-zinc-950 backdrop-blur-sm transition-all duration-300 ${scrolled ? 'bg-white/95 shadow-sm' : 'bg-white/75'}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className={`mx-auto max-w-[1200px] px-6 lg:px-8 transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}>
-        <div className="grid grid-cols-[auto_auto] items-center justify-between gap-6 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
-          <Link href="/" className="flex shrink-0 items-center gap-4">
+      <div className="w-full pr-6 lg:pr-10 xl:pr-16 transition-all duration-300">
+        <div className="grid grid-cols-[auto_auto] items-stretch justify-between gap-6 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
+          <Link href="/" className="flex shrink-0 items-center gap-4 self-stretch">
             <Image
               src="/logo-st-roch.png"
               alt="Logo Chiropratique St-Roch"
               width={80}
               height={80}
-              className="h-20 w-20 object-cover"
+              className={`h-full w-auto object-cover transition-all duration-300 ${scrolled ? 'max-h-[70px]' : 'max-h-[96px]'}`}
               priority
             />
 
-            <span className="font-[var(--font-barlow-condensed)] text-[16px] font-medium uppercase leading-none tracking-[0.28em] text-zinc-950 xl:hidden">
+            <span className="hidden 2xl:inline font-[var(--font-barlow-condensed)] text-[16px] font-medium uppercase leading-none tracking-[0.28em] text-zinc-950">
               Multiclinique
             </span>
           </Link>
 
           {/* NAV DESKTOP */}
-          <div className="hidden justify-center xl:flex">
+          <div className="hidden items-center justify-center xl:flex">
             <HeaderNav data={data} />
           </div>
 
@@ -75,7 +75,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
             href={janeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden min-h-[54px] min-w-[190px] items-center justify-center whitespace-nowrap border border-red-600 bg-white/90 px-5 text-red-600 backdrop-blur-sm transition hover:bg-red-600 hover:text-white xl:inline-flex"
+            className="hidden min-h-[54px] min-w-[190px] self-center items-center justify-center whitespace-nowrap border border-red-600 bg-white/90 px-5 text-red-600 backdrop-blur-sm transition hover:bg-red-600 hover:text-white xl:inline-flex"
           >
             <span className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.22em]">
               Prendre rendez-vous
@@ -86,7 +86,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
           <button
             type="button"
             onClick={() => setIsOpen((value) => !value)}
-            className="justify-self-end border border-zinc-300 bg-white/90 px-8 py-3 text-sm font-semibold backdrop-blur xl:hidden"
+            className="inline-flex min-h-[54px] self-center items-center justify-self-end border border-zinc-300 bg-white/90 px-8 text-sm font-semibold backdrop-blur xl:hidden"
             aria-expanded={isOpen}
             aria-label="Ouvrir le menu"
           >

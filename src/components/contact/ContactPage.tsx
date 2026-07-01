@@ -1,18 +1,14 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { PageHero } from '@/components/ui/PageHero'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
 
 function extractMapSrc(value?: string | null) {
   if (!value) return null
-
   const match = value.match(/src=["']([^"']+)["']/)
-
-  if (match?.[1]) {
-    return match[1]
-  }
-
-  return value
+  return match?.[1] ?? value
 }
 
 export async function ContactPage() {
@@ -23,244 +19,129 @@ export async function ContactPage() {
     depth: 0,
   })
 
-  const clinicName =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'clinicName' in siteSettings &&
-    typeof siteSettings.clinicName === 'string'
-      ? siteSettings.clinicName
-      : 'Chiropratique St-Roch'
+  const settings: any = siteSettings || {}
 
-  const janeUrl =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'mainJaneUrl' in siteSettings &&
-    typeof siteSettings.mainJaneUrl === 'string' &&
-    siteSettings.mainJaneUrl.length > 0
-      ? siteSettings.mainJaneUrl
-      : FALLBACK_JANE_URL
+  const clinicName = settings.clinicName || 'Chiropratique St-Roch'
+  const janeUrl = settings.mainJaneUrl || FALLBACK_JANE_URL
+  const phone = settings.phone || null
+  const email = settings.email || null
+  const openingHours = Array.isArray(settings.openingHours) ? settings.openingHours : []
 
-  const phone =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'phone' in siteSettings &&
-    typeof siteSettings.phone === 'string'
-      ? siteSettings.phone
-      : null
-
-  const email =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'email' in siteSettings &&
-    typeof siteSettings.email === 'string'
-      ? siteSettings.email
-      : null
-
-  const address =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'address' in siteSettings &&
-    siteSettings.address &&
-    typeof siteSettings.address === 'object'
-      ? siteSettings.address
-      : null
-
-  const openingHours =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'openingHours' in siteSettings &&
-    Array.isArray(siteSettings.openingHours)
-      ? siteSettings.openingHours
-      : []
-
-  const googleMapsValue =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'googleMapsEmbedUrl' in siteSettings &&
-    typeof siteSettings.googleMapsEmbedUrl === 'string'
-      ? siteSettings.googleMapsEmbedUrl
-      : null
-
-  const mapSrc = extractMapSrc(googleMapsValue)
-
-  const street =
-    address && 'street' in address && typeof address.street === 'string'
-      ? address.street
-      : null
-
-  const city =
-    address && 'city' in address && typeof address.city === 'string'
-      ? address.city
-      : null
-
-  const province =
-    address && 'province' in address && typeof address.province === 'string'
-      ? address.province
-      : null
-
-  const postalCode =
-    address && 'postalCode' in address && typeof address.postalCode === 'string'
-      ? address.postalCode
-      : null
-
+  const address = settings.address || {}
+  const street = address.street || null
+  const city = address.city || null
+  const province = address.province || null
+  const postalCode = address.postalCode || null
   const fullAddress = [street, city, province, postalCode].filter(Boolean).join(', ')
+
+  const mapSrc = extractMapSrc(settings.googleMapsEmbedUrl)
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="border-b border-zinc-200 bg-zinc-950 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <p className="font-semibold text-red-300">Contact</p>
+      <PageHero
+        title="Nous joindre."
+        description="Prenez rendez-vous en ligne ou contactez la clinique directement pour toute question."
+      />
 
-          <h1 className="mt-4 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
-            Nous joindre et trouver la clinique.
-          </h1>
+      <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+        <ScrollReveal>
+          <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-8">
+            <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
 
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
-            Prenez rendez-vous en ligne avec Jane ou contactez directement la clinique pour toute
-            question générale.
-          </p>
+              {/* Colonne gauche — infos */}
+              <div className="flex flex-col gap-3">
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a
-              href={janeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-red-700 px-7 py-4 text-center font-semibold text-white transition hover:bg-red-800"
-            >
-              Prendre rendez-vous
-            </a>
+                {/* Adresse */}
+                <div className="border border-zinc-200 p-8">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-red-600">
+                    Adresse
+                  </p>
+                  <p className="mt-3 font-[var(--font-barlow-condensed)] text-[1.1rem] font-medium uppercase tracking-[0.02em] text-zinc-950">
+                    {clinicName}
+                  </p>
+                  {fullAddress ? (
+                    <p className="mt-2 leading-7 text-zinc-500">{fullAddress}</p>
+                  ) : (
+                    <p className="mt-2 text-zinc-400">Adresse à configurer dans les réglages.</p>
+                  )}
+                </div>
 
-            {phone && (
-              <a
-                href={`tel:${phone.replace(/\D/g, '')}`}
-                className="rounded-full border border-white/30 px-7 py-4 text-center font-semibold text-white transition hover:bg-white hover:text-zinc-950"
-              >
-                Appeler la clinique
-              </a>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-7xl items-start gap-8 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
-        <div className="space-y-6">
-          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
-              Clinique
-            </p>
-
-            <h2 className="mt-3 text-3xl font-bold">{clinicName}</h2>
-
-            {fullAddress && (
-              <p className="mt-5 leading-7 text-zinc-600">
-                {fullAddress}
-              </p>
-            )}
-          </div>
-
-          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
-              Coordonnées
-            </p>
-
-            <div className="mt-5 space-y-4">
-              {phone && (
-                <p>
-                  <span className="font-semibold">Téléphone : </span>
-                  <a href={`tel:${phone.replace(/\D/g, '')}`} className="text-red-700 hover:text-red-800">
-                    {phone}
-                  </a>
-                </p>
-              )}
-
-              {email && (
-                <p>
-                  <span className="font-semibold">Courriel : </span>
-                  <a href={`mailto:${email}`} className="text-red-700 hover:text-red-800">
-                    {email}
-                  </a>
-                </p>
-              )}
-
-              {!phone && !email && (
-                <p className="text-zinc-600">
-                  Ajoute le téléphone et le courriel dans les Réglages du site.
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
-              Heures d’ouverture
-            </p>
-
-            {openingHours.length > 0 ? (
-              <div className="mt-5 divide-y divide-zinc-200">
-                {openingHours.map((item: any) => (
-                  <div key={item.id} className="flex justify-between gap-6 py-3">
-                    <span className="font-semibold">{item.day}</span>
-                    <span className="text-right text-zinc-600">{item.hours}</span>
+                {/* Coordonnées */}
+                <div className="border border-zinc-200 p-8">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-red-600">
+                    Coordonnées
+                  </p>
+                  <div className="mt-3 space-y-3">
+                    {phone && (
+                      <p className="text-zinc-700">
+                        <span className="font-semibold text-zinc-950">Tél. </span>
+                        <a href={`tel:${phone.replace(/\D/g, '')}`} className="hover:text-red-600">
+                          {phone}
+                        </a>
+                      </p>
+                    )}
+                    {email && (
+                      <p className="text-zinc-700">
+                        <span className="font-semibold text-zinc-950">Courriel </span>
+                        <a href={`mailto:${email}`} className="hover:text-red-600">
+                          {email}
+                        </a>
+                      </p>
+                    )}
+                    {!phone && !email && (
+                      <p className="text-zinc-400">Coordonnées à configurer dans les réglages.</p>
+                    )}
                   </div>
-                ))}
+                </div>
+
+                {/* Heures */}
+                <div className="border border-zinc-200 p-8">
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-red-600">
+                    Heures d'ouverture
+                  </p>
+                  {openingHours.length > 0 ? (
+                    <div className="mt-3 divide-y divide-zinc-100">
+                      {openingHours.map((item: any) => (
+                        <div key={item.id} className="flex justify-between gap-6 py-2.5">
+                          <span className="font-semibold text-zinc-950">{item.day}</span>
+                          <span className="text-zinc-500">{item.hours}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-3 text-zinc-400">Heures à configurer dans les réglages.</p>
+                  )}
+                </div>
+
               </div>
-            ) : (
-              <p className="mt-5 text-zinc-600">
-                Ajoute les heures d’ouverture dans les Réglages du site.
-              </p>
-            )}
-          </div>
 
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-950 p-6 text-white shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-300">
-              Avant de vous déplacer
-            </p>
-
-            <h2 className="mt-3 text-2xl font-bold">
-              La clinique est située au cœur de Saint-Roch.
-            </h2>
-
-            <p className="mt-4 leading-7 text-zinc-300">
-              Vérifiez l’adresse, les heures d’ouverture et utilisez la carte pour planifier votre trajet.
-              Pour prendre rendez-vous, le bouton principal est disponible en haut de la page.
-            </p>
-
-            {fullAddress && (
-              <div className="mt-6 rounded-2xl bg-white/10 p-4">
-                <p className="text-sm font-semibold uppercase tracking-wide text-zinc-400">
-                  Adresse
-                </p>
-
-                <p className="mt-2 leading-7 text-white">
-                  {fullAddress}
-                </p>
+              {/* Colonne droite — carte */}
+              <div className="border border-zinc-200 overflow-hidden">
+                {mapSrc ? (
+                  <iframe
+                    src={mapSrc}
+                    className="h-full min-h-[500px] w-full lg:min-h-0"
+                    style={{ minHeight: '500px' }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Carte — ${clinicName}`}
+                  />
+                ) : (
+                  <div className="flex min-h-[500px] items-center justify-center bg-zinc-50 p-8 text-center">
+                    <div>
+                      <p className="font-semibold text-zinc-950">Carte Google Maps à ajouter</p>
+                      <p className="mt-2 text-sm text-zinc-500">
+                        Ajoute le lien intégré dans les Réglages du site.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
 
-        <div className="self-start overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100 shadow-sm">
-          {mapSrc ? (
-            <iframe
-              src={mapSrc}
-              className="h-[520px] w-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title={`Carte Google Maps - ${clinicName}`}
-            />
-          ) : (
-            <div className="flex h-[520px] items-center justify-center p-8 text-center">
-              <div>
-                <h2 className="text-2xl font-bold">Carte Google Map à ajouter</h2>
-                <p className="mt-3 max-w-md text-zinc-600">
-                  Ajoute le lien intégré Google Maps dans les Réglages du site pour afficher la
-                  carte ici.
-                </p>
-              </div>
             </div>
-          )}
-        </div>
-           </section>
+          </div>
+        </ScrollReveal>
+      </section>
     </main>
   )
 }
