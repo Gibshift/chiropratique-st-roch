@@ -16,6 +16,7 @@ import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { Services } from './collections/Services'
 import { Conditions } from './collections/Conditions'
+import { ConditionCategories } from './collections/ConditionCategories'
 import { Professionals } from './collections/Professionals'
 import { SiteSettings } from './globals/SiteSettings'
 
@@ -66,7 +67,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Services, Conditions, Professionals, Pages, Posts, Media, Categories, Users],
+  collections: [Services, Conditions, ConditionCategories, Professionals, Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins,

@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     services: Service;
     conditions: Condition;
+    'condition-categories': ConditionCategory;
     professionals: Professional;
     pages: Page;
     posts: Post;
@@ -91,6 +92,7 @@ export interface Config {
   collectionsSelect: {
     services: ServicesSelect<false> | ServicesSelect<true>;
     conditions: ConditionsSelect<false> | ConditionsSelect<true>;
+    'condition-categories': ConditionCategoriesSelect<false> | ConditionCategoriesSelect<true>;
     professionals: ProfessionalsSelect<false> | ProfessionalsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
@@ -605,6 +607,115 @@ export interface Professional {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "condition-categories".
+ */
+export interface ConditionCategory {
+  id: number;
+  /**
+   * Exemple : Douleurs au cou, à la tête et à la mâchoire
+   */
+  title: string;
+  /**
+   * Affiché en rouge au-dessus du titre. Exemple : LES CONDITIONS AFFECTANT LES
+   */
+  subtitle?: string | null;
+  /**
+   * Exemple : tete-cou, dos-sacrum, membres-inferieurs
+   */
+  slug: string;
+  /**
+   * Titre de la première section. Exemple : Région cervico-crânienne
+   */
+  regionTitle?: string | null;
+  /**
+   * Texte d'introduction avant la liste (disclaimer, contexte). Astuce : Ctrl + Shift + V pour coller proprement.
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * La liste complète des conditions traitées dans cette catégorie. Astuce : Ctrl + Shift + V pour coller proprement.
+   */
+  conditionsList?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Section "Important" affichée après la liste des conditions.
+   */
+  disclaimer?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Texte affiché avant le bouton de prise de rendez-vous.
+   */
+  ctaText?: string | null;
+  /**
+   * Services affichés dans la section "Pour vous aider" en bas de page.
+   */
+  relatedServices?: (number | Service)[] | null;
+  /**
+   * Court texte affiché sous le titre sur la carte. Exemple : Genoux · Hanches · Pieds · Chevilles
+   */
+  hint?: string | null;
+  /**
+   * Image optionnelle affichée en arrière-plan du hero.
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Plus le chiffre est bas, plus la catégorie apparaît en premier.
+   */
+  order?: number | null;
+  seo?: {
+    /**
+     * Titre affiché dans Google. Si vide, le titre de la catégorie sera utilisé.
+     */
+    title?: string | null;
+    /**
+     * Idéalement 150 à 160 caractères.
+     */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -1086,6 +1197,10 @@ export interface PayloadLockedDocument {
         value: number | Condition;
       } | null)
     | ({
+        relationTo: 'condition-categories';
+        value: number | ConditionCategory;
+      } | null)
+    | ({
         relationTo: 'professionals';
         value: number | Professional;
       } | null)
@@ -1205,6 +1320,32 @@ export interface ConditionsSelect<T extends boolean = true> {
   relatedProfessionals?: T;
   categorie?: T;
   isFeatured?: T;
+  order?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "condition-categories_select".
+ */
+export interface ConditionCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  slug?: T;
+  regionTitle?: T;
+  intro?: T;
+  conditionsList?: T;
+  disclaimer?: T;
+  ctaText?: T;
+  relatedServices?: T;
+  hint?: T;
+  heroImage?: T;
   order?: T;
   seo?:
     | T

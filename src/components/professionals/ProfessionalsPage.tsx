@@ -1,8 +1,11 @@
-﻿import configPromise from '@payload-config'
+import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Image from 'next/image'
 import { PageHero } from '@/components/ui/PageHero'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
+
+/*
+ANCIENNE VERSION — grille adaptive (getGridClass / getCardClass)
 
 function getGridClass(count: number) {
   if (count === 1) return 'grid-cols-1 max-w-sm'
@@ -22,6 +25,39 @@ function getCardClass(index: number, total: number) {
     return 'lg:col-start-4 lg:col-span-2'
   }
   return ''
+}
+
+Ancienne grille dans le JSX :
+<div className={`grid gap-6 ${getGridClass(count)}`}>
+  {professionals.docs.map((professional: any, index: number) => {
+    const photoUrl = ...
+    return (
+      <article className={`flex flex-col overflow-hidden border border-zinc-200 bg-white ${getCardClass(index, count)}`}>
+        <div className="relative aspect-[3/4] w-full overflow-hidden md:aspect-auto md:h-72">
+          <Image ... className="object-cover object-top" />
+        </div>
+        <div className="flex flex-1 flex-col p-6">
+          <h2 className="text-2xl font-bold">{professional.name}</h2>
+          <p className="mt-1 font-semibold text-red-600">{professional.title}</p>
+          <p className="mt-4 leading-7 text-zinc-600">{professional.shortBio}</p>
+          <a href={...} className="block border border-zinc-300 px-5 py-3 ...">Voir le profil</a>
+        </div>
+      </article>
+    )
+  })}
+</div>
+*/
+
+function getDesktopCols(count: number) {
+  const map: Record<number, string> = {
+    1: 'lg:grid-cols-1',
+    2: 'lg:grid-cols-2',
+    3: 'lg:grid-cols-3',
+    4: 'lg:grid-cols-4',
+    5: 'lg:grid-cols-5',
+    6: 'lg:grid-cols-6',
+  }
+  return map[count] ?? 'lg:grid-cols-6'
 }
 
 export async function ProfessionalsPage() {
@@ -57,70 +93,61 @@ export async function ProfessionalsPage() {
 
       <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <ScrollReveal>
-        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-8">
-        {count > 0 ? (
-          <div className={`grid gap-6 ${getGridClass(count)}`}>
-            {professionals.docs.map((professional: any, index: number) => {
-              const photoUrl =
-                professional.photo &&
-                typeof professional.photo === 'object' &&
-                'url' in professional.photo
-                  ? professional.photo.url
-                  : null
+          <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-8">
+            {count > 0 ? (
+              <div className={`grid grid-cols-2 gap-2 sm:grid-cols-3 lg:gap-3 ${getDesktopCols(count)}`}>
+                {professionals.docs.map((professional: any) => {
+                  const photoUrl =
+                    professional.photo &&
+                    typeof professional.photo === 'object' &&
+                    'url' in professional.photo
+                      ? professional.photo.url
+                      : null
 
-              return (
-                <article
-                  key={professional.id}
-                  className={`flex flex-col overflow-hidden border border-zinc-200 bg-white ${getCardClass(index, count)}`}
-                >
-                  {photoUrl ? (
-                    <div className="relative h-72 w-full overflow-hidden">
-                      <Image
-                        src={photoUrl}
-                        alt={professional.name}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover"
-                        style={{ objectPosition: 'center 15%' }}
-                      />
-                    </div>
-                  ) : (
-                    <div className="flex h-72 items-center justify-center bg-zinc-100">
-                      <span className="text-sm font-semibold uppercase tracking-wide text-zinc-400">
-                        Photo a venir
-                      </span>
-                    </div>
-                  )}
+                  return (
+                    <a
+                      key={professional.id}
+                      href={`/professionnels/${professional.slug}`}
+                      className="group flex flex-col overflow-hidden border border-zinc-200 bg-white transition hover:bg-zinc-50"
+                    >
+                      {photoUrl ? (
+                        <div className="relative aspect-[3/4] w-full overflow-hidden">
+                          <Image
+                            src={photoUrl}
+                            alt={professional.name}
+                            fill
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                            className="object-cover object-top transition duration-500 group-hover:scale-105"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex aspect-[3/4] items-center justify-center bg-zinc-100">
+                          <span className="text-sm font-semibold uppercase tracking-wide text-zinc-400">
+                            Photo à venir
+                          </span>
+                        </div>
+                      )}
 
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="flex-1">
-                      <h2 className="text-2xl font-bold text-zinc-950">{professional.name}</h2>
-                      <p className="mt-1 font-semibold text-red-600">{professional.title}</p>
-                      <p className="mt-4 leading-7 text-zinc-600">{professional.shortBio}</p>
-                    </div>
-                    <div className="mt-8">
-                      <a
-                        href={`/professionnels/${professional.slug}`}
-                        className="block border border-zinc-300 px-5 py-3 text-center font-semibold text-zinc-950 transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
-                      >
-                        Voir le profil
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              )
-            })}
+                      <div className="flex flex-1 flex-col p-4 lg:p-5">
+                        <h2 className="text-[0.95rem] font-bold leading-tight text-zinc-950">{professional.name}</h2>
+                        <p className="mt-1 text-[0.8rem] font-semibold text-red-600">{professional.title}</p>
+                        <span className="mt-auto pt-4 text-[0.8rem] font-semibold text-zinc-400 transition group-hover:text-zinc-950">
+                          Voir le profil →
+                        </span>
+                      </div>
+                    </a>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="border border-zinc-200 p-10 text-center">
+                <h2 className="text-2xl font-bold text-zinc-950">Aucun professionnel publie pour le moment.</h2>
+                <p className="mt-3 text-zinc-600">Ajoute des professionnels dans l'admin Payload pour les afficher ici.</p>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="border border-zinc-200 p-10 text-center">
-            <h2 className="text-2xl font-bold text-zinc-950">Aucun professionnel publie pour le moment.</h2>
-            <p className="mt-3 text-zinc-600">Ajoute des professionnels dans l'admin Payload pour les afficher ici.</p>
-          </div>
-        )}
-        </div>
         </ScrollReveal>
       </section>
     </main>
   )
 }
-

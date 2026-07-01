@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { ConditionDetailPage } from '@/components/conditions/ConditionDetailPage'
-import { getOpenGraphImages } from '@/utilities/seo'
+import { ConditionCategoryPage } from '@/components/conditions/ConditionCategoryPage'
+import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
 type Args = {
   params: Promise<{
@@ -14,19 +14,15 @@ type Args = {
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
 
-  const conditions = await payload.find({
-    collection: 'conditions' as any,
-    limit: 100,
+  const categories = await payload.find({
+    collection: 'condition-categories' as any,
+    limit: 50,
     depth: 0,
     pagination: false,
-    select: {
-      slug: true,
-    },
+    select: { slug: true },
   })
 
-  return conditions.docs.map((condition: any) => ({
-    slug: condition.slug,
-  }))
+  return categories.docs.map((cat: any) => ({ slug: cat.slug }))
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
@@ -36,34 +32,31 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'conditions' as any,
+    collection: 'condition-categories' as any,
     limit: 1,
-    depth: 1,
-    where: {
-      slug: {
-        equals: decodedSlug,
-      },
-    },
+    depth: 0,
+    where: { slug: { equals: decodedSlug } },
   })
 
-  const condition: any = result.docs[0]
+  const category: any = result.docs[0]
 
-  if (!condition) {
+  if (!category) {
     return {
-      title: 'Condition traitée | Chiropratique St-Roch',
+      title: 'Conditions traitées | Chiropratique St-Roch',
       description:
-        'Découvrez les conditions traitées chez Chiropratique St-Roch, clinique multidisciplinaire située à Québec.',
+        'Découvrez les conditions traitées chez Chiropratique St-Roch, clinique multidisciplinaire à Québec.',
     }
   }
 
-  const title = condition.seo?.title || `${condition.title} à Québec`
-  const description =
-    condition.seo?.description ||
-    condition.shortDescription ||
-    `Découvrez des informations sur ${condition.title} et les soins offerts chez Chiropratique St-Roch à Québec.`
+  const title =
+    category.seo?.title ||
+    `${category.title} | Chiropratique St-Roch à Québec`
 
-  const url = `/conditions-traitees/${condition.slug}`
-  const images = getOpenGraphImages(condition.featuredImage, condition.title)
+  const description =
+    category.seo?.description ||
+    `Découvrez les conditions traitées dans la catégorie ${category.title} chez Chiropratique St-Roch à Québec.`
+
+  const url = `/conditions-traitees/${category.slug}`
 
   return {
     title,
@@ -80,14 +73,14 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
       type: 'article',
       siteName: 'Chiropratique St-Roch',
       locale: 'fr_CA',
-      images,
+      images: getDefaultOpenGraphImages(title),
     },
 
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images,
+      images: getDefaultOpenGraphImages(title),
     },
   }
 }
@@ -96,5 +89,5 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
 
-  return <ConditionDetailPage slug={decodedSlug} />
+  return <ConditionCategoryPage slug={decodedSlug} />
 }

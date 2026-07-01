@@ -50,7 +50,7 @@ export async function Footer() {
 
   return (
     <footer className="mt-auto bg-zinc-950 text-white">
-      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+      <div className="mx-auto max-w-[1200px] px-6 py-14 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.8fr_0.8fr_0.9fr]">
           <div>
             <Link href="/" className="inline-flex text-2xl font-bold tracking-tight">
@@ -58,8 +58,7 @@ export async function Footer() {
             </Link>
 
             <p className="mt-5 max-w-sm leading-7 text-zinc-300">
-              Clinique multidisciplinaire à Québec offrant des soins chiropratiques,
-              ostéopathiques et musculosquelettiques.
+              Une clinique, plusieurs disciplines, une seule priorité : vous.
             </p>
 
             <a

@@ -173,7 +173,7 @@ function ConditionAccent({ index }: { index: number }) {
 export async function ClinicHomePage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [siteSettings, services, conditions, professionals, posts] = await Promise.all([
+  const [siteSettings, services, conditionCategories, professionals, posts] = await Promise.all([
     payload.findGlobal({
       slug: 'site-settings' as any,
       depth: 1,
@@ -192,15 +192,10 @@ export async function ClinicHomePage() {
     }),
 
     payload.find({
-      collection: 'conditions' as any,
-      limit: 8,
-      depth: 1,
+      collection: 'condition-categories' as any,
+      limit: 5,
+      depth: 0,
       sort: 'order',
-      where: {
-        isFeatured: {
-          equals: true,
-        },
-      },
     }),
 
     payload.find({
@@ -238,7 +233,7 @@ export async function ClinicHomePage() {
       : FALLBACK_JANE_URL
 
   const hasServices = services.docs.length > 0
-  const hasConditions = conditions.docs.length > 0
+  const hasConditions = conditionCategories.docs.length > 0
   const hasProfessionals = professionals.docs.length > 0
   const hasPosts = posts.docs.length > 0
 
@@ -299,7 +294,7 @@ export async function ClinicHomePage() {
               <SectionAccent className="mt-8" />
 
               <p className="mt-7 max-w-[420px] text-left text-[1.1rem] leading-8 text-zinc-800">
-                Une approche attentive, simple et adaptée à votre réalité.
+                Une clinique, plusieurs disciplines,<br />une seule priorité : vous.
               </p>
 
               <a
@@ -540,16 +535,20 @@ export async function ClinicHomePage() {
               </div>
 
               <div className="mt-14 grid max-w-[600px] border-l border-zinc-300 grid-cols-3 md:grid-cols-5">
-                {conditions.docs.slice(0, 5).map((condition: any, index: number) => (
-                  <div key={condition.id} className="flex flex-col items-center border-r border-zinc-300 px-5 py-4 text-center">
-                    <p className="flex-1 font-[var(--font-barlow-condensed)] text-[0.95rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-900">
-                      <span className="text-red-600">{condition.title.slice(0, 1)}</span>
-                      {condition.title.slice(1)}
+                {conditionCategories.docs.slice(0, 5).map((category: any, index: number) => (
+                  <a
+                    key={category.id}
+                    href={`/conditions-traitees/${category.slug}`}
+                    className="group flex flex-col items-center border-r border-zinc-300 px-5 py-4 text-center transition hover:bg-[#ece5dc]/40"
+                  >
+                    <p className="flex-1 font-[var(--font-barlow-condensed)] text-[0.95rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-900 group-hover:text-zinc-950">
+                      <span className="text-red-600">{category.title.slice(0, 1)}</span>
+                      {category.title.slice(1)}
                     </p>
                     <div className="mt-5">
                       <ConditionAccent index={index} />
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
 
