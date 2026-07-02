@@ -1,6 +1,7 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 function extractMapSrc(value?: string | null) {
   if (!value) return null
@@ -24,20 +25,24 @@ export async function ContactPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="bg-white min-h-[68vh] pt-36 pb-24 lg:pt-78">
+      <section className="relative bg-white min-h-[68vh] pt-24 pb-24 lg:pt-48">
+        <GeometricShapes />
         <ScrollReveal>
-          <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+          <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   Nous joindre.
                 </h1>
-                <div className="mt-5 h-[3px] w-16 bg-red-600" />
               </div>
-              <div className="lg:max-w-[42%]">
-                <p className="text-[1rem] leading-7 text-zinc-500">
-                  Prenez rendez-vous en ligne ou contactez la clinique directement pour toute question.
+
+              <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
+
+              <div className="lg:max-w-[38%]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Contact</p>
+                <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
+                  Prenez rendez-vous en ligne ou contactez la clinique directement. On est là pour répondre à vos questions.
                 </p>
               </div>
             </div>

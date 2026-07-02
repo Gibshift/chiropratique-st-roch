@@ -33,6 +33,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Page() {
-  return <BloguePage />
+export const revalidate = 3600
+
+export default async function Page({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
+  const params = await searchParams
+  const page = Math.max(1, parseInt(params.page ?? '1', 10) || 1)
+  return <BloguePage page={page} />
 }

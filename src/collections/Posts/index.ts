@@ -11,7 +11,6 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
-import { slugField } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -20,6 +19,7 @@ import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { createClinicRichTextEditor } from '../../utilities/clinicRichTextEditor'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+import { slugify } from '../../utilities/slugify'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 
@@ -130,9 +130,10 @@ export const Posts: CollectionConfig<'posts'> = {
               label: 'Catégories',
               admin: {
                 position: 'sidebar',
+                description: 'Catégorie(s) du blogue. Utilisé pour filtrer les articles sur la page blogue.',
               },
               hasMany: true,
-              relationTo: 'categories',
+              relationTo: 'condition-categories' as any,
             },
             {
               name: 'relatedServices',
@@ -187,7 +188,7 @@ export const Posts: CollectionConfig<'posts'> = {
             MetaImageField({
               relationTo: 'media',
             }),
-            MetaDescriptionField({}),
+            MetaDescriptionField({ hasGenerateFn: true }),
             PreviewField({
               hasGenerateFn: true,
               titlePath: 'meta.title',
@@ -250,7 +251,27 @@ export const Posts: CollectionConfig<'posts'> = {
         },
       ],
     },
-    slugField(),
+    {
+      name: 'slug',
+      type: 'text',
+      label: 'URL (slug)',
+      required: true,
+      unique: true,
+      index: true,
+      admin: {
+        position: 'sidebar',
+        description: 'Généré automatiquement depuis le titre. Videz ce champ et sauvegardez pour le régénérer.',
+      },
+      hooks: {
+        beforeValidate: [
+          ({ data, value }: { data?: any; value?: string }) => {
+            if (!value && data?.title) return slugify(data.title)
+            if (value) return slugify(value)
+            return value
+          },
+        ],
+      },
+    },
   ],
 
   hooks: {

@@ -25,7 +25,7 @@ export async function ServicesPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="relative bg-white min-h-[68vh] pt-36 pb-24 lg:pt-78">
+      <section className="relative bg-white min-h-[68vh] pt-24 pb-24 lg:pt-48">
 
         <GeometricShapes />
 
@@ -37,7 +37,7 @@ export async function ServicesPage() {
               alt=""
               width={340}
               height={560}
-              className="hidden xl:block absolute bottom-66 right-210 w-[140px] object-contain xl:w-[220px]"
+              className="hidden xl:block absolute bottom-65 right-208 w-[140px] object-contain xl:w-[240px]"
               style={{ transform: `rotate(${imageRotations.femme}5deg)` }}
               priority
             />
@@ -67,12 +67,9 @@ export async function ServicesPage() {
 
               <div className="lg:max-w-[38%]">
                 <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Services</p>
-                <p className="mt-3 text-[1rem] leading-7 text-zinc-600">
+                <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
                   Chiropratique, ostéopathie, massothérapie, kinésithérapie et orthothérapie. Chaque professionnel apporte une expertise distincte pour vous aider à bouger sans douleur et retrouver votre plein potentiel.
                 </p>
-                <a href="#services-grid" className="mt-6 inline-flex items-center gap-2 text-[0.85rem] font-semibold text-zinc-950 transition hover:text-red-600">
-                  Sélectionner un service ↓
-                </a>
               </div>
             </div>
 

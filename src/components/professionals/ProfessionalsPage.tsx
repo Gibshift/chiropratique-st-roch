@@ -2,6 +2,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 function getDesktopCols(count: number) {
   const map: Record<number, string> = {
@@ -30,26 +31,30 @@ export async function ProfessionalsPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="bg-white min-h-[68vh] pt-36 pb-24 lg:pt-78">
+      <section className="relative bg-white min-h-[68vh] pt-24 pb-24 lg:pt-48">
+        <GeometricShapes />
         <ScrollReveal>
-          <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+          <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   Notre équipe.
                 </h1>
-                <div className="mt-5 h-[3px] w-16 bg-red-600" />
               </div>
-              <div className="lg:max-w-[42%]">
-                <p className="text-[1rem] leading-7 text-zinc-500">
-                  Découvrez les professionnels de la clinique, leurs services, leur approche et leurs intérêts cliniques.
+
+              <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
+
+              <div className="lg:max-w-[38%]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Professionnels</p>
+                <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
+                  Chaque professionnel de la clinique apporte une expertise distincte. Découvrez leur approche et trouvez celui qui vous correspond.
                 </p>
               </div>
             </div>
 
             {count > 0 ? (
-              <div className={`grid grid-cols-2 gap-2 sm:grid-cols-3 lg:gap-3 ${getDesktopCols(count)}`}>
+              <div id="equipe-grid" className={`grid grid-cols-2 gap-2 sm:grid-cols-3 lg:gap-3 ${getDesktopCols(count)}`}>
                 {professionals.docs.map((professional: any) => {
                   const photoUrl =
                     professional.photo &&
@@ -80,8 +85,8 @@ export async function ProfessionalsPage() {
                         </div>
                       )}
                       <div className="flex flex-1 flex-col p-4 lg:p-5">
-                        <h2 className="text-[0.95rem] font-bold leading-tight text-zinc-950">{professional.name}</h2>
-                        <p className="mt-1 text-[0.8rem] font-semibold text-red-600">{professional.title}</p>
+                        <h2 className="text-[1.25rem] font-bold leading-tight text-zinc-950">{professional.name}</h2>
+                        <p className="mt-1 text-[0.9rem] font-semibold text-red-600">{professional.title}</p>
                         <span className="mt-auto pt-4 text-[0.8rem] font-semibold text-zinc-400 transition group-hover:text-zinc-950">
                           Voir le profil →
                         </span>

@@ -478,6 +478,10 @@ export interface Condition {
       }[]
     | null;
   /**
+   * Article de blogue associé à cette condition. Le clic sur la condition mènera directement à cet article.
+   */
+  relatedPost?: (number | null) | Post;
+  /**
    * Services de la clinique qui peuvent être liés à cette condition.
    */
   relatedServices?: (number | Service)[] | null;
@@ -512,30 +516,16 @@ export interface Condition {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "professionals".
+ * via the `definition` "posts".
  */
-export interface Professional {
+export interface Post {
   id: number;
-  /**
-   * Nom affiché sur le site.
-   */
-  name: string;
-  /**
-   * Texte utilisé dans l’URL. Exemple : marie-dupont, jean-tremblay.
-   */
-  slug: string;
-  /**
-   * Exemple : Chiropraticienne, Ostéopathe, Massothérapeute.
-   */
   title: string;
+  heroImage?: (number | null) | Media;
   /**
-   * Court texte affiché sur les cartes de professionnels et les aperçus.
+   * Contenu principal de l’article. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
    */
-  shortBio: string;
-  /**
-   * Texte affiché sur la page du professionnel. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
-   */
-  bio?: {
+  content: {
     root: {
       type: string;
       children: {
@@ -549,61 +539,47 @@ export interface Professional {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
+  relatedPosts?: (number | Post)[] | null;
   /**
-   * Section optionnelle pour présenter son approche, sa façon de travailler ou ses intérêts cliniques. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
+   * Catégorie(s) du blogue. Utilisé pour filtrer les articles sur la page blogue.
    */
-  approach?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  categories?: (number | ConditionCategory)[] | null;
   /**
-   * Photo utilisée sur la page équipe et sur la page individuelle.
-   */
-  photo?: (number | null) | Media;
-  /**
-   * Services associés à ce professionnel.
+   * Services de la clinique abordés dans cet article. Utilisé pour la couleur des cartes sur la page d'accueil.
    */
   relatedServices?: (number | Service)[] | null;
   /**
-   * Conditions que ce professionnel traite souvent ou qui peuvent être liées à sa pratique.
+   * Conditions traitées liées à cet article. Utilisé pour suggérer les bons professionnels sur la page de l’article.
    */
   relatedConditions?: (number | Condition)[] | null;
   /**
-   * Si désactivé, ce professionnel ne sera pas affiché sur le site.
+   * Professionnels à afficher sur la page de cet article.
    */
-  isActive?: boolean | null;
-  /**
-   * Active ce professionnel dans la section Équipe de la page d’accueil.
-   */
-  isFeatured?: boolean | null;
-  /**
-   * Plus le chiffre est bas, plus le professionnel apparaît haut dans les listes.
-   */
-  order?: number | null;
-  seo?: {
-    /**
-     * Titre affiché dans Google. Si vide, le nom du professionnel sera utilisé.
-     */
+  relatedProfessionals?: (number | Professional)[] | null;
+  meta?: {
     title?: string | null;
     /**
-     * Courte description pour Google. Idéalement environ 150 à 160 caractères.
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
+    image?: (number | null) | Media;
     description?: string | null;
   };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * Généré automatiquement depuis le titre. Videz ce champ et sauvegardez pour le régénérer.
+   */
+  slug: string;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -716,6 +692,127 @@ export interface ConditionCategory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "professionals".
+ */
+export interface Professional {
+  id: number;
+  /**
+   * Nom affiché sur le site.
+   */
+  name: string;
+  /**
+   * Texte utilisé dans l’URL. Exemple : marie-dupont, jean-tremblay.
+   */
+  slug: string;
+  /**
+   * Exemple : Chiropraticienne, Ostéopathe, Massothérapeute.
+   */
+  title: string;
+  /**
+   * Court texte affiché sur les cartes de professionnels et les aperçus.
+   */
+  shortBio: string;
+  /**
+   * Texte affiché sur la page du professionnel. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
+   */
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Section optionnelle pour présenter son approche, sa façon de travailler ou ses intérêts cliniques. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
+   */
+  approach?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Photo utilisée sur la page équipe et sur la page individuelle.
+   */
+  photo?: (number | null) | Media;
+  /**
+   * Services associés à ce professionnel.
+   */
+  relatedServices?: (number | Service)[] | null;
+  /**
+   * Conditions que ce professionnel traite souvent ou qui peuvent être liées à sa pratique.
+   */
+  relatedConditions?: (number | Condition)[] | null;
+  /**
+   * Si désactivé, ce professionnel ne sera pas affiché sur le site.
+   */
+  isActive?: boolean | null;
+  /**
+   * Active ce professionnel dans la section Équipe de la page d’accueil.
+   */
+  isFeatured?: boolean | null;
+  /**
+   * Plus le chiffre est bas, plus le professionnel apparaît haut dans les listes.
+   */
+  order?: number | null;
+  seo?: {
+    /**
+     * Titre affiché dans Google. Si vide, le nom du professionnel sera utilisé.
+     */
+    title?: string | null;
+    /**
+     * Courte description pour Google. Idéalement environ 150 à 160 caractères.
+     */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -788,121 +885,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  /**
-   * Contenu principal de l’article. Astuce : pour coller un texte propre depuis Word, Google Docs ou ChatGPT, utilisez Ctrl + Shift + V.
-   */
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  /**
-   * Services de la clinique abordés dans cet article. Utilisé pour la couleur des cartes sur la page d'accueil.
-   */
-  relatedServices?: (number | Service)[] | null;
-  /**
-   * Conditions traitées liées à cet article. Utilisé pour suggérer les bons professionnels sur la page de l’article.
-   */
-  relatedConditions?: (number | Condition)[] | null;
-  /**
-   * Professionnels à afficher sur la page de cet article.
-   */
-  relatedProfessionals?: (number | Professional)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  title: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  parent?: (number | null) | Category;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Category;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1045,6 +1027,30 @@ export interface ArchiveBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  parent?: (number | null) | Category;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Category;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1316,6 +1322,7 @@ export interface ConditionsSelect<T extends boolean = true> {
         symptom?: T;
         id?: T;
       };
+  relatedPost?: T;
   relatedServices?: T;
   relatedProfessionals?: T;
   categorie?: T;
@@ -1533,7 +1540,6 @@ export interface PostsSelect<T extends boolean = true> {
         id?: T;
         name?: T;
       };
-  generateSlug?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;

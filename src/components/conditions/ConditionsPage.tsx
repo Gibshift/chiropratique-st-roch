@@ -24,7 +24,7 @@ export async function ConditionsPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="relative bg-white min-h-[68vh] pt-36 pb-24 lg:pt-78">
+      <section className="relative bg-white min-h-[68vh] pt-24 pb-24 lg:pt-48">
         <GeometricShapes />
         <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
@@ -40,12 +40,9 @@ export async function ConditionsPage() {
 
               <div className="lg:max-w-[38%]">
                 <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Conditions traitées</p>
-                <p className="mt-3 text-[1rem] leading-7 text-zinc-600">
+                <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
                   Vous avez mal quelque part et vous voulez savoir si nous sommes la bonne clinique pour vous? Parcourez les conditions que nous traitons et voyez si quelque chose correspond à ce que vous ressentez.
                 </p>
-                <a href="#conditions-grid" className="mt-6 inline-flex items-center gap-2 text-[0.85rem] font-semibold text-zinc-950 transition hover:text-red-600">
-                  Voir les catégories ↓
-                </a>
               </div>
             </div>
 

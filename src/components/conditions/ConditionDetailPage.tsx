@@ -27,10 +27,6 @@ export async function ConditionDetailPage({ slug }: Props) {
     notFound()
   }
 
-  const relatedProfessionals = Array.isArray(condition.relatedProfessionals)
-    ? condition.relatedProfessionals
-    : []
-
   return (
     <main className="bg-white text-zinc-950">
       <section className="relative overflow-hidden border-b border-zinc-200 bg-zinc-950 text-white">
@@ -122,74 +118,6 @@ export async function ConditionDetailPage({ slug }: Props) {
         </article>
 
         <aside className="h-fit space-y-6 lg:sticky lg:top-28 lg:mt-29">
-          <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
-              Professionnels
-            </p>
-
-            <h3 className="mt-3 text-2xl font-bold">
-              Professionnels liés
-            </h3>
-
-            {relatedProfessionals.length > 0 ? (
-              <div className="mt-6 space-y-4">
-                {relatedProfessionals.map((professional: any) => {
-                  const photoUrl =
-                    professional.photo &&
-                    typeof professional.photo === 'object' &&
-                    'url' in professional.photo
-                      ? professional.photo.url
-                      : null
-
-                  return (
-                    <a
-                      key={professional.id}
-                      href={`/professionnels/${professional.slug}`}
-                      className="group flex gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition hover:border-red-200 hover:shadow-sm"
-                    >
-                      {photoUrl ? (
-                        <img
-                          src={photoUrl}
-                          alt={professional.name}
-                          className="h-14 w-14 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-sm font-bold text-white">
-                          {professional.name?.charAt(0)}
-                        </div>
-                      )}
-
-                      <div>
-                        <p className="font-semibold text-zinc-950 group-hover:text-red-700">
-                          {professional.name}
-                        </p>
-
-                        {professional.title ? (
-                          <p className="mt-1 text-sm leading-5 text-zinc-600">
-                            {professional.title}
-                          </p>
-                        ) : null}
-                      </div>
-                    </a>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className="mt-5 rounded-2xl bg-white p-5">
-                <p className="leading-7 text-zinc-600">
-                  Les professionnels liés à cette condition pourront être sélectionnés dans l’admin.
-                </p>
-
-                <a
-                  href="/professionnels"
-                  className="mt-5 inline-flex font-semibold text-red-700 hover:text-red-800"
-                >
-                  Voir les professionnels →
-                </a>
-              </div>
-            )}
-          </div>
-
           <div className="rounded-[2rem] border border-zinc-200 bg-white p-6">
             <p className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
               Services

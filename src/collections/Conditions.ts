@@ -127,6 +127,17 @@ export const Conditions: CollectionConfig = {
             label: 'Relations',
             fields: [
               {
+                name: 'relatedPost',
+                type: 'relationship',
+                relationTo: 'posts',
+                hasMany: false,
+                label: 'Article de blogue lié',
+                admin: {
+                  description:
+                    'Article de blogue associé à cette condition. Le clic sur la condition mènera directement à cet article.',
+                },
+              },
+              {
                 name: 'relatedServices',
                 type: 'relationship',
                 relationTo: 'services',
