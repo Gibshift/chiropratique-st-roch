@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 type Props = {
   slug: string
@@ -69,12 +70,10 @@ export async function ConditionCategoryPage({ slug }: Props) {
       <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <div className="mx-auto max-w-[860px] px-6 py-20 lg:px-8">
 
-          <a
-            href="/conditions-traitees"
-            className="mb-12 inline-flex items-center gap-2 text-[0.85rem] font-semibold text-zinc-400 transition hover:text-zinc-950"
-          >
-            ← Toutes les catégories
-          </a>
+          <Breadcrumb crumbs={[
+            { label: 'Conditions traitées', href: '/conditions-traitees' },
+            { label: category.title },
+          ]} />
 
           {category.regionTitle && (
             <h2 className="mt-6 font-[var(--font-barlow-condensed)] text-[clamp(1.3rem,2.5vw,1.8rem)] font-medium uppercase tracking-[0.04em] text-zinc-950">

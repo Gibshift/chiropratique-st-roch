@@ -5,6 +5,7 @@ import { getPayload } from 'payload'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 export const revalidate = 3600
 
@@ -97,11 +98,10 @@ export default async function Page({
             {/* Header */}
             <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <Link href="/blogue"
-                  className="mb-4 inline-block text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-950 transition"
-                >
-                  ← Blogue
-                </Link>
+                <Breadcrumb crumbs={[
+                  { label: 'Blogue', href: '/blogue' },
+                  { label: category.title },
+                ]} />
                 <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   {category.title}
                 </h1>

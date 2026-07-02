@@ -2,6 +2,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 type Props = {
   slug: string
@@ -90,9 +91,10 @@ const [serviceResult, professionalsResult, conditionsResult] = await Promise.all
 
         <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1fr_420px] lg:px-8 lg:py-28">
           <div>
-            <a href="/services" className="font-semibold text-red-300 hover:text-red-200">
-              ← Tous les services
-            </a>
+            <Breadcrumb crumbs={[
+              { label: 'Services', href: '/services' },
+              { label: service.title },
+            ]} />
 
             <p className="mt-10 font-semibold text-red-300">Service</p>
 

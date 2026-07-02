@@ -1,4 +1,5 @@
 import configPromise from '@payload-config'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
@@ -43,9 +44,10 @@ export async function ProfessionalDetailPage({ slug }: Props) {
       <section className="border-b border-zinc-200 bg-zinc-950 text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-[1fr_420px] lg:px-8">
           <div>
-            <a href="/professionnels" className="font-semibold text-red-300 hover:text-red-200">
-              ← Tous les professionnels
-            </a>
+            <Breadcrumb crumbs={[
+              { label: 'Professionnels', href: '/professionnels' },
+              { label: professional.name },
+            ]} />
 
             <p className="mt-10 font-semibold text-red-300">Professionnel</p>
 
