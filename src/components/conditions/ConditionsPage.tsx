@@ -2,13 +2,14 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const categoryIcons: Record<string, string> = {
   'tete-et-cou': '/media/condition-cou-et-tete.png',
-  'dos-et-sacrum': '/media/condition-dos-et-sacrum.png',
+  'dos-et-sacrum': '/media/condition-dos-et-sacrum-cropped.png',
   'machoire': '/media/condition-atm.png',
   'membres-superieurs': '/media/condition-membres-superieurs.png',
-  'membres-inferieurs': '/media/condition-membres-inferieurs.png',
+  'membres-inferieurs': '/media/condition-membres-inferieurs-cropped.png',
 }
 
 export async function ConditionsPage() {
@@ -23,26 +24,33 @@ export async function ConditionsPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="bg-white min-h-[68vh] pt-36 pb-24 lg:pt-78">
+      <section className="relative bg-white min-h-[68vh] pt-36 pb-24 lg:pt-78">
+        <GeometricShapes />
         <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   Peut-on<br />vous aider?
                 </h1>
-                <div className="mt-5 h-[3px] w-16 bg-red-600" />
               </div>
-              <div className="lg:max-w-[42%]">
-                <p className="text-[1rem] leading-7 text-zinc-500">
-                  Cette section regroupe les conditions fréquemment rencontrées à la clinique pour vous aider à évaluer si nos soins correspondent à ce que vous vivez.
+
+              <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
+
+              <div className="lg:max-w-[38%]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Conditions traitées</p>
+                <p className="mt-3 text-[1rem] leading-7 text-zinc-600">
+                  Vous avez mal quelque part et vous voulez savoir si nous sommes la bonne clinique pour vous? Parcourez les conditions que nous traitons et voyez si quelque chose correspond à ce que vous ressentez.
                 </p>
+                <a href="#conditions-grid" className="mt-6 inline-flex items-center gap-2 text-[0.85rem] font-semibold text-zinc-950 transition hover:text-red-600">
+                  Voir les catégories ↓
+                </a>
               </div>
             </div>
 
             {categories.docs.length > 0 ? (
-              <div className="grid border-l border-zinc-400 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+              <div id="conditions-grid" className="grid border-l border-zinc-400 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {categories.docs.map((category: any) => {
                   const iconSrc = categoryIcons[category.slug] ?? null
 
@@ -57,14 +65,14 @@ export async function ConditionsPage() {
                       {category.hint && (
                         <p className="mt-3 text-[0.78rem] leading-5 text-zinc-500">{category.hint}</p>
                       )}
-                      <div className="mt-8 h-[96px] flex items-end justify-center">
+                      <div className="mt-8 h-[96px] w-[96px] flex items-end justify-center overflow-hidden">
                         {iconSrc ? (
                           <Image
                             src={iconSrc}
                             alt=""
                             width={96}
                             height={96}
-                            className="object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                            className={`h-[96px] w-[96px] object-contain opacity-80 group-hover:opacity-100 transition-opacity mix-blend-multiply ${ ['dos-et-sacrum', 'membres-inferieurs'].includes(category.slug) ? 'p-3' : '' }`}
                           />
                         ) : null}
                       </div>
