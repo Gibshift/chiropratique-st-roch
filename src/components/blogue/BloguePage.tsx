@@ -18,7 +18,7 @@ export async function BloguePage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="bg-white pt-36 pb-24 lg:pt-44">
+      <section className="bg-white min-h-[68vh] pt-36 pb-24 lg:pt-78">
         <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
 
