@@ -9,7 +9,7 @@ const categoryIcons: Record<string, string> = {
   'dos-et-sacrum': '/media/condition-dos-et-sacrum-cropped.png',
   'machoire': '/media/condition-atm.png',
   'membres-superieurs': '/media/condition-membres-superieurs.png',
-  'membres-inferieurs': '/media/condition-membres-inferieurs-cropped.png',
+  'membres-inferieurs': '/media/condition-membres-inferieurs-cropped-round.png',
 }
 
 export async function ConditionsPage() {
@@ -72,7 +72,7 @@ export async function ConditionsPage() {
                             alt=""
                             width={96}
                             height={96}
-                            className={`h-[96px] w-[96px] object-contain opacity-80 group-hover:opacity-100 transition-opacity mix-blend-multiply ${ ['dos-et-sacrum', 'membres-inferieurs'].includes(category.slug) ? 'p-3' : '' }`}
+                            className={`h-[96px] w-[96px] object-contain opacity-80 group-hover:opacity-100 transition-opacity mix-blend-multiply ${ category.slug === 'dos-et-sacrum' ? 'p-3' : category.slug === 'membres-inferieurs' ? 'p-1' : '' }`}
                           />
                         ) : null}
                       </div>
