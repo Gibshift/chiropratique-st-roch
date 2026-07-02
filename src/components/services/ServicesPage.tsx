@@ -93,7 +93,7 @@ export async function ServicesPage() {
         <ClimbingHolds />
 
         {/* Ancrage des images sur le même container que le contenu */}
-        <div className="pointer-events-none absolute inset-0 z-20">
+        <ScrollReveal className="pointer-events-none absolute inset-0 z-20">
           <div className="relative mx-auto h-full max-w-[1200px] px-6 lg:px-8">
             <Image
               src="/media/femme-monte-marche-siteweb-droite.png"
@@ -114,7 +114,7 @@ export async function ServicesPage() {
               priority
             />
           </div>
-        </div>
+        </ScrollReveal>
 
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
