@@ -1,42 +1,14 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
-function ConditionAccent({ index }: { index: number }) {
-  const configs = [
-    { count: 1, angle: 0 },
-    { count: 2, angle: 22.5 },
-    { count: 3, angle: 45 },
-    { count: 4, angle: 67.5 },
-    { count: 5, angle: 90 },
-  ]
-  const colorPatterns: boolean[][] = [
-    [true],
-    [false, true],
-    [true, false, true],
-    [false, true, false, true],
-    [true, false, true, false, true],
-  ]
-  const { count, angle } = configs[index % configs.length]
-  const colors = colorPatterns[index % colorPatterns.length]
-  const cx = 22
-  const cy = 17
-  const halfLen = 13
-  const gap = 7
-  const startY = cy - ((count - 1) * gap) / 2
-
-  return (
-    <div className="h-[34px]">
-      <svg width="44" height="34" viewBox="0 0 44 34" fill="none">
-        <g transform={`rotate(${angle}, ${cx}, ${cy})`}>
-          {Array.from({ length: count }).map((_, i) => (
-            <line key={i} x1={cx - halfLen} y1={startY + i * gap} x2={cx + halfLen} y2={startY + i * gap}
-              stroke={colors[i] ? '#dc2626' : '#18181b'} strokeWidth="2" />
-          ))}
-        </g>
-      </svg>
-    </div>
-  )
+const categoryIcons: Record<string, string> = {
+  'tete-et-cou': '/media/condition-cou-et-tete.png',
+  'dos-et-sacrum': '/media/condition-dos-et-sacrum.png',
+  'machoire': '/media/condition-atm.png',
+  'membres-superieurs': '/media/condition-membres-superieurs.png',
+  'membres-inferieurs': '/media/condition-membres-inferieurs.png',
 }
 
 export async function ConditionsPage() {
@@ -71,23 +43,38 @@ export async function ConditionsPage() {
 
             {categories.docs.length > 0 ? (
               <div className="grid border-l border-zinc-400 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                {categories.docs.map((category: any, index: number) => (
-                  <a key={category.id} href={`/conditions-traitees/${category.slug}`}
-                    className="group flex flex-col border-b border-r border-zinc-400 px-6 py-8 transition hover:bg-zinc-50 lg:border-b-0"
-                  >
-                    <p className="flex-1 font-[var(--font-barlow-condensed)] text-[1.05rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-900 group-hover:text-zinc-950">
-                      <span className="text-red-600">{category.title.slice(0, 1)}</span>
-                      {category.title.slice(1)}
-                    </p>
-                    {category.hint && (
-                      <p className="mt-3 text-[0.78rem] leading-5 text-zinc-500">{category.hint}</p>
-                    )}
-                    <div className="mt-8"><ConditionAccent index={index} /></div>
-                    <span className="mt-4 text-[0.8rem] font-semibold text-red-600 transition group-hover:underline">
-                      Voir les conditions →
-                    </span>
-                  </a>
-                ))}
+                {categories.docs.map((category: any) => {
+                  const iconSrc = categoryIcons[category.slug] ?? null
+
+                  return (
+                    <a key={category.id} href={`/conditions-traitees/${category.slug}`}
+                      className="group flex flex-col items-center text-center border-b border-r border-zinc-400 px-6 py-8 transition hover:bg-zinc-50 lg:border-b-0"
+                    >
+                      <p className="flex-1 font-[var(--font-barlow-condensed)] text-[1.05rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-900 group-hover:text-zinc-950">
+                        <span className="text-red-600">{category.title.slice(0, 1)}</span>
+                        {category.title.slice(1)}
+                      </p>
+                      {category.hint && (
+                        <p className="mt-3 text-[0.78rem] leading-5 text-zinc-500">{category.hint}</p>
+                      )}
+                      <div className="mt-8 h-[96px] flex items-end justify-center">
+                        {iconSrc ? (
+                          <Image
+                            src={iconSrc}
+                            alt=""
+                            width={96}
+                            height={96}
+                            className="object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                          />
+                        ) : null}
+                      </div>
+                      <span className="mt-10 inline-flex items-center gap-1.5 text-[0.9rem] font-semibold text-red-600 transition-transform duration-300 group-hover:scale-110 origin-center">
+                        Voir les conditions
+                        <span className="inline-block translate-x-0 transition-transform duration-300 group-hover:translate-x-2">→</span>
+                      </span>
+                    </a>
+                  )
+                })}
               </div>
             ) : (
               <div className="border border-zinc-300 p-10 text-center">
