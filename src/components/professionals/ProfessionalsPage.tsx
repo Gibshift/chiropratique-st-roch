@@ -81,14 +81,19 @@ export async function ProfessionalsPage() {
       ? (siteSettings.professionalsHeroImage as any).url
       : null
 
+  const janeUrl: string = (siteSettings as any)?.mainJaneUrl ?? 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+
   const count = professionals.docs.length
 
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        title="Une equipe, plusieurs expertises."
-        description="Decouvrez les professionnels de la clinique, leurs services, leur approche et leurs interets cliniques."
+        eyebrow="Professionnels"
+        title={"Notre équipe.\nVos soins."}
+        highlight={['équipe']}
+        description="Découvrez les professionnels de la clinique, leurs services, leur approche et leurs intérêts cliniques."
         imageUrl={heroImageUrl}
+        ctaUrl={janeUrl}
       />
 
       <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
@@ -141,7 +146,7 @@ export async function ProfessionalsPage() {
               </div>
             ) : (
               <div className="border border-zinc-200 p-10 text-center">
-                <h2 className="text-2xl font-bold text-zinc-950">Aucun professionnel publie pour le moment.</h2>
+                <h2 className="text-2xl font-bold text-zinc-950">Aucun professionnel publié pour le moment.</h2>
                 <p className="mt-3 text-zinc-600">Ajoute des professionnels dans l'admin Payload pour les afficher ici.</p>
               </div>
             )}

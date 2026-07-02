@@ -27,12 +27,18 @@ export async function BloguePage() {
       ? (siteSettings.blogueHeroImage as any).url
       : null
 
+  const janeUrl: string = (siteSettings as any)?.mainJaneUrl ?? 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        title="La sante, expliquee simplement."
+        eyebrow="Blogue"
+        title={"La santé,\non l'explique."}
+        highlight={["l'explique"]}
+        lineOffsets={['-0.08em', '-0.04em']}
         description="Des articles simples et utiles pour mieux comprendre les douleurs, les habitudes de travail, la posture et les raisons de consulter."
         imageUrl={heroImageUrl}
+        ctaUrl={janeUrl}
       />
 
       <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
@@ -83,8 +89,8 @@ export async function BloguePage() {
           </div>
         ) : (
           <div className="border border-zinc-200 p-10 text-center">
-            <h2 className="text-2xl font-bold text-zinc-950">Aucun article publie pour le moment.</h2>
-            <p className="mt-4 text-zinc-600">Les articles ajoutes dans l'admin apparaitront ici automatiquement.</p>
+            <h2 className="text-2xl font-bold text-zinc-950">Aucun article publié pour le moment.</h2>
+            <p className="mt-4 text-zinc-600">Les articles ajoutés dans l'admin apparaîtront ici automatiquement.</p>
           </div>
         )}
         </div>

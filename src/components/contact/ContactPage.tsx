@@ -3,8 +3,6 @@ import { getPayload } from 'payload'
 import { PageHero } from '@/components/ui/PageHero'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
-
 function extractMapSrc(value?: string | null) {
   if (!value) return null
   const match = value.match(/src=["']([^"']+)["']/)
@@ -22,7 +20,7 @@ export async function ContactPage() {
   const settings: any = siteSettings || {}
 
   const clinicName = settings.clinicName || 'Chiropratique St-Roch'
-  const janeUrl = settings.mainJaneUrl || FALLBACK_JANE_URL
+  const janeUrl: string = settings.mainJaneUrl ?? 'https://chiropratiquestroch.janeapp.com/embed/book_online'
   const phone = settings.phone || null
   const email = settings.email || null
   const openingHours = Array.isArray(settings.openingHours) ? settings.openingHours : []
@@ -39,8 +37,11 @@ export async function ContactPage() {
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
+        eyebrow="Contact"
         title="Nous joindre."
+        highlight={['joindre']}
         description="Prenez rendez-vous en ligne ou contactez la clinique directement pour toute question."
+        ctaUrl={janeUrl}
       />
 
       <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">

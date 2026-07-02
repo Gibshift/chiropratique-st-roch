@@ -288,7 +288,7 @@ export async function ClinicHomePage() {
                 Soins manuels · corps en mouvement
               </p>
 
-              <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,8vw,8rem)] font-medium uppercase leading-[1.0] tracking-[0.01em] text-zinc-950">
+              <h1 className="mt-3 -ml-[0.05em] font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,8vw,8rem)] font-medium uppercase leading-[1.0] tracking-[0.01em] text-zinc-950">
                 Chiropratique
                 <span className="block whitespace-nowrap text-red-600">St-Roch</span>
               </h1>

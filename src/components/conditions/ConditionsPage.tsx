@@ -62,15 +62,20 @@ export async function ConditionsPage() {
       ? (siteSettings.conditionsHeroImage as any).url
       : null
 
+  const janeUrl: string = (siteSettings as any)?.mainJaneUrl ?? 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        title="La clinique, peut-elle vous aider?"
+        eyebrow="Conditions traitées"
+        title={"Peut-on\nvous aider?"}
+        highlight={['aider']}
         description="Cette section regroupe les conditions fréquemment rencontrées à la clinique pour vous aider à évaluer si nos soins correspondent à ce que vous vivez."
         imageUrl={heroImageUrl}
+        ctaUrl={janeUrl}
       />
 
-      <section className="relative z-10 -mt-4 bg-[#f6f1e8] shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+      <section className="relative z-10 -mt-4 bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
 

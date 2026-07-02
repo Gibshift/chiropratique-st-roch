@@ -1,6 +1,5 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import Image from 'next/image'
 import { PageHero } from '@/components/ui/PageHero'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
@@ -27,45 +26,22 @@ export async function ServicesPage() {
       ? (siteSettings.servicesHeroImage as any).url
       : null
 
+  const janeUrl: string = (siteSettings as any)?.mainJaneUrl ?? 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+
   return (
     <main className="bg-white text-zinc-950">
       <PageHero
-        title="Des soins adaptés à votre réalité."
+        eyebrow="Services"
+        title={"Nos soins.\nVotre réalité."}
+        highlight={['réalité']}
         description="La clinique regroupe plusieurs professionnels afin d'offrir une approche adaptée aux douleurs, tensions, blessures et inconforts du quotidien."
         imageUrl={heroImageUrl}
+        ctaUrl={janeUrl}
       />
 
       <section className="relative z-10 -mt-4 overflow-x-hidden bg-white shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <ScrollReveal>
           <div className="relative mx-auto max-w-[1200px] px-6 lg:px-8">
-
-            {/* Image décorative — femme montant l'escalier */}
-            <div
-              className="pointer-events-none absolute hidden lg:block"
-              style={{ bottom: '32px', left: 'calc(13% - 310px)' }}
-            >
-              <Image
-                src="/media/femme-monte-escalier-services.png"
-                alt=""
-                width={291}
-                height={432}
-                className="object-contain object-bottom"
-              />
-            </div>
-
-            {/* Image décorative — femme escaladant le mur de Kinésithérapie */}
-            <div
-              className="pointer-events-none absolute hidden lg:block"
-              style={{ bottom: '145px', left: 'calc(80% - 150px)', transform: 'rotate(8deg)' }}
-            >
-              <Image
-                src="/media/homme-escalade-services.png"
-                alt=""
-                width={205}
-                height={346}
-                className="object-contain object-bottom"
-              />
-            </div>
 
             {/* Intro multidisciplinarité */}
             <div className="pb-10 pt-16 text-center lg:pb-14 lg:pt-24">
@@ -108,7 +84,7 @@ export async function ServicesPage() {
               </div>
             ) : (
               <div className="border border-zinc-200 p-10 text-center">
-                <h2 className="text-2xl font-bold text-zinc-950">Aucun service publie pour le moment.</h2>
+                <h2 className="text-2xl font-bold text-zinc-950">Aucun service publié pour le moment.</h2>
                 <p className="mt-3 text-zinc-600">Ajoute des services dans l'admin Payload pour les afficher ici.</p>
               </div>
             )}
