@@ -61,6 +61,7 @@ export async function ProfessionalsPage() {
                     typeof professional.photo === 'object' &&
                     'url' in professional.photo
                       ? professional.photo.url
+                      
                       : null
 
                   return (

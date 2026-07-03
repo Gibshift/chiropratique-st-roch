@@ -27,17 +27,18 @@ type NodeTypes =
   | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
-  const { value, relationTo } = linkNode.fields.doc!
+  const doc = linkNode.fields.doc
+  if (!doc) return '#'
 
-  if (typeof value !== 'object') {
-    throw new Error('Expected value to be an object')
-  }
+  const { value, relationTo } = doc
 
-  const slug = value.slug
+  // value peut être un ID (number/string) si la depth n'est pas suffisante
+  if (!value || typeof value !== 'object') return '#'
 
-  if (relationTo === 'posts') {
-    return `/blogue/${slug}`
-  }
+  const slug = (value as any).slug
+  if (!slug) return '#'
+
+  if (relationTo === 'posts') return `/blogue/${slug}`
 
   return `/${slug}`
 }

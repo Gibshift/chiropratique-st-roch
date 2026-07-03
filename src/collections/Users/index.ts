@@ -24,7 +24,9 @@ export const Users: CollectionConfig<'users'> = {
     useAsTitle: 'name',
   },
 
-  auth: true,
+  auth: {
+    useAPIKey: true,
+  },
 
   fields: [
     {
