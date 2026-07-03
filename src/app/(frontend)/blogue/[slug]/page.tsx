@@ -78,7 +78,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
             {/* Header */}
             <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
               <div className="lg:max-w-[55%]">
-                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,3vw,3.8rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,3vw,3.8rem)] font-medium uppercase leading-[1.1] text-zinc-950">
                   {post.title}
                 </h1>
               </div>

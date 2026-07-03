@@ -7,6 +7,18 @@ import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const ARTICLES_PER_PAGE = 9
 
+// Déterministe : même seed = même ordre, change chaque jour
+function seededShuffle<T>(arr: T[], seed: number): T[] {
+  const result = [...arr]
+  let s = seed
+  for (let i = result.length - 1; i > 0; i--) {
+    s = Math.imul(s, 1664525) + 1013904223 | 0
+    const j = Math.abs(s) % (i + 1)
+    ;[result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
+}
+
 const categoryIcons: Record<string, string> = {
   'tete-et-cou':        '/media/condition-cou-et-tete-variation.png',
   'dos-et-sacrum':      '/media/condition-dos-et-sacrum-variation.png',
@@ -138,15 +150,15 @@ function Pagination({ currentPage, totalPages }: { currentPage: number; totalPag
 export async function BloguePage({ page = 1 }: { page?: number }) {
   const payload = await getPayload({ config: configPromise })
 
-  const [allPostsResult, categoriesResult, paginatedResult] = await Promise.all([
+  const [allPostsResult, categoriesResult] = await Promise.all([
     payload.find({
       collection: 'posts',
       draft: false,
-      limit: 100,
+      limit: 200,
       overrideAccess: false,
       pagination: false,
-      sort: '-publishedAt',
-      depth: 0,
+      sort: 'title',
+      depth: 1,
     }),
     payload.find({
       collection: 'condition-categories' as any,
@@ -154,19 +166,9 @@ export async function BloguePage({ page = 1 }: { page?: number }) {
       depth: 0,
       sort: 'order',
     }),
-    payload.find({
-      collection: 'posts',
-      draft: false,
-      limit: ARTICLES_PER_PAGE,
-      page,
-      overrideAccess: false,
-      sort: '-publishedAt',
-      depth: 1,
-    }),
   ])
 
   const posts = allPostsResult.docs
-  const totalPages = paginatedResult.totalPages ?? 1
 
   const dayIndex     = Math.floor(Date.now() / (1000 * 60 * 60 * 24))
   const fourDayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 4))
@@ -174,6 +176,11 @@ export async function BloguePage({ page = 1 }: { page?: number }) {
   const articleDuJour    = posts.length > 0 ? posts[dayIndex % posts.length] : null
   const popularRawIndex  = posts.length > 1 ? (fourDayIndex + Math.floor(posts.length / 2)) % posts.length : -1
   const articlePopulaire = popularRawIndex >= 0 ? posts[popularRawIndex] : null
+
+  // Rotation quotidienne déterministe pour la grille
+  const shuffled   = seededShuffle(posts, dayIndex)
+  const totalPages = Math.ceil(posts.length / ARTICLES_PER_PAGE)
+  const pageArticles = shuffled.slice((page - 1) * ARTICLES_PER_PAGE, page * ARTICLES_PER_PAGE)
 
   return (
     <main className="bg-white text-zinc-950">
@@ -217,10 +224,10 @@ export async function BloguePage({ page = 1 }: { page?: number }) {
                       <Link key={category.id} href={`/blogue/categorie/${category.slug}`}
                         className="group flex flex-col items-center text-center border-b border-r border-zinc-300 px-4 py-6 transition hover:bg-zinc-50 lg:border-b-0"
                       >
-                        <div className="h-[95px] flex items-center justify-center">
+                        <div className="h-[130px] flex items-center justify-center">
                           {iconSrc && (
-                            <Image src={iconSrc} alt="" width={95} height={95}
-                              className="h-[95px] w-[95px] object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                            <Image src={iconSrc} alt="" width={130} height={130}
+                              className="h-[130px] w-[130px] object-contain opacity-70 group-hover:opacity-100 transition-opacity"
                             />
                           )}
                         </div>
@@ -236,11 +243,11 @@ export async function BloguePage({ page = 1 }: { page?: number }) {
             )}
 
             {/* Tous les articles */}
-            {paginatedResult.docs.length > 0 && (
+            {pageArticles.length > 0 && (
               <div>
                 <p className="mb-5 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Tous les articles</p>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {paginatedResult.docs.map((post: any) => (
+                  {pageArticles.map((post: any) => (
                     <ArticleCard key={post.id} post={post} />
                   ))}
                 </div>

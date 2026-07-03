@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Import batch d'articles depuis un fichier Markdown structuré.
  * Usage: node src/scripts/import-posts-batch.mjs
  *
@@ -12,8 +12,8 @@ import { readFileSync } from 'fs'
 
 const API_KEY       = '3213a439-b144-47e0-b6bb-046d6a631f4a'
 const BASE_URL      = 'http://localhost:3000'
-const CATEGORY_SLUG = 'dos-et-sacrum'
-const MD_FILE_PATH  = 'C:/Users/Mine/Downloads/fiches-blogue-dos-sacrum-SEO.md'
+const CATEGORY_SLUG = 'tete-et-cou'
+const MD_FILE_PATH  = 'C:/Users/Mine/Downloads/fiches-blogue-tete-et-cou-SEO.md'
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -135,7 +135,13 @@ function parseMarkdownFile(filePath) {
     // Nettoyer les séparateurs de fin
     const content = rawContent.replace(/\n---\s*$/, '').trim()
 
-    articles.push({ title: starts[i].title, slug, markdown: content })
+    // Extraire le meta title et la meta description du bloc SEO
+    const metaTitleMatch = block.match(/- Title tag\s*:\s*`([^`]+)`/)
+    const metaDescMatch  = block.match(/- Meta description\s*:\s*`([^`]+)`/)
+    const metaTitle      = metaTitleMatch?.[1] ?? null
+    const metaDesc       = metaDescMatch?.[1] ?? null
+
+    articles.push({ title: starts[i].title, slug, markdown: content, metaTitle, metaDesc })
   }
 
   return articles
@@ -184,16 +190,23 @@ async function linkConditionToPost(conditionId, postId) {
 async function importArticle(article, categoryId) {
   if (await slugExists(article.slug)) return 'skipped'
 
+  const postBody = {
+    title: article.title,
+    slug: article.slug,
+    content: markdownToLexical(article.markdown),
+    categories: [categoryId],
+    _status: 'published',
+  }
+  if (article.metaTitle || article.metaDesc) {
+    postBody.meta = {}
+    if (article.metaTitle) postBody.meta.title = article.metaTitle
+    if (article.metaDesc)  postBody.meta.description = article.metaDesc
+  }
+
   const postRes = await fetch(`${BASE_URL}/api/posts`, {
     method: 'POST',
     headers: HEADERS,
-    body: JSON.stringify({
-      title: article.title,
-      slug: article.slug,
-      content: markdownToLexical(article.markdown),
-      categories: [categoryId],
-      _status: 'draft',
-    }),
+    body: JSON.stringify(postBody),
   })
 
   const post = await postRes.json()

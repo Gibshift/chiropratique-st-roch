@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Corrige le contenu des articles importés :
  *   - Réinsère les vrais hyperliens Lexical (au lieu de texte plat)
  *   - Lie les conditions correspondantes via relatedPost
@@ -12,7 +12,7 @@ import { readFileSync } from 'fs'
 
 const API_KEY      = '3213a439-b144-47e0-b6bb-046d6a631f4a'
 const BASE_URL     = 'http://localhost:3000'
-const MD_FILE_PATH = 'C:/Users/Mine/Downloads/fiches-blogue-dos-sacrum-SEO.md'
+const MD_FILE_PATH = 'C:/Users/Mine/Downloads/fiches-blogue-tete-et-cou-SEO.md'
 
 // ─────────────────────────────────────────────────────────────────────────────
 
