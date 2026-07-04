@@ -225,7 +225,7 @@ export async function ClinicHomePage() {
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-      <section className="relative min-h-[82vh] overflow-hidden bg-[#f6f1e8]">
+      <section className="relative min-h-[82vh] lg:min-h-[76vh] overflow-hidden bg-[#f6f1e8]">
 
           {/* Photo — commence à 33% du bord gauche */}
           {homeHeroImageUrl && (
@@ -244,7 +244,7 @@ export async function ClinicHomePage() {
           <div className="relative flex min-h-[70vh] w-full items-stretch justify-between px-6 lg:px-20 xl:px-28">
 
             {/* Gauche — bloc groupé, centré verticalement */}
-            <div className="flex w-full flex-col pt-60 pb-20 lg:max-w-[33%]">
+            <div className="flex w-full flex-col pt-60 pb-20 lg:pb-10 lg:max-w-[33%]">
 
               <p className="font-[var(--font-barlow-condensed)] text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
                 Soins manuels · corps en mouvement
