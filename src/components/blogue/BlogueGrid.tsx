@@ -3,7 +3,6 @@
 import { useState, useMemo } from 'react'
 import Fuse from 'fuse.js'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export type PostForGrid = {
   id: string | number
@@ -225,7 +224,8 @@ export function BlogueGrid({
               >
                 <div className="h-[190px] flex items-center justify-center">
                   {category.iconSrc && (
-                    <Image
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
                       src={category.iconSrc}
                       alt=""
                       width={190}
