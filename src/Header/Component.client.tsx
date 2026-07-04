@@ -71,9 +71,23 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               </span>
             </Link>
 
-            {/* NAV DESKTOP */}
-            <div className="hidden items-center justify-center xl:flex">
-              <HeaderNav data={data} />
+            {/* NAV DESKTOP | CTA MOBILE centré */}
+            <div className="flex items-center justify-center">
+              {/* Desktop nav */}
+              <div className="hidden xl:block">
+                <HeaderNav data={data} />
+              </div>
+              {/* Mobile RDV — centré dans la colonne du milieu */}
+              <a
+                href={janeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center justify-center bg-red-600 px-5 text-white transition hover:bg-red-700 xl:hidden"
+              >
+                <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
+                  Rendez-vous
+                </span>
+              </a>
             </div>
 
             {/* BOUTON RDV DESKTOP */}
@@ -88,25 +102,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               </span>
             </a>
 
-            {/* BOUTONS MOBILE : RDV + MENU */}
-            <div className="flex items-center gap-2 justify-self-end xl:hidden">
-              <a
-                href={janeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] items-center justify-center bg-red-600 px-4 text-white transition hover:bg-red-700"
-              >
-                <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
-                  Rendez-vous
-                </span>
-              </a>
-              <button
-                type="button"
-                onClick={() => setIsOpen((value) => !value)}
-                className="inline-flex min-h-[44px] w-[44px] self-center flex-col items-center justify-center gap-[5px] border border-zinc-400 bg-white/90 backdrop-blur"
-                aria-expanded={isOpen}
-                aria-label="Ouvrir le menu"
-              >
+            {/* HAMBURGER MOBILE */}
+            <button
+              type="button"
+              onClick={() => setIsOpen((value) => !value)}
+              className="inline-flex min-h-[44px] w-[44px] self-center flex-col items-center justify-center gap-[5px] border border-zinc-400 bg-white/90 backdrop-blur xl:hidden"
+              aria-expanded={isOpen}
+              aria-label="Ouvrir le menu"
+            >
                 <span className="block h-[1.5px] w-5 bg-zinc-800" />
                 <span className="block h-[1.5px] w-5 bg-zinc-800" />
                 <span className="block h-[1.5px] w-5 bg-zinc-800" />
