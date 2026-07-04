@@ -316,15 +316,15 @@ export async function ClinicHomePage() {
                   <SectionAccent className="mt-8" />
                 </div>
 
-                {/* IMAGE FAMILLE */}
-                <div className="mt-auto pt-12">
+                {/* IMAGE FAMILLE — proportionnelle comme la section conditions */}
+                <div className="mt-auto pt-12 hidden lg:block">
                   <Image
                     src="/assets/services-family.png"
                     alt="Famille illustrée"
                     width={560}
                     height={420}
-                    sizes="(max-width: 1280px) 100vw, 320px"
-                    className="w-full object-contain"
+                    sizes="(max-width: 1280px) 27vw, 320px"
+                    className="w-[27%] xl:w-full object-contain"
                     style={{ height: 'auto' }}
                   />
                 </div>
@@ -564,7 +564,7 @@ export async function ClinicHomePage() {
                   <a
                     key={professional.id}
                     href={`/professionnels/${professional.slug}`}
-                    className="group relative overflow-hidden"
+                    className="group relative overflow-hidden border border-zinc-400 transition hover:border-zinc-950"
                     style={style}
                   >
                     <div className="relative aspect-square overflow-hidden bg-transparent">
@@ -588,7 +588,7 @@ export async function ClinicHomePage() {
               const CTACard = ({ style }: { style?: React.CSSProperties }) => (
                 <Link
                   href="/professionnels"
-                  className="group relative flex min-w-0 flex-col justify-between p-5 transition duration-300"
+                  className="group relative flex min-w-0 flex-col justify-between border border-zinc-400 p-5 transition duration-300 hover:border-zinc-950"
                   style={style}
                 >
                   <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-40" />
