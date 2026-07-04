@@ -2,7 +2,12 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const pageTitle = searchParams.get('title')
+
+  const showPageTitle = pageTitle && pageTitle !== 'Chiropratique St-Roch'
+
   return new ImageResponse(
     (
       <div
@@ -33,62 +38,80 @@ export async function GET() {
           <div
             style={{
               display: 'flex',
-              fontSize: 34,
+              fontSize: 28,
               fontWeight: 700,
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
               color: '#fca5a5',
             }}
           >
-            Clinique multidisciplinaire à Québec
+            {showPageTitle ? 'Chiropratique St-Roch' : 'Clinique multidisciplinaire à Québec'}
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div
-              style={{
-                display: 'flex',
-                fontSize: 86,
-                fontWeight: 800,
-                lineHeight: 1,
-                letterSpacing: '-0.05em',
-              }}
-            >
-              Chiropratique
-            </div>
+            {showPageTitle ? (
+              <div
+                style={{
+                  display: 'flex',
+                  fontSize: pageTitle.length > 40 ? 58 : 72,
+                  fontWeight: 800,
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.03em',
+                  maxWidth: '900px',
+                }}
+              >
+                {pageTitle}
+              </div>
+            ) : (
+              <>
+                <div
+                  style={{
+                    display: 'flex',
+                    fontSize: 86,
+                    fontWeight: 800,
+                    lineHeight: 1,
+                    letterSpacing: '-0.05em',
+                  }}
+                >
+                  Chiropratique
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    fontSize: 86,
+                    fontWeight: 800,
+                    lineHeight: 1,
+                    letterSpacing: '-0.05em',
+                    color: '#ef4444',
+                  }}
+                >
+                  St-Roch
+                </div>
+              </>
+            )}
 
             <div
               style={{
                 display: 'flex',
-                fontSize: 86,
-                fontWeight: 800,
-                lineHeight: 1,
-                letterSpacing: '-0.05em',
-                color: '#ef4444',
-              }}
-            >
-              St-Roch
-            </div>
-
-            <div
-              style={{
-                display: 'flex',
-                marginTop: 36,
-                fontSize: 34,
+                marginTop: 32,
+                fontSize: 30,
                 color: '#e5e7eb',
               }}
             >
-              Chiropratique · Ostéopathie · Massothérapie · Kinésithérapie · Orthothérapie
+              {showPageTitle
+                ? 'Chiropratique · Ostéopathie · Massothérapie · Kinésithérapie · Orthothérapie'
+                : 'Chiropratique · Ostéopathie · Massothérapie · Kinésithérapie · Orthothérapie'}
             </div>
           </div>
 
           <div
             style={{
               display: 'flex',
-              fontSize: 30,
+              fontSize: 26,
               color: '#d4d4d8',
             }}
           >
-            440 Rue Saint-Joseph E · Québec · 581.742.3808
+            chiropratiquestroch.com · Québec
           </div>
         </div>
       </div>

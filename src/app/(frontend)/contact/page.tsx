@@ -22,14 +22,14 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Chiropratique St-Roch',
     locale: 'fr_CA',
-    images: getDefaultOpenGraphImages('Contact Chiropratique St-Roch'),
+    images: getDefaultOpenGraphImages('Contact Chiropratique St-Roch', 'Nous contacter'),
   },
 
   twitter: {
     card: 'summary_large_image',
     title,
     description,
-    images: getDefaultOpenGraphImages('Contact Chiropratique St-Roch'),
+    images: getDefaultOpenGraphImages('Contact Chiropratique St-Roch', 'Nous contacter'),
   },
 }
 

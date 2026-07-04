@@ -36,10 +36,13 @@ export function getAbsoluteUrl(path?: string | null) {
 
 export function getDefaultOpenGraphImages(
   alt = 'Chiropratique St-Roch',
+  pageTitle?: string,
 ): Metadata['openGraph'] extends { images?: infer Images } ? Images : never {
+  const base = getAbsoluteUrl('/og-image') || '/og-image'
+  const url = pageTitle ? `${base}?title=${encodeURIComponent(pageTitle)}` : base
   return [
     {
-      url: getAbsoluteUrl('/og-image') || '/og-image',
+      url,
       width: 1200,
       height: 630,
       alt,
