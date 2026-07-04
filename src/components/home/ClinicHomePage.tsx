@@ -316,15 +316,15 @@ export async function ClinicHomePage() {
                   <SectionAccent className="mt-8" />
                 </div>
 
-                {/* IMAGE FAMILLE — proportionnelle comme la section conditions */}
-                <div className="mt-auto pt-12 hidden lg:block">
+                {/* IMAGE FAMILLE — visible uniquement sur xl dans sa colonne 320px */}
+                <div className="mt-auto pt-12 hidden xl:block">
                   <Image
                     src="/assets/services-family.png"
                     alt="Famille illustrée"
                     width={560}
                     height={420}
-                    sizes="(max-width: 1280px) 27vw, 320px"
-                    className="w-[27%] xl:w-full object-contain"
+                    sizes="320px"
+                    className="w-full object-contain"
                     style={{ height: 'auto' }}
                   />
                 </div>
@@ -576,9 +576,9 @@ export async function ClinicHomePage() {
                       )}
                     </div>
                     {photoUrl && (
-                      <div className="pt-2">
-                        <h3 className="text-sm font-bold tracking-[-0.01em] text-zinc-950">{professional.name}</h3>
-                        <p className="mt-0.5 text-xs text-zinc-500">{professional.title}</p>
+                      <div className="flex flex-1 flex-col p-4 lg:p-5">
+                        <h3 className="text-[1.25rem] font-bold leading-tight text-zinc-950">{professional.name}</h3>
+                        <p className="mt-1 text-[0.9rem] font-semibold text-zinc-600">{professional.title}</p>
                       </div>
                     )}
                   </a>

@@ -74,20 +74,18 @@ export async function ServicesPage() {
             </div>
 
             {services.docs.length > 0 ? (
-              <div id="services-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 lg:items-end border-l border-t border-zinc-400 lg:border-0">
+              <div id="services-grid" className="grid grid-cols-1 lg:grid-cols-5 lg:items-end border-l border-t border-zinc-400 lg:border-0">
                 {services.docs.map((service: any, index: number) => {
                   const title = (service.title as string).toUpperCase()
                   const firstLetter = title.charAt(0)
                   const rest = title.slice(1)
                   const height = cardHeights[index] ?? 'lg:h-[200px]'
-                  const isLast = index === services.docs.length - 1
-                  const isOddTotal = services.docs.length % 2 !== 0
 
                   return (
                     <a
                       key={service.id}
                       href={`/services/${service.slug}`}
-                      className={`group flex flex-col justify-between lg:justify-end border-r border-b border-zinc-400 lg:border lg:-ml-[1px] bg-white px-6 pb-12 pt-6 lg:pt-0 transition hover:bg-zinc-50 lg:min-h-0 first:lg:ml-0 ${height} ${isLast && isOddTotal ? 'md:col-span-2 lg:col-span-1' : ''}`}
+                      className={`group flex flex-col justify-between lg:justify-end border-r border-b border-zinc-400 lg:border lg:-ml-[1px] bg-white px-6 pb-12 pt-6 lg:pt-0 transition hover:bg-zinc-50 lg:min-h-0 first:lg:ml-0 ${height}`}
                     >
                       <h2 className="font-[var(--font-barlow-condensed)] text-[clamp(1.1rem,1.5vw,1.35rem)] font-medium uppercase leading-none tracking-[0.02em]">
                         <span className="text-red-600">{firstLetter}</span>
