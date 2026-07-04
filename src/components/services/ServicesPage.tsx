@@ -5,8 +5,8 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const imageRotations = {
-  femme: 0,   // degrés — positif = sens horaire, négatif = antihoraire
-  homme: 0,   // degrés
+  femme: 5,
+  homme: 0,
 }
 
 const cardHeights = [
