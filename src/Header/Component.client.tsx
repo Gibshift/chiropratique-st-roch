@@ -86,7 +86,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
           <button
             type="button"
             onClick={() => setIsOpen((value) => !value)}
-            className="inline-flex min-h-[54px] self-center items-center justify-self-end border border-zinc-300 bg-white/90 px-8 text-sm font-semibold backdrop-blur xl:hidden"
+            className="inline-flex min-h-[54px] self-center items-center justify-self-end border border-zinc-400 bg-white/90 px-8 text-sm font-semibold backdrop-blur xl:hidden"
             aria-expanded={isOpen}
             aria-label="Ouvrir le menu"
           >

@@ -82,12 +82,12 @@ export async function ConditionsPage() {
                 })}
               </div>
             ) : (
-              <div className="border border-zinc-300 p-10 text-center">
+              <div className="border border-zinc-400 p-10 text-center">
                 <p className="text-zinc-500">Aucune catégorie publiée pour le moment.</p>
               </div>
             )}
 
-            <div className="mt-16 border-t border-zinc-300 pt-12 text-center">
+            <div className="mt-16 border-t border-zinc-400 pt-12 text-center">
               <p className="text-[1rem] leading-8 text-zinc-600">
                 Vous ne trouvez pas votre condition?{' '}
                 <a href="/contact" className="font-semibold text-zinc-950 underline underline-offset-4 hover:text-red-600">

@@ -65,14 +65,14 @@ export async function Footer() {
               href={janeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-7 inline-flex rounded-full bg-red-700 px-6 py-3 font-semibold text-white transition hover:bg-red-800"
+              className="mt-7 inline-flex bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-red-700"
             >
               Prendre rendez-vous
             </a>
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-red-300">
+            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-600">
               Navigation
             </h2>
 
@@ -90,7 +90,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-red-300">
+            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-600">
               Coordonnées
             </h2>
 
@@ -122,7 +122,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-red-300">
+            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-600">
               Heures d’ouverture
             </h2>
 

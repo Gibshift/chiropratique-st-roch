@@ -153,7 +153,7 @@ export default async function Page({
                   <div className="mt-12 flex items-center justify-center gap-2">
                     {page > 1 && (
                       <Link href={`/blogue/categorie/${slug}?page=${page - 1}`}
-                        className="flex h-9 w-9 items-center justify-center border border-zinc-300 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+                        className="flex h-9 w-9 items-center justify-center border border-zinc-400 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
                       >←</Link>
                     )}
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
@@ -161,13 +161,13 @@ export default async function Page({
                         className={`flex h-9 w-9 items-center justify-center border text-sm font-semibold transition ${
                           p === page
                             ? 'border-zinc-950 bg-zinc-950 text-white'
-                            : 'border-zinc-300 text-zinc-600 hover:border-zinc-950 hover:text-zinc-950'
+                            : 'border-zinc-400 text-zinc-600 hover:border-zinc-950 hover:text-zinc-950'
                         }`}
                       >{p}</Link>
                     ))}
                     {page < totalPages && (
                       <Link href={`/blogue/categorie/${slug}?page=${page + 1}`}
-                        className="flex h-9 w-9 items-center justify-center border border-zinc-300 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+                        className="flex h-9 w-9 items-center justify-center border border-zinc-400 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
                       >→</Link>
                     )}
                   </div>

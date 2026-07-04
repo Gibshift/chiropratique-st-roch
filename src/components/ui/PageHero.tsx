@@ -49,7 +49,7 @@ export function PageHero({ title, eyebrow, description, imageUrl, highlight, cta
         <div className="flex w-full flex-col pt-60 pb-20 lg:max-w-[48%]">
 
           {eyebrow && (
-            <p className="text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
+            <p className="font-[var(--font-barlow-condensed)] text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
               {eyebrow}
             </p>
           )}
@@ -68,7 +68,7 @@ export function PageHero({ title, eyebrow, description, imageUrl, highlight, cta
 
           {ctaUrl && (
             <a href={ctaUrl} target="_blank" rel="noopener noreferrer"
-              className="group mt-8 inline-flex w-fit min-h-[54px] items-center gap-4 border border-red-600 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-700 transition hover:bg-red-700 hover:text-white"
+              className="group mt-8 inline-flex w-fit min-h-[54px] items-center gap-4 border border-red-600 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
             >
               <span>Prendre rendez-vous</span>
               <svg aria-hidden="true" viewBox="0 0 44 10" className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1">

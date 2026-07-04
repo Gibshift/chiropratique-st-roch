@@ -243,7 +243,7 @@ export async function ClinicHomePage() {
             {/* Gauche — bloc groupé, centré verticalement */}
             <div className="flex w-full flex-col pt-60 pb-20 lg:max-w-[33%]">
 
-              <p className="whitespace-nowrap text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
+              <p className="font-[var(--font-barlow-condensed)] whitespace-nowrap text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
                 Soins manuels · corps en mouvement
               </p>
 
@@ -262,7 +262,7 @@ export async function ClinicHomePage() {
                 href={janeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-700 transition hover:bg-red-700 hover:text-white"
+                className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
               >
                 <span>Prendre rendez-vous</span>
                 <svg
@@ -285,7 +285,7 @@ export async function ClinicHomePage() {
             {/* Droite — BOUGEZ MIEUX aligné avec le top de CHIROPRATIQUE */}
             <div className="pointer-events-none hidden shrink-0 self-start mt-[17.3rem] lg:flex lg:items-stretch lg:gap-3">
               <div className="my-[0.5em] w-[2px] shrink-0 bg-red-600" />
-              <p className="text-left text-[clamp(1.6rem,2.8vw,2.4rem)] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
+              <p className="font-[var(--font-barlow-condensed)] text-left text-[clamp(1.6rem,2.8vw,2.4rem)] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
                 Bougez<br />Mieux.<br />Vivez<br />Mieux.
               </p>
             </div>
@@ -491,12 +491,12 @@ export async function ClinicHomePage() {
                 <SectionAccent className="mt-8" />
               </div>
 
-              <div className="mt-14 grid max-w-[600px] border-l border-zinc-300 grid-cols-3 md:grid-cols-5">
+              <div className="mt-14 grid max-w-[600px] border-l border-zinc-400 grid-cols-3 md:grid-cols-5">
                 {conditionCategories.docs.slice(0, 5).map((category: any, index: number) => (
                   <a
                     key={category.id}
                     href={`/conditions-traitees/${category.slug}`}
-                    className="group flex flex-col items-center border-r border-zinc-300 px-5 py-4 text-center transition hover:bg-[#ece5dc]/40"
+                    className="group flex flex-col items-center border-r border-zinc-400 px-5 py-4 text-center transition hover:bg-[#ece5dc]/40"
                   >
                     <p className="flex-1 font-[var(--font-barlow-condensed)] text-[0.95rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-900 group-hover:text-zinc-950">
                       <span className="text-red-600">{category.title.slice(0, 1)}</span>
@@ -511,7 +511,7 @@ export async function ClinicHomePage() {
 
               <a
                 href="/conditions-traitees"
-                className="group mt-12 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                className="group mt-12 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
               >
                 Voir toutes les conditions
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
@@ -652,7 +652,7 @@ export async function ClinicHomePage() {
                 </div>
                 <a
                   href="/blogue"
-                  className="group inline-flex shrink-0 items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                  className="group inline-flex shrink-0 items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
                 >
                   Voir tous les articles
                   <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>

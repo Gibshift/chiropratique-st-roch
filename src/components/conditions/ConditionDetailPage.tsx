@@ -79,7 +79,7 @@ export async function ConditionDetailPage({ slug, categorySlug }: Props) {
           <article className="min-w-0">
             {condition.commonSymptoms?.length > 0 && (
               <div className="mb-10 border border-zinc-400 bg-zinc-50 p-6 md:p-8">
-                <h2 className="text-[1.1rem] font-semibold uppercase tracking-[0.04em] text-zinc-950">
+                <h2 className="font-[var(--font-barlow-condensed)] text-[1.1rem] font-semibold uppercase tracking-[0.04em] text-zinc-950">
                   Symptômes fréquents
                 </h2>
                 <ul className="mt-5 grid gap-3 md:grid-cols-2">

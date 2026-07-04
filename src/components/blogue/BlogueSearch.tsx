@@ -96,7 +96,7 @@ export function BlogueSearch({ allPosts }: { allPosts: PostForSearch[] }) {
 
       {/* Dropdown */}
       {showDropdown && (
-        <div className="absolute left-0 right-0 top-full z-50 max-h-[26rem] overflow-y-auto border border-t-0 border-zinc-300 bg-white shadow-lg">
+        <div className="absolute left-0 right-0 top-full z-50 max-h-[26rem] overflow-y-auto border border-t-0 border-zinc-400 bg-white shadow-lg">
           {results.map((post) => (
             <Link
               key={post.id}

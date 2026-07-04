@@ -20,7 +20,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             {...link}
             appearance="link"
             className={`font-[var(--font-barlow-condensed)] text-[14px] font-medium uppercase leading-none tracking-[0.16em] transition ${
-              isBlogue ? 'text-red-600 hover:text-red-300' : 'text-zinc-950 hover:text-red-700'
+              isBlogue ? 'text-red-600 hover:text-red-700' : 'text-zinc-950 hover:text-red-600'
             }`}
           />
         )
