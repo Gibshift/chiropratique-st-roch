@@ -126,17 +126,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
 
         {/* Liens nav */}
         <nav className="flex flex-1 flex-col gap-0 overflow-y-auto px-6 pt-4">
-          {navItems.map(({ link }, i) => {
-            const isBlogue = link?.label?.toLowerCase() === 'blogue'
-            return (
-              <CMSLink
-                key={i}
-                {...link}
-                appearance="link"
-                className={`border-b border-zinc-100 py-4 font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase leading-none tracking-[0.16em] transition ${isBlogue ? 'text-red-600' : 'text-zinc-950 hover:text-red-600'}`}
-              />
-            )
-          })}
+          {navItems.map(({ link }, i) => (
+            <CMSLink
+              key={i}
+              {...link}
+              appearance="link"
+              className="border-b border-zinc-100 py-4 font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase leading-none tracking-[0.16em] transition text-zinc-950 hover:text-red-600"
+            />
+          ))}
         </nav>
 
         {/* CTA en bas */}
