@@ -37,7 +37,7 @@ const defaultHolds: Hold[] = [
 
 export function GeometricShapes({ holds = defaultHolds }: { holds?: Hold[] }) {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+    <div className="hidden md:block pointer-events-none absolute inset-0 z-0" aria-hidden>
       {holds.map((h, i) => {
         const s = h.size
         const style: React.CSSProperties = {

@@ -666,7 +666,7 @@ export async function ClinicHomePage() {
                 </div>
                 <a
                   href="/blogue"
-                  className="group inline-flex shrink-0 items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                  className="group inline-flex self-start shrink-0 items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
                 >
                   Voir tous les articles
                   <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
@@ -679,7 +679,7 @@ export async function ClinicHomePage() {
                 {/* Article du jour — même design que la page blogue */}
                 <a
                   href={`/blogue/${dailyPost.slug}`}
-                  className="group flex min-h-[360px] flex-col overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 lg:pb-6 transition hover:border-red-600"
+                  className="group flex lg:min-h-[360px] flex-col overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 lg:pb-6 transition hover:border-red-600"
                 >
                   <div className="flex items-center justify-between">
                     <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-500">
@@ -717,7 +717,7 @@ export async function ClinicHomePage() {
                       <a
                         key={op.id}
                         href={"/blogue/" + op.slug}
-                        className={`group flex flex-1 flex-col overflow-hidden p-6 min-h-[300px] lg:min-h-[200px] transition border ${
+                        className={`group flex flex-1 flex-col overflow-hidden p-6 lg:min-h-[200px] transition border ${
                           isWhite
                             ? 'bg-white border-zinc-400 hover:border-zinc-950'
                             : 'bg-stone-100 border-stone-400 hover:border-zinc-950'

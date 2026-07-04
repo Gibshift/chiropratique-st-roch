@@ -25,7 +25,7 @@ export async function ServicesPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="relative bg-white min-h-[68vh] pt-32 pb-24 lg:pt-48">
+      <section className="relative bg-white md:min-h-[68vh] pt-44 pb-24 lg:pt-48">
 
         <GeometricShapes />
 
@@ -74,18 +74,20 @@ export async function ServicesPage() {
             </div>
 
             {services.docs.length > 0 ? (
-              <div id="services-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 lg:items-end">
+              <div id="services-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 lg:items-end border-l border-t border-zinc-400">
                 {services.docs.map((service: any, index: number) => {
                   const title = (service.title as string).toUpperCase()
                   const firstLetter = title.charAt(0)
                   const rest = title.slice(1)
                   const height = cardHeights[index] ?? 'lg:h-[200px]'
+                  const isLast = index === services.docs.length - 1
+                  const isOddTotal = services.docs.length % 2 !== 0
 
                   return (
                     <a
                       key={service.id}
                       href={`/services/${service.slug}`}
-                      className={`group flex flex-col justify-end min-h-[140px] border border-zinc-400 bg-white px-6 pb-12 pt-6 transition hover:bg-zinc-50 lg:-ml-[1px] lg:min-h-0 lg:pt-0 first:lg:ml-0 ${height}`}
+                      className={`group flex flex-col justify-end min-h-[140px] border-r border-b border-zinc-400 bg-white px-6 pb-12 pt-6 transition hover:bg-zinc-50 lg:min-h-0 lg:pt-0 ${height} ${isLast && isOddTotal ? 'md:col-span-2 lg:col-span-1' : ''}`}
                     >
                       <h2 className="font-[var(--font-barlow-condensed)] text-[clamp(1.1rem,1.5vw,1.35rem)] font-medium uppercase leading-none tracking-[0.02em]">
                         <span className="text-red-600">{firstLetter}</span>

@@ -85,7 +85,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
                 className="inline-flex min-h-[44px] items-center justify-center bg-red-600 px-5 text-white transition hover:bg-red-700 xl:hidden"
               >
                 <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
-                  Rendez-vous
+                  Prendre rendez-vous
                 </span>
               </a>
             </div>
@@ -106,7 +106,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
             <button
               type="button"
               onClick={() => setIsOpen((value) => !value)}
-              className="inline-flex min-h-[44px] w-[44px] self-center flex-col items-center justify-center gap-[5px] border border-zinc-400 bg-white/90 backdrop-blur xl:hidden"
+              className="inline-flex min-h-[44px] w-[44px] self-center flex-col items-center justify-center gap-[5px] xl:hidden"
               aria-expanded={isOpen}
               aria-label="Ouvrir le menu"
             >

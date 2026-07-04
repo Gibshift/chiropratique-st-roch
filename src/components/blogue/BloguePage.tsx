@@ -84,7 +84,7 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
     return (
       <Link
         href={`/blogue/${post.slug}`}
-        className={`group flex min-h-[360px] flex-col overflow-hidden transition p-8 lg:p-10 lg:pb-6 ${s.wrap}`}
+        className={`group flex lg:min-h-[360px] flex-col overflow-hidden transition p-8 lg:p-10 lg:pb-6 ${s.wrap}`}
       >
         <div className="flex items-center justify-between">
           <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] ${s.label}`}>
@@ -110,7 +110,7 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
   return (
     <Link
       href={`/blogue/${post.slug}`}
-      className={`group flex flex-1 flex-col overflow-hidden transition p-6 min-h-[300px] lg:min-h-[200px] ${s.wrap}`}
+      className={`group flex flex-1 flex-col overflow-hidden transition p-6 lg:min-h-[200px] ${s.wrap}`}
     >
       <div>
         <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] ${s.label}`}>
@@ -206,7 +206,7 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="relative bg-white pt-32 pb-24 lg:pt-48">
+      <section className="relative bg-white pt-44 pb-24 lg:pt-48">
         <GeometricShapes />
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
