@@ -144,9 +144,12 @@ export async function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-zinc-400 md:flex-row md:items-center md:justify-between">
-          <p>
-            © {new Date().getFullYear()} {clinicName}. Tous droits réservés.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <p>© {new Date().getFullYear()} {clinicName}. Tous droits réservés.</p>
+            <Link href="/politique-de-confidentialite" className="hover:text-white transition-colors">
+              Politique de confidentialité
+            </Link>
+          </div>
 
           <div className="flex gap-5">
             {settings.socialLinks?.facebook && (
