@@ -7,11 +7,11 @@ import { GeometricShapes } from '@/components/ui/GeometricShapes'
 import { BlogueGrid, type PostForGrid, type CategoryForGrid } from './BlogueGrid'
 
 const categoryIcons: Record<string, string> = {
-  'tete-et-cou':        '/media/condition-cou-et-tete-variation.png',
-  'dos-et-sacrum':      '/media/condition-dos-et-sacrum-variation.png',
-  'machoire':           '/media/condition-atm-variation.png',
-  'membres-superieurs': '/media/condition-membres-superieurs-variation.png',
-  'membres-inferieurs': '/media/condition-membres-inferieurs-variation.png',
+  'tete-et-cou':        '/assets/condition-cou-et-tete-variation.png',
+  'dos-et-sacrum':      '/assets/condition-dos-et-sacrum-variation.png',
+  'machoire':           '/assets/condition-atm-variation.png',
+  'membres-superieurs': '/assets/condition-membres-superieurs-variation.png',
+  'membres-inferieurs': '/assets/condition-membres-inferieurs-variation.png',
 }
 
 function seededShuffle<T>(arr: T[], seed: number): T[] {

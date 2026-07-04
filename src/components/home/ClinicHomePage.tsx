@@ -28,11 +28,11 @@ function formatDateFR(dateStr: string) {
 
 function ServiceIconBadge({ slug }: { slug: string }) {
   const imageIcons: Record<string, string> = {
-    chiropratique: '/media/chiropratique-icon.png',
-    osteopathie: '/media/osteopathie-icon.png',
-    massotherapie: '/media/massotherapie-icon.png',
-    kinesitherapie: '/media/kinesitherapie-icon.png',
-    orthotherapie: '/media/orthotherapie-icon.png',
+    chiropratique: '/assets/chiropratique-icon.png',
+    osteopathie: '/assets/osteopathie-icon.png',
+    massotherapie: '/assets/massotherapie-icon.png',
+    kinesitherapie: '/assets/kinesitherapie-icon.png',
+    orthotherapie: '/assets/orthotherapie-icon.png',
   }
 
   const imageSrc = imageIcons[slug]
@@ -316,7 +316,7 @@ export async function ClinicHomePage() {
                 {/* IMAGE FAMILLE */}
                 <div className="mt-auto pt-12">
                   <Image
-                    src="/media/services-family.png"
+                    src="/assets/services-family.png"
                     alt="Famille illustrée"
                     width={560}
                     height={420}

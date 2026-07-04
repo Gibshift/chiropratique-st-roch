@@ -33,7 +33,7 @@ export async function ServicesPage() {
         <ScrollReveal className="pointer-events-none absolute inset-0 z-20">
           <div className="relative mx-auto h-full max-w-[1200px] px-6 lg:px-8">
             <Image
-              src="/media/femme-monte-marche-siteweb-droite.png"
+              src="/assets/femme-monte-marche-siteweb-droite.png"
               alt=""
               width={340}
               height={560}
@@ -42,7 +42,7 @@ export async function ServicesPage() {
               priority
             />
             <Image
-              src="/media/homme-escalade-siteweb-gauche.png"
+              src="/assets/homme-escalade-siteweb-gauche.png"
               alt=""
               width={340}
               height={560}

@@ -5,11 +5,11 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const categoryIcons: Record<string, string> = {
-  'tete-et-cou': '/media/condition-cou-et-tete.png',
-  'dos-et-sacrum': '/media/condition-dos-et-sacrum-cropped.png',
-  'machoire': '/media/condition-atm.png',
-  'membres-superieurs': '/media/condition-membres-superieurs.png',
-  'membres-inferieurs': '/media/condition-membres-inferieurs-cropped-round.png',
+  'tete-et-cou': '/assets/condition-cou-et-tete.png',
+  'dos-et-sacrum': '/assets/condition-dos-et-sacrum-cropped.png',
+  'machoire': '/assets/condition-atm.png',
+  'membres-superieurs': '/assets/condition-membres-superieurs.png',
+  'membres-inferieurs': '/assets/condition-membres-inferieurs-cropped-round.png',
 }
 
 export async function ConditionsPage() {
