@@ -6,7 +6,6 @@ import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import { cache } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import RichText from '@/components/RichText'
 import { getOpenGraphImages } from '@/utilities/seo'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
@@ -16,11 +15,11 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 const categoryIcons: Record<string, string> = {
-  'tete-et-cou':        '/media/condition-cou-et-tete-variation.png',
-  'dos-et-sacrum':      '/media/condition-dos-et-sacrum-variation.png',
-  'machoire':           '/media/condition-atm-variation.png',
-  'membres-superieurs': '/media/condition-membres-superieurs-variation.png',
-  'membres-inferieurs': '/media/condition-membres-inferieurs-variation.png',
+  'tete-et-cou':        '/assets/condition-cou-et-tete-variation.png',
+  'dos-et-sacrum':      '/assets/condition-dos-et-sacrum-variation.png',
+  'machoire':           '/assets/condition-atm-variation.png',
+  'membres-superieurs': '/assets/condition-membres-superieurs-variation.png',
+  'membres-inferieurs': '/assets/condition-membres-inferieurs-variation.png',
 }
 
 function formatDate(publishedAt: unknown): string | null {
@@ -191,7 +190,8 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                         {category.title}
                       </p>
                       {iconSrc && (
-                        <Image
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
                           src={iconSrc}
                           alt=""
                           width={80}
