@@ -1,5 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import {
+  MetaDescriptionField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
+  PreviewField,
+} from '@payloadcms/plugin-seo/fields'
 import { authenticated } from '../access/authenticated'
 import { clinicRichTextEditor } from '../utilities/clinicRichTextEditor'
 import { slugify } from '../utilities/slugify'
@@ -96,8 +103,7 @@ export const ConditionCategories: CollectionConfig = {
               label: 'Avertissement (Important)',
               editor: clinicRichTextEditor,
               admin: {
-                description:
-                  'Section "Important" affichée après la liste des conditions.',
+                description: 'Section "Important" affichée après la liste des conditions.',
                 className: 'clinic-rich-text-editor',
               },
             },
@@ -122,8 +128,7 @@ export const ConditionCategories: CollectionConfig = {
               hasMany: true,
               label: 'Services liés',
               admin: {
-                description:
-                  'Services affichés dans la section "Pour vous aider" en bas de page.',
+                description: 'Services affichés dans la section "Pour vous aider" en bas de page.',
               },
             },
           ],
@@ -137,7 +142,7 @@ export const ConditionCategories: CollectionConfig = {
               label: 'Sous-titre de la carte',
               admin: {
                 description:
-                  "Court texte affiché sous le titre sur la carte. Exemple : Genoux · Hanches · Pieds · Chevilles",
+                  'Court texte affiché sous le titre sur la carte. Exemple : Genoux · Hanches · Pieds · Chevilles',
               },
             },
             {
@@ -146,7 +151,7 @@ export const ConditionCategories: CollectionConfig = {
               relationTo: 'media',
               label: 'Image de fond (hero)',
               admin: {
-                description: 'Image optionnelle affichée en arrière-plan du hero.',
+                description: "Image optionnelle affichée en arrière-plan du hero.",
               },
             },
             {
@@ -155,37 +160,28 @@ export const ConditionCategories: CollectionConfig = {
               label: "Ordre d'affichage",
               defaultValue: 0,
               admin: {
-                description: 'Plus le chiffre est bas, plus la catégorie apparaît en premier.',
+                description: "Plus le chiffre est bas, plus la catégorie apparaît en premier.",
               },
             },
           ],
         },
         {
+          name: 'meta',
           label: 'SEO',
           fields: [
-            {
-              name: 'seo',
-              type: 'group',
-              label: 'Référencement SEO',
-              fields: [
-                {
-                  name: 'title',
-                  type: 'text',
-                  label: 'Titre SEO',
-                  admin: {
-                    description: 'Titre affiché dans Google. Si vide, le titre de la catégorie sera utilisé.',
-                  },
-                },
-                {
-                  name: 'description',
-                  type: 'textarea',
-                  label: 'Description SEO',
-                  admin: {
-                    description: 'Idéalement 150 à 160 caractères.',
-                  },
-                },
-              ],
-            },
+            OverviewField({
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+              imagePath: 'meta.image',
+            }),
+            MetaTitleField({ hasGenerateFn: true }),
+            MetaImageField({ relationTo: 'media' }),
+            MetaDescriptionField({ hasGenerateFn: true }),
+            PreviewField({
+              hasGenerateFn: true,
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+            }),
           ],
         },
       ],

@@ -15,27 +15,6 @@ const SERVICE_ORDER = [
 ]
 
 
-const SERVICE_COLORS: Record<string, string> = {
-  chiropratique: '#0c1f3f',
-  osteopathie:   '#082a1a',
-  massotherapie: '#3a0d0d',
-  kinesitherapie:'#261600',
-  orthotherapie: '#170b36',
-}
-
-function buildPostGradient(relatedServices: any[]): string {
-  const colors: string[] = []
-  for (const svc of relatedServices) {
-    const slug = typeof svc === 'object' ? (svc.slug ?? '') : String(svc)
-    const color = SERVICE_COLORS[slug]
-    if (color && !colors.includes(color)) colors.push(color)
-  }
-
-  if (colors.length === 0) return 'linear-gradient(135deg, #18181b 0%, #27272a 100%)'
-  if (colors.length === 1) return `linear-gradient(135deg, ${colors[0]} 0%, #18181b 100%)`
-  const stops = colors.map((c, i) => `${c} ${Math.round((i * 100) / (colors.length - 1))}%`).join(', ')
-  return `linear-gradient(135deg, ${stops})`
-}
 
 function formatDateFR(dateStr: string) {
   return new Intl.DateTimeFormat('fr-CA', {
@@ -46,29 +25,6 @@ function formatDateFR(dateStr: string) {
   }).format(new Date(dateStr))
 }
 
-function getPeriodicIndex(length: number, periodDays: number) {
-  if (length <= 0) return 0
-  const daysSinceEpoch = Math.floor(Date.now() / (1000 * 60 * 60 * 24))
-  const period = Math.floor(daysSinceEpoch / periodDays)
-  return period % length
-}
-
-function getDailyIndex(length: number) {
-  if (length <= 0) return 0
-
-  const todayInQuebec = new Intl.DateTimeFormat('fr-CA', {
-    timeZone: 'America/Toronto',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date())
-
-  const dateScore = Array.from(todayInQuebec).reduce((total, character) => {
-    return total + character.charCodeAt(0)
-  }, 0)
-
-  return dateScore % length
-}
 
 function ServiceIconBadge({ slug }: { slug: string }) {
   const imageIcons: Record<string, string> = {
@@ -212,9 +168,9 @@ export async function ClinicHomePage() {
 
     payload.find({
       collection: 'posts',
-      limit: 50,
+      limit: 200,
       depth: 1,
-      sort: '-publishedAt',
+      sort: 'title',
       where: {
         _status: {
           equals: 'published',
@@ -235,13 +191,16 @@ export async function ClinicHomePage() {
   const hasServices = services.docs.length > 0
   const hasConditions = conditionCategories.docs.length > 0
   const hasProfessionals = professionals.docs.length > 0
-  const hasPosts = posts.docs.length > 0
-
   const orderedServices = SERVICE_ORDER.map((slug) =>
     services.docs.find((service: any) => service.slug === slug),
   ).filter(Boolean) as any[]
 
-  const dailyPost = hasPosts ? posts.docs[getDailyIndex(posts.docs.length)] : null
+  const _dayIndex     = Math.floor(Date.now() / (1000 * 60 * 60 * 24))
+  const _fourDayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 4))
+  const _len          = posts.docs.length
+  const dailyPost     = _len > 0 ? posts.docs[_dayIndex % _len] : null
+  const _popularIdx   = _len > 1 ? (_fourDayIndex + Math.floor(_len / 2)) % _len : -1
+  const _recentIdx    = _len > 2 ? (_dayIndex + Math.ceil(_len / 3)) % _len : -1
 
   const homeHeroImageUrl =
     siteSettings &&
@@ -672,11 +631,8 @@ export async function ClinicHomePage() {
 
       {/* BLOGUE */}
       {dailyPost && (() => {
-        const dailyIndex = getDailyIndex(posts.docs.length)
-        const remainingPosts = posts.docs.filter((_: any, i: number) => i !== dailyIndex)
-        const popularIndex = getPeriodicIndex(remainingPosts.length, 4)
-        const popularPost = remainingPosts.length > 0 ? remainingPosts[popularIndex] : null
-        const recentPost = remainingPosts.find((_: any, i: number) => i !== popularIndex) ?? null
+        const popularPost = _popularIdx >= 0 ? posts.docs[_popularIdx] : null
+        const recentPost  = _recentIdx  >= 0 ? posts.docs[_recentIdx]  : null
 
         return (
           <section className="relative z-40 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
@@ -706,72 +662,78 @@ export async function ClinicHomePage() {
               {/* Grille articles */}
               <div className="grid gap-1 lg:grid-cols-[1.6fr_1fr]">
 
-                {/* Article du jour — grande carte */}
+                {/* Article du jour — même design que la page blogue */}
                 <a
                   href={`/blogue/${dailyPost.slug}`}
-                  className="group flex min-h-[420px] flex-col overflow-hidden p-8 transition-opacity duration-300 hover:opacity-90"
-                  style={{ background: buildPostGradient(Array.isArray(dailyPost.relatedServices) ? dailyPost.relatedServices : []) }}
+                  className="group flex min-h-[360px] flex-col justify-between overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 transition hover:border-red-600"
                 >
-                  <div>
-                    <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-400">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-red-500">
                       Article du jour
                     </span>
+                    {dailyPost.publishedAt && (
+                      <span className="text-xs text-zinc-500">{formatDateFR(dailyPost.publishedAt)}</span>
+                    )}
                   </div>
 
-                  <div className="flex flex-1 items-center py-8">
-                    <h3 className="max-w-lg text-[2rem] font-normal leading-[1.05] tracking-[-0.03em] text-white md:text-[2.6rem]">
+                  <div>
+                    <h3 className="font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight text-white group-hover:text-red-400 transition">
                       {dailyPost.title}
                     </h3>
+                    {dailyPost.meta?.description && (
+                      <p className="mt-3 line-clamp-3 text-[0.9rem] leading-6 text-zinc-400">
+                        {dailyPost.meta.description}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    {dailyPost.publishedAt && (
-                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-white/40">
-                        {formatDateFR(dailyPost.publishedAt)}
-                      </span>
-                    )}
-                    <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.18em] text-red-400 transition group-hover:text-red-300">
-                      Lire l'article →
-                    </span>
-                  </div>
+                  <span className="text-[1rem] font-semibold text-red-500 transition group-hover:text-red-400">
+                    Lire l&apos;article →
+                  </span>
                 </a>
 
                 {/* Petites cartes */}
                 <div className="flex flex-col gap-1">
                   {([
-                    { post: popularPost, label: 'Article populaire' },
-                    { post: recentPost, label: 'À lire aussi' },
-                  ] as { post: any; label: string }[]).filter(({ post }) => post).map(({ post: op, label }) => (
-                    <a
-                      key={op.id}
-                      href={"/blogue/" + op.slug}
-                      className="group flex flex-1 flex-col overflow-hidden p-6 min-h-[300px] lg:min-h-[200px] transition-opacity duration-300 hover:opacity-90"
-                      style={{ background: buildPostGradient(Array.isArray(op.relatedServices) ? op.relatedServices : []) }}
-                    >
-                      <div>
-                        <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-400">
-                          {label}
-                        </span>
-                      </div>
-
-                      <div className="flex flex-1 items-center py-4">
-                        <h3 className="text-xl font-normal leading-[1.05] tracking-[-0.03em] text-white">
-                          {op.title}
-                        </h3>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        {op.publishedAt && (
-                          <span className="text-xs font-medium uppercase tracking-[0.14em] text-white/40">
-                            {formatDateFR(op.publishedAt)}
+                    { post: popularPost, label: 'Article populaire', variant: 'white' as const },
+                    { post: recentPost,  label: 'À lire aussi',      variant: 'beige' as const },
+                  ]).filter((item): item is typeof item & { post: NonNullable<typeof item['post']> } => !!item.post).map(({ post: op, label, variant }) => {
+                    const isWhite = variant === 'white'
+                    return (
+                      <a
+                        key={op.id}
+                        href={"/blogue/" + op.slug}
+                        className={`group flex flex-1 flex-col overflow-hidden p-6 min-h-[300px] lg:min-h-[200px] transition border ${
+                          isWhite
+                            ? 'bg-white border-zinc-400 hover:border-zinc-950'
+                            : 'bg-stone-100 border-stone-400 hover:border-zinc-950'
+                        }`}
+                      >
+                        <div>
+                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-600">
+                            {label}
                           </span>
-                        )}
-                        <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.18em] text-red-400 transition group-hover:text-red-300">
-                          Lire →
-                        </span>
-                      </div>
-                    </a>
-                  ))}
+                        </div>
+
+                        <div className="flex flex-1 items-center py-4">
+                          <h3 className="text-xl font-normal leading-[1.05] tracking-[-0.03em] text-zinc-950 group-hover:text-red-600 transition">
+                            {op.title}
+                          </h3>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          {op.publishedAt && (
+                            <span className={`text-xs font-medium uppercase tracking-[0.14em] ${isWhite ? 'text-zinc-400' : 'text-stone-400'}`}>
+                              {formatDateFR(op.publishedAt)}
+                            </span>
+                          )}
+                          <span className="text-[1rem] font-semibold text-red-600 transition group-hover:text-zinc-950">
+                            Lire →
+                          </span>
+                        </div>
+                      </a>
+                    )
+                  })}
                 </div>
               </div>
 

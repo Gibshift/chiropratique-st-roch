@@ -3,6 +3,8 @@ import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 type Props = {
   slug: string
@@ -11,197 +13,120 @@ type Props = {
 export async function ServiceDetailPage({ slug }: Props) {
   const payload = await getPayload({ config: configPromise })
 
-const [serviceResult, professionalsResult, conditionsResult] = await Promise.all([
-  payload.find({
-    collection: 'services' as any,
-    limit: 1,
-    depth: 1,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  }),
-
-  payload.find({
-    collection: 'professionals' as any,
-    limit: 100,
-    depth: 1,
-    sort: 'order',
-    where: {
-      isActive: {
-        equals: true,
-      },
-    },
-  }),
-
-  payload.find({
-    collection: 'conditions' as any,
-    limit: 100,
-    depth: 1,
-    sort: 'order',
-  }),
-])
+  const [serviceResult, professionalsResult, conditionsResult] = await Promise.all([
+    payload.find({
+      collection: 'services' as any,
+      limit: 1,
+      depth: 1,
+      where: { slug: { equals: slug } },
+    }),
+    payload.find({
+      collection: 'professionals' as any,
+      limit: 100,
+      depth: 1,
+      sort: 'order',
+      where: { isActive: { equals: true } },
+    }),
+    payload.find({
+      collection: 'conditions' as any,
+      limit: 100,
+      depth: 1,
+      sort: 'order',
+    }),
+  ])
 
   const service: any = serviceResult.docs[0]
-
-  if (!service) {
-    notFound()
-  }
+  if (!service) notFound()
 
   const professionalsForService = professionalsResult.docs.filter((professional: any) => {
-    const relatedServices = Array.isArray(professional.relatedServices)
-      ? professional.relatedServices
-      : []
-
-    return relatedServices.some((relatedService: any) => {
-      if (typeof relatedService === 'object') {
-        return relatedService.id === service.id
-      }
-
-      return relatedService === service.id
-    })
+    const relatedServices = Array.isArray(professional.relatedServices) ? professional.relatedServices : []
+    return relatedServices.some((s: any) =>
+      typeof s === 'object' ? s.id === service.id : s === service.id
+    )
   })
 
-    const conditionsForService = conditionsResult.docs.filter((condition: any) => {
-    const relatedServices = Array.isArray(condition.relatedServices)
-      ? condition.relatedServices
-      : []
-
-    return relatedServices.some((relatedService: any) => {
-      if (typeof relatedService === 'object') {
-        return relatedService.id === service.id
-      }
-
-      return relatedService === service.id
-    })
+  const conditionsForService = conditionsResult.docs.filter((condition: any) => {
+    const relatedServices = Array.isArray(condition.relatedServices) ? condition.relatedServices : []
+    return relatedServices.some((s: any) =>
+      typeof s === 'object' ? s.id === service.id : s === service.id
+    )
   })
 
-  const imageUrl =
-    service.featuredImage &&
-    typeof service.featuredImage === 'object' &&
-    'url' in service.featuredImage
-      ? service.featuredImage.url
-      : null
+  const titleFirst = service.title.charAt(0)
+  const titleRest = service.title.slice(1)
 
   return (
-    <main className="bg-white text-zinc-950">
-      <section className="relative overflow-hidden border-b border-zinc-200 bg-zinc-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(185,28,28,0.35),transparent_35%)]" />
+    <main className="relative bg-white text-zinc-950">
+      <GeometricShapes />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1fr_420px] lg:px-8 lg:py-28">
-          <div>
+      {/* Hero */}
+      <section className="relative pt-24 pb-0 lg:pt-48">
+        <ScrollReveal>
+          <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
+
             <Breadcrumb crumbs={[
               { label: 'Services', href: '/services' },
               { label: service.title },
             ]} />
 
-            <p className="mt-10 font-semibold text-red-300">Service</p>
-
-            <h1 className="mt-4 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
-              {service.title}
-            </h1>
-
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-200">
-              {service.shortDescription}
-            </p>
-          </div>
-
-          <div className="hidden lg:block">
-            {imageUrl ? (
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-3 shadow-2xl">
-                <img
-                  src={imageUrl}
-                  alt={service.title}
-                  className="h-[440px] w-full rounded-[1.5rem] object-cover"
-                />
+            <div className="mt-12 mb-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                  <span className="text-red-600">{titleFirst}</span>{titleRest}
+                </h1>
               </div>
-            ) : (
-              <div className="flex h-[440px] items-center justify-center rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center shadow-2xl">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-300">
-                    Chiropratique St-Roch
-                  </p>
-                  <p className="mt-5 text-3xl font-bold">{service.title}</p>
-                  <p className="mt-4 text-zinc-300">
-                    Soins personnalisés au cœur du quartier Saint-Roch.
-                  </p>
-                </div>
+
+              <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
+
+              <div className="lg:max-w-[38%]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Services</p>
+                {service.shortDescription && (
+                  <p className="mt-3 text-[1rem] leading-7 text-zinc-800">{service.shortDescription}</p>
+                )}
               </div>
-            )}
+            </div>
+
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-8 lg:py-24">
+      {/* Contenu */}
+      <section className="relative z-10 mx-auto max-w-[1200px] px-6 pb-24 lg:px-8">
+        <div className="border-t border-zinc-400 pt-0 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10">
         <article className="min-w-0">
-          <div className="mb-10">
-            <p className="font-semibold text-red-700">À propos du service</p>
-
-            <h2 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
-              Une approche claire, humaine et adaptée à votre réalité.
-            </h2>
-          </div>
-
           {service.description ? (
-            <div className="rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-sm md:p-10">
-              <RichText data={service.description} enableGutter={false} />
-            </div>
+            <RichText data={service.description} enableGutter={false} />
           ) : (
-            <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-8">
-              <p className="text-lg leading-8 text-zinc-700">
-                Le contenu complet de ce service pourra être ajouté dans l’admin.
-              </p>
+            <p className="text-[1rem] leading-7 text-zinc-500">
+              Le contenu complet de ce service pourra être ajouté dans l&apos;admin.
+            </p>
+          )}
+
+
+          {conditionsForService.length > 0 && (
+            <div className="mt-12">
+              <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Conditions souvent associées</p>
+              <div className="mt-5 grid gap-3 md:grid-cols-2">
+                {conditionsForService.map((condition: any) => (
+                  <a
+                    key={condition.id}
+                    href={`/conditions-traitees/${condition.slug}`}
+                    className="border border-zinc-400 bg-white p-5 font-semibold transition hover:border-zinc-950 hover:text-red-600"
+                  >
+                    {condition.title}
+                  </a>
+                ))}
+              </div>
             </div>
           )}
-          {service.whoIsItFor && (
-              <div className="mt-12 rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 md:p-10">
-                <h3 className="text-2xl font-bold">Pour qui?</h3>
-
-                <div className="mt-6">
-                  <RichText data={service.whoIsItFor} enableGutter={false} />
-                </div>
-              </div>
-            )}
-
-            {service.whatToExpect && (
-              <div className="mt-12 rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-sm md:p-10">
-                <h3 className="text-2xl font-bold">Déroulement d’une rencontre</h3>
-
-                <div className="mt-6">
-                  <RichText data={service.whatToExpect} enableGutter={false} />
-                </div>
-              </div>
-            )}
-                      {conditionsForService.length > 0 && (
-              <div className="mt-12">
-                <h3 className="text-2xl font-bold">Conditions souvent associées</h3>
-
-                <div className="mt-5 grid gap-4 md:grid-cols-2">
-                  {conditionsForService.map((condition: any) => (
-                    <a
-                      key={condition.id}
-                      href={`/conditions-traitees/${condition.slug}`}
-                      className="rounded-2xl bg-zinc-100 p-5 font-semibold transition hover:bg-zinc-200"
-                    >
-                      {condition.title}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
         </article>
 
-        <aside className="h-fit space-y-6 lg:sticky lg:top-28 lg:mt-39">
-          <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-700">
-              Professionnels
-            </p>
-
-            <h3 className="mt-3 text-2xl font-bold">Nos professionnels</h3>
+        <aside className="mt-12 flex flex-col gap-6 lg:mt-14 lg:sticky lg:top-28 lg:self-start">
+          <div className="border border-zinc-400 bg-white p-6">
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Professionnels</p>
 
             {professionalsForService.length > 0 ? (
-              <div className="mt-6 space-y-4">
+              <div className="mt-4 flex flex-col gap-3">
                 {professionalsForService.map((professional: any) => {
                   const photoUrl =
                     professional.photo &&
@@ -214,59 +139,59 @@ const [serviceResult, professionalsResult, conditionsResult] = await Promise.all
                     <a
                       key={professional.id}
                       href={`/professionnels/${professional.slug}`}
-                      className="group flex gap-4 rounded-2xl border border-zinc-200 bg-white p-4 transition hover:border-red-200 hover:shadow-sm"
+                      className="group flex items-center gap-4 border border-zinc-400 bg-white p-4 transition hover:border-zinc-950"
                     >
                       {photoUrl ? (
                         <img
                           src={photoUrl}
                           alt={professional.name}
-                          className="h-14 w-14 rounded-full object-cover"
+                          className="h-12 w-12 flex-shrink-0 object-cover object-top"
                         />
                       ) : (
-                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-sm font-bold text-white">
+                        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-zinc-950 text-sm font-bold text-white">
                           {professional.name?.charAt(0)}
                         </div>
                       )}
-
                       <div>
-                        <p className="font-semibold text-zinc-950 group-hover:text-red-700">
+                        <p className="font-semibold text-zinc-950 group-hover:text-red-600 transition">
                           {professional.name}
                         </p>
-
-                        {professional.title ? (
-                          <p className="mt-1 text-sm leading-5 text-zinc-600">
-                            {professional.title}
-                          </p>
-                        ) : null}
+                        {professional.title && (
+                          <p className="mt-0.5 text-[0.85rem] text-zinc-600">{professional.title}</p>
+                        )}
                       </div>
                     </a>
                   )
                 })}
               </div>
             ) : (
-              <p className="mt-4 leading-7 text-zinc-600">
-                Les professionnels associés à ce service pourront être liés dans l’admin.
+              <p className="mt-4 text-[0.9rem] leading-6 text-zinc-500">
+                À la recherche de la perle rare!
               </p>
             )}
           </div>
 
-          <div className="rounded-[2rem] border border-zinc-200 bg-white p-6">
-            <p className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
-              Clinique
+          <div className="border border-zinc-400 bg-white p-6">
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Conditions traitées</p>
+            <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
+              Découvrez les conditions que nous traitons à la clinique.
             </p>
+            <a href="/conditions-traitees" className="mt-4 inline-block text-[1rem] font-semibold text-red-600 hover:text-zinc-950 transition">
+              Voir les conditions traitées →
+            </a>
+          </div>
 
-            <p className="mt-3 font-semibold">Chiropratique St-Roch</p>
-
-            <p className="mt-2 leading-7 text-zinc-600">
-              440 Rue Saint-Joseph E<br />
-              Québec, QC G1K 7Y1
+          <div className="border border-zinc-400 bg-white p-6">
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Blogue</p>
+            <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
+              Des articles simples pour mieux comprendre votre santé.
             </p>
-
-            <a href="/contact" className="mt-5 inline-flex font-semibold text-red-700 hover:text-red-800">
-              Voir l’emplacement →
+            <a href="/blogue" className="mt-4 inline-block text-[1rem] font-semibold text-red-600 hover:text-zinc-950 transition">
+              Voir nos articles →
             </a>
           </div>
         </aside>
+        </div>
       </section>
     </main>
   )

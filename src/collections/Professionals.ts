@@ -1,5 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import {
+  MetaDescriptionField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
+  PreviewField,
+} from '@payloadcms/plugin-seo/fields'
 import { authenticated } from '../access/authenticated'
 import { clinicRichTextEditor } from '../utilities/clinicRichTextEditor'
 import { slugify } from '../utilities/slugify'
@@ -48,8 +55,7 @@ export const Professionals: CollectionConfig = {
               required: true,
               unique: true,
               admin: {
-                description:
-                  'Texte utilisé dans l’URL. Exemple : marie-dupont, jean-tremblay.',
+                description: "Texte utilisé dans l'URL. Exemple : marie-dupont, jean-tremblay.",
               },
             },
             {
@@ -58,8 +64,7 @@ export const Professionals: CollectionConfig = {
               label: 'Titre professionnel',
               required: true,
               admin: {
-                description:
-                  'Exemple : Chiropraticienne, Ostéopathe, Massothérapeute.',
+                description: 'Exemple : Chiropraticienne, Ostéopathe, Massothérapeute.',
               },
             },
             {
@@ -68,11 +73,10 @@ export const Professionals: CollectionConfig = {
               label: 'Courte bio',
               required: true,
               admin: {
-                description:
-                  'Court texte affiché sur les cartes de professionnels et les aperçus.',
+                description: 'Court texte affiché sur les cartes de professionnels et les aperçus.',
               },
             },
-              {
+            {
               name: 'bio',
               type: 'richText',
               label: 'Biographie',
@@ -105,8 +109,7 @@ export const Professionals: CollectionConfig = {
               relationTo: 'media',
               label: 'Photo du professionnel',
               admin: {
-                description:
-                  'Photo utilisée sur la page équipe et sur la page individuelle.',
+                description: 'Photo utilisée sur la page équipe et sur la page individuelle.',
               },
             },
           ],
@@ -121,8 +124,7 @@ export const Professionals: CollectionConfig = {
               hasMany: true,
               label: 'Services offerts',
               admin: {
-                description:
-                  'Services associés à ce professionnel.',
+                description: 'Services associés à ce professionnel.',
               },
             },
             {
@@ -147,24 +149,22 @@ export const Professionals: CollectionConfig = {
               label: 'Professionnel actif',
               defaultValue: true,
               admin: {
-                description:
-                  'Si désactivé, ce professionnel ne sera pas affiché sur le site.',
+                description: 'Si désactivé, ce professionnel ne sera pas affiché sur le site.',
               },
             },
             {
               name: 'isFeatured',
               type: 'checkbox',
-              label: 'Afficher sur la page d’accueil',
+              label: "Afficher sur la page d'accueil",
               defaultValue: false,
               admin: {
-                description:
-                  'Active ce professionnel dans la section Équipe de la page d’accueil.',
+                description: "Active ce professionnel dans la section Équipe de la page d'accueil.",
               },
             },
             {
               name: 'order',
               type: 'number',
-              label: 'Ordre d’affichage',
+              label: "Ordre d'affichage",
               defaultValue: 0,
               admin: {
                 description:
@@ -174,45 +174,34 @@ export const Professionals: CollectionConfig = {
           ],
         },
         {
+          name: 'meta',
           label: 'SEO',
           fields: [
-            {
-              name: 'seo',
-              type: 'group',
-              label: 'Référencement SEO',
-              fields: [
-                {
-                  name: 'title',
-                  type: 'text',
-                  label: 'Titre SEO',
-                  admin: {
-                    description:
-                      'Titre affiché dans Google. Si vide, le nom du professionnel sera utilisé.',
-                  },
-                },
-                {
-                  name: 'description',
-                  type: 'textarea',
-                  label: 'Description SEO',
-                  admin: {
-                    description:
-                      'Courte description pour Google. Idéalement environ 150 à 160 caractères.',
-                  },
-                },
-              ],
-            },
+            OverviewField({
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+              imagePath: 'meta.image',
+            }),
+            MetaTitleField({ hasGenerateFn: true }),
+            MetaImageField({ relationTo: 'media' }),
+            MetaDescriptionField({ hasGenerateFn: true }),
+            PreviewField({
+              hasGenerateFn: true,
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+            }),
           ],
         },
       ],
     },
   ],
+
   hooks: {
     beforeValidate: [
       ({ data }) => {
         if (data?.name && !data?.slug) {
           data.slug = slugify(data.name)
         }
-
         return data
       },
     ],

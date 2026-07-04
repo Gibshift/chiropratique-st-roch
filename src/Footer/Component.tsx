@@ -53,7 +53,7 @@ export async function Footer() {
       <div className="mx-auto max-w-[1200px] px-6 py-14 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.8fr_0.8fr_0.9fr]">
           <div>
-            <Link href="/" className="inline-flex text-2xl font-bold tracking-tight">
+            <Link href="/" className="inline-flex font-[var(--font-barlow-condensed)] text-[1.3rem] font-medium uppercase leading-none tracking-[0.02em]">
               {clinicName}
             </Link>
 

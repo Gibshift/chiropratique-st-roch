@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import { cache } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import RichText from '@/components/RichText'
 import { getOpenGraphImages } from '@/utilities/seo'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
@@ -13,6 +14,20 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb'
 
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+
+const categoryIcons: Record<string, string> = {
+  'tete-et-cou':        '/media/condition-cou-et-tete-variation.png',
+  'dos-et-sacrum':      '/media/condition-dos-et-sacrum-variation.png',
+  'machoire':           '/media/condition-atm-variation.png',
+  'membres-superieurs': '/media/condition-membres-superieurs-variation.png',
+  'membres-inferieurs': '/media/condition-membres-inferieurs-variation.png',
+}
+
+function formatDate(publishedAt: unknown): string | null {
+  return typeof publishedAt === 'string'
+    ? new Date(publishedAt).toLocaleDateString('fr-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null
+}
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -43,21 +58,22 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
 
   const postData: any = post
 
-  const publishedDate =
-    typeof post.publishedAt === 'string'
-      ? new Date(post.publishedAt).toLocaleDateString('fr-CA', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })
-      : null
+  const publishedDate = formatDate(post.publishedAt)
 
   const category =
     Array.isArray(postData.categories) && postData.categories.length > 0
       ? typeof postData.categories[0] === 'object'
-        ? postData.categories[0]
+        ? postData.categories[0] as any
         : null
       : null
+
+  const iconSrc = category?.slug ? (categoryIcons[category.slug] ?? null) : null
+
+  // Articles reliés : même catégorie, excluant l'article courant
+  const relatedPosts = category ? await queryRelatedPosts({
+    categoryId: category.id,
+    excludeSlug: decodedSlug,
+  }) : []
 
   return (
     <article className="bg-white text-zinc-950">
@@ -76,23 +92,10 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
             ]} />
 
             {/* Header */}
-            <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="lg:max-w-[55%]">
-                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,3vw,3.8rem)] font-medium uppercase leading-[1.1] text-zinc-950">
-                  {post.title}
-                </h1>
-              </div>
-              <div className="hidden lg:block w-[1px] h-14 flex-shrink-0 self-center bg-red-600" />
-              <div className="lg:max-w-[35%]">
-                {category && (
-                  <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
-                    {category.title}
-                  </p>
-                )}
-                {publishedDate && (
-                  <p className="mt-2 text-[0.85rem] text-zinc-400">{publishedDate}</p>
-                )}
-              </div>
+            <div className="mt-12 mb-12">
+              <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,3vw,3.8rem)] font-medium uppercase leading-[1.1] text-zinc-950">
+                <span className="text-red-600">{post.title.charAt(0)}</span>{post.title.slice(1)}
+              </h1>
             </div>
 
           </div>
@@ -103,7 +106,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
       <section className="pb-24">
         <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-            <div className="border-t border-zinc-200 pt-12 lg:grid lg:grid-cols-[1fr_300px] lg:gap-16">
+            <div className="border-t border-zinc-400 pt-12 lg:grid lg:grid-cols-[1fr_300px] lg:gap-16">
 
               {/* Article */}
               <div>
@@ -112,7 +115,64 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                   data={post.content}
                   enableGutter={false}
                 />
-                <div className="mt-16 flex items-center justify-between border-t border-zinc-200 pt-8">
+
+                {/* Articles reliés */}
+                {(relatedPosts.length > 0 || publishedDate) && (
+                  <div className="mt-16">
+                    {publishedDate && (
+                      <span className="mb-3 block text-right text-[0.8rem] text-zinc-400">{publishedDate}</span>
+                    )}
+                    <div className="border-t border-zinc-200 pt-8">
+                    {relatedPosts.length > 0 && (
+                      <p className="mb-6 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">
+                        Articles reliés
+                      </p>
+                    )}
+                    {relatedPosts.length > 0 && <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                      {relatedPosts.map((related: any) => {
+                        const relatedDate = formatDate(related.publishedAt)
+                        const excerpt = related.meta?.description || ''
+                        const relatedCat = Array.isArray(related.categories) && related.categories.length > 0
+                          ? (typeof related.categories[0] === 'object' ? related.categories[0] as any : null)
+                          : null
+                        return (
+                          <Link
+                            key={related.id}
+                            href={`/blogue/${related.slug}`}
+                            className="group flex flex-col border border-zinc-400 bg-white transition hover:border-zinc-950 h-full"
+                          >
+                            <div className="flex flex-1 flex-col p-6">
+                              <div className="flex items-center justify-between gap-2">
+                                {relatedCat && (
+                                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-red-600">
+                                    {relatedCat.title}
+                                  </span>
+                                )}
+                                {relatedDate && (
+                                  <span className="text-[0.7rem] text-zinc-400 ml-auto">{relatedDate}</span>
+                                )}
+                              </div>
+                              <h3 className="mt-2 font-[var(--font-barlow-condensed)] text-[1.15rem] font-medium uppercase leading-tight text-zinc-950 group-hover:text-red-600 transition">
+                                {related.title}
+                              </h3>
+                              {excerpt && (
+                                <p className="mt-2 line-clamp-2 text-[0.85rem] leading-5 text-zinc-500">
+                                  {excerpt}
+                                </p>
+                              )}
+                              <span className="mt-auto pt-4 text-[1rem] font-semibold text-red-600 group-hover:text-zinc-950 transition">
+                                Lire →
+                              </span>
+                            </div>
+                          </Link>
+                        )
+                      })}
+                    </div>}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-12 border-t border-zinc-400 pt-8">
                   <Link href="/blogue"
                     className="text-[0.85rem] font-semibold text-zinc-500 hover:text-zinc-950 transition"
                   >
@@ -124,33 +184,37 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
               {/* Sidebar */}
               <aside className="mt-12 flex flex-col gap-6 lg:mt-0 lg:sticky lg:top-28 lg:self-start">
                 {category && (
-                  <div className="border border-zinc-200 p-6">
-                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Catégorie</p>
-                    <p className="mt-2 font-[var(--font-barlow-condensed)] text-[1.1rem] font-medium uppercase text-zinc-950">
-                      {category.title}
-                    </p>
+                  <div className="border border-zinc-400 p-6">
+                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Catégorie</p>
+                    <div className="mt-2 flex items-center justify-between gap-3">
+                      <p className="font-[var(--font-barlow-condensed)] text-[1.1rem] font-medium uppercase text-zinc-950">
+                        {category.title}
+                      </p>
+                      {iconSrc && (
+                        <Image
+                          src={iconSrc}
+                          alt=""
+                          width={80}
+                          height={80}
+                          className="h-[80px] w-[80px] flex-shrink-0 object-contain"
+                        />
+                      )}
+                    </div>
                     <Link href={`/blogue/categorie/${category.slug}`}
-                      className="mt-4 inline-block text-[0.8rem] font-semibold text-red-600 hover:text-zinc-950 transition"
+                      className="mt-4 inline-block text-[1rem] font-semibold text-red-600 hover:text-zinc-950 transition"
                     >
                       Voir tous les articles →
                     </Link>
                   </div>
                 )}
 
-                {publishedDate && (
-                  <div className="border border-zinc-200 p-6">
-                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Publié le</p>
-                    <p className="mt-2 text-[0.9rem] text-zinc-700">{publishedDate}</p>
-                  </div>
-                )}
-
-                <div className="border border-zinc-200 p-6">
-                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-400">La clinique</p>
+                <div className="border border-zinc-400 p-6">
+                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">La clinique</p>
                   <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
                     Vous avez des questions? Notre équipe est là pour vous.
                   </p>
                   <Link href="/contact"
-                    className="mt-4 inline-block text-[0.8rem] font-semibold text-red-600 hover:text-zinc-950 transition"
+                    className="mt-4 inline-block text-[1rem] font-semibold text-red-600 hover:text-zinc-950 transition"
                   >
                     Nous contacter →
                   </Link>
@@ -224,3 +288,25 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
 
   return result.docs?.[0] || null
 })
+
+async function queryRelatedPosts({ categoryId, excludeSlug }: { categoryId: string | number; excludeSlug: string }) {
+  const payload = await getPayload({ config: configPromise })
+
+  const result = await payload.find({
+    collection: 'posts',
+    draft: false,
+    limit: 3,
+    depth: 1,
+    overrideAccess: false,
+    pagination: false,
+    where: {
+      and: [
+        { categories: { in: [categoryId] } },
+        { slug: { not_equals: excludeSlug } },
+        { _status: { equals: 'published' } },
+      ],
+    },
+  })
+
+  return result.docs
+}

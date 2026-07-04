@@ -68,7 +68,7 @@ export async function ProfessionalsPage() {
                     <a
                       key={professional.id}
                       href={`/professionnels/${professional.slug}`}
-                      className="group flex flex-col overflow-hidden border border-zinc-200 bg-white transition hover:bg-zinc-50"
+                      className="group flex flex-col overflow-hidden border border-zinc-400 bg-white transition hover:bg-zinc-50"
                     >
                       {photoUrl ? (
                         <div className="relative aspect-[3/4] w-full overflow-hidden">
@@ -87,8 +87,8 @@ export async function ProfessionalsPage() {
                       )}
                       <div className="flex flex-1 flex-col p-4 lg:p-5">
                         <h2 className="text-[1.25rem] font-bold leading-tight text-zinc-950">{professional.name}</h2>
-                        <p className="mt-1 text-[0.9rem] font-semibold text-red-600">{professional.title}</p>
-                        <span className="mt-auto pt-4 text-[0.8rem] font-semibold text-zinc-400 transition group-hover:text-zinc-950">
+                        <p className="mt-1 text-[0.9rem] font-semibold text-zinc-600">{professional.title}</p>
+                        <span className="mt-auto pt-4 text-[1rem] font-semibold text-red-600 transition group-hover:text-zinc-950">
                           Voir le profil →
                         </span>
                       </div>
@@ -97,7 +97,7 @@ export async function ProfessionalsPage() {
                 })}
               </div>
             ) : (
-              <div className="border border-zinc-200 p-10 text-center">
+              <div className="border border-zinc-400 p-10 text-center">
                 <p className="text-zinc-500">Aucun professionnel publié pour le moment.</p>
               </div>
             )}

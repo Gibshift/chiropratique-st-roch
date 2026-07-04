@@ -124,7 +124,7 @@ export default async function Page({
                     const excerpt = post.meta?.description || ''
                     return (
                       <Link key={post.id} href={`/blogue/${post.slug}`}
-                        className="group flex flex-col border border-zinc-200 bg-white transition hover:border-zinc-950 h-full"
+                        className="group flex flex-col border border-zinc-400 bg-white transition hover:border-zinc-950 h-full"
                       >
                         <div className="flex flex-1 flex-col p-6">
                           <div className="flex items-center justify-between gap-2">
@@ -139,7 +139,7 @@ export default async function Page({
                           {excerpt && (
                             <p className="mt-2 line-clamp-2 text-[0.85rem] leading-5 text-zinc-500">{excerpt}</p>
                           )}
-                          <span className="mt-auto pt-4 text-[0.8rem] font-semibold text-red-600 group-hover:text-zinc-950 transition">
+                          <span className="mt-auto pt-4 text-[1rem] font-semibold text-red-600 group-hover:text-zinc-950 transition">
                             Lire →
                           </span>
                         </div>
@@ -174,7 +174,7 @@ export default async function Page({
                 )}
               </>
             ) : (
-              <div className="border border-zinc-200 p-10 text-center">
+              <div className="border border-zinc-400 p-10 text-center">
                 <p className="text-zinc-500">Aucun article publié dans cette catégorie pour le moment.</p>
               </div>
             )}

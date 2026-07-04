@@ -91,7 +91,7 @@ export async function ServicesPage() {
                         <span className="text-red-600">{firstLetter}</span>
                         <span className="text-zinc-950">{rest}</span>
                       </h2>
-                      <span className="mt-4 inline-flex items-center gap-1 text-[0.85rem] font-semibold text-red-600 transition group-hover:gap-2">
+                      <span className="mt-8 inline-flex items-center gap-1 text-[1rem] font-semibold text-red-600 transition group-hover:gap-2">
                         En savoir plus <span>→</span>
                       </span>
                     </a>
@@ -99,7 +99,7 @@ export async function ServicesPage() {
                 })}
               </div>
             ) : (
-              <div className="border border-zinc-200 p-10 text-center">
+              <div className="border border-zinc-400 p-10 text-center">
                 <p className="text-zinc-500">Aucun service publié pour le moment.</p>
               </div>
             )}

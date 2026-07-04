@@ -4,10 +4,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
+import { BlogueGrid, type PostForGrid, type CategoryForGrid } from './BlogueGrid'
 
-const ARTICLES_PER_PAGE = 9
+const categoryIcons: Record<string, string> = {
+  'tete-et-cou':        '/media/condition-cou-et-tete-variation.png',
+  'dos-et-sacrum':      '/media/condition-dos-et-sacrum-variation.png',
+  'machoire':           '/media/condition-atm-variation.png',
+  'membres-superieurs': '/media/condition-membres-superieurs-variation.png',
+  'membres-inferieurs': '/media/condition-membres-inferieurs-variation.png',
+}
 
-// Déterministe : même seed = même ordre, change chaque jour
 function seededShuffle<T>(arr: T[], seed: number): T[] {
   const result = [...arr]
   let s = seed
@@ -19,135 +25,83 @@ function seededShuffle<T>(arr: T[], seed: number): T[] {
   return result
 }
 
-const categoryIcons: Record<string, string> = {
-  'tete-et-cou':        '/media/condition-cou-et-tete-variation.png',
-  'dos-et-sacrum':      '/media/condition-dos-et-sacrum-variation.png',
-  'machoire':           '/media/condition-atm-variation.png',
-  'membres-superieurs': '/media/condition-membres-superieurs-variation.png',
-  'membres-inferieurs': '/media/condition-membres-inferieurs-variation.png',
-}
-
-function formatDate(post: any): string | null {
-  return typeof post.publishedAt === 'string'
-    ? new Date(post.publishedAt).toLocaleDateString('fr-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+function formatDate(publishedAt: unknown): string | null {
+  return typeof publishedAt === 'string'
+    ? new Date(publishedAt).toLocaleDateString('fr-CA', { year: 'numeric', month: 'long', day: 'numeric' })
     : null
 }
 
-function FeaturedCard({ post, label, dark = false }: { post: any; label: string; dark?: boolean }) {
-  const date = formatDate(post)
+type FeaturedVariant = 'dark' | 'white' | 'beige'
+
+const featuredStyles: Record<FeaturedVariant, {
+  wrap: string; label: string; date: string; title: string; excerpt: string; cta: string
+}> = {
+  dark: {
+    wrap:    'bg-zinc-950 border border-zinc-950 hover:border-red-600',
+    label:   'text-red-500',
+    date:    'text-zinc-500',
+    title:   'text-white group-hover:text-red-400',
+    excerpt: 'text-zinc-400',
+    cta:     'text-red-500 group-hover:text-red-400',
+  },
+  white: {
+    wrap:    'bg-white border border-zinc-400 hover:border-zinc-950',
+    label:   'text-red-600',
+    date:    'text-zinc-400',
+    title:   'text-zinc-950 group-hover:text-red-600',
+    excerpt: 'text-zinc-500',
+    cta:     'text-red-600 group-hover:text-zinc-950',
+  },
+  beige: {
+    wrap:    'bg-stone-100 border border-stone-400 hover:border-zinc-950',
+    label:   'text-red-600',
+    date:    'text-stone-400',
+    title:   'text-zinc-950 group-hover:text-red-600',
+    excerpt: 'text-zinc-500',
+    cta:     'text-red-600 group-hover:text-zinc-950',
+  },
+}
+
+function FeaturedCard({ post, label, variant = 'white', large = false }: {
+  post: any; label: string; variant?: FeaturedVariant; large?: boolean
+}) {
+  const date = formatDate(post.publishedAt)
   const excerpt = post.meta?.description || ''
+  const s = featuredStyles[variant]
 
   return (
-    <Link href={`/blogue/${post.slug}`}
-      className={`group flex flex-col overflow-hidden transition min-h-[260px] ${
-        dark
-          ? 'bg-zinc-950 border border-zinc-950 hover:border-red-600'
-          : 'bg-white border border-zinc-300 hover:border-zinc-950'
-      }`}
+    <Link
+      href={`/blogue/${post.slug}`}
+      className={`group flex flex-col overflow-hidden transition ${large ? 'min-h-[360px]' : 'min-h-[180px]'} ${s.wrap}`}
     >
-      <div className="flex flex-1 flex-col p-8 lg:p-10">
+      <div className={`flex flex-1 flex-col justify-between ${large ? 'p-8 lg:p-10' : 'p-6'}`}>
         <div className="flex items-center justify-between">
-          <span className={`text-[0.7rem] font-bold uppercase tracking-[0.2em] ${dark ? 'text-red-500' : 'text-red-600'}`}>
-            {label}
-          </span>
-          {date && (
-            <span className={`text-xs ${dark ? 'text-zinc-500' : 'text-zinc-400'}`}>{date}</span>
-          )}
+          <span className={`text-[0.7rem] font-bold uppercase tracking-[0.2em] ${s.label}`}>{label}</span>
+          {date && <span className={`text-xs ${s.date}`}>{date}</span>}
         </div>
-        <h2 className={`mt-5 font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight transition ${
-          dark
-            ? 'text-white group-hover:text-red-400'
-            : 'text-zinc-950 group-hover:text-red-600'
-        }`}>
-          {post.title}
-        </h2>
-        {excerpt && (
-          <p className={`mt-3 line-clamp-3 text-[0.9rem] leading-6 ${dark ? 'text-zinc-400' : 'text-zinc-600'}`}>
-            {excerpt}
-          </p>
+        {variant === 'dark' && large ? (
+          <div>
+            <h2 className={`font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight transition ${s.title}`}>
+              {post.title}
+            </h2>
+            {excerpt && (
+              <p className={`mt-3 line-clamp-3 text-[0.9rem] leading-6 ${s.excerpt}`}>{excerpt}</p>
+            )}
+          </div>
+        ) : (
+          <h2 className={`mt-4 font-[var(--font-barlow-condensed)] ${large ? 'text-[clamp(1.6rem,2.5vw,2.2rem)]' : 'text-[1.15rem]'} font-medium uppercase leading-tight transition ${s.title}`}>
+            {post.title}
+          </h2>
         )}
-        <span className={`mt-auto pt-6 text-[0.85rem] font-semibold transition ${
-          dark ? 'text-red-500 group-hover:text-red-400' : 'text-red-600 group-hover:text-zinc-950'
-        }`}>
-          Lire l'article →
+        <span className={`text-[1rem] font-semibold transition ${s.cta}`}>
+          Lire l&apos;article →
         </span>
       </div>
     </Link>
   )
 }
 
-function ArticleCard({ post }: { post: any }) {
-  const date = formatDate(post)
-  const excerpt = post.meta?.description || ''
-  const category = Array.isArray(post.categories) && post.categories.length > 0
-    ? (typeof post.categories[0] === 'object' ? post.categories[0] : null)
-    : null
-
-  return (
-    <Link href={`/blogue/${post.slug}`}
-      className="group flex flex-col border border-zinc-200 bg-white transition hover:border-zinc-950 h-full"
-    >
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex items-center justify-between gap-2">
-          {category && (
-            <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-red-600">
-              {category.title}
-            </span>
-          )}
-          {date && <span className="text-[0.7rem] text-zinc-400 ml-auto">{date}</span>}
-        </div>
-        <h3 className="mt-2 font-[var(--font-barlow-condensed)] text-[1.15rem] font-medium uppercase leading-tight text-zinc-950 group-hover:text-red-600 transition">
-          {post.title}
-        </h3>
-        {excerpt && (
-          <p className="mt-2 line-clamp-2 text-[0.85rem] leading-5 text-zinc-500">{excerpt}</p>
-        )}
-        <span className="mt-auto pt-4 text-[0.8rem] font-semibold text-red-600 group-hover:text-zinc-950 transition">
-          Lire →
-        </span>
-      </div>
-    </Link>
-  )
-}
-
-function Pagination({ currentPage, totalPages }: { currentPage: number; totalPages: number }) {
-  if (totalPages <= 1) return null
-
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
-
-  return (
-    <div className="mt-12 flex items-center justify-center gap-2">
-      {currentPage > 1 && (
-        <Link href={`/blogue?page=${currentPage - 1}`}
-          className="flex h-9 w-9 items-center justify-center border border-zinc-300 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
-        >
-          ←
-        </Link>
-      )}
-      {pages.map((p) => (
-        <Link key={p} href={`/blogue?page=${p}`}
-          className={`flex h-9 w-9 items-center justify-center border text-sm font-semibold transition ${
-            p === currentPage
-              ? 'border-zinc-950 bg-zinc-950 text-white'
-              : 'border-zinc-300 text-zinc-600 hover:border-zinc-950 hover:text-zinc-950'
-          }`}
-        >
-          {p}
-        </Link>
-      ))}
-      {currentPage < totalPages && (
-        <Link href={`/blogue?page=${currentPage + 1}`}
-          className="flex h-9 w-9 items-center justify-center border border-zinc-300 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
-        >
-          →
-        </Link>
-      )}
-    </div>
-  )
-}
-
-
-export async function BloguePage({ page = 1 }: { page?: number }) {
+export async function BloguePage({ page: _page = 1 }: { page?: number }) {
   const payload = await getPayload({ config: configPromise })
 
   const [allPostsResult, categoriesResult] = await Promise.all([
@@ -176,11 +130,48 @@ export async function BloguePage({ page = 1 }: { page?: number }) {
   const articleDuJour    = posts.length > 0 ? posts[dayIndex % posts.length] : null
   const popularRawIndex  = posts.length > 1 ? (fourDayIndex + Math.floor(posts.length / 2)) % posts.length : -1
   const articlePopulaire = popularRawIndex >= 0 ? posts[popularRawIndex] : null
+  const recentRawIndex   = posts.length > 2 ? (dayIndex + Math.ceil(posts.length / 3)) % posts.length : -1
+  const articleRecent    = recentRawIndex >= 0 ? posts[recentRawIndex] : null
 
-  // Rotation quotidienne déterministe pour la grille
-  const shuffled   = seededShuffle(posts, dayIndex)
-  const totalPages = Math.ceil(posts.length / ARTICLES_PER_PAGE)
-  const pageArticles = shuffled.slice((page - 1) * ARTICLES_PER_PAGE, page * ARTICLES_PER_PAGE)
+  const shuffled = seededShuffle(posts, dayIndex)
+
+  // Données sérialisées pour le composant client
+  const allPosts: PostForGrid[] = posts.map((post) => {
+    const cat = Array.isArray(post.categories) && post.categories.length > 0
+      ? (typeof post.categories[0] === 'object' ? post.categories[0] as any : null)
+      : null
+    return {
+      id: post.id,
+      title: post.title ?? '',
+      slug: post.slug ?? '',
+      excerpt: (post.meta as any)?.description ?? '',
+      categoryTitle: cat?.title ?? '',
+      categorySlug: cat?.slug ?? '',
+      date: formatDate(post.publishedAt),
+    }
+  })
+
+  const shuffledPosts: PostForGrid[] = shuffled.map((post) => {
+    const cat = Array.isArray(post.categories) && post.categories.length > 0
+      ? (typeof post.categories[0] === 'object' ? post.categories[0] as any : null)
+      : null
+    return {
+      id: post.id,
+      title: post.title ?? '',
+      slug: post.slug ?? '',
+      excerpt: (post.meta as any)?.description ?? '',
+      categoryTitle: cat?.title ?? '',
+      categorySlug: cat?.slug ?? '',
+      date: formatDate(post.publishedAt),
+    }
+  })
+
+  const categories: CategoryForGrid[] = categoriesResult.docs.map((cat: any) => ({
+    id: cat.id,
+    title: cat.title ?? '',
+    slug: cat.slug ?? '',
+    iconSrc: categoryIcons[cat.slug] ?? null,
+  }))
 
   return (
     <main className="bg-white text-zinc-950">
@@ -193,7 +184,7 @@ export async function BloguePage({ page = 1 }: { page?: number }) {
             <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
-                  La santé,<br />ça s'explique.
+                  La santé,<br />ça s&apos;explique.
                 </h1>
               </div>
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
@@ -205,55 +196,29 @@ export async function BloguePage({ page = 1 }: { page?: number }) {
               </div>
             </div>
 
-            {/* Article du jour + Article populaire */}
-            {(articleDuJour || articlePopulaire) && (
-              <div className="mb-16 grid gap-4 lg:grid-cols-2">
-                {articleDuJour    && <FeaturedCard post={articleDuJour}    label="Article du jour"   dark />}
-                {articlePopulaire && <FeaturedCard post={articlePopulaire} label="Article populaire"       />}
-              </div>
-            )}
-
-            {/* Catégories */}
-            {categoriesResult.docs.length > 0 && (
-              <div className="mb-16">
-                <p className="mb-5 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Parcourir par sujet</p>
-                <div className="grid border-l border-zinc-300 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                  {categoriesResult.docs.map((category: any) => {
-                    const iconSrc = categoryIcons[category.slug] ?? null
-                    return (
-                      <Link key={category.id} href={`/blogue/categorie/${category.slug}`}
-                        className="group flex flex-col items-center text-center border-b border-r border-zinc-300 px-4 py-6 transition hover:bg-zinc-50 lg:border-b-0"
-                      >
-                        <div className="h-[130px] flex items-center justify-center">
-                          {iconSrc && (
-                            <Image src={iconSrc} alt="" width={130} height={130}
-                              className="h-[130px] w-[130px] object-contain opacity-70 group-hover:opacity-100 transition-opacity"
-                            />
-                          )}
-                        </div>
-                        <p className="mt-3 font-[var(--font-barlow-condensed)] text-[0.88rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-700 group-hover:text-zinc-950">
-                          <span className="text-red-600">{category.title.slice(0, 1)}</span>
-                          {category.title.slice(1)}
-                        </p>
-                      </Link>
-                    )
-                  })}
+            {/* Article du jour (noir) + Populaire (blanc) + À lire aussi (beige) */}
+            {(articleDuJour || articlePopulaire || articleRecent) && (
+              <div className="mb-16 grid gap-1 lg:grid-cols-[1.6fr_1fr]">
+                {articleDuJour && (
+                  <FeaturedCard post={articleDuJour} label="Article du jour" variant="dark" large />
+                )}
+                <div className="flex flex-col gap-1">
+                  {articlePopulaire && (
+                    <FeaturedCard post={articlePopulaire} label="Article populaire" variant="white" />
+                  )}
+                  {articleRecent && (
+                    <FeaturedCard post={articleRecent} label="À lire aussi" variant="beige" />
+                  )}
                 </div>
               </div>
             )}
 
-            {/* Tous les articles */}
-            {pageArticles.length > 0 && (
-              <div>
-                <p className="mb-5 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Tous les articles</p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {pageArticles.map((post: any) => (
-                    <ArticleCard key={post.id} post={post} />
-                  ))}
-                </div>
-                <Pagination currentPage={page} totalPages={totalPages} />
-              </div>
-            )}
+            {/* Grille unifiée : catégories + recherche + articles + pagination */}
+            <BlogueGrid
+              allPosts={allPosts}
+              shuffledPosts={shuffledPosts}
+              categories={categories}
+            />
 
           </div>
         </ScrollReveal>

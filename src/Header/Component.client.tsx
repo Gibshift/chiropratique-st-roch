@@ -95,7 +95,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
         </div>
 
         {isOpen && (
-          <div className="mt-4 border border-zinc-200 bg-white/95 p-5 shadow-sm xl:hidden">
+          <div className="mt-4 border border-zinc-400 bg-white/95 p-5 shadow-sm xl:hidden">
             <nav className="flex flex-col gap-4">
               {navItems.map(({ link }, i) => {
                 return (

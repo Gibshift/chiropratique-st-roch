@@ -166,7 +166,7 @@ export interface Service {
    */
   title: string;
   /**
-   * Section optionnelle pour expliquer à qui ce service peut s’adresser. Exemple : douleurs, tensions, prévention, récupération, inconforts.
+   * Section optionnelle pour expliquer à qui ce service peut s'adresser. Exemple : douleurs, tensions, prévention, récupération, inconforts.
    */
   whoIsItFor?: {
     root: {
@@ -202,7 +202,7 @@ export interface Service {
     [k: string]: unknown;
   } | null;
   /**
-   * Texte utilisé dans l’URL. Exemple : chiropratique, osteopathie, massotherapie.
+   * Texte utilisé dans l'URL. Exemple : chiropratique, osteopathie, massotherapie.
    */
   slug: string;
   /**
@@ -232,58 +232,20 @@ export interface Service {
    */
   featuredImage?: (number | null) | Media;
   /**
-   * Active ce service dans la section Services de la page d’accueil.
+   * Active ce service dans la section Services de la page d'accueil.
    */
   isFeatured?: boolean | null;
   /**
    * Plus le chiffre est bas, plus le service apparaît haut dans les listes.
    */
   order?: number | null;
-  seo?: {
-    /**
-     * Titre affiché dans Google. Si vide, le nom du service sera utilisé.
-     */
+  meta?: {
     title?: string | null;
     /**
-     * Courte description pour Google. Idéalement environ 150 à 160 caractères.
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
+    image?: (number | null) | Media;
     description?: string | null;
-    /**
-     * Section optionnelle pour expliquer à qui ce service peut s’adresser. Exemple : douleurs, tensions, prévention, récupération, inconforts.
-     */
-    whoIsItFor?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    /**
-     * Section optionnelle pour expliquer simplement comment peut se dérouler une rencontre.
-     */
-    whatToExpect?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -677,14 +639,12 @@ export interface ConditionCategory {
    * Plus le chiffre est bas, plus la catégorie apparaît en premier.
    */
   order?: number | null;
-  seo?: {
-    /**
-     * Titre affiché dans Google. Si vide, le titre de la catégorie sera utilisé.
-     */
+  meta?: {
     title?: string | null;
     /**
-     * Idéalement 150 à 160 caractères.
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
+    image?: (number | null) | Media;
     description?: string | null;
   };
   updatedAt: string;
@@ -701,7 +661,7 @@ export interface Professional {
    */
   name: string;
   /**
-   * Texte utilisé dans l’URL. Exemple : marie-dupont, jean-tremblay.
+   * Texte utilisé dans l'URL. Exemple : marie-dupont, jean-tremblay.
    */
   slug: string;
   /**
@@ -765,21 +725,19 @@ export interface Professional {
    */
   isActive?: boolean | null;
   /**
-   * Active ce professionnel dans la section Équipe de la page d’accueil.
+   * Active ce professionnel dans la section Équipe de la page d'accueil.
    */
   isFeatured?: boolean | null;
   /**
    * Plus le chiffre est bas, plus le professionnel apparaît haut dans les listes.
    */
   order?: number | null;
-  seo?: {
-    /**
-     * Titre affiché dans Google. Si vide, le nom du professionnel sera utilisé.
-     */
+  meta?: {
     title?: string | null;
     /**
-     * Courte description pour Google. Idéalement environ 150 à 160 caractères.
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
+    image?: (number | null) | Media;
     description?: string | null;
   };
   updatedAt: string;
@@ -1297,13 +1255,12 @@ export interface ServicesSelect<T extends boolean = true> {
   featuredImage?: T;
   isFeatured?: T;
   order?: T;
-  seo?:
+  meta?:
     | T
     | {
         title?: T;
+        image?: T;
         description?: T;
-        whoIsItFor?: T;
-        whatToExpect?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1357,10 +1314,11 @@ export interface ConditionCategoriesSelect<T extends boolean = true> {
   hint?: T;
   heroImage?: T;
   order?: T;
-  seo?:
+  meta?:
     | T
     | {
         title?: T;
+        image?: T;
         description?: T;
       };
   updatedAt?: T;
@@ -1383,10 +1341,11 @@ export interface ProfessionalsSelect<T extends boolean = true> {
   isActive?: T;
   isFeatured?: T;
   order?: T;
-  seo?:
+  meta?:
     | T
     | {
         title?: T;
+        image?: T;
         description?: T;
       };
   updatedAt?: T;
