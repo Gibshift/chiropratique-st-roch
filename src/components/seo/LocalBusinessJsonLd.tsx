@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 
 import { getAbsoluteUrl } from '@/utilities/seo'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
 const dayMap: Record<string, string> = {
   dimanche: 'Sunday',

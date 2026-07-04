@@ -6,7 +6,7 @@ import React from 'react'
 
 import { CMSLink } from '@/components/Link'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
 export async function Footer() {
   const payload = await getPayload({ config: configPromise })

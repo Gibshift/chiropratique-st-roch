@@ -4,7 +4,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
 export async function Header() {
   const payload = await getPayload({ config: configPromise })

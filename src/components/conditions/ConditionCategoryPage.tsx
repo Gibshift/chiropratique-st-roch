@@ -6,7 +6,7 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
 type Props = {
   slug: string

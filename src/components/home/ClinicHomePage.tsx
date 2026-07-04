@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getPayload } from 'payload'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
 const SERVICE_ORDER = [
   'chiropratique',

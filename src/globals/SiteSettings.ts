@@ -46,7 +46,7 @@ export const SiteSettings: GlobalConfig = {
               name: 'mainJaneUrl',
               type: 'text',
               label: 'Lien Jane principal',
-              defaultValue: 'https://chiropratiquestroch.janeapp.com/embed/book_online',
+              defaultValue: 'https://chiropratiquestroch.janeapp.com',
               required: true,
               admin: {
                 description:
@@ -58,7 +58,7 @@ export const SiteSettings: GlobalConfig = {
               type: 'textarea',
               label: 'Code iframe Jane',
               defaultValue:
-                "<iframe frameborder='0' height='28' scrolling='no' src='https://chiropratiquestroch.janeapp.com/embed/book_online' width='177'></iframe>",
+                "<iframe frameborder='0' height='28' scrolling='no' src='https://chiropratiquestroch.janeapp.com' width='177'></iframe>",
               admin: {
                 description:
                   'Code iframe fourni par Jane. On le garde ici si on veut l’utiliser plus tard.',
