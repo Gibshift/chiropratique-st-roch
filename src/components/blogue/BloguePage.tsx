@@ -14,6 +14,17 @@ const categoryIcons: Record<string, string> = {
   'membres-inferieurs': '/assets/condition-membres-inferieurs-variation.png',
 }
 
+function getIconForSlug(slug: string): string | null {
+  if (categoryIcons[slug]) return categoryIcons[slug]
+  const s = slug.toLowerCase()
+  if (s.includes('cou') || s.includes('tete') || s.includes('tête')) return categoryIcons['tete-et-cou']
+  if (s.includes('sacrum') || s.includes('dos')) return categoryIcons['dos-et-sacrum']
+  if (s.includes('machoire') || s.includes('mâchoire') || s.includes('atm')) return categoryIcons['machoire']
+  if (s.includes('super')) return categoryIcons['membres-superieurs']
+  if (s.includes('infer')) return categoryIcons['membres-inferieurs']
+  return null
+}
+
 function seededShuffle<T>(arr: T[], seed: number): T[] {
   const result = [...arr]
   let s = seed
@@ -190,7 +201,7 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
     id: cat.id,
     title: cat.title ?? '',
     slug: cat.slug ?? '',
-    iconSrc: categoryIcons[cat.slug] ?? null,
+    iconSrc: getIconForSlug(cat.slug),
   }))
 
   return (

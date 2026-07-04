@@ -12,6 +12,17 @@ const categoryIcons: Record<string, string> = {
   'membres-inferieurs': '/assets/condition-membres-inferieurs-cropped-round.png',
 }
 
+function getIconForSlug(slug: string): string | null {
+  if (categoryIcons[slug]) return categoryIcons[slug]
+  const s = slug.toLowerCase()
+  if (s.includes('cou') || s.includes('tete') || s.includes('tête')) return categoryIcons['tete-et-cou']
+  if (s.includes('sacrum') || s.includes('dos')) return categoryIcons['dos-et-sacrum']
+  if (s.includes('machoire') || s.includes('mâchoire') || s.includes('atm')) return categoryIcons['machoire']
+  if (s.includes('super')) return categoryIcons['membres-superieurs']
+  if (s.includes('infer')) return categoryIcons['membres-inferieurs']
+  return null
+}
+
 export async function ConditionsPage() {
   const payload = await getPayload({ config: configPromise })
 
@@ -49,7 +60,7 @@ export async function ConditionsPage() {
             {categories.docs.length > 0 ? (
               <div id="conditions-grid" className="grid border-l border-zinc-400 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {categories.docs.map((category: any) => {
-                  const iconSrc = categoryIcons[category.slug] ?? null
+                  const iconSrc = getIconForSlug(category.slug)
 
                   return (
                     <a key={category.id} href={`/conditions-traitees/${category.slug}`}
