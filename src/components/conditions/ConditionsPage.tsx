@@ -1,6 +1,5 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
@@ -75,7 +74,8 @@ export async function ConditionsPage() {
                       )}
                       <div className="mt-8 h-[96px] w-[96px] flex items-end justify-center overflow-hidden">
                         {iconSrc ? (
-                          <Image
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
                             src={iconSrc}
                             alt=""
                             width={96}
