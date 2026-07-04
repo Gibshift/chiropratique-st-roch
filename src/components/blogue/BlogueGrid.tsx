@@ -222,7 +222,7 @@ export function BlogueGrid({
                   isActive ? 'bg-zinc-950' : 'hover:bg-zinc-50'
                 }`}
               >
-                <div className="h-[190px] flex items-center justify-center">
+                <div className="h-[190px] flex items-center justify-center flex-col gap-1">
                   {category.iconSrc && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -235,6 +235,8 @@ export function BlogueGrid({
                       }`}
                     />
                   )}
+                  {/* DEBUG TEMPORAIRE */}
+                  <span className="text-[9px] text-red-500 break-all leading-tight max-w-full">{category.iconSrc ?? 'NULL'}</span>
                 </div>
                 <p className={`mt-3 font-[var(--font-barlow-condensed)] text-[0.88rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] transition ${
                   isActive ? 'text-white' : 'text-zinc-700 group-hover:text-zinc-950'
