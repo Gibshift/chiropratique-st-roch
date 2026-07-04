@@ -237,6 +237,9 @@ export async function ClinicHomePage() {
           {/* Fondu — plein beige sur et après la ligne, fond vers transparent */}
           <div className="pointer-events-none absolute inset-y-0 left-[33%] w-[15%] bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_20%,rgba(246,241,232,0)_100%)]" />
 
+          {/* Voile mobile — rend le texte lisible sur la photo */}
+          <div className="pointer-events-none absolute inset-0 lg:hidden bg-[linear-gradient(160deg,rgba(246,241,232,0.92)_0%,rgba(246,241,232,0.75)_50%,rgba(246,241,232,0.4)_100%)]" />
+
           {/* Contenu full-width — s'étale sur toute la hauteur du hero */}
           <div className="relative flex min-h-[70vh] w-full items-stretch justify-between px-6 lg:px-20 xl:px-28">
 
