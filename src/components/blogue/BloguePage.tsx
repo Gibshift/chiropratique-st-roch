@@ -195,7 +195,7 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="relative bg-white pt-24 pb-24 lg:pt-48">
+      <section className="relative bg-white pt-32 pb-24 lg:pt-48">
         <GeometricShapes />
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
@@ -203,7 +203,7 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
             {/* Header */}
             <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   La santé,<br />ça s&apos;explique.
                 </h1>
               </div>

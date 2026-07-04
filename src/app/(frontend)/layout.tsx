@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
   <html
-    className={cn(GeistSans.variable, GeistMono.variable, barlowCondensed.variable)}
+    className={cn(GeistSans.variable, GeistMono.variable, barlowCondensed.variable, 'overflow-x-hidden')}
     lang="fr-CA"
     suppressHydrationWarning
   >
@@ -42,7 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
     </head>
 
-    <body>
+    <body className="overflow-x-hidden">
       <Providers>
         <LocalBusinessJsonLd />
 

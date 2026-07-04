@@ -25,7 +25,7 @@ export async function ServicesPage() {
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="relative bg-white min-h-[68vh] pt-24 pb-24 lg:pt-48">
+      <section className="relative bg-white min-h-[68vh] pt-32 pb-24 lg:pt-48">
 
         <GeometricShapes />
 
@@ -58,7 +58,7 @@ export async function ServicesPage() {
 
             <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   Nos soins.<br />Votre réalité.
                 </h1>
               </div>

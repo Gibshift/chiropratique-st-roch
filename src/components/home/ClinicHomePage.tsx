@@ -225,7 +225,7 @@ export async function ClinicHomePage() {
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-      <section className="relative min-h-[82vh] bg-[#f6f1e8]">
+      <section className="relative min-h-[82vh] overflow-hidden bg-[#f6f1e8]">
 
           {/* Photo — commence à 33% du bord gauche */}
           {homeHeroImageUrl && (
@@ -243,11 +243,11 @@ export async function ClinicHomePage() {
             {/* Gauche — bloc groupé, centré verticalement */}
             <div className="flex w-full flex-col pt-60 pb-20 lg:max-w-[33%]">
 
-              <p className="font-[var(--font-barlow-condensed)] whitespace-nowrap text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
+              <p className="font-[var(--font-barlow-condensed)] text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
                 Soins manuels · corps en mouvement
               </p>
 
-              <h1 className="mt-3 -ml-[0.05em] font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,8vw,8rem)] font-medium uppercase leading-[1.0] tracking-[0.01em] text-zinc-950">
+              <h1 className="mt-3 -ml-[0.05em] font-[var(--font-barlow-condensed)] text-[clamp(2rem,8vw,8rem)] font-medium uppercase leading-[1.0] tracking-[0.01em] text-zinc-950">
                 Chiropratique
                 <span className="block whitespace-nowrap text-red-600">St-Roch</span>
               </h1>
@@ -295,7 +295,7 @@ export async function ClinicHomePage() {
 
       {/* SERVICES */}
       {hasServices && (
-        <section className="relative z-10 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+        <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
             <div className="grid items-stretch gap-12 xl:grid-cols-[320px_1fr] xl:gap-16">
@@ -306,7 +306,7 @@ export async function ClinicHomePage() {
                     Services
                   </p>
 
-                  <h2 className="mt-6 text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3rem]">
+                  <h2 className="mt-6 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] text-zinc-950">
                     Des approches complémentaires, centrées sur vous.
                   </h2>
 
@@ -335,7 +335,7 @@ export async function ClinicHomePage() {
                         <Link
                           key={service.id}
                           href={`/services/${service.slug}`}
-                          className="group flex min-h-[300px] min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
+                          className="group flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
                         >
                           <ServiceTitle title={service.title} />
 
@@ -343,7 +343,7 @@ export async function ClinicHomePage() {
                             {service.shortDescription}
                           </p>
 
-                          <div className="-mt-10 flex justify-end">
+                          <div className="-mt-10 hidden lg:flex justify-end">
                             <ServiceIconBadge slug={service.slug} />
                           </div>
                         </Link>
@@ -361,7 +361,7 @@ export async function ClinicHomePage() {
                           <Link
                             key={service.id}
                             href={`/services/${service.slug}`}
-                            className={`group relative flex min-h-[300px] min-w-0 flex-col overflow-hidden px-5 py-6 transition duration-300 ${
+                            className={`group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden px-5 py-6 transition duration-300 ${
                               isFourth
                                 ? 'border-b border-r border-zinc-400 bg-transparent xl:border-b-0 xl:border-r-0'
                                 : 'border-b border-r border-zinc-400 bg-[#f8f6f1] hover:bg-white'
@@ -411,7 +411,7 @@ export async function ClinicHomePage() {
                                 {service.shortDescription}
                               </p>
 
-                              <div className="-mt-10 flex justify-end">
+                              <div className="-mt-10 hidden lg:flex justify-end">
                                 <ServiceIconBadge slug={service.slug} />
                               </div>
                             </div>
@@ -422,7 +422,7 @@ export async function ClinicHomePage() {
                       {/* CASE 06 */}
                       <Link
                         href="/services"
-                        className="group relative flex min-h-[300px] min-w-0 flex-col justify-between border-r border-b border-zinc-400 px-5 py-6 transition duration-300"
+                        className="group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col justify-between border-r border-b border-zinc-400 px-5 py-6 transition duration-300"
                       >
                         <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-30" />
 
@@ -584,7 +584,7 @@ export async function ClinicHomePage() {
               const CTACard = ({ style }: { style?: React.CSSProperties }) => (
                 <Link
                   href="/professionnels"
-                  className="group relative flex min-w-0 flex-col justify-between overflow-hidden p-5 transition duration-300"
+                  className="group relative flex min-w-0 flex-col justify-between p-5 transition duration-300"
                   style={style}
                 >
                   <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-40" />
@@ -603,20 +603,30 @@ export async function ClinicHomePage() {
 
               if (isStaggered) {
                 return (
-                  <div className="grid grid-cols-6 gap-1 bg-white">
-                    {professionals.docs.slice(0, 3).map((p: any, i: number) => (
-                      <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 1} / span 2` }} />
-                    ))}
-                    {professionals.docs.slice(3).map((p: any, i: number) => (
-                      <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 2} / span 2` }} />
-                    ))}
-                    <CTACard style={{ gridColumn: '4 / span 2' }} />
-                  </div>
+                  <>
+                    {/* Mobile : grille simple 2 colonnes */}
+                    <div className="grid grid-cols-2 gap-1 bg-white sm:hidden">
+                      {professionals.docs.slice(0, 4).map((p: any) => (
+                        <ProfCard key={p.id} professional={p} />
+                      ))}
+                      <CTACard />
+                    </div>
+                    {/* Desktop : grille décalée 6 colonnes */}
+                    <div className="hidden sm:grid grid-cols-6 gap-1 bg-white">
+                      {professionals.docs.slice(0, 3).map((p: any, i: number) => (
+                        <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 1} / span 2` }} />
+                      ))}
+                      {professionals.docs.slice(3).map((p: any, i: number) => (
+                        <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 2} / span 2` }} />
+                      ))}
+                      <CTACard style={{ gridColumn: '4 / span 2' }} />
+                    </div>
+                  </>
                 )
               }
 
               return (
-                <div className="grid grid-cols-3 gap-1 bg-white">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-1 bg-white">
                   {professionals.docs.slice(0, 5).map((p: any) => (
                     <ProfCard key={p.id} professional={p} />
                   ))}

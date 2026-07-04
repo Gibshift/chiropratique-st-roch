@@ -168,6 +168,14 @@ export function BlogueGrid({
       return next
     })
     setPage(1)
+    setTimeout(() => {
+      const el = document.getElementById('blogue-grid')
+    if (el) {
+      const offset = 110
+      const top = el.getBoundingClientRect().top + window.pageYOffset - offset
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+    }, 50)
   }
 
   function clearAll() {
@@ -179,7 +187,12 @@ export function BlogueGrid({
   function handlePageChange(p: number) {
     setPage(p)
     // Scroll doux vers le haut de la grille
-    document.getElementById('blogue-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = document.getElementById('blogue-grid')
+    if (el) {
+      const offset = 110
+      const top = el.getBoundingClientRect().top + window.pageYOffset - offset
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
   }
 
   return (

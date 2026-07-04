@@ -41,7 +41,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
       <GeometricShapes />
 
       {/* Hero */}
-      <section className="relative pt-24 pb-0 lg:pt-48">
+      <section className="relative pt-32 pb-0 lg:pt-48">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
@@ -52,7 +52,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
 
             <div className="mt-12 mb-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950 break-words">
                   <span className="text-red-600">{nameFirst}</span>{nameRest}
                 </h1>
               </div>

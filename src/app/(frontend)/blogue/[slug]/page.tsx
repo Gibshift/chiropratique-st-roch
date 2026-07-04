@@ -81,7 +81,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
 
-      <section className="relative bg-white pt-24 pb-0 lg:pt-48">
+      <section className="relative bg-white pt-32 pb-0 lg:pt-48">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
