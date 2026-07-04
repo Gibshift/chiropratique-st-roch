@@ -50,7 +50,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
         {...(theme ? { 'data-theme': theme } : {})}
       >
         <div className="w-full pr-6 lg:pr-10 xl:pr-16 transition-all duration-300">
-          <div className="grid grid-cols-[auto_auto] items-stretch justify-between gap-6 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
+          <div className="grid grid-cols-[auto_1fr_auto] items-stretch gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
             <Link href="/" className="flex shrink-0 items-center gap-4 self-stretch">
               <Image
                 src="/logo-st-roch.png"
@@ -82,16 +82,30 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
               </span>
             </a>
 
-            {/* BOUTON MENU MOBILE */}
-            <button
-              type="button"
-              onClick={() => setIsOpen((value) => !value)}
-              className="inline-flex min-h-[54px] self-center items-center justify-self-end border border-zinc-400 bg-white/90 px-8 text-sm font-semibold backdrop-blur xl:hidden"
-              aria-expanded={isOpen}
-              aria-label="Ouvrir le menu"
-            >
-              Menu
-            </button>
+            {/* BOUTONS MOBILE : RDV + MENU */}
+            <div className="flex items-center gap-2 justify-self-end xl:hidden">
+              <a
+                href={janeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center justify-center bg-red-600 px-4 text-white transition hover:bg-red-700"
+              >
+                <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
+                  Rendez-vous
+                </span>
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsOpen((value) => !value)}
+                className="inline-flex min-h-[44px] w-[44px] self-center flex-col items-center justify-center gap-[5px] border border-zinc-400 bg-white/90 backdrop-blur"
+                aria-expanded={isOpen}
+                aria-label="Ouvrir le menu"
+              >
+                <span className="block h-[1.5px] w-5 bg-zinc-800" />
+                <span className="block h-[1.5px] w-5 bg-zinc-800" />
+                <span className="block h-[1.5px] w-5 bg-zinc-800" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
