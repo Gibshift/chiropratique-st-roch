@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
         pathname: '/media/**',
       },
       {
+        pathname: '/assets/**',
+      },
+      {
         pathname: '/*.png',
       },
     ],
