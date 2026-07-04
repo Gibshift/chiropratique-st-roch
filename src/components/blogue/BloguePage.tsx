@@ -69,30 +69,50 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
   const excerpt = post.meta?.description || ''
   const s = featuredStyles[variant]
 
+  if (large) {
+    return (
+      <Link
+        href={`/blogue/${post.slug}`}
+        className={`group flex min-h-[360px] flex-col overflow-hidden transition p-8 lg:p-10 lg:pb-6 ${s.wrap}`}
+      >
+        <div className="flex items-center justify-between">
+          <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] ${s.label}`}>
+            {label}
+          </span>
+          {date && <span className={`text-xs ${s.date}`}>{date}</span>}
+        </div>
+        <div className="flex flex-1 flex-col justify-center">
+          <h2 className={`font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight transition ${s.title}`}>
+            {post.title}
+          </h2>
+          {excerpt && (
+            <p className={`mt-3 line-clamp-3 text-[0.9rem] leading-6 ${s.excerpt}`}>{excerpt}</p>
+          )}
+        </div>
+        <span className={`mt-auto text-[1rem] font-semibold transition ${s.cta}`}>
+          Lire l&apos;article →
+        </span>
+      </Link>
+    )
+  }
+
   return (
     <Link
       href={`/blogue/${post.slug}`}
-      className={`group flex flex-col overflow-hidden transition ${large ? 'min-h-[360px]' : 'min-h-[180px]'} ${s.wrap}`}
+      className={`group flex flex-1 flex-col overflow-hidden transition p-6 min-h-[300px] lg:min-h-[200px] ${s.wrap}`}
     >
-      <div className={`flex flex-1 flex-col justify-between ${large ? 'p-8 lg:p-10' : 'p-6'}`}>
-        <div className="flex items-center justify-between">
-          <span className={`text-[0.7rem] font-bold uppercase tracking-[0.2em] ${s.label}`}>{label}</span>
-          {date && <span className={`text-xs ${s.date}`}>{date}</span>}
-        </div>
-        {variant === 'dark' && large ? (
-          <div>
-            <h2 className={`font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight transition ${s.title}`}>
-              {post.title}
-            </h2>
-            {excerpt && (
-              <p className={`mt-3 line-clamp-3 text-[0.9rem] leading-6 ${s.excerpt}`}>{excerpt}</p>
-            )}
-          </div>
-        ) : (
-          <h2 className={`mt-4 font-[var(--font-barlow-condensed)] ${large ? 'text-[clamp(1.6rem,2.5vw,2.2rem)]' : 'text-[1.15rem]'} font-medium uppercase leading-tight transition ${s.title}`}>
-            {post.title}
-          </h2>
-        )}
+      <div>
+        <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] ${s.label}`}>
+          {label}
+        </span>
+      </div>
+      <div className="flex flex-1 items-center py-4">
+        <h2 className={`text-xl font-normal leading-[1.05] tracking-[-0.03em] transition ${s.title}`}>
+          {post.title}
+        </h2>
+      </div>
+      <div className="flex items-center justify-between">
+        {date && <span className={`text-xs font-medium uppercase tracking-[0.14em] ${s.date}`}>{date}</span>}
         <span className={`text-[1rem] font-semibold transition ${s.cta}`}>
           Lire l&apos;article →
         </span>

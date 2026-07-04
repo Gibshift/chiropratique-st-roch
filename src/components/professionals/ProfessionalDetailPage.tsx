@@ -110,7 +110,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
                 {professional.relatedConditions.map((condition: any) => (
                   <a
                     key={condition.id}
-                    href={`/conditions-traitees/${condition.slug}`}
+                    href="/conditions-traitees"
                     className="border border-zinc-400 bg-white p-5 font-semibold transition hover:border-zinc-950 hover:text-red-600"
                   >
                     {condition.title}

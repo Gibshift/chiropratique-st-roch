@@ -665,10 +665,10 @@ export async function ClinicHomePage() {
                 {/* Article du jour — même design que la page blogue */}
                 <a
                   href={`/blogue/${dailyPost.slug}`}
-                  className="group flex min-h-[360px] flex-col justify-between overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 transition hover:border-red-600"
+                  className="group flex min-h-[360px] flex-col overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 lg:pb-6 transition hover:border-red-600"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-red-500">
+                    <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-500">
                       Article du jour
                     </span>
                     {dailyPost.publishedAt && (
@@ -676,7 +676,7 @@ export async function ClinicHomePage() {
                     )}
                   </div>
 
-                  <div>
+                  <div className="flex flex-1 flex-col justify-center">
                     <h3 className="font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight text-white group-hover:text-red-400 transition">
                       {dailyPost.title}
                     </h3>
@@ -687,7 +687,7 @@ export async function ClinicHomePage() {
                     )}
                   </div>
 
-                  <span className="text-[1rem] font-semibold text-red-500 transition group-hover:text-red-400">
+                  <span className="mt-auto text-[1rem] font-semibold text-red-500 transition group-hover:text-red-400">
                     Lire l&apos;article →
                   </span>
                 </a>
@@ -728,7 +728,7 @@ export async function ClinicHomePage() {
                             </span>
                           )}
                           <span className="text-[1rem] font-semibold text-red-600 transition group-hover:text-zinc-950">
-                            Lire →
+                            Lire l&apos;article →
                           </span>
                         </div>
                       </a>

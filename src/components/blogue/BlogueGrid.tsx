@@ -49,9 +49,11 @@ function ArticleCard({ post }: { post: PostForGrid }) {
             {post.excerpt}
           </p>
         )}
-        <span className="mt-auto pt-4 text-[1rem] font-semibold text-red-600 group-hover:text-zinc-950 transition">
-          Lire →
-        </span>
+        <div className="mt-auto pt-4 relative text-red-600 transition group-hover:text-red-800">
+          <svg aria-hidden="true" viewBox="0 0 120 18" className="h-7 w-20 overflow-visible transition-[width] duration-300 ease-out group-hover:w-40">
+            <path d="M1 9H112M100 2L112 9L100 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+          </svg>
+        </div>
       </div>
     </Link>
   )
