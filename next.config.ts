@@ -30,7 +30,7 @@ const nextConfig: NextConfig = {
         pathname: '/*.png',
       },
     ],
-    qualities: [100],
+    qualities: [80],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)

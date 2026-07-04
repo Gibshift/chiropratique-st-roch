@@ -320,6 +320,7 @@ export async function ClinicHomePage() {
                     alt="Famille illustrée"
                     width={560}
                     height={420}
+                    sizes="(max-width: 1280px) 100vw, 320px"
                     className="w-full object-contain"
                     style={{ height: 'auto' }}
                   />
@@ -656,7 +657,7 @@ export async function ClinicHomePage() {
                     Blogue santé
                   </p>
                   <h2 className="mt-4 text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
-                    Le neuro-musculo-squelettique, expliquée simplement.
+                    Le neuro-musculo-squelettique, expliqué simplement.
                   </h2>
                   <SectionAccent className="mt-6" />
                 </div>

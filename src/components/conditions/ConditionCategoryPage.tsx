@@ -6,6 +6,8 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
+const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com/embed/book_online'
+
 type Props = {
   slug: string
 }
@@ -13,12 +15,18 @@ type Props = {
 export async function ConditionCategoryPage({ slug }: Props) {
   const payload = await getPayload({ config: configPromise })
 
-  const result = await payload.find({
-    collection: 'condition-categories' as any,
-    limit: 1,
-    depth: 2,
-    where: { slug: { equals: slug } },
-  })
+  const [result, siteSettings] = await Promise.all([
+    payload.find({
+      collection: 'condition-categories' as any,
+      limit: 1,
+      depth: 2,
+      where: { slug: { equals: slug } },
+    }),
+    payload.findGlobal({ slug: 'site-settings' as any, depth: 0 }),
+  ])
+
+  const settings: any = siteSettings || {}
+  const janeUrl = settings.mainJaneUrl || FALLBACK_JANE_URL
 
   const category: any = result.docs[0]
   if (!category) notFound()
@@ -95,7 +103,9 @@ export async function ConditionCategoryPage({ slug }: Props) {
                 {category.ctaText || 'Vous vous reconnaissez dans une de ces conditions?'}
               </p>
               <a
-                href="/rendez-vous"
+                href={janeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-block bg-red-600 px-8 py-4 font-semibold text-white transition hover:bg-red-700"
               >
                 Prendre rendez-vous

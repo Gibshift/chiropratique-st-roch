@@ -38,7 +38,7 @@ export async function ServicesPage() {
               width={340}
               height={560}
               className="hidden xl:block absolute bottom-65 right-208 w-[140px] object-contain xl:w-[240px]"
-              style={{ transform: `rotate(${imageRotations.femme}5deg)` }}
+              style={{ transform: `rotate(${imageRotations.femme}deg)` }}
               priority
             />
             <Image
