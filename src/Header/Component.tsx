@@ -24,5 +24,8 @@ export async function Header() {
       ? settings.mainJaneUrl
       : FALLBACK_JANE_URL
 
-  return <HeaderClient data={headerData} janeUrl={janeUrl} />
+  const phone: string | null = settings.phone || null
+  const openingHours = Array.isArray(settings.openingHours) ? settings.openingHours : []
+
+  return <HeaderClient data={headerData} janeUrl={janeUrl} phone={phone} openingHours={openingHours} />
 }

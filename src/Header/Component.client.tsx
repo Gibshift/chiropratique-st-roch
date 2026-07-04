@@ -10,13 +10,18 @@ import type { Header } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { HeaderNav } from './Nav'
+import { InfoBar } from './InfoBar'
+
+type HourEntry = { id?: string; day: string; hours: string }
 
 interface HeaderClientProps {
   data: Header
   janeUrl: string
+  phone: string | null
+  openingHours: HourEntry[]
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone, openingHours }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -49,6 +54,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl }) => 
         className={`fixed inset-x-0 top-0 z-50 text-zinc-950 backdrop-blur-sm transition-all duration-300 ${scrolled ? 'bg-white/95 shadow-sm' : 'bg-white/75'}`}
         {...(theme ? { 'data-theme': theme } : {})}
       >
+        <InfoBar phone={phone} openingHours={openingHours} scrolled={scrolled} />
         <div className="w-full pr-6 lg:pr-10 xl:pr-16 transition-all duration-300">
           <div className="grid grid-cols-[auto_1fr_auto] items-stretch gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
             <Link href="/" className="flex shrink-0 items-center gap-4 self-stretch">
