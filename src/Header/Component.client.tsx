@@ -114,7 +114,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
                 <span className="block h-[1.5px] w-5 bg-zinc-800" />
                 <span className="block h-[1.5px] w-5 bg-zinc-800" />
               </button>
-            </div>
           </div>
         </div>
       </header>
