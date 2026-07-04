@@ -122,7 +122,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                     {publishedDate && (
                       <span className="mb-3 block text-right text-[0.8rem] text-zinc-400">{publishedDate}</span>
                     )}
-                    <div className="border-t border-zinc-200 pt-8">
+                    <div className="border-t border-zinc-400 pt-8">
                     {relatedPosts.length > 0 && (
                       <p className="mb-6 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">
                         Articles reliés
