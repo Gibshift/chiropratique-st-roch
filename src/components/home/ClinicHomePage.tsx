@@ -530,7 +530,7 @@ export async function ClinicHomePage() {
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
           <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
-            <div>
+            <div className="flex flex-col">
               <div className="mb-4">
                 <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                   Professionnels
@@ -546,6 +546,24 @@ export async function ClinicHomePage() {
               <p className="mt-8 max-w-sm text-sm leading-6 text-zinc-600">
                 Des professionnels accessibles pour vous accompagner avec clarté, respect et simplicité.
               </p>
+
+              {/* Figures debout — remplissent l'espace vide sous le texte, cachées sous lg */}
+              <div className="mt-auto hidden lg:flex items-end justify-center gap-2 pt-8">
+                <Image
+                  src="/assets/femme-professionnel-siteweb-gauche.png"
+                  alt=""
+                  width={180}
+                  height={320}
+                  className="w-[48%] object-contain object-bottom"
+                />
+                <Image
+                  src="/assets/homme-professionnel-siteweb-droite.png"
+                  alt=""
+                  width={180}
+                  height={320}
+                  className="w-[48%] object-contain object-bottom"
+                />
+              </div>
 
             </div>
 

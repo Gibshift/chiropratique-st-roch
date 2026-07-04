@@ -74,7 +74,7 @@ export async function ServicesPage() {
             </div>
 
             {services.docs.length > 0 ? (
-              <div id="services-grid" className="grid grid-cols-1 lg:grid-cols-5 lg:items-end border-l border-t border-zinc-400 lg:border-0">
+              <div id="services-grid" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:items-end border-l border-t border-zinc-400 lg:border-0">
                 {services.docs.map((service: any, index: number) => {
                   const title = (service.title as string).toUpperCase()
                   const firstLetter = title.charAt(0)
