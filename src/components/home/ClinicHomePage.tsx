@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
@@ -225,75 +226,42 @@ export async function ClinicHomePage() {
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-      <section className="relative min-h-[82vh] lg:min-h-[76vh] overflow-hidden bg-[#f6f1e8]">
+      <section className="relative bg-white pt-44 pb-16 lg:pt-48 lg:pb-24">
+        <GeometricShapes />
+        <ScrollReveal>
+          <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,8vw,6.5rem)] font-medium uppercase leading-[1.0] text-zinc-950">
+                  Chiropratique
+                  <span className="block text-red-600">St-Roch</span>
+                </h1>
+              </div>
 
-          {/* Photo — commence à 33% du bord gauche */}
-          {homeHeroImageUrl && (
-            <div className="absolute bottom-0 right-0 top-0 left-[33%]">
-              <Image src={homeHeroImageUrl} alt="" fill priority sizes="67vw" className="object-cover object-left" />
-            </div>
-          )}
+              <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
 
-          {/* Fondu — plein beige sur et après la ligne, fond vers transparent */}
-          <div className="pointer-events-none absolute inset-y-0 left-[33%] w-[15%] bg-[linear-gradient(90deg,#f6f1e8_0%,#f6f1e8_20%,rgba(246,241,232,0)_100%)]" />
-
-          {/* Voile mobile — rend le texte lisible sur la photo */}
-          <div className="pointer-events-none absolute inset-0 lg:hidden bg-[linear-gradient(160deg,rgba(246,241,232,0.92)_0%,rgba(246,241,232,0.75)_50%,rgba(246,241,232,0.4)_100%)]" />
-
-          {/* Contenu full-width — s'étale sur toute la hauteur du hero */}
-          <div className="relative flex min-h-[70vh] w-full items-stretch justify-between px-6 lg:px-20 xl:px-28">
-
-            {/* Gauche — bloc groupé, centré verticalement */}
-            <div className="flex w-full flex-col pt-60 pb-20 lg:pb-10 lg:max-w-[33%]">
-
-              <p className="font-[var(--font-barlow-condensed)] text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
-                Soins manuels · corps en mouvement
-              </p>
-
-              <h1 className="mt-3 -ml-[0.05em] font-[var(--font-barlow-condensed)] text-[clamp(2rem,8vw,8rem)] font-medium uppercase leading-[1.0] tracking-[0.01em] text-zinc-950">
-                Chiropratique
-                <span className="block whitespace-nowrap text-red-600">St-Roch</span>
-              </h1>
-
-              <SectionAccent className="mt-7" />
-
-              <p className="mt-7 text-[1.25rem] leading-8 text-zinc-800">
-                Une clinique, plusieurs disciplines,<br />une seule priorité : vous.
-              </p>
-
-              <a
-                href={janeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white/90 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
-              >
-                <span>Prendre rendez-vous</span>
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 44 10"
-                  className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1"
+              <div className="lg:max-w-[40%]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
+                  Soins manuels · corps en mouvement
+                </p>
+                <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
+                  Une clinique, plusieurs disciplines, une seule priorité : vous. Chiropratique, ostéopathie, massothérapie, kinésithérapie et orthothérapie — tout sous un même toit.
+                </p>
+                <a
+                  href={janeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white/90 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
                 >
-                  <path
-                    d="M1 5H40M35 1L40 5L35 9"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.0"
-                    strokeLinecap="square"
-                    strokeLinejoin="miter"
-                  />
-                </svg>
-              </a>
+                  <span>Prendre rendez-vous</span>
+                  <svg aria-hidden="true" viewBox="0 0 44 10" className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1">
+                    <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinecap="square" strokeLinejoin="miter" />
+                  </svg>
+                </a>
+              </div>
             </div>
-
-            {/* Droite — BOUGEZ MIEUX aligné avec le top de CHIROPRATIQUE */}
-            <div className="pointer-events-none hidden shrink-0 self-start mt-[17.3rem] lg:flex lg:items-stretch lg:gap-3">
-              <div className="my-[0.5em] w-[2px] shrink-0 bg-red-600" />
-              <p className="font-[var(--font-barlow-condensed)] text-left text-[clamp(1.6rem,2.8vw,2.4rem)] font-semibold uppercase leading-[1.15] tracking-[0.08em] text-zinc-950">
-                Bougez<br />Mieux.<br />Vivez<br />Mieux.
-              </p>
-            </div>
-
           </div>
+        </ScrollReveal>
       </section>
 
       {/* SERVICES */}
@@ -530,7 +498,7 @@ export async function ClinicHomePage() {
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
           <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
-            <div className="flex flex-col">
+            <div>
               <div className="mb-4">
                 <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                   Professionnels
@@ -546,24 +514,6 @@ export async function ClinicHomePage() {
               <p className="mt-8 max-w-sm text-sm leading-6 text-zinc-600">
                 Des professionnels accessibles pour vous accompagner avec clarté, respect et simplicité.
               </p>
-
-              {/* Figures debout — remplissent l'espace vide sous le texte, cachées sous lg */}
-              <div className="mt-auto hidden lg:flex items-end justify-center gap-2 pt-8">
-                <Image
-                  src="/assets/femme-professionnel-siteweb-gauche.png"
-                  alt=""
-                  width={180}
-                  height={320}
-                  className="w-[48%] object-contain object-bottom"
-                />
-                <Image
-                  src="/assets/homme-professionnel-siteweb-droite.png"
-                  alt=""
-                  width={180}
-                  height={320}
-                  className="w-[48%] object-contain object-bottom"
-                />
-              </div>
 
             </div>
 
