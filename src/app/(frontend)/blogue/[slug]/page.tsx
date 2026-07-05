@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import { cache } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import RichText from '@/components/RichText'
 import { getOpenGraphImages } from '@/utilities/seo'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
@@ -190,8 +191,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                         {category.title}
                       </p>
                       {iconSrc && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
+                        <Image
                           src={iconSrc}
                           alt={`Illustration ${category.title.toLowerCase()}`}
                           width={80}
