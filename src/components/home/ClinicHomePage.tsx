@@ -226,65 +226,76 @@ export async function ClinicHomePage() {
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-      <section className="relative bg-white pt-44 pb-16 lg:pt-48 lg:pb-24">
-        <GeometricShapes />
-        <ScrollReveal>
-          <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-              <div>
-                <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,8vw,6.5rem)] font-medium uppercase leading-[1.0] text-zinc-950">
-                  Chiropratique
-                  <span className="block text-red-600">St-Roch</span>
-                </h1>
-              </div>
+      <section className="relative min-h-[68vh] overflow-hidden bg-[#f6f1e8]">
 
-              <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
+        {/* Photo en fond absolu — pleine largeur, visible seulement sur lg+ */}
+        <div className="pointer-events-none absolute inset-0 hidden lg:block">
+          <div className="relative h-full">
+            <Image
+              src="/assets/salle-chiro-ville-fused-watercolor.png"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/15" />
+          </div>
+        </div>
 
-              <div className="lg:max-w-[40%]">
+        {/* Bloc blanc — aligné sur le même container que la section Services */}
+        <div className="absolute inset-0 z-10">
+          <div className="mx-auto h-full max-w-[var(--content-max-w)] px-6 lg:px-8">
+            <div className="flex h-full flex-col items-center justify-center bg-white pt-20 lg:pt-24">
+            <ScrollReveal>
+              <div className="flex flex-col items-center px-8 text-center lg:px-16">
                 <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
                   Soins manuels · corps en mouvement
                 </p>
-                <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
-                  Une clinique, plusieurs disciplines, une seule priorité : vous. Chiropratique, ostéopathie, massothérapie, kinésithérapie et orthothérapie — tout sous un même toit.
+                <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,10vw,8rem)] font-medium uppercase leading-[1.0] text-zinc-950">
+                  Chiropratique
+                  <span className="block text-red-600">St-Roch</span>
+                </h1>
+                <p className="mt-4 text-[1rem] leading-7 text-zinc-800">
+                  Une clinique, plusieurs disciplines, une seule priorité : vous.
                 </p>
                 <a
                   href={janeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white/90 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
+                  className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
                 >
-                  <span>Prendre rendez-vous</span>
+                  <span className="whitespace-nowrap">Prendre rendez-vous</span>
                   <svg aria-hidden="true" viewBox="0 0 44 10" className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1">
                     <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinecap="square" strokeLinejoin="miter" />
                   </svg>
                 </a>
               </div>
+            </ScrollReveal>
             </div>
           </div>
-        </ScrollReveal>
+        </div>
+
       </section>
 
       {/* SERVICES */}
       {hasServices && (
         <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
-          <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
+          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
             <div className="grid items-stretch gap-12 xl:grid-cols-[320px_1fr] xl:gap-16">
+
               {/* COLONNE GAUCHE */}
               <div className="flex h-full flex-col">
                 <div>
                   <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                     Services
                   </p>
-
                   <h2 className="mt-6 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] text-zinc-950">
                     Des approches complémentaires, centrées sur vous.
                   </h2>
-
                   <SectionAccent className="mt-8" />
                 </div>
-
-                {/* IMAGE FAMILLE — visible uniquement sur xl dans sa colonne 320px */}
                 <div className="mt-auto pt-12 hidden xl:block">
                   <Image
                     src="/assets/services-family.png"
@@ -299,131 +310,86 @@ export async function ClinicHomePage() {
               </div>
 
               {/* COLONNE DROITE */}
-                <div className="flex flex-col">
-                  {/* RANGÉE 01-02-03 */}
-                  <div className="grid border-l border-t border-zinc-400 md:grid-cols-3 xl:grid-cols-3">
-                    {orderedServices.slice(0, 3).map((service: any, index: number) => {
-                      return (
-                        <Link
-                          key={service.id}
-                          href={`/services/${service.slug}`}
-                          className="group flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
-                        >
+              <div className="flex flex-col">
+                {/* RANGÉE 01-02-03 */}
+                <div className="grid border-l border-t border-zinc-400 md:grid-cols-3 xl:grid-cols-3">
+                  {orderedServices.slice(0, 3).map((service: any) => (
+                    <Link
+                      key={service.id}
+                      href={`/services/${service.slug}`}
+                      className="group flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
+                    >
+                      <ServiceTitle title={service.title} />
+                      <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">{service.shortDescription}</p>
+                      <div className="-mt-10 hidden lg:flex justify-end">
+                        <ServiceIconBadge slug={service.slug} />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* RANGÉE 04-05-06 */}
+                <div className="grid border-l border-zinc-400 xl:border-l-0 md:grid-cols-3 xl:grid-cols-[1.08fr_1.08fr_0.84fr]">
+                  {orderedServices.slice(3, 5).map((service: any, index: number) => {
+                    const isFourth = index === 0
+                    return (
+                      <Link
+                        key={service.id}
+                        href={`/services/${service.slug}`}
+                        className={`group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden px-5 py-6 transition duration-300 ${
+                          isFourth
+                            ? 'border-b border-r border-zinc-400 bg-transparent xl:border-b-0 xl:border-r-0'
+                            : 'border-b border-r border-zinc-400 bg-[#f8f6f1] hover:bg-white'
+                        }`}
+                      >
+                        {isFourth && (
+                          <>
+                            <div className="absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white xl:hidden" />
+                            <div className="hidden xl:block absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white"
+                              style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 90px 100%, 90px calc(100% - 30px), 60px calc(100% - 30px), 60px calc(100% - 60px), 30px calc(100% - 60px), 30px calc(100% - 90px), 0 calc(100% - 90px))" }}
+                            />
+                            <span className="pointer-events-none absolute right-0 top-0 h-full w-px bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute bottom-0 left-[90px] right-0 h-px bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute left-0 top-0 bottom-[90px] w-px bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute bottom-[90px] left-0 h-px w-[30px] bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
+                            <span className="pointer-events-none absolute bottom-0 left-[90px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
+                          </>
+                        )}
+                        <div className="relative z-10 flex flex-1 flex-col">
                           <ServiceTitle title={service.title} />
-
-                          <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">
-                            {service.shortDescription}
-                          </p>
-
+                          <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">{service.shortDescription}</p>
                           <div className="-mt-10 hidden lg:flex justify-end">
                             <ServiceIconBadge slug={service.slug} />
                           </div>
-                        </Link>
-                      )
-                    })}
-                  </div>
-
-                  {/* RANGÉE 04-05-06 */}
-                    <div className="grid border-l border-zinc-400 xl:border-l-0 md:grid-cols-3 xl:grid-cols-[1.08fr_1.08fr_0.84fr]">
-                      {orderedServices.slice(3, 5).map((service: any, index: number) => {
-                        const serviceIndex = index + 3
-                        const isFourth = index === 0
-
-                        return (
-                          <Link
-                            key={service.id}
-                            href={`/services/${service.slug}`}
-                            className={`group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden px-5 py-6 transition duration-300 ${
-                              isFourth
-                                ? 'border-b border-r border-zinc-400 bg-transparent xl:border-b-0 xl:border-r-0'
-                                : 'border-b border-r border-zinc-400 bg-[#f8f6f1] hover:bg-white'
-                            }`}
-                          >
-                            {isFourth && (
-                              <>
-                                {/* FOND MOBILE — fond plein, pas d'escalier */}
-                                <div className="absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white xl:hidden" />
-
-                                {/* FOND DÉCOUPÉ DE LA CASE 04 — desktop xl seulement */}
-                                <div
-                                  className="hidden xl:block absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white"
-                                  style={{
-                                    clipPath: [
-                                      "polygon(",
-                                      "0 0, 100% 0, 100% 100%,",
-                                      "90px 100%, 90px calc(100% - 30px),",
-                                      "60px calc(100% - 30px), 60px calc(100% - 60px),",
-                                      "30px calc(100% - 60px), 30px calc(100% - 90px),",
-                                      "0 calc(100% - 90px))",
-                                    ].join(" "),
-                                  }}
-                                />
-
-                                {/* CONTOUR NORMAL DE LA CASE 04 — desktop xl seulement */}
-                                <span className="pointer-events-none absolute right-0 top-0 h-full w-px bg-zinc-400 hidden xl:block" />
-                                <span className="pointer-events-none absolute bottom-0 left-[90px] right-0 h-px bg-zinc-400 hidden xl:block" />
-                                <span className="pointer-events-none absolute left-0 top-0 bottom-[90px] w-px bg-zinc-400 hidden xl:block" />
-
-                                {/* CONTOUR DE L'ESCALIER — 3 MARCHES — desktop xl seulement */}
-                                <span className="pointer-events-none absolute bottom-[90px] left-0 h-px w-[30px] bg-zinc-400 hidden xl:block" />
-                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
-
-                                <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
-                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
-
-                                <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
-                                <span className="pointer-events-none absolute bottom-0 left-[90px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
-                              </>
-                            )}
-
-                            <div className="relative z-10 flex flex-1 flex-col">
-                              <ServiceTitle title={service.title} />
-
-                              <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">
-                                {service.shortDescription}
-                              </p>
-
-                              <div className="-mt-10 hidden lg:flex justify-end">
-                                <ServiceIconBadge slug={service.slug} />
-                              </div>
-                            </div>
-                          </Link>
-                        )
-                      })}
-
-                      {/* CASE 06 */}
-                      <Link
-                        href="/services"
-                        className="group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col justify-between border-r border-b border-zinc-400 px-5 py-6 transition duration-300"
-                      >
-                        <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-30" />
-
-                        <div className="relative">
-                          <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
-                            Découvrir nos services
-                          </h3>
-                        </div>
-
-                        <div className="relative mt-4 text-red-600">
-                          <svg
-                            aria-hidden="true"
-                            viewBox="0 0 120 18"
-                            className="h-5 w-24 overflow-visible transition-[width] duration-300 ease-out group-hover:w-32"
-                          >
-                            <path
-                              d="M1 9H112M100 2L112 9L100 16"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="square"
-                              strokeLinejoin="miter"
-                            />
-                          </svg>
                         </div>
                       </Link>
+                    )
+                  })}
+
+                  {/* CASE 06 */}
+                  <Link href="/services"
+                    className="group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col justify-between border-r border-b border-zinc-400 px-5 py-6 transition duration-300"
+                  >
+                    <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-30" />
+                    <div className="relative">
+                      <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
+                        Découvrir nos services
+                      </h3>
                     </div>
+                    <div className="relative mt-4 text-red-600">
+                      <svg aria-hidden="true" viewBox="0 0 120 18" className="h-5 w-24 overflow-visible transition-[width] duration-300 ease-out group-hover:w-32">
+                        <path d="M1 9H112M100 2L112 9L100 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                      </svg>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+
             </div>
-           </div> 
           </div>
           </ScrollReveal>
         </section>
@@ -432,7 +398,8 @@ export async function ClinicHomePage() {
       {/* CONDITIONS */}
       {hasConditions && (
         <section className="relative z-20 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
-          <div className="relative mx-auto max-w-[1200px] overflow-hidden px-6 lg:px-8">
+          <GeometricShapes />
+          <div className="relative mx-auto max-w-[var(--content-max-w)] overflow-hidden px-6 lg:px-8">
             {/* ILLUSTRATION — pleine hauteur, droite, dans le 1200px */}
             {conditionsSectionImageUrl && (
               <div className="absolute top-24 bottom-24 -right-6 hidden w-[62%] lg:-right-8 lg:block">
@@ -496,8 +463,9 @@ export async function ClinicHomePage() {
       {/* PROFESSIONNELS */}
       {hasProfessionals && (
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+          <GeometricShapes />
           <ScrollReveal>
-          <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
+          <div className="mx-auto grid max-w-[var(--content-max-w)] gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
             <div>
               <div className="mb-4">
                 <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
@@ -618,8 +586,9 @@ export async function ClinicHomePage() {
 
         return (
           <section className="relative z-40 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+            <GeometricShapes />
             <ScrollReveal>
-            <div className="mx-auto max-w-[1200px] px-6 py-24 lg:px-8">
+            <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
 
               {/* En-tête section */}
               <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
