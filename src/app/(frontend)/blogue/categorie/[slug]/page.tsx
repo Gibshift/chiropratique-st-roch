@@ -43,10 +43,13 @@ export async function generateMetadata({
   const category = result.docs[0] as any
   if (!category) return {}
 
-  const title = `${category.title} — Blogue | Chiropratique St-Roch`
   const description = `Articles de blogue sur le sujet : ${category.title}.`
 
-  return { title, description }
+  return {
+    title: { absolute: `${category.title} — Blogue | Chiropratique St-Roch` },
+    description,
+    alternates: { canonical: `/blogue/categorie/${slug}` },
+  }
 }
 
 export default async function Page({

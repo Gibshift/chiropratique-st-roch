@@ -74,10 +74,6 @@ export const metadata: Metadata = {
   description:
     'Chiropratique St-Roch est une clinique multidisciplinaire située à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
 
-  alternates: {
-    canonical: '/',
-  },
-
   openGraph: {
     type: 'website',
     locale: 'fr_CA',
