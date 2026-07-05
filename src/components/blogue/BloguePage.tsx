@@ -217,6 +217,15 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
                 <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   La santé,<br />ça s&apos;explique.
                 </h1>
+                <div className="mt-6 h-[2px] w-14 bg-red-600" />
+                <div className="mt-6">
+                  <a
+                    href="#blogue-grid"
+                    className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  >
+                    <span>Lire les articles ↓</span>
+                  </a>
+                </div>
               </div>
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
               <div className="lg:max-w-[38%]">

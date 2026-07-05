@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
+const JANE_URL = 'https://chiropratiquestroch.janeapp.com'
+
 function getDesktopCols(count: number) {
   const map: Record<number, string> = {
     1: 'lg:grid-cols-1',
@@ -39,8 +41,25 @@ export async function ProfessionalsPage() {
             <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
-                  Notre équipe.
+                  Des soins.<br />Des visages.
                 </h1>
+                <div className="mt-6 h-[2px] w-14 bg-red-600" />
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <a
+                    href="#equipe-grid"
+                    className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  >
+                    <span>Voir l&apos;équipe ↓</span>
+                  </a>
+                  <a
+                    href={JANE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[46px] items-center border border-zinc-300 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+                  >
+                    Prendre rendez-vous
+                  </a>
+                </div>
               </div>
 
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />

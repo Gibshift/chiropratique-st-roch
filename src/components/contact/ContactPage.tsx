@@ -17,6 +17,7 @@ export async function ContactPage() {
   const settings: any = siteSettings || {}
   const clinicName = settings.clinicName || 'Chiropratique St-Roch'
   const phone = settings.phone || null
+  const janeUrl = (typeof settings.mainJaneUrl === 'string' && settings.mainJaneUrl) || 'https://chiropratiquestroch.janeapp.com'
   const email = settings.email || null
   const openingHours = Array.isArray(settings.openingHours) ? settings.openingHours : []
   const address = settings.address || {}
@@ -35,6 +36,28 @@ export async function ContactPage() {
                 <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   Nous joindre.
                 </h1>
+                <div className="mt-6 h-[2px] w-14 bg-red-600" />
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <a
+                    href={janeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  >
+                    <span>Prendre rendez-vous</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition-transform duration-200 group-hover:translate-x-1">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </a>
+                  {phone && (
+                    <a
+                      href={`tel:${phone.replace(/\D/g, '')}`}
+                      className="inline-flex min-h-[46px] items-center border border-zinc-300 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+                    >
+                      Appeler la clinique
+                    </a>
+                  )}
+                </div>
               </div>
 
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
