@@ -79,7 +79,7 @@ export async function ServiceDetailPage({ slug }: Props) {
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
 
               <div className="lg:max-w-[38%]">
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Services</p>
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Services</p>
                 {service.shortDescription && (
                   <p className="mt-3 text-[1rem] leading-7 text-zinc-800">{service.shortDescription}</p>
                 )}
@@ -105,7 +105,7 @@ export async function ServiceDetailPage({ slug }: Props) {
 
           {conditionsForService.length > 0 && (
             <div className="mt-12">
-              <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Conditions souvent associées</p>
+              <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">Conditions souvent associées</p>
               <div className="mt-5 grid gap-3 md:grid-cols-2">
                 {conditionsForService.map((condition: any) => (
                   <a
@@ -123,7 +123,7 @@ export async function ServiceDetailPage({ slug }: Props) {
 
         <aside className="mt-12 flex flex-col gap-6 lg:mt-14 lg:sticky lg:top-28 lg:self-start">
           <div className="border border-zinc-400 bg-white p-6">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Professionnels</p>
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Professionnels</p>
 
             {professionalsForService.length > 0 ? (
               <div className="mt-4 flex flex-col gap-3">
@@ -172,7 +172,7 @@ export async function ServiceDetailPage({ slug }: Props) {
           </div>
 
           <div className="border border-zinc-400 bg-white p-6">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Conditions traitées</p>
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Conditions traitées</p>
             <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
               Découvrez les conditions que nous traitons à la clinique.
             </p>
@@ -182,7 +182,7 @@ export async function ServiceDetailPage({ slug }: Props) {
           </div>
 
           <div className="border border-zinc-400 bg-white p-6">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Blogue</p>
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Blogue</p>
             <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
               Des articles simples pour mieux comprendre votre santé.
             </p>

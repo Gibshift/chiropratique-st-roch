@@ -49,7 +49,7 @@ export function PageHero({ title, eyebrow, description, imageUrl, highlight, cta
         <div className="flex w-full flex-col pt-60 pb-20 lg:max-w-[48%]">
 
           {eyebrow && (
-            <p className="font-[var(--font-barlow-condensed)] text-[15px] font-bold uppercase tracking-[0.2em] text-red-600">
+            <p className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase tracking-[0.12em] text-red-600">
               {eyebrow}
             </p>
           )}

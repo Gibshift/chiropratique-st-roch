@@ -60,7 +60,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
 
               <div className="lg:max-w-[38%]">
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
                   {professional.title || 'Professionnel'}
                 </p>
                 {professional.shortBio && (
@@ -85,27 +85,9 @@ export async function ProfessionalDetailPage({ slug }: Props) {
             </p>
           )}
 
-
-          {professional.relatedServices?.length > 0 && (
-            <div className="mt-12">
-              <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Services offerts</p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                {professional.relatedServices.map((service: any) => (
-                  <a
-                    key={service.id}
-                    href={`/services/${service.slug}`}
-                    className="flex-1 border border-zinc-400 bg-white p-5 font-semibold transition hover:border-zinc-950 hover:text-red-600"
-                  >
-                    {service.title}
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-
           {professional.relatedConditions?.length > 0 && (
             <div className="mt-12">
-              <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">Conditions souvent traitées</p>
+              <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">Conditions souvent traitées</p>
               <div className="mt-5 grid gap-3 md:grid-cols-2">
                 {professional.relatedConditions.map((condition: any) => (
                   <a
@@ -133,7 +115,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
           )}
 
           <div className="border border-zinc-400 bg-white p-6">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Services</p>
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Services</p>
             <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
               Découvrez l&apos;ensemble des soins offerts à la clinique.
             </p>
@@ -143,7 +125,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
           </div>
 
           <div className="border border-zinc-400 bg-white p-6">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Blogue</p>
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Blogue</p>
             <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
               Des articles simples pour mieux comprendre votre santé.
             </p>

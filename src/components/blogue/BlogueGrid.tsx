@@ -33,7 +33,7 @@ function ArticleCard({ post }: { post: PostForGrid }) {
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center justify-between gap-2">
           {post.categoryTitle && (
-            <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-red-600">
+            <span className="text-[0.65rem] font-medium uppercase tracking-[0.1em] text-red-600">
               {post.categoryTitle}
             </span>
           )}
@@ -200,7 +200,7 @@ export function BlogueGrid({
       {/* Filtres catégorie */}
       <div className="mb-10">
         <div className="flex items-center justify-between mb-5">
-          <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">
+          <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">
             Parcourir par sujet
           </p>
           {activeCategories.size > 0 && (
@@ -254,7 +254,7 @@ export function BlogueGrid({
       {/* Recherche + grille */}
       <div id="blogue-grid">
         <div className="flex items-center justify-between mb-5">
-          <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">
+          <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">
             {isFiltering
               ? `${filtered.length} article${filtered.length > 1 ? 's' : ''} trouvé${filtered.length > 1 ? 's' : ''}`
               : 'Tous les articles'}
@@ -326,7 +326,7 @@ export function BlogueGrid({
                 >
                   <div className="flex-1 min-w-0">
                     {post.categoryTitle && (
-                      <span className="text-[0.6rem] font-bold uppercase tracking-[0.15em] text-red-600">
+                      <span className="text-[0.6rem] font-medium uppercase tracking-[0.1em] text-red-600">
                         {post.categoryTitle}
                       </span>
                     )}

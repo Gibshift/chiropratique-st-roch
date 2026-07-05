@@ -111,7 +111,7 @@ export default async function Page({
               </div>
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
               <div className="lg:max-w-[38%]">
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Blogue</p>
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Blogue</p>
                 <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
                   Articles liés au sujet <span className="font-semibold text-zinc-950">{category.title}</span>.
                 </p>
@@ -131,7 +131,7 @@ export default async function Page({
                       >
                         <div className="flex flex-1 flex-col p-6">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-red-600">
+                            <span className="text-[0.65rem] font-medium uppercase tracking-[0.1em] text-red-600">
                               {category.title}
                             </span>
                             {date && <span className="text-[0.7rem] text-zinc-400">{date}</span>}

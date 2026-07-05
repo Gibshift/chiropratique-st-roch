@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
+import { DM_Sans } from 'next/font/google'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -21,6 +21,12 @@ import { getServerSideURL } from '@/utilities/getURL'
 
 const siteUrl = getServerSideURL()
 
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+})
+
 const barlowCondensed = Barlow_Condensed({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -33,7 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
   <html
-    className={cn(GeistSans.variable, GeistMono.variable, barlowCondensed.variable, 'overflow-x-clip')}
+    className={cn(dmSans.variable, GeistMono.variable, barlowCondensed.variable, 'overflow-x-clip')}
     lang="fr-CA"
     suppressHydrationWarning
   >

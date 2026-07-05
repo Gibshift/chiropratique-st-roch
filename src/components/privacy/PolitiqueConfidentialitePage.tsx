@@ -19,7 +19,7 @@ export function PolitiqueConfidentialitePage() {
               <div className="hidden lg:block h-24 w-[1px] flex-shrink-0 self-center bg-red-600" />
 
               <div className="lg:max-w-[38%]">
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Loi 25</p>
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Loi 25</p>
                 <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
                   Chiropratique St-Roch est soucieuse de la protection de votre vie privée et des renseignements personnels qu&apos;elle recueille sur son site Web ou tout autre moyen technologique.
                 </p>

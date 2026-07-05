@@ -249,7 +249,7 @@ export async function ClinicHomePage() {
             <div className="flex h-full flex-col items-center justify-center bg-white">
               <ScrollReveal>
                 <div className="flex flex-col items-center px-8 text-center lg:translate-y-8 lg:px-16">
-                  <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
+                  <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
                     Soins manuels · corps en mouvement
                   </p>
 

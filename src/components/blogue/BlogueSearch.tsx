@@ -106,7 +106,7 @@ export function BlogueSearch({ allPosts }: { allPosts: PostForSearch[] }) {
             >
               <div className="flex-1 min-w-0">
                 {post.categoryTitle && (
-                  <span className="text-[0.6rem] font-bold uppercase tracking-[0.15em] text-red-600">
+                  <span className="text-[0.6rem] font-medium uppercase tracking-[0.1em] text-red-600">
                     {post.categoryTitle}
                   </span>
                 )}

@@ -57,7 +57,7 @@ export async function ConditionCategoryPage({ slug }: Props) {
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
 
               <div className="lg:max-w-[38%]">
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Conditions traitées</p>
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Conditions traitées</p>
                 {category.subtitle && (
                   <p className="mt-3 text-[1rem] leading-7 text-zinc-800">{category.subtitle}</p>
                 )}
@@ -118,7 +118,7 @@ export async function ConditionCategoryPage({ slug }: Props) {
 
             {/* Services */}
             <div className="border border-zinc-400 bg-white p-6">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Services</p>
+              <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Services</p>
               <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
                 Découvrez l&apos;ensemble des soins offerts à la clinique.
               </p>
@@ -129,7 +129,7 @@ export async function ConditionCategoryPage({ slug }: Props) {
 
             {/* Professionnels */}
             <div className="border border-zinc-400 bg-white p-6">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Professionnels</p>
+              <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Professionnels</p>
               <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
                 Rencontrez les professionnels de la clinique.
               </p>
@@ -140,7 +140,7 @@ export async function ConditionCategoryPage({ slug }: Props) {
 
             {/* Blogue */}
             <div className="border border-zinc-400 bg-white p-6">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Blogue</p>
+              <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Blogue</p>
               <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
                 Des articles simples pour mieux comprendre votre santé.
               </p>

@@ -66,7 +66,7 @@ export async function ServicesPage() {
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
 
               <div className="lg:max-w-[38%]">
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">Services</p>
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Services</p>
                 <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
                   Chiropratique, ostéopathie, massothérapie, kinésithérapie et orthothérapie. Chaque professionnel apporte une expertise distincte pour vous aider à bouger sans douleur et retrouver votre plein potentiel.
                 </p>

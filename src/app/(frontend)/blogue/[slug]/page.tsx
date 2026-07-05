@@ -124,7 +124,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                     )}
                     <div className="border-t border-zinc-400 pt-8">
                     {relatedPosts.length > 0 && (
-                      <p className="mb-6 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-zinc-400">
+                      <p className="mb-6 text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">
                         Articles reliés
                       </p>
                     )}
@@ -144,7 +144,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                             <div className="flex flex-1 flex-col p-6">
                               <div className="flex items-center justify-between gap-2">
                                 {relatedCat && (
-                                  <span className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-red-600">
+                                  <span className="text-[0.65rem] font-medium uppercase tracking-[0.1em] text-red-600">
                                     {relatedCat.title}
                                   </span>
                                 )}
@@ -185,7 +185,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
               <aside className="mt-12 flex flex-col gap-6 lg:mt-0 lg:sticky lg:top-28 lg:self-start">
                 {category && (
                   <div className="border border-zinc-400 p-6">
-                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">Catégorie</p>
+                    <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Catégorie</p>
                     <div className="mt-2 flex items-center justify-between gap-3">
                       <p className="font-[var(--font-barlow-condensed)] text-[1.1rem] font-medium uppercase text-zinc-950">
                         {category.title}
@@ -209,7 +209,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                 )}
 
                 <div className="border border-zinc-400 p-6">
-                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-zinc-950">La clinique</p>
+                  <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">La clinique</p>
                   <p className="mt-2 text-[0.9rem] leading-6 text-zinc-700">
                     Vous avez des questions? Notre équipe est là pour vous.
                   </p>
