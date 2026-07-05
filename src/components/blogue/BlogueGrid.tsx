@@ -215,9 +215,10 @@ export function BlogueGrid({
           {categories.map((category) => {
             const isActive = activeCategories.has(category.slug)
             return (
-              <button
+              <Link
                 key={category.id}
-                onClick={() => toggleCategory(category.slug)}
+                href={`/blogue/categorie/${category.slug}`}
+                onClick={(e) => { e.preventDefault(); toggleCategory(category.slug) }}
                 className={`group flex flex-col items-center text-center border-b border-r border-zinc-400 px-4 py-6 transition lg:border-b-0 ${
                   isActive ? 'bg-zinc-950' : 'hover:bg-zinc-50'
                 }`}
@@ -244,7 +245,7 @@ export function BlogueGrid({
                   </span>
                   {category.title.slice(1)}
                 </p>
-              </button>
+              </Link>
             )
           })}
         </div>
