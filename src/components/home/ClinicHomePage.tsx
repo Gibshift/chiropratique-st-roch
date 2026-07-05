@@ -226,7 +226,7 @@ export async function ClinicHomePage() {
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-      <section className="relative min-h-[68vh] overflow-hidden bg-[#f6f1e8]">
+        <section className="relative min-h-[560px] overflow-hidden bg-[#f6f1e8] lg:min-h-[68svh]">
 
         {/* Photo en fond absolu — pleine largeur, visible seulement sur lg+ */}
         <div className="pointer-events-none absolute inset-0 hidden lg:block">
@@ -243,35 +243,50 @@ export async function ClinicHomePage() {
           </div>
         </div>
 
-        {/* Bloc blanc — aligné sur le même container que la section Services */}
-        <div className="absolute inset-x-0 bottom-0 top-[var(--header-h)] z-10">
+        {/* Bloc blanc — plein hero, sans dépendre de la hauteur du header */}
+        <div className="absolute inset-0 z-10">
           <div className="mx-auto h-full max-w-[var(--content-max-w)] px-6 lg:px-8">
             <div className="flex h-full flex-col items-center justify-center bg-white">
-            <ScrollReveal>
-              <div className="flex flex-col items-center px-8 text-center lg:px-16">
-                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
-                  Soins manuels · corps en mouvement
-                </p>
-                <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,10vw,8rem)] font-medium uppercase leading-[1.0] text-zinc-950">
-                  Chiropratique
-                  <span className="block text-red-600">St-Roch</span>
-                </h1>
-                <p className="mt-4 text-[1rem] leading-7 text-zinc-800">
-                  Une clinique, plusieurs disciplines, une seule priorité : vous.
-                </p>
-                <a
-                  href={janeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
-                >
-                  <span className="whitespace-nowrap">Prendre rendez-vous</span>
-                  <svg aria-hidden="true" viewBox="0 0 44 10" className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1">
-                    <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinecap="square" strokeLinejoin="miter" />
-                  </svg>
-                </a>
-              </div>
-            </ScrollReveal>
+              <ScrollReveal>
+                <div className="flex flex-col items-center px-8 text-center lg:translate-y-8 lg:px-16">
+                  <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
+                    Soins manuels · corps en mouvement
+                  </p>
+
+                  <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,10vw,8rem)] font-medium uppercase leading-[1.0] text-zinc-950">
+                    Chiropratique
+                    <span className="block text-red-600">St-Roch</span>
+                  </h1>
+
+                  <p className="mt-4 text-[1rem] leading-7 text-zinc-800">
+                    Une clinique, plusieurs disciplines, une seule priorité : vous.
+                  </p>
+
+                  <a
+                    href={janeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
+                  >
+                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
+
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 44 10"
+                      className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1"
+                    >
+                      <path
+                        d="M1 5H40M35 1L40 5L35 9"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.0"
+                        strokeLinecap="square"
+                        strokeLinejoin="miter"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
