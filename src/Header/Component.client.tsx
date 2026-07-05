@@ -25,6 +25,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
   const [theme, setTheme] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const headerRef = React.useRef<HTMLElement>(null)
 
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
@@ -48,9 +49,21 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const update = () => {
+      if (headerRef.current) {
+        document.documentElement.style.setProperty('--header-h', `${headerRef.current.offsetHeight}px`)
+      }
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [scrolled])
+
   return (
     <>
       <header
+        ref={headerRef}
         className={`fixed inset-x-0 top-0 z-50 text-zinc-950 bg-white transition-all duration-300 ${scrolled ? 'shadow-sm' : ''}`}
         {...(theme ? { 'data-theme': theme } : {})}
       >

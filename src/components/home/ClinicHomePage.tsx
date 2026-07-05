@@ -244,9 +244,9 @@ export async function ClinicHomePage() {
         </div>
 
         {/* Bloc blanc — aligné sur le même container que la section Services */}
-        <div className="absolute inset-0 z-10">
+        <div className="absolute inset-x-0 bottom-0 top-[var(--header-h)] z-10">
           <div className="mx-auto h-full max-w-[var(--content-max-w)] px-6 lg:px-8">
-            <div className="flex h-full flex-col items-center justify-center bg-white pt-20 lg:pt-24">
+            <div className="flex h-full flex-col items-center justify-center bg-white">
             <ScrollReveal>
               <div className="flex flex-col items-center px-8 text-center lg:px-16">
                 <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-red-600">
