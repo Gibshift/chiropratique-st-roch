@@ -106,7 +106,7 @@ export default async function Page({
                   { label: category.title },
                 ]} />
                 <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(2.8rem,5vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
-                  {category.title}
+                  Articles — {category.title}
                 </h1>
               </div>
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
