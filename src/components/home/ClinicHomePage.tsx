@@ -27,7 +27,7 @@ function formatDateFR(dateStr: string) {
 }
 
 
-function ServiceIconBadge({ slug }: { slug: string }) {
+function ServiceIconBadge({ slug, title }: { slug: string; title?: string }) {
   const imageIcons: Record<string, string> = {
     chiropratique: '/assets/chiropratique-icon.png',
     osteopathie: '/assets/osteopathie-icon.png',
@@ -46,7 +46,7 @@ function ServiceIconBadge({ slug }: { slug: string }) {
         {imageSrc ? (
           <Image
             src={imageSrc}
-            alt=""
+            alt={title ? `Icône ${title.toLowerCase()}` : ''}
             width={72}
             height={60}
             className="relative z-10 h-[60px] w-[72px] object-contain"
@@ -337,7 +337,7 @@ export async function ClinicHomePage() {
                       <ServiceTitle title={service.title} />
                       <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">{service.shortDescription}</p>
                       <div className="-mt-10 hidden lg:flex justify-end">
-                        <ServiceIconBadge slug={service.slug} />
+                        <ServiceIconBadge slug={service.slug} title={service.title} />
                       </div>
                     </Link>
                   ))}
@@ -378,7 +378,7 @@ export async function ClinicHomePage() {
                           <ServiceTitle title={service.title} />
                           <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">{service.shortDescription}</p>
                           <div className="-mt-10 hidden lg:flex justify-end">
-                            <ServiceIconBadge slug={service.slug} />
+                            <ServiceIconBadge slug={service.slug} title={service.title} />
                           </div>
                         </div>
                       </Link>
