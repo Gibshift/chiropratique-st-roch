@@ -77,7 +77,7 @@ export async function ConditionsPage() {
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={iconSrc}
-                            alt=""
+                            alt={`Illustration ${category.title.toLowerCase()}`}
                             width={96}
                             height={96}
                             className={`h-[96px] w-[96px] object-contain opacity-80 group-hover:opacity-100 transition-opacity mix-blend-multiply ${ category.slug === 'dos-et-sacrum' ? 'p-3' : category.slug === 'membres-inferieurs' ? 'p-1' : '' }`}

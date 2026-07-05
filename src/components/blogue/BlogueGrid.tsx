@@ -227,7 +227,7 @@ export function BlogueGrid({
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={category.iconSrc}
-                      alt=""
+                      alt={`Illustration ${category.title.toLowerCase()}`}
                       width={190}
                       height={190}
                       className={`h-[190px] w-[190px] object-contain transition ${

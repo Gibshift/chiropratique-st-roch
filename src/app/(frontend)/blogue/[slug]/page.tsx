@@ -193,7 +193,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={iconSrc}
-                          alt=""
+                          alt={`Illustration ${category.title.toLowerCase()}`}
                           width={80}
                           height={80}
                           className="h-[80px] w-[80px] flex-shrink-0 object-contain"
