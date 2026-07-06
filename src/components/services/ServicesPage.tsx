@@ -6,7 +6,6 @@ import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
-
 type ServiceMeta = { when: string; icon: React.ReactNode }
 
 const SERVICE_META: Record<string, ServiceMeta> = {
@@ -74,7 +73,7 @@ export async function ServicesPage() {
               <div className="flex flex-col justify-center py-8 lg:py-12 lg:pr-16">
                 <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Services</p>
                 <h1 className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(2.2rem,5.5vw,4.5rem)] font-medium uppercase leading-[1.0] text-zinc-950">
-                  Nos soins.<br />Votre réalité.
+                  Découvrez<br />Nos soins.
                 </h1>
                 <div className="mt-6 h-[2px] w-14 bg-red-600" />
                 <p className="mt-6 max-w-[380px] text-[1rem] leading-7 text-zinc-800">
@@ -105,13 +104,13 @@ export async function ServicesPage() {
               <div className="hidden lg:flex relative overflow-hidden bg-white">
 
                 {/* Zone illustration — dépasse de 120px derrière les liens */}
-                <div className="absolute inset-y-8 lg:inset-y-12 left-0 right-[220px]">
+                <div className="absolute inset-y-8 lg:inset-y-1 left-20 right-[260px]">
                   <Image
-                    src="/assets/salle-chiro-watercolor.png"
+                    src="/assets/famille-contact-ordinateur-siteweb-droite.png"
                     alt=""
                     fill
                     sizes="400px"
-                    className="object-cover object-center pointer-events-none"
+                    className="object-contain object-bottom pointer-events-none"
                     priority
                   />
                   <div className="absolute inset-0 bg-white/20 pointer-events-none" />
@@ -179,12 +178,9 @@ export async function ServicesPage() {
                         {short && (
                           <p className="mt-4 flex-1 text-[0.85rem] leading-6 text-zinc-500">{short}</p>
                         )}
-                        <span className="mt-6 inline-flex items-center gap-1.5 text-[0.8rem] font-semibold uppercase tracking-[0.1em] text-red-600 transition group-hover:gap-2.5">
-                          En savoir plus
-                          <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-0.5">
-                            <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
-                          </svg>
-                        </span>
+                        <svg aria-hidden="true" viewBox="0 0 44 10" className="mt-6 h-2 w-12 text-red-600 transition-[width] duration-300 group-hover:w-20">
+                          <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
+                        </svg>
                         {!isLast && (
                           <div className="hidden lg:block absolute right-0 top-3 bottom-3 w-px bg-zinc-200" aria-hidden />
                         )}
@@ -237,12 +233,9 @@ export async function ServicesPage() {
                       </p>
                     </div>
                     <p className="flex-1 text-[0.85rem] leading-6 text-zinc-500">{meta.when}</p>
-                    <span className="inline-flex items-center gap-1.5 text-[0.8rem] font-semibold uppercase tracking-[0.1em] text-red-600 transition group-hover:gap-2.5">
-                      En savoir plus
-                      <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-0.5">
-                        <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
-                      </svg>
-                    </span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-12 text-red-600 transition-[width] duration-300 group-hover:w-20">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
                   </a>
                 )
               })}
@@ -267,7 +260,6 @@ export async function ServicesPage() {
               </a>
 
             </div>
-
 
           </div>
         </ScrollReveal>

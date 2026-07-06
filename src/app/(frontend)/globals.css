@@ -216,12 +216,14 @@
   }
 }
 
-/* Scroll reveal */
-.sr-hidden {
-  opacity: 0;
-  transform: translateY(28px);
-  will-change: transform, opacity;
-  transition: opacity 0.65s ease, transform 0.65s ease;
+/* Scroll reveal — désactivé sur mobile */
+@media (min-width: 1024px) {
+  .sr-hidden {
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: transform, opacity;
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
 }
 
 .sr-visible {
