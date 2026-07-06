@@ -64,7 +64,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
     <>
       <header
         ref={headerRef}
-        className={`fixed inset-x-0 top-0 z-50 text-zinc-950 bg-white transition-all duration-300 ${scrolled ? 'shadow-sm' : ''}`}
+        className={`fixed inset-x-0 top-0 z-50 text-zinc-950 bg-white border-b border-zinc-950/10 transition-all duration-300 ${scrolled ? 'shadow-[0_2px_12px_rgba(0,0,0,0.08)]' : ''}`}
         {...(theme ? { 'data-theme': theme } : {})}
       >
         <InfoBar phone={phone} openingHours={openingHours} scrolled={scrolled} />

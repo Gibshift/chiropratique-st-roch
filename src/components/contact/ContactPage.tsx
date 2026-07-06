@@ -45,7 +45,7 @@ export async function ContactPage() {
                     className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
                   >
                     <span>Prendre rendez-vous</span>
-                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition-transform duration-200 group-hover:translate-x-1">
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
                       <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                     </svg>
                   </a>

@@ -273,7 +273,7 @@ export async function ClinicHomePage() {
                     <svg
                       aria-hidden="true"
                       viewBox="0 0 44 10"
-                      className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1"
+                      className="h-3 w-9 transition duration-200 group-hover:translate-x-1"
                     >
                       <path
                         d="M1 5H40M35 1L40 5L35 9"
@@ -468,7 +468,7 @@ export async function ClinicHomePage() {
                 className="group mt-12 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
               >
                 Voir toutes les conditions
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
+                <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
               </a>
             </div></ScrollReveal>
           </div>
@@ -621,7 +621,7 @@ export async function ClinicHomePage() {
                   className="group inline-flex self-start shrink-0 items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
                 >
                   Voir tous les articles
-                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
+                  <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
                 </a>
               </div>
 

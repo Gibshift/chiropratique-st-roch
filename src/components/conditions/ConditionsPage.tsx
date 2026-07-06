@@ -99,9 +99,9 @@ export async function ConditionsPage() {
                           />
                         ) : null}
                       </div>
-                      <span className="mt-10 inline-flex items-center gap-1.5 text-[0.9rem] font-semibold text-red-600 transition-transform duration-300 group-hover:scale-110 origin-center">
+                      <span className="mt-10 inline-flex items-center gap-1.5 text-[0.9rem] font-semibold text-red-600 transition duration-300 group-hover:scale-110 origin-center">
                         Voir les conditions
-                        <span className="inline-block translate-x-0 transition-transform duration-300 group-hover:translate-x-2">→</span>
+                        <span className="inline-block translate-x-0 transition duration-300 group-hover:translate-x-2">→</span>
                       </span>
                     </a>
                   )

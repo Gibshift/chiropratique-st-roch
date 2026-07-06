@@ -71,7 +71,7 @@ export function PageHero({ title, eyebrow, description, imageUrl, highlight, cta
               className="group mt-8 inline-flex w-fit min-h-[54px] items-center gap-4 border border-red-600 px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
             >
               <span>Prendre rendez-vous</span>
-              <svg aria-hidden="true" viewBox="0 0 44 10" className="h-3 w-9 transition-transform duration-200 group-hover:translate-x-1">
+              <svg aria-hidden="true" viewBox="0 0 44 10" className="h-3 w-9 transition duration-200 group-hover:translate-x-1">
                 <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinecap="square" strokeLinejoin="miter" />
               </svg>
             </a>
