@@ -52,12 +52,12 @@ export async function ProfessionalsPage() {
                 <p className="mt-6 max-w-[380px] text-[1rem] leading-7 text-zinc-800">
                   Chaque professionnel apporte une expertise distincte. Découvrez leur approche et trouvez celui qui vous correspond.
                 </p>
-                <div className="mt-8 inline-grid grid-cols-[max-content] gap-3">
+                <div className="mt-8 flex flex-wrap items-center gap-3">
                   <a
                     href={JANE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex w-full min-h-[46px] items-center justify-between gap-3 border border-red-600 bg-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
                     <span className="whitespace-nowrap">Prendre rendez-vous</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
@@ -66,10 +66,9 @@ export async function ProfessionalsPage() {
                   </a>
                   <a
                     href="#equipe-grid"
-                    className="flex w-full min-h-[46px] items-center justify-between border border-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
+                    className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white whitespace-nowrap"
                   >
-                    <span className="whitespace-nowrap">Voir l&apos;équipe</span>
-                    <span>↓</span>
+                    Voir l&apos;équipe ↓
                   </a>
                 </div>
               </div>
@@ -77,7 +76,7 @@ export async function ProfessionalsPage() {
               {/* Droite — photo + liens rapides vers chaque professionnel */}
               <div className="hidden lg:flex relative overflow-hidden bg-white">
 
-                <div className="absolute top-10 bottom-0 left-6 right-[300px]">
+                <div className="absolute top-10 bottom-0 left-0 right-[300px] lg:right-[260px] xl:right-[300px]">
                   <Image
                     src="/assets/equipe-stroch-droite.png"
                     alt=""

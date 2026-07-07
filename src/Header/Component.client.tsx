@@ -179,7 +179,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               className="flex min-h-[52px] w-full items-center justify-center border border-red-600 bg-white px-5 text-red-600 transition hover:bg-red-600 hover:text-white"
               onClick={() => setIsOpen(false)}
             >
-              <span className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.22em]">
+              <span className="[-webkit-text-size-adjust:100%] [text-size-adjust:100%] whitespace-nowrap font-[var(--font-barlow-condensed)] text-[12px] font-medium uppercase leading-none tracking-[0.1em]">
                 Prendre rendez-vous
               </span>
             </a>

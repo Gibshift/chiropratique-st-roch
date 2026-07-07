@@ -64,12 +64,12 @@ export async function ServicesPage() {
                 <p className="mt-6 max-w-[380px] text-[1rem] leading-7 text-zinc-800">
                   Chaque discipline répond à des besoins spécifiques. Notre équipe vous guide vers les soins les plus adaptés à votre situation.
                 </p>
-                <div className="mt-8 inline-grid grid-cols-[max-content] gap-3">
+                <div className="mt-8 flex flex-wrap items-center gap-3">
                   <a
                     href={JANE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex w-full min-h-[46px] items-center justify-between gap-3 border border-red-600 bg-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
                     <span className="whitespace-nowrap">Prendre rendez-vous</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
@@ -78,9 +78,9 @@ export async function ServicesPage() {
                   </a>
                   <a
                     href="#services-grid"
-                    className="flex w-full min-h-[46px] items-center border border-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
+                    className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white whitespace-nowrap"
                   >
-                    <span className="whitespace-nowrap">Je ne sais pas lequel choisir ↓</span>
+                    Je ne sais pas lequel choisir ↓
                   </a>
                 </div>
               </div>
@@ -88,8 +88,8 @@ export async function ServicesPage() {
               {/* Droite — panneau de navigation (desktop uniquement) */}
               <div className="hidden lg:flex relative overflow-hidden bg-white">
 
-                {/* Zone illustration — dépasse de 120px derrière les liens */}
-                <div className="absolute inset-y-8 lg:inset-y-1 left-20 right-[260px]">
+                {/* Zone illustration — derrière les liens */}
+                <div className="absolute top-10 bottom-0 left-2 right-[260px] lg:right-[240px] xl:right-[240px]">
                   <Image
                     src="/assets/famille-contact-ordinateur-siteweb-droite.png"
                     alt=""
