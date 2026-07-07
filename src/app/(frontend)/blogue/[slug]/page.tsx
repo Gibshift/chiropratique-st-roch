@@ -116,6 +116,27 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                   enableGutter={false}
                 />
 
+                {/* CTA rendez-vous */}
+                <div className="mt-14 border border-zinc-200 bg-zinc-50 px-8 py-10 text-center">
+                  <p className="font-[var(--font-barlow-condensed)] text-[clamp(1.2rem,2.5vw,1.6rem)] font-medium uppercase leading-tight text-zinc-950">
+                    Vous vous reconnaissez dans cet article?
+                  </p>
+                  <p className="mt-3 text-[0.95rem] leading-6 text-zinc-500">
+                    Notre équipe peut vous aider. Prenez rendez-vous dès aujourd&apos;hui.
+                  </p>
+                  <a
+                    href="https://chiropratiquestroch.janeapp.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-6 inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-8 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  >
+                    <span>Prendre rendez-vous</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </a>
+                </div>
+
                 {/* Articles reliés */}
                 {(relatedPosts.length > 0 || publishedDate) && (
                   <div className="mt-16">

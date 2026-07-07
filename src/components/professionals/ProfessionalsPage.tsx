@@ -45,8 +45,8 @@ export async function ProfessionalsPage() {
               {/* Gauche — message + actions */}
               <div className="flex flex-col justify-center py-8 lg:py-12 lg:pr-16">
                 <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Professionnels</p>
-                <h1 className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(2.2rem,5.5vw,4.5rem)] font-medium uppercase leading-[1.0] text-zinc-950">
-                  Des soins.<br />Des visages.
+                <h1 className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(2rem,4vw,3.2rem)] font-medium uppercase leading-[1.0] text-zinc-950">
+                  Notre équipe.<br />Votre santé.
                 </h1>
                 <div className="mt-6 h-[2px] w-14 bg-red-600" />
                 <p className="mt-6 max-w-[380px] text-[1rem] leading-7 text-zinc-800">
@@ -76,31 +76,32 @@ export async function ProfessionalsPage() {
               {/* Droite — photo + liens rapides vers chaque professionnel */}
               <div className="hidden lg:flex relative overflow-hidden bg-white">
 
-                <div className="absolute inset-y-8 lg:inset-y-12 left-0 right-[220px]">
+                <div className="absolute top-10 bottom-0 left-6 right-[300px]">
                   <Image
-                    src="/assets/salle-chiro-watercolor.png"
+                    src="/assets/equipe-stroch-droite.png"
                     alt=""
                     fill
                     sizes="400px"
-                    className="object-cover object-center pointer-events-none"
+                    className="object-contain object-bottom pointer-events-none"
                     priority
                   />
                   <div className="absolute inset-0 bg-white/20 pointer-events-none" />
                 </div>
 
-                <div className="relative z-10 ml-auto flex w-[300px] flex-col justify-center gap-2 self-stretch px-4 py-6">
+                <div className="relative z-10 ml-auto flex w-[360px] flex-col justify-center gap-2 self-stretch px-4 py-6">
                   {professionals.docs.map((professional: any) => (
                     <a
                       key={professional.id}
                       href={`/professionnels/${professional.slug}`}
-                      className="group flex items-center justify-between border border-zinc-200 bg-white px-4 py-3 transition hover:border-zinc-400 hover:bg-zinc-50"
+                      className="group flex items-center justify-between border border-zinc-200 bg-white px-4 py-2 transition hover:border-zinc-400 hover:bg-zinc-50"
                     >
-                      <span className="flex flex-col">
-                        <span className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase tracking-[0.01em] text-zinc-700 transition group-hover:text-red-600">
-                          {professional.name}
+                      <span className="flex min-w-0 flex-col">
+                        <span className="truncate font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase tracking-[0.01em] transition">
+                          <span className="text-red-600">{professional.name.charAt(0)}</span>
+                          <span className="text-zinc-700 group-hover:text-red-600">{professional.name.slice(1)}</span>
                         </span>
                         {professional.title && (
-                          <span className="text-[0.72rem] font-medium uppercase tracking-[0.06em] text-zinc-400">
+                          <span className="truncate text-[0.72rem] font-medium uppercase tracking-[0.06em] text-zinc-400">
                             {professional.title}
                           </span>
                         )}
@@ -130,11 +131,11 @@ export async function ProfessionalsPage() {
                   Notre équipe
                 </p>
                 <p className="mt-1 font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,2.5vw,2rem)] font-medium uppercase leading-tight text-zinc-950">
-                  Une expertise par discipline.
+                  Une équipe multidisciplinaire.
                 </p>
               </div>
 
-              <div className={`grid grid-cols-2 gap-px bg-zinc-200 sm:grid-cols-3 ${getDesktopCols(count)}`}>
+              <div className={`grid grid-cols-2 gap-2 sm:grid-cols-3 ${getDesktopCols(count)}`}>
                 {professionals.docs.map((professional: any) => {
                   const photoUrl =
                     professional.photo &&
@@ -147,7 +148,7 @@ export async function ProfessionalsPage() {
                     <a
                       key={professional.id}
                       href={`/professionnels/${professional.slug}`}
-                      className="group flex flex-col overflow-hidden bg-white transition hover:bg-zinc-50"
+                      className="group flex flex-col overflow-hidden border border-zinc-200 bg-white transition hover:border-zinc-400 hover:bg-zinc-50"
                     >
                       {photoUrl ? (
                         <div className="relative aspect-[3/4] w-full overflow-hidden">
@@ -164,16 +165,17 @@ export async function ProfessionalsPage() {
                           <span className="text-sm font-semibold uppercase tracking-wide text-zinc-400">Photo à venir</span>
                         </div>
                       )}
-                      <div className="flex flex-1 flex-col border-t border-zinc-200 p-5">
-                        <h2 className="font-[var(--font-barlow-condensed)] text-[1.2rem] font-medium uppercase leading-tight tracking-[0.02em] text-zinc-950">
-                          {professional.name}
+                      <div className="flex flex-1 flex-col border-t border-zinc-200 p-4">
+                        <h2 className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-tight tracking-[0.02em] text-zinc-950">
+                          {professional.name.split(' ')[0]}<br />
+                          {professional.name.split(' ').slice(1).join(' ')}
                         </h2>
-                        <p className="mt-1 text-[0.8rem] font-medium uppercase tracking-[0.06em] text-zinc-500">
+                        <p className="mt-1 text-[0.75rem] font-medium uppercase tracking-[0.06em] text-zinc-500">
                           {professional.title}
                         </p>
-                        <span className="mt-5 inline-flex items-center gap-1.5 text-[0.8rem] font-semibold uppercase tracking-[0.1em] text-red-600 transition group-hover:gap-2.5">
+                        <span className="mt-auto pt-4 inline-flex items-center gap-1.5 whitespace-nowrap text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-red-600 transition group-hover:gap-2.5">
                           Voir le profil
-                          <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-0.5">
+                          <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 flex-shrink-0 transition duration-200 group-hover:translate-x-0.5">
                             <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                           </svg>
                         </span>
@@ -223,23 +225,20 @@ export async function ProfessionalsPage() {
                 </div>
               </div>
 
-              <a
-                href="/services"
-                className="group flex flex-col justify-between bg-zinc-900 px-8 py-8 transition hover:bg-zinc-800"
-              >
-                <p className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-zinc-500">
+              <div className="flex flex-col justify-between bg-zinc-900 px-8 py-8">
+                <p className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-red-400">
                   Pas sûr quel soin choisir?
                 </p>
                 <p className="mt-4 font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug text-zinc-200">
                   Découvrez nos cinq disciplines et trouvez celle qui correspond à votre situation.
                 </p>
-                <span className="mt-6 inline-flex items-center gap-3 text-[0.72rem] font-bold uppercase tracking-[0.16em] text-red-400 transition group-hover:text-red-300">
+                <a
+                  href="/services"
+                  className="mt-2 flex min-h-[40px] w-full items-center justify-center border border-red-400 text-[9.5px] font-bold uppercase tracking-[0.16em] text-red-400 transition hover:bg-white hover:border-white hover:text-red-600"
+                >
                   Explorer les services
-                  <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-1">
-                    <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" />
-                  </svg>
-                </span>
-              </a>
+                </a>
+              </div>
 
             </div>
 

@@ -582,7 +582,7 @@ export async function ClinicHomePage() {
 
               return (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1 bg-white">
-                  {professionals.docs.slice(0, 5).map((p: any) => (
+                  {professionals.docs.map((p: any) => (
                     <ProfCard key={p.id} professional={p} />
                   ))}
                   {count < 6 && <CTACard />}
