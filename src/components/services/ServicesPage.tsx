@@ -223,9 +223,9 @@ export async function ServicesPage() {
                         href={janeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 flex min-h-[40px] w-full items-center justify-center border border-red-600 px-5 text-[9.5px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
+                        className="mt-2 flex min-h-[40px] w-full items-center justify-center border border-red-600 px-3 text-[9px] font-bold uppercase tracking-[0.08em] text-red-600 transition hover:bg-red-600 hover:text-white"
                       >
-                        <span>Prendre rendez-vous en {service.title}</span>
+                        <span className="whitespace-nowrap">Prendre rendez-vous en {service.title}</span>
                       </a>
                     )}
                   </div>
