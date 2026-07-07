@@ -278,7 +278,7 @@ export async function ClinicHomePage() {
             </div>
 
             {/* Rangée unique de cartes */}
-            <div className="grid border-l border-t border-zinc-400 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="grid border-l border-t border-zinc-400 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
               {orderedServices.slice(0, 5).map((service: any) => (
                 <Link
                   key={service.id}
