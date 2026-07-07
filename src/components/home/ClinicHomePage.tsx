@@ -473,7 +473,7 @@ export async function ClinicHomePage() {
                   className="group flex lg:min-h-[360px] flex-col overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 lg:pb-6 transition hover:border-red-600"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-500">
+                    <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.6rem] lg:text-[13px] font-medium uppercase tracking-[0.1em] lg:tracking-[0.22em] text-red-500">
                       Article du jour
                     </span>
                     {dailyPost.publishedAt && (
@@ -481,12 +481,12 @@ export async function ClinicHomePage() {
                     )}
                   </div>
 
-                  <div className="flex flex-1 flex-col justify-center">
-                    <h3 className="font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight text-white group-hover:text-red-400 transition">
+                  <div className="flex flex-1 flex-col justify-start pt-3 lg:justify-center">
+                    <h3 className="text-[1rem] font-normal leading-[1.1] tracking-[-0.01em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight text-white group-hover:text-red-400 transition">
                       {dailyPost.title}
                     </h3>
                     {dailyPost.meta?.description && (
-                      <p className="mt-3 line-clamp-3 text-[0.9rem] leading-6 text-zinc-400">
+                      <p className="hidden lg:block mt-3 line-clamp-3 text-[0.9rem] leading-6 text-zinc-400">
                         {dailyPost.meta.description}
                       </p>
                     )}
@@ -515,7 +515,7 @@ export async function ClinicHomePage() {
                         }`}
                       >
                         <div>
-                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-red-600">
+                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.6rem] lg:text-[13px] font-medium uppercase tracking-[0.1em] lg:tracking-[0.22em] text-red-600">
                             {label}
                           </span>
                         </div>
