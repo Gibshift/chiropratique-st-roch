@@ -255,7 +255,7 @@ export async function ClinicHomePage() {
                     href={janeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
+                    className="group mt-12 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                   >
                     <span className="whitespace-nowrap">Prendre rendez-vous</span>
 
