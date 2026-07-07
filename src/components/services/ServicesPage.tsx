@@ -19,46 +19,23 @@ type ServiceMeta = { when: string; icon: React.ReactNode }
 const SERVICE_META: Record<string, ServiceMeta> = {
   chiropratique: {
     when: 'Douleurs au dos, au cou ou aux articulations, maux de tête cervicaux, trouble de posture.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6 text-red-600" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-      </svg>
-    ),
+    icon: <Image src="/assets/chiro-icon-siteweb.png" alt="" width={40} height={40} unoptimized className="h-10 w-10 object-contain" />,
   },
   osteopathie: {
     when: 'Tensions globales, migraines, troubles des viscères. Approche douce pour le corps dans son ensemble.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6 text-red-600" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 8v4M12 16h.01" />
-      </svg>
-    ),
+    icon: <Image src="/assets/osteo-icon-siteweb.png" alt="" width={40} height={40} unoptimized className="h-10 w-10 object-contain" />,
   },
   massotherapie: {
     when: 'Stress accumulé, tensions musculaires persistantes, douleurs chroniques.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6 text-red-600" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-        <path d="M3 3v5h5" />
-      </svg>
-    ),
+    icon: <Image src="/assets/masso-icon-siteweb.png" alt="" width={40} height={40} unoptimized className="h-10 w-10 object-contain" />,
   },
   kinesitherapie: {
     when: 'Retour progressif au sport, amélioration des capacités fonctionnelles.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6 text-red-600" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-      </svg>
-    ),
+    icon: <Image src="/assets/kine-icon-siteweb.png" alt="" width={40} height={40} unoptimized className="h-10 w-10 object-contain" />,
   },
   orthotherapie: {
     when: 'Déséquilibres posturaux, douleurs liées aux habitudes de travail ou sportives.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6 text-red-600" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="5" r="2" />
-        <path d="M12 7v8M9 10h6M10 22l2-7 2 7" />
-      </svg>
-    ),
+    icon: <Image src="/assets/ortho-icon-siteweb.png" alt="" width={40} height={40} unoptimized className="h-10 w-10 object-contain" />,
   },
 }
 
@@ -131,7 +108,7 @@ export async function ServicesPage() {
                     return (
                       <a
                         key={service.id}
-                        href="#services-grid"
+                        href={`/services/${service.slug}`}
                         className="group flex items-center justify-between border border-zinc-200 bg-white px-4 py-3 transition hover:border-zinc-400 hover:bg-zinc-50"
                       >
                         <span className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase tracking-[0.01em] text-zinc-700 transition group-hover:text-red-600">
@@ -186,9 +163,12 @@ export async function ServicesPage() {
                         {short && (
                           <p className="mt-4 flex-1 text-[0.85rem] leading-6 text-zinc-500">{short}</p>
                         )}
-                        <svg aria-hidden="true" viewBox="0 0 44 10" className="mt-6 h-2 w-12 text-red-600 transition-[width] duration-300 group-hover:w-20">
-                          <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
-                        </svg>
+                        <span className="mt-6 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-red-600">
+                          En savoir plus
+                          <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-8 transition-[width] duration-300 group-hover:w-12">
+                            <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
+                          </svg>
+                        </span>
                         {!isLast && (
                           <div className="hidden lg:block absolute right-0 top-3 bottom-3 w-px bg-zinc-200" aria-hidden />
                         )}
@@ -230,15 +210,12 @@ export async function ServicesPage() {
                 }
                 const janeUrl = JANE_SERVICE_URLS[slug]
                 return (
-                  <div
-                    key={service.id}
-                    className="flex flex-col gap-4 bg-white px-6 py-8"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="mt-0.5 flex-shrink-0">{meta.icon}</div>
-                      <a href={`/services/${service.slug}`} className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug tracking-[0.02em] text-zinc-950 hover:text-red-600 transition">
+                  <div key={service.id} className="flex flex-col gap-4 bg-white px-6 py-8">
+                    <div className="flex items-center justify-between gap-3">
+                      <a href={`/services/${service.slug}`} className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug tracking-[0.02em] text-zinc-950 transition hover:text-red-600">
                         {service.title}
                       </a>
+                      <div className="flex-shrink-0">{meta.icon}</div>
                     </div>
                     <p className="flex-1 text-[0.85rem] leading-6 text-zinc-500">{meta.when}</p>
                     {janeUrl && (
@@ -246,12 +223,9 @@ export async function ServicesPage() {
                         href={janeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group inline-flex min-h-[40px] items-center gap-3 bg-red-600 px-5 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700 self-start"
+                        className="mt-2 flex min-h-[40px] w-full items-center justify-center border border-red-600 px-5 text-[9.5px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                       >
                         <span>Prendre rendez-vous en {service.title}</span>
-                        <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
-                          <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
-                        </svg>
                       </a>
                     )}
                   </div>
@@ -259,23 +233,20 @@ export async function ServicesPage() {
               })}
 
               {/* Carte CTA — toujours pas certain */}
-              <a
-                href="/contact"
-                className="group flex flex-col justify-between bg-zinc-900 px-8 py-8 transition hover:bg-zinc-800"
-              >
-                <p className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-zinc-500">
+              <div className="flex flex-col justify-between bg-zinc-900 px-8 py-8">
+                <p className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-red-400">
                   Pas encore certain?
                 </p>
                 <p className="mt-4 font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug text-zinc-200">
                   Notre équipe vous oriente vers le soin le plus adapté.
                 </p>
-                <span className="mt-6 inline-flex items-center gap-3 text-[0.72rem] font-bold uppercase tracking-[0.16em] text-red-400 transition group-hover:text-red-300">
+                <a
+                  href="/contact"
+                  className="group mt-2 flex min-h-[40px] w-full items-center justify-center border border-red-400 text-[9.5px] font-bold uppercase tracking-[0.16em] text-red-400 transition hover:bg-white hover:border-white hover:text-red-600"
+                >
                   Nous contacter
-                  <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-1">
-                    <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" />
-                  </svg>
-                </span>
-              </a>
+                </a>
+              </div>
 
             </div>
 

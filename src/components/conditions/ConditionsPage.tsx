@@ -216,7 +216,7 @@ export async function ConditionsPage() {
                   href="#bien-sorienter"
                   className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
                 >
-                  <span>Besoin d&apos;un guide?</span>
+                  <span>Besoin qu&apos;on vous guide?</span>
                   <svg aria-hidden="true" viewBox="0 0 20 12" className="h-3 w-5 transition duration-200 group-hover:translate-y-0.5">
                     <path d="M10 1V9M5 5L10 10L15 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                   </svg>
