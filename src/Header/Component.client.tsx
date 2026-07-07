@@ -19,9 +19,10 @@ interface HeaderClientProps {
   janeUrl: string
   phone: string | null
   openingHours: HourEntry[]
+  address: string | null
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone, openingHours }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone, openingHours, address }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -67,7 +68,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
         className={`fixed inset-x-0 top-0 z-50 text-zinc-950 bg-white transition-all duration-300 ${scrolled ? 'shadow-[0_2px_12px_rgba(0,0,0,0.08)]' : ''}`}
         {...(theme ? { 'data-theme': theme } : {})}
       >
-        <InfoBar phone={phone} openingHours={openingHours} scrolled={scrolled} />
+        <InfoBar phone={phone} openingHours={openingHours} scrolled={scrolled} address={address} />
         <div className="relative w-full pr-6 lg:pr-10 xl:pr-16 transition-all duration-300">
           <div className={`absolute bottom-0 right-0 h-px bg-zinc-950/10 transition-all duration-300 ${scrolled ? 'left-[70px]' : 'left-[96px]'}`} />
           <div className="grid grid-cols-[auto_1fr_auto] items-stretch gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">

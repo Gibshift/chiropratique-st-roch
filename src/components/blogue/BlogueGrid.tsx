@@ -38,7 +38,7 @@ function ArticleCard({ post }: { post: PostForGrid }) {
             </span>
           )}
           {post.date && (
-            <span className="text-[0.7rem] text-zinc-400 ml-auto">{post.date}</span>
+            <span className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-zinc-400 ml-auto">{post.date}</span>
           )}
         </div>
         <h3 className="mt-2 font-[var(--font-barlow-condensed)] text-[1.15rem] font-medium uppercase leading-tight text-zinc-950 group-hover:text-red-600 transition">

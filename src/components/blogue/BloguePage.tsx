@@ -90,7 +90,7 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
           <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] ${s.label}`}>
             {label}
           </span>
-          {date && <span className={`text-xs ${s.date}`}>{date}</span>}
+          {date && <span className={`text-xs font-medium uppercase tracking-[0.14em] ${s.date}`}>{date}</span>}
         </div>
         <div className="flex flex-1 flex-col justify-center">
           <h2 className={`font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight transition ${s.title}`}>

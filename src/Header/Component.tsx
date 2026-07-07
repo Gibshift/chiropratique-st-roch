@@ -26,6 +26,8 @@ export async function Header() {
 
   const phone: string | null = settings.phone || null
   const openingHours = Array.isArray(settings.openingHours) ? settings.openingHours : []
+  const addr = settings.address || {}
+  const address: string | null = [addr.street, addr.city, addr.province].filter(Boolean).join(', ') || null
 
-  return <HeaderClient data={headerData} janeUrl={janeUrl} phone={phone} openingHours={openingHours} />
+  return <HeaderClient data={headerData} janeUrl={janeUrl} phone={phone} openingHours={openingHours} address={address} />
 }

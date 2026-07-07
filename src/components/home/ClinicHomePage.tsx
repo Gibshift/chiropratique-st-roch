@@ -496,7 +496,7 @@ export async function ClinicHomePage() {
                       Article du jour
                     </span>
                     {dailyPost.publishedAt && (
-                      <span className="text-xs text-zinc-500">{formatDateFR(dailyPost.publishedAt)}</span>
+                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-zinc-500">{formatDateFR(dailyPost.publishedAt)}</span>
                     )}
                   </div>
 
