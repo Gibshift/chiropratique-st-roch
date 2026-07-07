@@ -92,9 +92,9 @@ export async function ProfessionalDetailPage({ slug }: Props) {
                     href={janeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-6 inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group mt-6 inline-flex min-h-[46px] items-center gap-2 border border-red-600 bg-red-600 px-4 text-[11px] font-bold uppercase tracking-[0.08em] text-white transition hover:bg-white hover:text-red-600"
                   >
-                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
+                    <span className="whitespace-nowrap">Prendre rendez-vous avec moi</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
                       <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                     </svg>
