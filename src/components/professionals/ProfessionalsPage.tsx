@@ -45,8 +45,8 @@ export async function ProfessionalsPage() {
               {/* Gauche — message + actions */}
               <div className="flex flex-col justify-center py-8 lg:py-12 lg:pr-16">
                 <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Professionnels</p>
-                <h1 className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(2rem,4vw,3.2rem)] font-medium uppercase leading-[1.0] text-zinc-950">
-                  Notre équipe.<br />Votre santé.
+                <h1 className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(2.2rem,5.5vw,4.5rem)] font-medium uppercase leading-[1.0] text-zinc-950">
+                  À votre<br />disposition.
                 </h1>
                 <div className="mt-6 h-[2px] w-14 bg-red-600" />
                 <p className="mt-6 max-w-[380px] text-[1rem] leading-7 text-zinc-800">
@@ -122,7 +122,7 @@ export async function ProfessionalsPage() {
 
       {/* ─── Section 2 — Grille de l'équipe ──────────────────────────── */}
       {count > 0 && (
-        <section id="equipe-grid" className="bg-zinc-50 py-10 lg:py-20">
+        <section id="equipe-grid" className="relative z-10 -mt-4 bg-zinc-50 py-10 lg:py-20 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
@@ -191,7 +191,7 @@ export async function ProfessionalsPage() {
       )}
 
       {/* ─── Section 3 — CTA bas ──────────────────────────────────────── */}
-      <section className="bg-white py-10 lg:py-20">
+      <section className="relative z-20 -mt-4 bg-white py-10 lg:py-20 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 

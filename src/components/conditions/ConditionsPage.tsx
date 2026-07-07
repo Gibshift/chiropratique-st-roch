@@ -143,7 +143,7 @@ export async function ConditionsPage() {
 
       {/* ─── Section 2 — Catégories ───────────────────────────────────── */}
       {categories.docs.length > 0 && (
-        <section id="conditions-grid" className="bg-zinc-50 py-10 lg:py-20">
+        <section id="conditions-grid" className="relative z-10 -mt-4 bg-zinc-50 py-10 lg:py-20 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
@@ -229,7 +229,7 @@ export async function ConditionsPage() {
       )}
 
       {/* ─── Section 3 — Bien s'orienter ─────────────────────────────── */}
-      <section id="bien-sorienter" className="bg-white py-10 lg:py-20">
+      <section id="bien-sorienter" className="relative z-20 -mt-4 bg-white py-10 lg:py-20 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
