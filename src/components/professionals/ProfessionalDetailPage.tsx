@@ -10,6 +10,22 @@ type Props = {
   slug: string
 }
 
+const JANE_STAFF_URLS: Record<string, string> = {
+  'andreanne':       'https://chiropratiquestroch.janeapp.com/#/staff_member/2',
+  'lisanne':         'https://chiropratiquestroch.janeapp.com/#/staff_member/5',
+  'alexandrepacaud': 'https://chiropratiquestroch.janeapp.com/#/staff_member/4',
+  'franche':         'https://chiropratiquestroch.janeapp.com/#/staff_member/22',
+  'lyssa':           'https://chiropratiquestroch.janeapp.com/#/staff_member/24',
+}
+
+function getJaneStaffUrl(name: string): string | null {
+  const normalized = name.toLowerCase().replace(/[^a-z]/g, '')
+  for (const [key, url] of Object.entries(JANE_STAFF_URLS)) {
+    if (normalized.includes(key)) return url
+  }
+  return null
+}
+
 export async function ProfessionalDetailPage({ slug }: Props) {
   const payload = await getPayload({ config: configPromise })
 
@@ -35,6 +51,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
 
   const nameFirst = professional.name.charAt(0)
   const nameRest = professional.name.slice(1)
+  const janeUrl = getJaneStaffUrl(professional.name)
 
   return (
     <main className="relative bg-white text-zinc-950">
@@ -65,6 +82,19 @@ export async function ProfessionalDetailPage({ slug }: Props) {
                 </p>
                 {professional.shortBio && (
                   <p className="mt-3 text-[1rem] leading-7 text-zinc-800">{professional.shortBio}</p>
+                )}
+                {janeUrl && (
+                  <a
+                    href={janeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-6 inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  >
+                    <span>Prendre rendez-vous avec moi</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </a>
                 )}
               </div>
             </div>

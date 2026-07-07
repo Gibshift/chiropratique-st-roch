@@ -10,6 +10,14 @@ type Props = {
   slug: string
 }
 
+const JANE_SERVICE_URLS: Record<string, string> = {
+  'chiropratique': 'https://chiropratiquestroch.janeapp.com/#/chiropratique',
+  'osteopathie': 'https://chiropratiquestroch.janeapp.com/#/osteopathie',
+  'massotherapie': 'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
+  'kinesitherapie': 'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
+  'orthotherapie': 'https://chiropratiquestroch.janeapp.com/#/orthotherapie',
+}
+
 export async function ServiceDetailPage({ slug }: Props) {
   const payload = await getPayload({ config: configPromise })
 
@@ -54,6 +62,7 @@ export async function ServiceDetailPage({ slug }: Props) {
 
   const titleFirst = service.title.charAt(0)
   const titleRest = service.title.slice(1)
+  const janeUrl = JANE_SERVICE_URLS[slug.toLowerCase()]
 
   return (
     <main className="relative bg-white text-zinc-950">
@@ -82,6 +91,19 @@ export async function ServiceDetailPage({ slug }: Props) {
                 <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Services</p>
                 {service.shortDescription && (
                   <p className="mt-3 text-[1rem] leading-7 text-zinc-800">{service.shortDescription}</p>
+                )}
+                {janeUrl && (
+                  <a
+                    href={janeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-6 inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  >
+                    <span>Prendre rendez-vous en {service.title}</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </a>
                 )}
               </div>
             </div>
