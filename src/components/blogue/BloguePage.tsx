@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 import { BlogueGrid, type PostForGrid, type CategoryForGrid } from './BlogueGrid'
+import { noOrphanColon } from '@/utilities/typography'
 
 const categoryIcons: Record<string, string> = {
   'tete-et-cou':        '/assets/condition-cou-et-tete-variation.png',
@@ -94,7 +95,7 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
         </div>
         <div className="flex flex-1 flex-col justify-center">
           <h2 className={`font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight transition ${s.title}`}>
-            {post.title}
+            {noOrphanColon(post.title)}
           </h2>
           {excerpt && (
             <p className={`mt-3 line-clamp-3 text-[0.9rem] leading-6 ${s.excerpt}`}>{excerpt}</p>
@@ -119,7 +120,7 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
       </div>
       <div className="flex flex-1 items-center py-4">
         <h2 className={`text-xl font-normal leading-[1.05] tracking-[-0.03em] transition ${s.title}`}>
-          {post.title}
+          {noOrphanColon(post.title)}
         </h2>
       </div>
       <div className="flex items-center justify-between">

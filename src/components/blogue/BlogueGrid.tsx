@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Fuse from 'fuse.js'
 import Link from 'next/link'
 import Image from 'next/image'
+import { noOrphanColon } from '@/utilities/typography'
 
 export type PostForGrid = {
   id: string | number
@@ -42,7 +43,7 @@ function ArticleCard({ post }: { post: PostForGrid }) {
           )}
         </div>
         <h3 className="mt-2 font-[var(--font-barlow-condensed)] text-[1.15rem] font-medium uppercase leading-tight text-zinc-950 group-hover:text-red-600 transition">
-          {post.title}
+          {noOrphanColon(post.title)}
         </h3>
         {post.excerpt && (
           <p className="mt-2 line-clamp-2 text-[0.85rem] leading-5 text-zinc-500">
@@ -331,7 +332,7 @@ export function BlogueGrid({
                       </span>
                     )}
                     <p className="truncate font-[var(--font-barlow-condensed)] text-[0.95rem] font-medium uppercase text-zinc-900 group-hover:text-red-600 transition">
-                      {post.title}
+                      {noOrphanColon(post.title)}
                     </p>
                   </div>
                   <span className="flex-shrink-0 mt-[2px] text-[0.8rem] text-zinc-400 group-hover:text-zinc-600 transition">→</span>
