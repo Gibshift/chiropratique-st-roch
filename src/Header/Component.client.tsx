@@ -69,9 +69,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
         {...(theme ? { 'data-theme': theme } : {})}
       >
         <InfoBar phone={phone} openingHours={openingHours} scrolled={scrolled} address={address} />
-        <div className="relative w-full pr-6 lg:pr-10 xl:pr-16 transition-all duration-300">
+        <div className="relative w-full pr-4 sm:pr-6 lg:pr-8 xl:pr-12 transition-all duration-300">
           <div className={`absolute bottom-0 right-0 h-px bg-zinc-950/10 transition-all duration-300 ${scrolled ? 'left-[70px]' : 'left-[96px]'}`} />
-          <div className="grid grid-cols-[auto_1fr_auto] items-stretch gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6">
+          <div className="grid grid-cols-[auto_1fr_auto] items-stretch gap-3 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-4 xl:gap-6">
             <Link href="/" className="flex shrink-0 items-center gap-4 self-stretch">
               <Image
                 src="/logo-st-roch.png"
@@ -89,7 +89,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
             {/* NAV DESKTOP | CTA MOBILE centré */}
             <div className="flex items-center justify-center">
               {/* Desktop nav */}
-              <div className="hidden xl:block">
+              <div className="hidden lg:block">
                 <HeaderNav data={data} />
               </div>
               {/* Mobile RDV — centré dans la colonne du milieu */}
@@ -97,7 +97,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
                 href={janeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] items-center justify-center border border-red-600 bg-red-600 px-5 text-white transition hover:bg-white hover:text-red-600 xl:hidden"
+                className="inline-flex min-h-[44px] items-center justify-center border border-red-600 bg-red-600 px-5 text-white transition hover:bg-white hover:text-red-600 lg:hidden"
               >
                 <span className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
                   Prendre rendez-vous
@@ -110,9 +110,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               href={janeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden min-h-[54px] min-w-[190px] self-center items-center justify-center whitespace-nowrap border border-red-600 bg-white/90 px-5 text-red-600 backdrop-blur-sm transition hover:bg-red-600 hover:text-white xl:inline-flex"
+              className="hidden min-h-[48px] min-w-[160px] self-center items-center justify-center whitespace-nowrap border border-red-600 bg-white/90 px-4 text-red-600 backdrop-blur-sm transition hover:bg-red-600 hover:text-white lg:inline-flex xl:min-h-[54px] xl:min-w-[190px] xl:px-5"
             >
-              <span className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.22em]">
+              <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.14em] xl:text-[15px] xl:tracking-[0.22em]">
                 Prendre rendez-vous
               </span>
             </a>
@@ -121,7 +121,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
             <button
               type="button"
               onClick={() => setIsOpen((value) => !value)}
-              className="inline-flex min-h-[44px] w-[44px] self-center flex-col items-center justify-center gap-[5px] xl:hidden"
+              className="inline-flex min-h-[44px] w-[44px] self-center flex-col items-center justify-center gap-[5px] lg:hidden"
               aria-expanded={isOpen}
               aria-label="Ouvrir le menu"
             >
@@ -135,14 +135,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
 
       {/* OVERLAY */}
       <div
-        className={`fixed inset-0 z-[60] bg-black/40 transition-opacity duration-300 xl:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[60] bg-black/40 transition-opacity duration-300 lg:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
 
       {/* DRAWER DROITE */}
       <div
-        className={`fixed top-0 right-0 z-[70] flex max-h-screen w-[300px] flex-col overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ease-in-out xl:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed top-0 right-0 z-[70] flex max-h-screen w-[300px] flex-col overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {/* En-tête drawer */}
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-5">
@@ -179,7 +179,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               className="flex min-h-[52px] w-full items-center justify-center border border-red-600 bg-white px-5 text-red-600 transition hover:bg-red-600 hover:text-white"
               onClick={() => setIsOpen(false)}
             >
-              <span className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.22em]">
+              <span className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.22em]">
                 Prendre rendez-vous
               </span>
             </a>

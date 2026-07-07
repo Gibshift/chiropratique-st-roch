@@ -85,16 +85,16 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
     return (
       <Link
         href={`/blogue/${post.slug}`}
-        className={`group flex lg:min-h-[360px] flex-col overflow-hidden transition p-8 lg:p-10 lg:pb-6 ${s.wrap}`}
+        className={`group flex lg:min-h-[360px] flex-col overflow-hidden transition p-6 lg:p-10 lg:pb-6 ${s.wrap}`}
       >
         <div className="flex items-center justify-between">
-          <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] ${s.label}`}>
+          <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
             {label}
           </span>
           {date && <span className={`text-xs font-medium uppercase tracking-[0.14em] ${s.date}`}>{date}</span>}
         </div>
-        <div className="flex flex-1 flex-col justify-center">
-          <h2 className={`font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium uppercase leading-tight transition ${s.title}`}>
+        <div className="flex flex-1 flex-col justify-start pt-4 lg:justify-center">
+          <h2 className={`text-xl font-normal leading-[1.05] tracking-[-0.03em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight transition ${s.title}`}>
             {noOrphanColon(post.title)}
           </h2>
           {excerpt && (
@@ -114,7 +114,7 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
       className={`group flex flex-1 flex-col overflow-hidden transition p-6 lg:min-h-[200px] ${s.wrap}`}
     >
       <div>
-        <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] ${s.label}`}>
+        <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
           {label}
         </span>
       </div>

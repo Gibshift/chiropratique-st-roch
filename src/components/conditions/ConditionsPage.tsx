@@ -80,23 +80,23 @@ export async function ConditionsPage() {
                 <p className="mt-6 max-w-[380px] text-[1rem] leading-7 text-zinc-800">
                   Parcourez les conditions que nous traitons et voyez si quelque chose correspond à ce que vous ressentez. Notre équipe est là pour vous orienter.
                 </p>
-                <div className="mt-8 flex flex-wrap items-center gap-3">
+                <div className="mt-8 inline-grid grid-cols-[max-content] gap-3">
                   <a
                     href={JANE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group flex w-full min-h-[46px] items-center justify-between gap-3 border border-red-600 bg-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
-                    <span>Prendre rendez-vous</span>
-                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
                       <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                     </svg>
                   </a>
                   <a
                     href="#conditions-grid"
-                    className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
+                    className="flex w-full min-h-[46px] items-center border border-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                   >
-                    Je ne suis pas certain de l&apos;endroit ↓
+                    <span className="whitespace-nowrap">Je ne suis pas certain de l&apos;endroit ↓</span>
                   </a>
                 </div>
               </div>
@@ -303,32 +303,28 @@ export async function ConditionsPage() {
 
             </div>
 
-            {/* CTAs — centrés sous les jointures entre cartes */}
-            <div className="mt-6 grid grid-cols-3 gap-4">
-              <div className="pointer-events-none col-start-1 col-end-3 row-start-1 flex justify-center">
-                <a
-                  href="/contact"
-                  className="pointer-events-auto group inline-flex items-center gap-3 border border-red-600 bg-red-600 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
-                >
-                  <span>Parler à notre équipe</span>
-                  <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
-                    <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
-                  </svg>
-                </a>
-              </div>
-              <div className="pointer-events-none col-start-2 col-end-4 row-start-1 flex justify-center">
-                <a
-                  href={JANE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="pointer-events-auto group inline-flex items-center gap-3 border border-red-600 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
-                >
-                  <span>Prendre rendez-vous</span>
-                  <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-0.5">
-                    <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" />
-                  </svg>
-                </a>
-              </div>
+            {/* CTAs */}
+            <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <a
+                href="/contact"
+                className="group inline-flex w-full items-center justify-center gap-3 border border-red-600 bg-red-600 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600 sm:w-auto"
+              >
+                <span className="whitespace-nowrap">Parler à notre équipe</span>
+                <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+                  <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                </svg>
+              </a>
+              <a
+                href={JANE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex w-full items-center justify-center gap-3 border border-red-600 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white sm:w-auto"
+              >
+                <span className="whitespace-nowrap">Prendre rendez-vous</span>
+                <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-0.5">
+                  <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" />
+                </svg>
+              </a>
             </div>
 
           </div>

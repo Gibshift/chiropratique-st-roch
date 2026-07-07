@@ -52,23 +52,24 @@ export async function ProfessionalsPage() {
                 <p className="mt-6 max-w-[380px] text-[1rem] leading-7 text-zinc-800">
                   Chaque professionnel apporte une expertise distincte. Découvrez leur approche et trouvez celui qui vous correspond.
                 </p>
-                <div className="mt-8 flex flex-wrap items-center gap-3">
+                <div className="mt-8 inline-grid grid-cols-[max-content] gap-3">
                   <a
                     href={JANE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group flex w-full min-h-[46px] items-center justify-between gap-3 border border-red-600 bg-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
-                    <span>Prendre rendez-vous</span>
-                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
                       <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                     </svg>
                   </a>
                   <a
                     href="#equipe-grid"
-                    className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
+                    className="flex w-full min-h-[46px] items-center justify-between border border-red-600 px-4 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                   >
-                    Voir l&apos;équipe ↓
+                    <span className="whitespace-nowrap">Voir l&apos;équipe</span>
+                    <span>↓</span>
                   </a>
                 </div>
               </div>

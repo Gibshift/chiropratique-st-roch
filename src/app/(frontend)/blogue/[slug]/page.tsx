@@ -108,7 +108,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
       <section className="pb-12 lg:pb-24">
         <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-            <div className="border-t border-zinc-400 pt-12 lg:grid lg:grid-cols-[1fr_300px] lg:gap-16">
+            <div className="border-t border-zinc-400 pt-12 xl:grid xl:grid-cols-[1fr_300px] xl:gap-16">
 
               {/* Article */}
               <div>
@@ -132,7 +132,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                     rel="noopener noreferrer"
                     className="group mt-6 inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-8 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
-                    <span>Prendre rendez-vous</span>
+                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
                       <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                     </svg>
@@ -205,7 +205,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
               </div>
 
               {/* Sidebar */}
-              <aside className="mt-12 flex flex-col gap-6 lg:mt-0 lg:sticky lg:top-28 lg:self-start">
+              <aside className="mt-12 flex flex-col gap-6 xl:mt-0 xl:sticky xl:top-28 xl:self-start">
                 {category && (
                   <div className="border border-zinc-400 p-6">
                     <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Catégorie</p>
