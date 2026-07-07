@@ -262,71 +262,60 @@ export async function ClinicHomePage() {
           <GeometricShapes />
           <ScrollReveal>
           <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
-            <div className="grid items-stretch gap-12 xl:grid-cols-[460px_1fr] xl:gap-16">
 
-              {/* COLONNE GAUCHE */}
-              <div className="flex flex-col xl:sticky xl:top-32">
-                <div>
-                  <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
-                    Services
-                  </p>
-                  <h2 className="mt-6 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] text-zinc-950">
-                    Des approches complémentaires, centrées sur vous.
-                  </h2>
-                  <SectionAccent className="mt-8" />
-                </div>
-                <div className="mt-auto pt-12 hidden xl:block">
-                  <Image
-                    src="/assets/services-family.png"
-                    alt="Famille illustrée"
-                    width={560}
-                    height={420}
-                    sizes="320px"
-                    className="w-full object-contain"
-                    style={{ height: 'auto' }}
-                  />
-                </div>
+            {/* En-tête : titre gauche + image droite */}
+            <div className="mb-8 flex items-end justify-between gap-8">
+              <div>
+                <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
+                  Services
+                </p>
+                <h2 className="mt-4 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] text-zinc-950">
+                  Des approches complémentaires,<br />centrées sur vous.
+                </h2>
+                <SectionAccent className="mt-6" />
               </div>
-
-              {/* COLONNE DROITE */}
-              <div className="grid h-full auto-rows-fr border-l border-t border-zinc-400 grid-cols-2">
-                {orderedServices.slice(0, 5).map((service: any) => (
-                  <Link
-                    key={service.id}
-                    href={`/services/${service.slug}`}
-                    className="group flex min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
-                  >
-                    <ServiceTitle title={service.title} />
-                    <div className="mt-2 h-px w-10 bg-zinc-400" />
-                    <p className="mt-4 flex-1 text-[0.82rem] leading-[1.65] text-zinc-700">{service.shortDescription}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-red-600">
-                      En savoir plus
-                      <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-8 transition-[width] duration-300 group-hover:w-12">
-                        <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
-                      </svg>
-                    </span>
-                  </Link>
-                ))}
-
-                {/* CASE 06 */}
-                <Link href="/services"
-                  className="group relative flex min-w-0 flex-col justify-between border-b border-r border-zinc-400 px-5 py-4 transition duration-300"
-                >
-                  <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-30" />
-                  <div className="relative">
-                    <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
-                      Découvrir nos services
-                    </h3>
-                  </div>
-                  <div className="relative mt-4 text-red-600">
-                    <svg aria-hidden="true" viewBox="0 0 120 18" className="h-5 w-24 overflow-visible transition-[width] duration-300 ease-out group-hover:w-32">
-                      <path d="M1 9H112M100 2L112 9L100 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
-                    </svg>
-                  </div>
-                </Link>
+              <div className="hidden xl:block shrink-0">
+                <Image
+                  src="/assets/services-family.png"
+                  alt="Famille illustrée"
+                  width={280}
+                  height={210}
+                  sizes="280px"
+                  className="object-contain"
+                  style={{ height: 'auto' }}
+                />
               </div>
-
             </div>
+
+            {/* Rangée unique de cartes */}
+            <div className="grid border-l border-t border-zinc-400 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+              {orderedServices.slice(0, 5).map((service: any) => (
+                <Link
+                  key={service.id}
+                  href={`/services/${service.slug}`}
+                  className="group flex min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
+                >
+                  <ServiceTitle title={service.title} />
+                  <div className="mt-2 h-px w-10 bg-zinc-400" />
+                  <p className="mt-4 flex-1 text-[0.82rem] leading-[1.65] text-zinc-700">{service.shortDescription}</p>
+                  <span className="mt-4 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-red-600">
+                    En savoir plus
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-8 transition-[width] duration-300 group-hover:w-12">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </span>
+                </Link>
+              ))}
+            </div>
+
+            <Link
+              href="/services"
+              className="group mt-8 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+            >
+              Découvrir nos services
+              <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
+            </Link>
+
           </div>
           </ScrollReveal>
         </section>
