@@ -96,7 +96,7 @@ export async function ConditionsPage() {
                     href="#conditions-grid"
                     className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white whitespace-nowrap"
                   >
-                    Je ne suis pas certain de l&apos;endroit ↓
+                    Je ne suis pas certain de où ↓
                   </a>
                 </div>
               </div>
