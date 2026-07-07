@@ -11,6 +11,7 @@ import RichText from '@/components/RichText'
 import { getOpenGraphImages } from '@/utilities/seo'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { noOrphanColon } from '@/utilities/typography'
 
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -68,6 +69,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
       : null
 
   const iconSrc = category?.slug ? (categoryIcons[category.slug] ?? null) : null
+  const safeTitle = noOrphanColon(post.title)
 
   // Articles reliés : même catégorie, excluant l'article courant
   const relatedPosts = category ? await queryRelatedPosts({
@@ -94,7 +96,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
             {/* Header */}
             <div className="mt-12 mb-12">
               <h1 className="font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,3vw,3.8rem)] font-medium uppercase leading-[1.1] text-zinc-950">
-                <span className="text-red-600">{post.title.charAt(0)}</span>{post.title.slice(1)}
+                <span className="text-red-600">{safeTitle.charAt(0)}</span>{safeTitle.slice(1)}
               </h1>
             </div>
 

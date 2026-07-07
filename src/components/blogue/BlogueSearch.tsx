@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import Link from 'next/link'
+import { noOrphanColon } from '@/utilities/typography'
 
 export type PostForSearch = {
   id: string | number
@@ -111,7 +112,7 @@ export function BlogueSearch({ allPosts }: { allPosts: PostForSearch[] }) {
                   </span>
                 )}
                 <p className="truncate font-[var(--font-barlow-condensed)] text-[0.95rem] font-medium uppercase text-zinc-900 group-hover:text-red-600 transition">
-                  {post.title}
+                  {noOrphanColon(post.title)}
                 </p>
               </div>
               <span className="flex-shrink-0 mt-[2px] text-[0.8rem] text-zinc-400 group-hover:text-zinc-600 transition">→</span>
