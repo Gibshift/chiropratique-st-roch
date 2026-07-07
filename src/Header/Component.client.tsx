@@ -99,7 +99,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[44px] items-center justify-center border border-red-600 bg-red-600 px-5 text-white transition hover:bg-white hover:text-red-600 xl:hidden"
               >
-                <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
+                <span className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
                   Prendre rendez-vous
                 </span>
               </a>
@@ -142,7 +142,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
 
       {/* DRAWER DROITE */}
       <div
-        className={`fixed top-0 right-0 z-[70] flex h-full w-[300px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out xl:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed top-0 right-0 z-[70] flex max-h-screen w-[300px] flex-col overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ease-in-out xl:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {/* En-tête drawer */}
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-5">
@@ -161,8 +161,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
           </button>
         </div>
 
-        {/* Liens nav */}
-        <nav className="flex flex-1 flex-col gap-0 overflow-y-auto px-6 pt-4">
+        {/* Liens nav + CTA */}
+        <nav className="flex flex-col gap-0 px-6 pt-4 pb-6">
           {navItems.map(({ link }, i) => (
             <CMSLink
               key={i}
@@ -171,22 +171,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               className="border-b border-zinc-100 py-4 font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase leading-none tracking-[0.16em] transition text-zinc-950 hover:text-red-600"
             />
           ))}
+          <div className="pt-16">
+            <a
+              href={janeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-[52px] w-full items-center justify-center border border-red-600 bg-white px-5 text-red-600 transition hover:bg-red-600 hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              <span className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.22em]">
+                Prendre rendez-vous
+              </span>
+            </a>
+          </div>
         </nav>
-
-        {/* CTA en bas */}
-        <div className="p-6">
-          <a
-            href={janeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex min-h-[52px] w-full items-center justify-center border border-red-600 bg-white px-5 text-red-600 transition hover:bg-red-600 hover:text-white"
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="font-[var(--font-barlow-condensed)] text-[15px] font-medium uppercase leading-none tracking-[0.22em]">
-              Prendre rendez-vous
-            </span>
-          </a>
-        </div>
       </div>
     </>
   )}

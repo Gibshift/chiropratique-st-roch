@@ -166,16 +166,6 @@ export async function ClinicHomePage() {
   const _popularIdx   = _len > 1 ? (_fourDayIndex + Math.floor(_len / 2)) % _len : -1
   const _recentIdx    = _len > 2 ? (_dayIndex + Math.ceil(_len / 3)) % _len : -1
 
-  const homeHeroImageUrl =
-    siteSettings &&
-    typeof siteSettings === 'object' &&
-    'homeHeroImage' in siteSettings &&
-    siteSettings.homeHeroImage &&
-    typeof siteSettings.homeHeroImage === 'object' &&
-    'url' in siteSettings.homeHeroImage
-      ? siteSettings.homeHeroImage.url
-      : null
-
   const conditionsSectionImageUrl =
     siteSettings &&
     typeof siteSettings === 'object' &&
@@ -189,10 +179,10 @@ export async function ClinicHomePage() {
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* HERO */}
-        <section className="relative min-h-[560px] overflow-hidden bg-[#f6f1e8] lg:min-h-[68svh]">
+      <section className="relative min-h-[560px] overflow-hidden bg-[#f6f1e8] lg:min-h-[68svh]">
 
-        {/* Photo en fond absolu — pleine largeur, visible seulement sur lg+ */}
-        <div className="pointer-events-none absolute inset-0 hidden lg:block">
+        {/* Photo en fond absolu — toutes tailles */}
+        <div className="pointer-events-none absolute inset-0">
           <div className="relative h-full">
             <Image
               src="/assets/salle-chiro-ville-fused-watercolor.png"
@@ -206,17 +196,17 @@ export async function ClinicHomePage() {
           </div>
         </div>
 
-        {/* Bloc blanc — plein hero, sans dépendre de la hauteur du header */}
-        <div className="absolute inset-0 z-10">
+        {/* Carré blanc — décalé vers le bas sur mobile pour laisser l'image apparaître */}
+        <div className="absolute inset-x-0 bottom-0 top-[160px] z-10 bg-white lg:inset-0 lg:bg-transparent">
           <div className="mx-auto h-full max-w-[var(--content-max-w)] px-6 lg:px-8">
-            <div className="flex h-full flex-col items-center justify-center bg-white shadow-[-12px_0_24px_rgba(0,0,0,0.35),12px_0_24px_rgba(0,0,0,0.35)]">
+            <div className="flex h-full flex-col items-center justify-center bg-white lg:shadow-[-12px_0_24px_rgba(0,0,0,0.35),12px_0_24px_rgba(0,0,0,0.35)]">
               <ScrollReveal>
-                <div className="flex flex-col items-center px-8 text-center lg:translate-y-8 lg:px-16">
+                <div className="flex flex-col items-center px-6 text-center lg:translate-y-8 lg:px-16">
                   <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
                     Soins manuels · corps en mouvement
                   </p>
 
-                  <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(3.5rem,10vw,8rem)] font-medium uppercase leading-[1.0] text-zinc-950">
+                  <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(2.4rem,9vw,8rem)] font-medium uppercase leading-[1.0] text-zinc-950">
                     Chiropratique
                     <span className="block text-red-600">St-Roch</span>
                   </h1>
