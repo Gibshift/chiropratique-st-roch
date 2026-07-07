@@ -65,7 +65,7 @@ export async function Footer() {
               href={janeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-7 inline-flex bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-red-700"
+              className="mt-7 inline-flex border border-red-600 bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-red-600"
             >
               Prendre rendez-vous
             </a>

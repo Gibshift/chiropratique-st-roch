@@ -85,7 +85,7 @@ export async function ConditionsPage() {
                     href={JANE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
                     <span>Prendre rendez-vous</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
@@ -94,7 +94,7 @@ export async function ConditionsPage() {
                   </a>
                   <a
                     href="#conditions-grid"
-                    className="inline-flex min-h-[46px] items-center border border-zinc-300 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+                    className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                   >
                     Je ne suis pas certain de l&apos;endroit ↓
                   </a>
@@ -214,7 +214,7 @@ export async function ConditionsPage() {
               <div className="mt-10 flex justify-center">
                 <a
                   href="#bien-sorienter"
-                  className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                 >
                   <span>Besoin qu&apos;on vous guide?</span>
                   <svg aria-hidden="true" viewBox="0 0 20 12" className="h-3 w-5 transition duration-200 group-hover:translate-y-0.5">
@@ -308,7 +308,7 @@ export async function ConditionsPage() {
               <div className="pointer-events-none col-start-1 col-end-3 row-start-1 flex justify-center">
                 <a
                   href="/contact"
-                  className="pointer-events-auto group inline-flex items-center gap-3 bg-red-600 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                  className="pointer-events-auto group inline-flex items-center gap-3 border border-red-600 bg-red-600 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                 >
                   <span>Parler à notre équipe</span>
                   <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
@@ -321,7 +321,7 @@ export async function ConditionsPage() {
                   href={JANE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="pointer-events-auto group inline-flex items-center gap-3 border border-zinc-300 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+                  className="pointer-events-auto group inline-flex items-center gap-3 border border-red-600 px-6 min-h-[46px] text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                 >
                   <span>Prendre rendez-vous</span>
                   <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 transition duration-200 group-hover:translate-x-0.5">

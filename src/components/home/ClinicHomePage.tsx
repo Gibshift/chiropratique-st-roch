@@ -229,7 +229,7 @@ export async function ClinicHomePage() {
                     href={janeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-700 hover:text-white"
+                    className="group mt-8 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                   >
                     <span className="whitespace-nowrap">Prendre rendez-vous</span>
 
@@ -297,7 +297,7 @@ export async function ClinicHomePage() {
                   >
                     <ServiceTitle title={service.title} />
                     <div className="mt-2 h-px w-10 bg-zinc-400" />
-                    <p className="mt-2 flex-1 text-[0.82rem] leading-[1.5] text-zinc-700">{service.shortDescription}</p>
+                    <p className="mt-4 flex-1 text-[0.82rem] leading-[1.65] text-zinc-700">{service.shortDescription}</p>
                     <span className="mt-4 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-red-600">
                       En savoir plus
                       <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-8 transition-[width] duration-300 group-hover:w-12">
@@ -386,7 +386,7 @@ export async function ClinicHomePage() {
 
               <a
                 href="/conditions-traitees"
-                className="group mt-12 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                className="group mt-12 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
               >
                 Voir toutes les conditions
                 <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
@@ -401,31 +401,22 @@ export async function ClinicHomePage() {
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes />
           <ScrollReveal>
-          <div className="mx-auto grid max-w-[var(--content-max-w)] gap-12 px-6 py-24 lg:grid-cols-[0.58fr_1.42fr] lg:px-8">
-            <div>
-              <div className="mb-4">
-                <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
-                  Professionnels
-                </p>
-              </div>
+          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
 
-              <h2 className="text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
+            {/* En-tête */}
+            <div className="mb-8">
+              <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
+                Professionnels
+              </p>
+              <h2 className="mt-2 text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1] tracking-[-0.03em] text-zinc-950">
                 Une équipe à votre écoute.
               </h2>
-
-              <SectionAccent className="mt-6" />
-
-              <p className="mt-8 max-w-sm text-sm leading-6 text-zinc-600">
-                Des professionnels accessibles pour vous accompagner avec clarté, respect et simplicité.
-              </p>
-
+              <SectionAccent className="mt-4" />
             </div>
 
-            {(() => {
-              const count = professionals.docs.length
-              const isStaggered = count === 4
-
-              const ProfCard = ({ professional, style }: { professional: any; style?: React.CSSProperties }) => {
+            {/* Rangée unique de cartes */}
+            <div className="grid grid-cols-3 gap-1 sm:grid-cols-4 lg:grid-cols-6 mb-8">
+              {professionals.docs.map((professional: any) => {
                 const photoUrl =
                   professional.photo &&
                   typeof professional.photo === 'object' &&
@@ -437,79 +428,35 @@ export async function ClinicHomePage() {
                     key={professional.id}
                     href={`/professionnels/${professional.slug}`}
                     className="group relative overflow-hidden border border-zinc-400 transition hover:border-zinc-950"
-                    style={style}
                   >
-                    <div className="relative aspect-square overflow-hidden bg-transparent">
+                    <div className="relative aspect-[3/4] overflow-hidden bg-white">
                       {photoUrl && (
-                        <Image src={photoUrl} alt={professional.name} fill sizes="25vw"
+                        <Image src={photoUrl} alt={professional.name} fill sizes="(max-width:640px) 33vw, (max-width:1024px) 25vw, 14vw"
                           className="object-cover transition duration-500 group-hover:scale-105"
                           style={{ objectPosition: 'center 15%' }}
                         />
                       )}
                     </div>
-                    {photoUrl && (
-                      <div className="flex flex-1 flex-col p-4 lg:p-5">
-                        <h3 className="text-[1.25rem] font-bold leading-tight text-zinc-950">{professional.name}</h3>
-                        <p className="mt-1 text-[0.9rem] font-semibold text-zinc-600">{professional.title}</p>
-                      </div>
-                    )}
+                    <div className="p-3">
+                      <h3 className="text-[0.8rem] font-bold leading-tight text-zinc-950">
+                        {professional.name.split(' ')[0]}<br />{professional.name.split(' ').slice(1).join(' ')}
+                      </h3>
+                      <p className="mt-0.5 text-[0.68rem] font-medium uppercase tracking-[0.04em] text-zinc-500">{professional.title}</p>
+                    </div>
                   </a>
                 )
-              }
+              })}
 
-              const CTACard = ({ style }: { style?: React.CSSProperties }) => (
-                <Link
-                  href="/professionnels"
-                  className="group relative flex min-w-0 flex-col justify-between border border-zinc-400 p-5 transition duration-300 hover:border-zinc-950"
-                  style={style}
-                >
-                  <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-40" />
-                  <div className="relative">
-                    <h3 className="font-[var(--font-barlow-condensed)] text-[clamp(1.2rem,3vw,1.8rem)] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
-                      Rencontrer l'équipe
-                    </h3>
-                  </div>
-                  <div className="relative mt-4 text-red-600">
-                    <svg aria-hidden="true" viewBox="0 0 120 18" className="h-5 w-20 overflow-visible transition-[width] duration-300 ease-out group-hover:w-28">
-                      <path d="M1 9H112M100 2L112 9L100 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
-                    </svg>
-                  </div>
-                </Link>
-              )
+            </div>
 
-              if (isStaggered) {
-                return (
-                  <>
-                    {/* Mobile : grille simple 2 colonnes */}
-                    <div className="grid grid-cols-2 gap-1 bg-white sm:hidden">
-                      {professionals.docs.slice(0, 4).map((p: any) => (
-                        <ProfCard key={p.id} professional={p} />
-                      ))}
-                      <CTACard />
-                    </div>
-                    {/* Desktop : grille décalée 6 colonnes */}
-                    <div className="hidden sm:grid grid-cols-6 gap-1 bg-white">
-                      {professionals.docs.slice(0, 3).map((p: any, i: number) => (
-                        <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 1} / span 2` }} />
-                      ))}
-                      {professionals.docs.slice(3).map((p: any, i: number) => (
-                        <ProfCard key={p.id} professional={p} style={{ gridColumn: `${i * 2 + 2} / span 2` }} />
-                      ))}
-                      <CTACard style={{ gridColumn: '4 / span 2' }} />
-                    </div>
-                  </>
-                )
-              }
+            <Link
+              href="/professionnels"
+              className="group inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+            >
+              Voir l'équipe
+              <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
+            </Link>
 
-              return (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-1 bg-white">
-                  {professionals.docs.map((p: any) => (
-                    <ProfCard key={p.id} professional={p} />
-                  ))}
-                  {count < 6 && <CTACard />}
-                </div>
-              )
-            })()}
           </div>
           </ScrollReveal>
         </section>
@@ -539,7 +486,7 @@ export async function ClinicHomePage() {
                 </div>
                 <a
                   href="/blogue"
-                  className="group inline-flex self-start shrink-0 items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                  className="group inline-flex self-start shrink-0 items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
                 >
                   Voir tous les articles
                   <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>

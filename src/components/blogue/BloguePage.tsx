@@ -221,9 +221,9 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
                 <div className="mt-6">
                   <a
                     href="#blogue-grid"
-                    className="group inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
-                    <span>Lire les articles ↓</span>
+                    <span>Liste des articles ↓</span>
                   </a>
                 </div>
               </div>

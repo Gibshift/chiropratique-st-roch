@@ -151,7 +151,7 @@ export async function ConditionCategoryPage({ slug }: Props) {
                 href={janeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-block bg-red-600 px-8 py-4 font-semibold text-white transition hover:bg-red-700"
+                className="mt-6 inline-flex min-h-[46px] items-center border border-red-600 bg-red-600 px-8 font-semibold text-white transition hover:bg-white hover:text-red-600"
               >
                 Prendre rendez-vous
               </a>

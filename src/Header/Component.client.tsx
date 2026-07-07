@@ -96,7 +96,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
                 href={janeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] items-center justify-center bg-red-600 px-5 text-white transition hover:bg-red-700 xl:hidden"
+                className="inline-flex min-h-[44px] items-center justify-center border border-red-600 bg-red-600 px-5 text-white transition hover:bg-white hover:text-red-600 xl:hidden"
               >
                 <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.18em]">
                   Prendre rendez-vous

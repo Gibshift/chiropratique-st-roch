@@ -128,7 +128,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
                     href="https://chiropratiquestroch.janeapp.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-6 inline-flex min-h-[46px] items-center gap-3 bg-red-600 px-8 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700"
+                    className="group mt-6 inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-8 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
                     <span>Prendre rendez-vous</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
