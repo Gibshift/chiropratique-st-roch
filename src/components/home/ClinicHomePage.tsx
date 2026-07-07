@@ -197,9 +197,9 @@ export async function ClinicHomePage() {
         </div>
 
         {/* Carré blanc — décalé vers le bas sur mobile pour laisser l'image apparaître */}
-        <div className="absolute inset-x-0 bottom-[90px] top-[160px] z-10 bg-white lg:inset-0 lg:bg-transparent">
+        <div className="absolute inset-x-0 bottom-[90px] top-[160px] z-10 bg-white/70 backdrop-blur-md lg:inset-0 lg:bg-transparent lg:backdrop-blur-none">
           <div className="mx-auto h-full max-w-[var(--content-max-w)] px-6 lg:px-8">
-            <div className="flex h-full flex-col items-center justify-center bg-white lg:shadow-[-12px_0_24px_rgba(0,0,0,0.35),12px_0_24px_rgba(0,0,0,0.35)]">
+            <div className="flex h-full flex-col items-center justify-center lg:bg-white lg:shadow-[-12px_0_24px_rgba(0,0,0,0.35),12px_0_24px_rgba(0,0,0,0.35)]">
               <ScrollReveal>
                 <div className="flex flex-col items-center px-6 text-center lg:translate-y-8 lg:px-16">
                   <p className="text-[0.62rem] font-medium uppercase tracking-[0.12em] text-red-600">
