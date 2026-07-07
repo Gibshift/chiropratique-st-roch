@@ -19,7 +19,11 @@ const JANE_STAFF_URLS: Record<string, string> = {
 }
 
 function getJaneStaffUrl(name: string): string | null {
-  const normalized = name.toLowerCase().replace(/[^a-z]/g, '')
+  const normalized = name
+    .normalize('NFD')
+    .replace(/\p{Mn}/gu, '')
+    .toLowerCase()
+    .replace(/[^a-z]/g, '')
   for (const [key, url] of Object.entries(JANE_STAFF_URLS)) {
     if (normalized.includes(key)) return url
   }

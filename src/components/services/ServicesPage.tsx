@@ -6,6 +6,14 @@ import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
+const JANE_SERVICE_URLS: Record<string, string> = {
+  'chiropratique': 'https://chiropratiquestroch.janeapp.com/#/chiropratique',
+  'osteopathie':   'https://chiropratiquestroch.janeapp.com/#/osteopathie',
+  'massotherapie': 'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
+  'kinesitherapie':'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
+  'orthotherapie': 'https://chiropratiquestroch.janeapp.com/#/orthotherapie',
+}
+
 type ServiceMeta = { when: string; icon: React.ReactNode }
 
 const SERVICE_META: Record<string, ServiceMeta> = {
@@ -220,23 +228,33 @@ export async function ServicesPage() {
                     </svg>
                   ),
                 }
+                const janeUrl = JANE_SERVICE_URLS[slug]
                 return (
-                  <a
+                  <div
                     key={service.id}
-                    href={`/services/${service.slug}`}
-                    className="group flex flex-col gap-4 bg-white px-6 py-8 transition hover:bg-zinc-50"
+                    className="flex flex-col gap-4 bg-white px-6 py-8"
                   >
                     <div className="flex items-start gap-3">
                       <div className="mt-0.5 flex-shrink-0">{meta.icon}</div>
-                      <p className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug tracking-[0.02em] text-zinc-950">
+                      <a href={`/services/${service.slug}`} className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug tracking-[0.02em] text-zinc-950 hover:text-red-600 transition">
                         {service.title}
-                      </p>
+                      </a>
                     </div>
                     <p className="flex-1 text-[0.85rem] leading-6 text-zinc-500">{meta.when}</p>
-                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-12 text-red-600 transition-[width] duration-300 group-hover:w-20">
-                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
-                    </svg>
-                  </a>
+                    {janeUrl && (
+                      <a
+                        href={janeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex min-h-[40px] items-center gap-3 bg-red-600 px-5 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-700 self-start"
+                      >
+                        <span>Prendre rendez-vous en {service.title}</span>
+                        <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-7 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
+                          <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
                 )
               })}
 
