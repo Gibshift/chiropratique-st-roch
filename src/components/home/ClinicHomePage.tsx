@@ -7,6 +7,42 @@ import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
 const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
 
+const SHAPES_SERVICES = [
+  { type: 'circle'   as const, x: '5%',  y: '18%', size: 7, rotate: 0   },
+  { type: 'triangle' as const, x: '12%', y: '55%', size: 8, rotate: 15  },
+  { type: 'square'   as const, x: '8%',  y: '88%', size: 6, rotate: 30  },
+  { type: 'square'   as const, x: '87%', y: '22%', size: 7, rotate: -15 },
+  { type: 'circle'   as const, x: '93%', y: '60%', size: 6, rotate: 0   },
+  { type: 'triangle' as const, x: '82%', y: '85%', size: 8, rotate: 20  },
+]
+
+const SHAPES_CONDITIONS = [
+  { type: 'triangle' as const, x: '9%',  y: '10%', size: 6, rotate: -10 },
+  { type: 'square'   as const, x: '15%', y: '48%', size: 7, rotate: 45  },
+  { type: 'circle'   as const, x: '6%',  y: '80%', size: 8, rotate: 0   },
+  { type: 'circle'   as const, x: '84%', y: '15%', size: 7, rotate: 0   },
+  { type: 'triangle' as const, x: '91%', y: '50%', size: 6, rotate: -25 },
+  { type: 'square'   as const, x: '88%', y: '82%', size: 7, rotate: 10  },
+]
+
+const SHAPES_PROFESSIONNELS = [
+  { type: 'square'   as const, x: '7%',  y: '25%', size: 8, rotate: 20  },
+  { type: 'circle'   as const, x: '14%', y: '70%', size: 6, rotate: 0   },
+  { type: 'triangle' as const, x: '4%',  y: '92%', size: 7, rotate: -5  },
+  { type: 'triangle' as const, x: '89%', y: '8%',  size: 6, rotate: 35  },
+  { type: 'square'   as const, x: '94%', y: '42%', size: 7, rotate: -30 },
+  { type: 'circle'   as const, x: '85%', y: '75%', size: 8, rotate: 0   },
+]
+
+const SHAPES_BLOGUE = [
+  { type: 'circle'   as const, x: '11%', y: '8%',  size: 6, rotate: 0   },
+  { type: 'square'   as const, x: '5%',  y: '42%', size: 8, rotate: -20 },
+  { type: 'triangle' as const, x: '16%', y: '82%', size: 7, rotate: 25  },
+  { type: 'square'   as const, x: '83%', y: '30%', size: 6, rotate: 15  },
+  { type: 'circle'   as const, x: '92%', y: '65%', size: 7, rotate: 0   },
+  { type: 'triangle' as const, x: '86%', y: '92%', size: 8, rotate: -10 },
+]
+
 const SERVICE_ORDER = [
   'chiropratique',
   'osteopathie',
@@ -249,7 +285,7 @@ export async function ClinicHomePage() {
       {/* SERVICES */}
       {hasServices && (
         <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
-          <GeometricShapes />
+          <GeometricShapes holds={SHAPES_SERVICES} />
           <ScrollReveal>
           <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
@@ -314,7 +350,7 @@ export async function ClinicHomePage() {
       {/* CONDITIONS */}
       {hasConditions && (
         <section className="relative z-20 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
-          <GeometricShapes />
+          <GeometricShapes holds={SHAPES_CONDITIONS} />
           <div className="relative mx-auto max-w-[var(--content-max-w)] overflow-hidden px-6 lg:px-8">
             {/* ILLUSTRATION — pleine hauteur, droite, dans le 1200px */}
             {conditionsSectionImageUrl && (
@@ -379,7 +415,7 @@ export async function ClinicHomePage() {
       {/* PROFESSIONNELS */}
       {hasProfessionals && (
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
-          <GeometricShapes />
+          <GeometricShapes holds={SHAPES_PROFESSIONNELS} />
           <ScrollReveal>
           <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
@@ -449,7 +485,7 @@ export async function ClinicHomePage() {
 
         return (
           <section className="relative z-40 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
-            <GeometricShapes />
+            <GeometricShapes holds={SHAPES_BLOGUE} />
             <ScrollReveal>
             <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
@@ -473,7 +509,7 @@ export async function ClinicHomePage() {
                   className="group flex lg:min-h-[360px] flex-col overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 lg:pb-6 transition hover:border-red-600"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.6rem] lg:text-[13px] font-medium uppercase tracking-[0.1em] lg:tracking-[0.22em] text-red-500">
+                    <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] text-red-500">
                       Article du jour
                     </span>
                     {dailyPost.publishedAt && (
@@ -481,18 +517,18 @@ export async function ClinicHomePage() {
                     )}
                   </div>
 
-                  <div className="flex flex-1 flex-col justify-start pt-3 lg:justify-center">
-                    <h3 className="text-[1rem] font-normal leading-[1.1] tracking-[-0.01em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight text-white group-hover:text-red-400 transition">
+                  <div className="flex flex-1 flex-col justify-start pt-4 lg:justify-center">
+                    <h3 className="text-xl font-normal leading-[1.05] tracking-[-0.03em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight text-white group-hover:text-red-400 transition">
                       {dailyPost.title}
                     </h3>
                     {dailyPost.meta?.description && (
-                      <p className="hidden lg:block mt-3 line-clamp-3 text-[0.9rem] leading-6 text-zinc-400">
+                      <p className="mt-3 line-clamp-3 text-[0.9rem] leading-6 text-zinc-400">
                         {dailyPost.meta.description}
                       </p>
                     )}
                   </div>
 
-                  <span className="mt-auto text-[1rem] font-semibold text-red-500 transition group-hover:text-red-400">
+                  <span className="mt-auto self-end text-[1rem] font-semibold text-red-500 transition group-hover:text-red-400">
                     Lire l&apos;article →
                   </span>
                 </a>
@@ -515,7 +551,7 @@ export async function ClinicHomePage() {
                         }`}
                       >
                         <div>
-                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.6rem] lg:text-[13px] font-medium uppercase tracking-[0.1em] lg:tracking-[0.22em] text-red-600">
+                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] text-red-600">
                             {label}
                           </span>
                         </div>

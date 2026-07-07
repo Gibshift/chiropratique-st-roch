@@ -137,7 +137,7 @@ export async function ProfessionalDetailPage({ slug }: Props) {
           )}
         </article>
 
-        <aside className="mt-12 flex flex-col gap-6 lg:mt-2 lg:sticky lg:top-28 lg:self-start">
+        <aside className="mt-12 flex flex-col gap-6 max-w-[400px] lg:max-w-none lg:mt-2 lg:sticky lg:top-28 lg:self-start">
           {photoUrl && (
             <div className="overflow-hidden border border-zinc-400">
               <img

@@ -51,7 +51,7 @@ export async function Footer() {
   return (
     <footer className="relative z-50 mt-auto bg-zinc-950 text-white shadow-[0_-24px_64px_rgba(0,0,0,0.35)] transform-gpu">
       <div className="mx-auto max-w-[1200px] px-6 py-14 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.8fr_0.8fr_0.9fr]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.1fr_0.8fr_0.8fr_0.9fr]">
           <div>
             <Link href="/" className="inline-flex font-[var(--font-barlow-condensed)] text-[1.3rem] font-medium uppercase leading-none tracking-[0.02em]">
               {clinicName}

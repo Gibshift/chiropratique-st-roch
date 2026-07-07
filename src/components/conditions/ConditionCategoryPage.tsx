@@ -159,7 +159,7 @@ export async function ConditionCategoryPage({ slug }: Props) {
           </article>
 
           {/* Sidebar */}
-          <aside className="mt-12 flex flex-col gap-6 lg:mt-14 lg:sticky lg:top-28 lg:self-start">
+          <aside className="mt-12 flex flex-col gap-6 max-w-[400px] lg:max-w-none lg:mt-14 lg:sticky lg:top-28 lg:self-start">
 
             {/* Services */}
             <div className="border border-zinc-400 bg-white p-6">

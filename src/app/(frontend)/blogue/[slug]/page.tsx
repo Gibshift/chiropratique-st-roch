@@ -205,7 +205,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
               </div>
 
               {/* Sidebar */}
-              <aside className="mt-12 flex flex-col gap-6 xl:mt-0 xl:sticky xl:top-28 xl:self-start">
+              <aside className="mt-12 flex flex-col gap-6 max-w-[400px] lg:max-w-none xl:mt-0 xl:sticky xl:top-28 xl:self-start">
                 {category && (
                   <div className="border border-zinc-400 p-6">
                     <p className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-zinc-950">Catégorie</p>

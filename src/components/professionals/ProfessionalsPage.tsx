@@ -195,7 +195,7 @@ export async function ProfessionalsPage() {
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="grid grid-cols-1 gap-px bg-zinc-200 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-px bg-zinc-200 sm:grid-cols-2">
 
               <div className="flex flex-col justify-between bg-white px-8 py-8">
                 <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">

@@ -76,8 +76,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               <Image
                 src="/logo-st-roch.png"
                 alt="Logo Chiropratique St-Roch"
-                width={80}
-                height={80}
+                width={192}
+                height={192}
                 className={`h-full w-auto object-cover transition-all duration-300 ${scrolled ? 'max-h-[70px]' : 'max-h-[96px]'}`}
                 priority
               />

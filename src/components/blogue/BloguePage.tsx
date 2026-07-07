@@ -88,20 +88,20 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
         className={`group flex lg:min-h-[360px] flex-col overflow-hidden transition p-6 lg:p-10 lg:pb-6 ${s.wrap}`}
       >
         <div className="flex items-center justify-between">
-          <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.6rem] lg:text-[13px] font-medium uppercase tracking-[0.1em] lg:tracking-[0.22em] ${s.label}`}>
+          <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
             {label}
           </span>
           {date && <span className={`text-xs font-medium uppercase tracking-[0.14em] ${s.date}`}>{date}</span>}
         </div>
-        <div className="flex flex-1 flex-col justify-start pt-3 lg:justify-center">
-          <h2 className={`text-[1rem] font-normal leading-[1.1] tracking-[-0.01em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight transition ${s.title}`}>
+        <div className="flex flex-1 flex-col justify-start pt-4 lg:justify-center">
+          <h2 className={`text-xl font-normal leading-[1.05] tracking-[-0.03em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight transition ${s.title}`}>
             {noOrphanColon(post.title)}
           </h2>
           {excerpt && (
-            <p className={`hidden lg:block mt-3 line-clamp-3 text-[0.9rem] leading-6 ${s.excerpt}`}>{excerpt}</p>
+            <p className={`mt-3 line-clamp-3 text-[0.9rem] leading-6 ${s.excerpt}`}>{excerpt}</p>
           )}
         </div>
-        <span className={`mt-auto text-[1rem] font-semibold transition ${s.cta}`}>
+        <span className={`mt-auto self-end text-[1rem] font-semibold transition ${s.cta}`}>
           Lire l&apos;article →
         </span>
       </Link>
@@ -114,7 +114,7 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
       className={`group flex flex-1 flex-col overflow-hidden transition p-6 lg:min-h-[200px] ${s.wrap}`}
     >
       <div>
-        <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.6rem] lg:text-[13px] font-medium uppercase tracking-[0.1em] lg:tracking-[0.22em] ${s.label}`}>
+        <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
           {label}
         </span>
       </div>
