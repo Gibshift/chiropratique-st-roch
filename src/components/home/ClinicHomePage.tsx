@@ -27,37 +27,6 @@ function formatDateFR(dateStr: string) {
 }
 
 
-function ServiceIconBadge({ slug, title }: { slug: string; title?: string }) {
-  const imageIcons: Record<string, string> = {
-    chiropratique: '/assets/chiropratique-icon.png',
-    osteopathie: '/assets/osteopathie-icon.png',
-    massotherapie: '/assets/massotherapie-icon.png',
-    kinesitherapie: '/assets/kinesitherapie-icon.png',
-    orthotherapie: '/assets/orthotherapie-icon.png',
-  }
-
-  const imageSrc = imageIcons[slug]
-
-  return (
-    <div className="relative h-16 w-20 shrink-0 overflow-hidden text-zinc-900">
-      <div className="absolute inset-0 bg-[#ece5dc] [border-radius:52%_48%_55%_45%/46%_58%_42%_54%]" />
-
-      <div className="absolute inset-0 flex items-center justify-center">
-        {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt={title ? `Icône ${title.toLowerCase()}` : ''}
-            width={72}
-            height={60}
-            className="relative z-10 h-[60px] w-[72px] object-contain"
-          />
-        ) : (
-          renderServiceIcon(slug)
-        )}
-      </div>
-    </div>
-  )
-}
 
 function ServiceTitle({ title }: { title: string }) {
   const firstLetter = title.slice(0, 1)
@@ -71,12 +40,6 @@ function ServiceTitle({ title }: { title: string }) {
   )
 }
 
-function renderServiceIcon(slug: string) {
-  switch (slug) {
-    default:
-      return null
-  }
-}
 
 function SectionAccent({ className }: { className?: string }) {
   return <div className={`h-[3px] w-20 bg-red-600 ${className ?? ''}`} />
@@ -246,7 +209,7 @@ export async function ClinicHomePage() {
         {/* Bloc blanc — plein hero, sans dépendre de la hauteur du header */}
         <div className="absolute inset-0 z-10">
           <div className="mx-auto h-full max-w-[var(--content-max-w)] px-6 lg:px-8">
-            <div className="flex h-full flex-col items-center justify-center bg-white">
+            <div className="flex h-full flex-col items-center justify-center bg-white shadow-[-12px_0_24px_rgba(0,0,0,0.35),12px_0_24px_rgba(0,0,0,0.35)]">
               <ScrollReveal>
                 <div className="flex flex-col items-center px-8 text-center lg:translate-y-8 lg:px-16">
                   <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
@@ -298,10 +261,10 @@ export async function ClinicHomePage() {
         <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
           <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
-            <div className="grid items-stretch gap-12 xl:grid-cols-[320px_1fr] xl:gap-16">
+            <div className="grid items-stretch gap-12 xl:grid-cols-[460px_1fr] xl:gap-16">
 
               {/* COLONNE GAUCHE */}
-              <div className="flex h-full flex-col">
+              <div className="flex flex-col xl:sticky xl:top-32">
                 <div>
                   <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
                     Services
@@ -325,83 +288,41 @@ export async function ClinicHomePage() {
               </div>
 
               {/* COLONNE DROITE */}
-              <div className="flex flex-col">
-                {/* RANGÉE 01-02-03 */}
-                <div className="grid border-l border-t border-zinc-400 md:grid-cols-3 xl:grid-cols-3">
-                  {orderedServices.slice(0, 3).map((service: any) => (
-                    <Link
-                      key={service.id}
-                      href={`/services/${service.slug}`}
-                      className="group flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
-                    >
-                      <ServiceTitle title={service.title} />
-                      <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">{service.shortDescription}</p>
-                      <div className="-mt-10 hidden lg:flex justify-end">
-                        <ServiceIconBadge slug={service.slug} title={service.title} />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                {/* RANGÉE 04-05-06 */}
-                <div className="grid border-l border-zinc-400 xl:border-l-0 md:grid-cols-3 xl:grid-cols-[1.08fr_1.08fr_0.84fr]">
-                  {orderedServices.slice(3, 5).map((service: any, index: number) => {
-                    const isFourth = index === 0
-                    return (
-                      <Link
-                        key={service.id}
-                        href={`/services/${service.slug}`}
-                        className={`group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col overflow-hidden px-5 py-6 transition duration-300 ${
-                          isFourth
-                            ? 'border-b border-r border-zinc-400 bg-transparent xl:border-b-0 xl:border-r-0'
-                            : 'border-b border-r border-zinc-400 bg-[#f8f6f1] hover:bg-white'
-                        }`}
-                      >
-                        {isFourth && (
-                          <>
-                            <div className="absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white xl:hidden" />
-                            <div className="hidden xl:block absolute inset-0 bg-[#f8f6f1] transition duration-300 group-hover:bg-white"
-                              style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 90px 100%, 90px calc(100% - 30px), 60px calc(100% - 30px), 60px calc(100% - 60px), 30px calc(100% - 60px), 30px calc(100% - 90px), 0 calc(100% - 90px))" }}
-                            />
-                            <span className="pointer-events-none absolute right-0 top-0 h-full w-px bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute bottom-0 left-[90px] right-0 h-px bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute left-0 top-0 bottom-[90px] w-px bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute bottom-[90px] left-0 h-px w-[30px] bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute bottom-[60px] left-[30px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute bottom-[30px] left-[60px] h-px w-[30px] bg-zinc-400 hidden xl:block" />
-                            <span className="pointer-events-none absolute bottom-0 left-[90px] h-[30px] w-px bg-zinc-400 hidden xl:block" />
-                          </>
-                        )}
-                        <div className="relative z-10 flex flex-1 flex-col">
-                          <ServiceTitle title={service.title} />
-                          <p className="mt-3 flex-1 text-[0.9rem] leading-[1.6] text-zinc-700">{service.shortDescription}</p>
-                          <div className="-mt-10 hidden lg:flex justify-end">
-                            <ServiceIconBadge slug={service.slug} title={service.title} />
-                          </div>
-                        </div>
-                      </Link>
-                    )
-                  })}
-
-                  {/* CASE 06 */}
-                  <Link href="/services"
-                    className="group relative flex min-h-[150px] md:min-h-[300px] min-w-0 flex-col justify-between border-r border-b border-zinc-400 px-5 py-6 transition duration-300"
+              <div className="grid h-full auto-rows-fr border-l border-t border-zinc-400 grid-cols-2">
+                {orderedServices.slice(0, 5).map((service: any) => (
+                  <Link
+                    key={service.id}
+                    href={`/services/${service.slug}`}
+                    className="group flex min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
                   >
-                    <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-30" />
-                    <div className="relative">
-                      <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
-                        Découvrir nos services
-                      </h3>
-                    </div>
-                    <div className="relative mt-4 text-red-600">
-                      <svg aria-hidden="true" viewBox="0 0 120 18" className="h-5 w-24 overflow-visible transition-[width] duration-300 ease-out group-hover:w-32">
-                        <path d="M1 9H112M100 2L112 9L100 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    <ServiceTitle title={service.title} />
+                    <div className="mt-2 h-px w-10 bg-zinc-400" />
+                    <p className="mt-2 flex-1 text-[0.82rem] leading-[1.5] text-zinc-700">{service.shortDescription}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-red-600">
+                      En savoir plus
+                      <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2 w-8 transition-[width] duration-300 group-hover:w-12">
+                        <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
                       </svg>
-                    </div>
+                    </span>
                   </Link>
-                </div>
+                ))}
+
+                {/* CASE 06 */}
+                <Link href="/services"
+                  className="group relative flex min-w-0 flex-col justify-between border-b border-r border-zinc-400 px-5 py-4 transition duration-300"
+                >
+                  <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(220,38,38,0.06)_0px,rgba(220,38,38,0.06)_1.5px,transparent_1.5px,transparent_10px)] transition duration-300 group-hover:opacity-30" />
+                  <div className="relative">
+                    <h3 className="font-[var(--font-barlow-condensed)] text-[1.8rem] font-medium uppercase leading-[1.05] tracking-[-0.02em] text-red-600">
+                      Découvrir nos services
+                    </h3>
+                  </div>
+                  <div className="relative mt-4 text-red-600">
+                    <svg aria-hidden="true" viewBox="0 0 120 18" className="h-5 w-24 overflow-visible transition-[width] duration-300 ease-out group-hover:w-32">
+                      <path d="M1 9H112M100 2L112 9L100 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </div>
+                </Link>
               </div>
 
             </div>
