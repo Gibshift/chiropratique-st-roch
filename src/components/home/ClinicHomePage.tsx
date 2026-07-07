@@ -256,7 +256,7 @@ export async function ClinicHomePage() {
             {/* En-tête : titre gauche + image droite */}
             <div className="mb-8 flex items-end justify-between gap-8">
               <div>
-                <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
                   Services
                 </p>
                 <h2 className="mt-4 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] text-zinc-950">
@@ -283,7 +283,7 @@ export async function ClinicHomePage() {
                 <Link
                   key={service.id}
                   href={`/services/${service.slug}`}
-                  className="group flex min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-[#f8f6f1] px-5 py-6 transition duration-300 hover:bg-white"
+                  className="group flex min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-white px-5 py-6 transition duration-300 hover:bg-[#f8f6f1]"
                 >
                   <ServiceTitle title={service.title} />
                   <div className="mt-2 h-px w-10 bg-zinc-400" />
@@ -334,12 +334,12 @@ export async function ClinicHomePage() {
             <ScrollReveal><div className="relative py-12 lg:py-24">
               <div className="max-w-[520px]">
                 <div className="mb-4">
-                  <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
+                  <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
                     Conditions traitées
                   </p>
                 </div>
 
-                <h2 className="text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
+                <h2 className="text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1] tracking-[-0.03em] text-zinc-950">
                   Des solutions pour ce qui vous limite.
                 </h2>
 
@@ -385,7 +385,7 @@ export async function ClinicHomePage() {
 
             {/* En-tête */}
             <div className="mb-8">
-              <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
+              <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
                 Professionnels
               </p>
               <h2 className="mt-2 text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1] tracking-[-0.03em] text-zinc-950">
@@ -454,23 +454,14 @@ export async function ClinicHomePage() {
             <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
               {/* En-tête section */}
-              <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-                <div>
-                  <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
-                    Blogue santé
-                  </p>
-                  <h2 className="mt-4 text-[3rem] font-normal leading-[1] tracking-[-0.03em] text-zinc-950 md:text-[3.4rem]">
-                    Le neuro-musculo-squelettique, expliqué simplement.
-                  </h2>
-                  <SectionAccent className="mt-6" />
-                </div>
-                <a
-                  href="/blogue"
-                  className="group inline-flex self-start shrink-0 items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
-                >
-                  Voir tous les articles
-                  <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
-                </a>
+              <div className="mb-12">
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
+                  Blogue santé
+                </p>
+                <h2 className="mt-4 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1] tracking-[-0.03em] text-zinc-950">
+                  Le neuro-musculo-squelettique, expliqué simplement.
+                </h2>
+                <SectionAccent className="mt-6" />
               </div>
 
               {/* Grille articles */}
@@ -550,6 +541,14 @@ export async function ClinicHomePage() {
                   })}
                 </div>
               </div>
+
+              <a
+                href="/blogue"
+                className="group mt-8 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+              >
+                Voir tous les articles
+                <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
+              </a>
 
             </div>
             </ScrollReveal>
