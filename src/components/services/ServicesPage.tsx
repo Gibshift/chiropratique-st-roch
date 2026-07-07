@@ -131,7 +131,7 @@ export async function ServicesPage() {
 
       {/* ─── Section 2 — Les disciplines ──────────────────────────────── */}
       {services.docs.length > 0 && (
-        <section id="services-grid" className="bg-zinc-50 py-20">
+        <section id="services-grid" className="bg-zinc-50 py-10 lg:py-20">
           <ScrollReveal>
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
@@ -184,7 +184,7 @@ export async function ServicesPage() {
       )}
 
       {/* ─── Section 3 — Quel soin vous convient? ─────────────────────── */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-10 lg:py-20">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 

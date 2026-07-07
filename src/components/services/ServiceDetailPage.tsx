@@ -113,7 +113,7 @@ export async function ServiceDetailPage({ slug }: Props) {
       </section>
 
       {/* Contenu */}
-      <section className="relative z-10 mx-auto max-w-[1200px] px-6 pb-24 lg:px-8">
+      <section className="relative z-10 mx-auto max-w-[1200px] px-6 pb-12 lg:px-8 lg:pb-24">
         <div className="border-t border-zinc-400 pt-0 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10">
         <article className="min-w-0">
           {service.description ? (

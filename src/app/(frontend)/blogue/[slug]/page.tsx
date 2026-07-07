@@ -103,7 +103,7 @@ export default async function BloguePost({ params: paramsPromise }: Args) {
       </section>
 
       {/* Contenu */}
-      <section className="pb-24">
+      <section className="pb-12 lg:pb-24">
         <ScrollReveal>
           <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
             <div className="border-t border-zinc-400 pt-12 lg:grid lg:grid-cols-[1fr_300px] lg:gap-16">

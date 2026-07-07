@@ -93,7 +93,7 @@ export default async function Page({
 
   return (
     <main className="bg-white text-zinc-950">
-      <section className="relative bg-white min-h-[68vh] pt-32 pb-24 lg:pt-48">
+      <section className="relative bg-white min-h-[68vh] pt-32 pb-12 lg:pt-48 lg:pb-24">
         <GeometricShapes />
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">

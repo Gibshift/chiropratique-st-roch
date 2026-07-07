@@ -122,7 +122,7 @@ export async function ProfessionalsPage() {
 
       {/* ─── Section 2 — Grille de l'équipe ──────────────────────────── */}
       {count > 0 && (
-        <section id="equipe-grid" className="bg-zinc-50 py-20">
+        <section id="equipe-grid" className="bg-zinc-50 py-10 lg:py-20">
           <ScrollReveal>
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
@@ -191,7 +191,7 @@ export async function ProfessionalsPage() {
       )}
 
       {/* ─── Section 3 — CTA bas ──────────────────────────────────────── */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-10 lg:py-20">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 

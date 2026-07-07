@@ -251,7 +251,7 @@ export async function ClinicHomePage() {
         <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes />
           <ScrollReveal>
-          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
+          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
             {/* En-tête : titre gauche + image droite */}
             <div className="mb-8 flex items-end justify-between gap-8">
@@ -331,7 +331,7 @@ export async function ClinicHomePage() {
               </div>
             )}
 
-            <ScrollReveal><div className="relative py-24">
+            <ScrollReveal><div className="relative py-12 lg:py-24">
               <div className="max-w-[520px]">
                 <div className="mb-4">
                   <p className="font-[var(--font-barlow-condensed)] text-[18px] font-medium uppercase tracking-[0.24em] text-red-600">
@@ -381,7 +381,7 @@ export async function ClinicHomePage() {
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes />
           <ScrollReveal>
-          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
+          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
             {/* En-tête */}
             <div className="mb-8">
@@ -451,7 +451,7 @@ export async function ClinicHomePage() {
           <section className="relative z-40 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
             <GeometricShapes />
             <ScrollReveal>
-            <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
+            <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
               {/* En-tête section */}
               <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
