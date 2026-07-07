@@ -62,7 +62,7 @@ export default async function Page({
   const { slug } = await params
   const sp = await searchParams
   const page = Math.max(1, parseInt(sp.page ?? '1', 10) || 1)
-  const ARTICLES_PER_PAGE = 12
+  const ARTICLES_PER_PAGE = 100
 
   const payload = await getPayload({ config: configPromise })
 

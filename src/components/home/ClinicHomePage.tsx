@@ -259,6 +259,7 @@ export async function ClinicHomePage() {
       {/* SERVICES */}
       {hasServices && (
         <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+          <GeometricShapes />
           <ScrollReveal>
           <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-24 lg:px-8">
             <div className="grid items-stretch gap-12 xl:grid-cols-[460px_1fr] xl:gap-16">
