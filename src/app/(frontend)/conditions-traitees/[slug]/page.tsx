@@ -42,15 +42,16 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
   if (!category) {
     return {
-      title: 'Conditions traitées | Chiropratique St-Roch',
+      title: { absolute: 'Conditions traitées | Chiropratique St-Roch' },
       description:
         'Découvrez les conditions traitées chez Chiropratique St-Roch, clinique multidisciplinaire à Québec.',
     }
   }
 
-  const title =
+  const titleStr =
     category.seo?.title ||
     `${category.title} | Chiropratique St-Roch à Québec`
+  const title = { absolute: titleStr }
 
   const description =
     category.seo?.description ||
@@ -67,20 +68,20 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     },
 
     openGraph: {
-      title,
+      title: titleStr,
       description,
       url,
       type: 'article',
       siteName: 'Chiropratique St-Roch',
       locale: 'fr_CA',
-      images: getDefaultOpenGraphImages(title),
+      images: getDefaultOpenGraphImages(titleStr),
     },
 
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: titleStr,
       description,
-      images: getDefaultOpenGraphImages(title),
+      images: getDefaultOpenGraphImages(titleStr),
     },
   }
 }
