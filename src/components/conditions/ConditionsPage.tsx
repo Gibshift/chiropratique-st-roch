@@ -259,7 +259,7 @@ export async function ConditionsPage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 right-0 flex h-[170px] w-[160px] items-end justify-center" aria-hidden>
-                  <Image src="/assets/vous-orienter-page-conditions.png" alt="" width={160} height={160} unoptimized className="h-[160px] w-auto object-contain pointer-events-none" />
+                  <Image src="/assets/vous-orienter-page-conditions.png" alt="" width={160} height={160} className="h-[160px] w-auto object-contain pointer-events-none" />
                 </div>
               </div>
 
@@ -277,7 +277,7 @@ export async function ConditionsPage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 right-0 flex h-[170px] w-[160px] items-end justify-center" aria-hidden>
-                  <Image src="/assets/receptionnist-siteweb.png" alt="" width={160} height={160} unoptimized className="h-[160px] w-auto object-contain pointer-events-none" />
+                  <Image src="/assets/receptionnist-siteweb.png" alt="" width={160} height={160} className="h-[160px] w-auto object-contain pointer-events-none" />
                 </div>
               </div>
 
@@ -297,7 +297,7 @@ export async function ConditionsPage() {
                   </div>
                 </div>
                 <div className="flex w-[110px] items-center justify-center self-stretch" aria-hidden>
-                  <Image src="/assets/calendrier-page-conditions.png" alt="" width={110} height={110} unoptimized className="h-[110px] w-auto object-contain pointer-events-none" />
+                  <Image src="/assets/calendrier-page-conditions.png" alt="" width={110} height={110} className="h-[110px] w-auto object-contain pointer-events-none" />
                 </div>
               </div>
 
