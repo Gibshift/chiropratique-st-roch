@@ -27,6 +27,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const headerRef = React.useRef<HTMLElement>(null)
+  const drawerRef = React.useRef<HTMLDivElement>(null)
 
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
@@ -60,6 +61,38 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
     window.addEventListener('resize', update)
     return () => window.removeEventListener('resize', update)
   }, [scrolled])
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const drawer = drawerRef.current
+    if (!drawer) return
+
+    const focusable = Array.from(
+      drawer.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    )
+    focusable[0]?.focus()
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false)
+        return
+      }
+      if (e.key !== 'Tab') return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus() }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first?.focus() }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
 
   return (
     <>
@@ -142,7 +175,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
 
       {/* DRAWER DROITE */}
       <div
+        ref={drawerRef}
         className={`fixed top-0 right-0 z-[70] flex max-h-screen w-[300px] flex-col overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        aria-hidden={!isOpen}
+        inert={!isOpen}
       >
         {/* En-tête drawer */}
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-5">
