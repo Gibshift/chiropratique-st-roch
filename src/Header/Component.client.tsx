@@ -162,7 +162,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
         </div>
 
         {/* Liens nav + CTA */}
-        <nav className="flex flex-col gap-0 px-6 pt-4 pb-6">
+        <nav aria-label="Navigation mobile" className="flex flex-col gap-0 px-6 pt-4 pb-6">
           {navItems.map(({ link }, i) => (
             <CMSLink
               key={i}
