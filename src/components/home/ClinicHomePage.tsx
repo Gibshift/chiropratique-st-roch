@@ -224,7 +224,7 @@ export async function ClinicHomePage() {
               src="/assets/salle-chiro-ville-fused-watercolor.png"
               alt="Salle de soins de la clinique Chiropratique St-Roch à Québec"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1920px) 100vw, 1920px"
               className="object-cover"
               priority
             />
