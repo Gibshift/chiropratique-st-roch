@@ -79,7 +79,7 @@ export async function ProfessionalsPage() {
                 <div className="absolute top-10 bottom-0 left-0 right-[300px] lg:right-[260px] xl:right-[300px]">
                   <Image
                     src="/assets/equipe-stroch-droite.png"
-                    alt=""
+                    alt="Équipe de professionnels de la clinique Chiropratique St-Roch"
                     fill
                     sizes="400px"
                     className="object-contain object-bottom pointer-events-none"

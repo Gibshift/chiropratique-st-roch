@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import { ProfessionalsPage } from '@/components/professionals/ProfessionalsPage'
 import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
-const title = 'Professionnels | Chiropratique St-Roch'
+const title = 'Professionnels'
 const description =
-  'Découvrez les professionnels de Chiropratique St-Roch à Québec : chiropraticiens, ostéopathes, massothérapeutes, kinésithérapeutes, orthothérapeutes et autres membres de l’équipe clinique.'
+  "Rencontrez notre équipe de chiropraticiens, ostéopathes, massothérapeutes, kinésithérapeutes et orthothérapeutes à Québec. À votre disposition."
 
 export const metadata: Metadata = {
   title,

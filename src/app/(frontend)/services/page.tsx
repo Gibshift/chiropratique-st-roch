@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { ServicesPage } from '@/components/services/ServicesPage'
 import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
-const title = 'Services | Chiropratique St-Roch'
+const title = 'Services'
 const description =
   'Découvrez les services offerts chez Chiropratique St-Roch à Québec : chiropratique, ostéopathie, massothérapie, kinésithérapie et orthothérapie.'
 

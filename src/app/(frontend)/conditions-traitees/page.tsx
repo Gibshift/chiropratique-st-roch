@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import { ConditionsPage } from '@/components/conditions/ConditionsPage'
 import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
-const title = 'Conditions traitées | Chiropratique St-Roch'
+const title = 'Conditions traitées'
 const description =
-  'Découvrez les conditions traitées chez Chiropratique St-Roch à Québec : douleur lombaire, sciatique, douleur cervicale, maux de tête et autres inconforts musculosquelettiques.'
+  'Chiropratique St-Roch traite douleur lombaire, sciatique, cervicalgies, maux de tête et autres inconforts musculosquelettiques à Québec.'
 
 export const metadata: Metadata = {
   title,

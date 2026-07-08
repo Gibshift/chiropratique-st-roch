@@ -41,7 +41,7 @@ export function PageHero({ title, eyebrow, description, imageUrl, highlight, cta
 
       {imageUrl && (
         <div className="pointer-events-none absolute bottom-0 right-[6%] hidden w-[380px] h-[80%] lg:block">
-          <Image src={imageUrl} alt="" fill sizes="380px" className="object-contain object-bottom" priority />
+          <Image src={imageUrl} alt={`Illustration – ${title}`} fill sizes="380px" className="object-contain object-bottom" priority />
         </div>
       )}
 

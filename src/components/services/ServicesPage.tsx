@@ -19,23 +19,23 @@ type ServiceMeta = { when: string; icon: React.ReactNode }
 const SERVICE_META: Record<string, ServiceMeta> = {
   chiropratique: {
     when: 'Douleurs au dos, au cou ou aux articulations, maux de tête cervicaux, trouble de posture.',
-    icon: <Image src="/assets/chiro-icon-siteweb.png" alt="" width={40} height={40} className="h-10 w-10 object-contain" />,
+    icon: <Image src="/assets/chiro-icon-siteweb.png" alt="Icône chiropratique" width={40} height={40} className="h-10 w-10 object-contain" />,
   },
   osteopathie: {
     when: 'Tensions globales, migraines, troubles des viscères. Approche douce pour le corps dans son ensemble.',
-    icon: <Image src="/assets/osteo-icon-siteweb.png" alt="" width={40} height={40} className="h-10 w-10 object-contain" />,
+    icon: <Image src="/assets/osteo-icon-siteweb.png" alt="Icône ostéopathie" width={40} height={40} className="h-10 w-10 object-contain" />,
   },
   massotherapie: {
     when: 'Stress accumulé, tensions musculaires persistantes, douleurs chroniques.',
-    icon: <Image src="/assets/masso-icon-siteweb.png" alt="" width={40} height={40} className="h-10 w-10 object-contain" />,
+    icon: <Image src="/assets/masso-icon-siteweb.png" alt="Icône massothérapie" width={40} height={40} className="h-10 w-10 object-contain" />,
   },
   kinesitherapie: {
     when: 'Retour progressif au sport, amélioration des capacités fonctionnelles.',
-    icon: <Image src="/assets/kine-icon-siteweb.png" alt="" width={40} height={40} className="h-10 w-10 object-contain" />,
+    icon: <Image src="/assets/kine-icon-siteweb.png" alt="Icône kinésithérapie" width={40} height={40} className="h-10 w-10 object-contain" />,
   },
   orthotherapie: {
     when: 'Déséquilibres posturaux, douleurs liées aux habitudes de travail ou sportives.',
-    icon: <Image src="/assets/ortho-icon-siteweb.png" alt="" width={40} height={40} className="h-10 w-10 object-contain" />,
+    icon: <Image src="/assets/ortho-icon-siteweb.png" alt="Icône orthothérapie" width={40} height={40} className="h-10 w-10 object-contain" />,
   },
 }
 
@@ -92,7 +92,7 @@ export async function ServicesPage() {
                 <div className="absolute top-10 bottom-0 left-2 right-[260px] lg:right-[240px] xl:right-[240px]">
                   <Image
                     src="/assets/famille-contact-ordinateur-siteweb-droite.png"
-                    alt=""
+                    alt="Famille utilisant un ordinateur pour prendre rendez-vous à la clinique"
                     fill
                     sizes="400px"
                     className="object-contain object-bottom pointer-events-none"

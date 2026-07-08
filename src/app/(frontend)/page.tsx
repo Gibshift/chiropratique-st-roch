@@ -6,12 +6,12 @@ export const revalidate = 3600
 
 export default PageTemplate
 
-const title = 'Chiropratique St-Roch | Clinique multidisciplinaire à Québec'
+const title = 'Chiropratique St-Roch | Clinique à Québec'
 const description =
-  "Chiropratique St-Roch est une clinique multidisciplinaire à Québec offrant des soins de chiropratique, d'ostéopathie, de massothérapie, de kinésithérapie et d'orthothérapie."
+  "Clinique multidisciplinaire à Québec : chiropratique, ostéopathie, massothérapie, kinésithérapie et orthothérapie. Une équipe dédiée à votre santé."
 
 export const metadata: Metadata = {
-  title,
+  title: { absolute: title },
   description,
 
   alternates: {

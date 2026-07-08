@@ -143,6 +143,8 @@ export async function ProfessionalDetailPage({ slug }: Props) {
               <img
                 src={photoUrl}
                 alt={professional.name}
+                width={340}
+                height={420}
                 className="w-full object-cover object-top"
               />
             </div>

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { BloguePage } from '@/components/blogue/BloguePage'
 import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
-const title = 'Blogue santé | Chiropratique St-Roch'
+const title = 'Blogue santé'
 const description =
   'Articles de Chiropratique St-Roch sur les douleurs, la posture, les tensions musculaires, la santé musculosquelettique et les habitudes de vie.'
 

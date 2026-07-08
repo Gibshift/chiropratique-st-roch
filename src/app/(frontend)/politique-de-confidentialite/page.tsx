@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { PolitiqueConfidentialitePage } from '@/components/privacy/PolitiqueConfidentialitePage'
 import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
-const title = 'Politique de confidentialité | Chiropratique St-Roch'
+const title = 'Politique de confidentialité'
 const description =
   'Politique de confidentialité de Chiropratique St-Roch — protection des renseignements personnels conformément à la Loi 25.'
 

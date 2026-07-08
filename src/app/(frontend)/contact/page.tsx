@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { ContactPage } from '@/components/contact/ContactPage'
 import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
-const title = 'Contact | Chiropratique St-Roch'
+const title = 'Contact'
 const description =
   'Contactez Chiropratique St-Roch à Québec, trouvez l’emplacement de la clinique et prenez rendez-vous en ligne avec Jane.'
 

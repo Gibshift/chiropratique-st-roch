@@ -72,7 +72,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
   const title =
     professional.seo?.title ||
-    `${professional.name} | ${professional.title} à Québec`
+    professional.name
 
   const description =
     professional.seo?.description ||

@@ -167,6 +167,8 @@ export async function ServiceDetailPage({ slug }: Props) {
                         <img
                           src={photoUrl}
                           alt={professional.name}
+                          width={48}
+                          height={48}
                           className="h-12 w-12 flex-shrink-0 object-cover object-top"
                         />
                       ) : (

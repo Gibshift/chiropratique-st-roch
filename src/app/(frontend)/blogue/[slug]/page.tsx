@@ -265,7 +265,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     }
   }
 
-  const title = post.meta?.title || post.title || 'Article santé'
+  const rawTitle = post.meta?.title || post.title || 'Article santé'
+  const title = rawTitle.length > 38 ? rawTitle.slice(0, 35) + '…' : rawTitle
   const description =
     post.meta?.description ||
     'Article de Chiropratique St-Roch sur la santé musculosquelettique, la prévention et les soins multidisciplinaires.'

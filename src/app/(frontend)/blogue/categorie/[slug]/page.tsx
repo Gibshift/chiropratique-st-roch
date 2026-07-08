@@ -43,7 +43,7 @@ export async function generateMetadata({
   const category = result.docs[0] as any
   if (!category) return {}
 
-  const description = `Articles de blogue sur le sujet : ${category.title}.`
+  const description = `Articles de Chiropratique St-Roch sur le sujet : ${category.title}. Conseils santé, prévention et soins multidisciplinaires à Québec.`
 
   return {
     title: { absolute: `${category.title} — Blogue | Chiropratique St-Roch` },

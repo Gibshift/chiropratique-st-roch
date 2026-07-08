@@ -106,7 +106,7 @@ export async function ConditionsPage() {
                 <div className="absolute inset-y-8 lg:inset-y-12 left-1/2 w-[260px] -translate-x-1/2">
                   <Image
                     src="/assets/femme-questionnement-siteweb-droite.png"
-                    alt=""
+                    alt="Femme qui se questionne sur sa condition de santé"
                     fill
                     sizes="220px"
                     className="object-contain object-bottom pointer-events-none"
@@ -176,7 +176,7 @@ export async function ConditionsPage() {
                         {iconSrc ? (
                           <Image
                             src={iconSrc}
-                            alt=""
+                            alt={`Illustration – ${category.title}`}
                             width={120}
                             height={120}
                             className={`h-[120px] w-[120px] object-contain mix-blend-multiply ${category.slug === 'dos-et-sacrum' ? 'p-1' : ''}`}
@@ -259,7 +259,7 @@ export async function ConditionsPage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 right-0 flex h-[170px] w-[160px] items-end justify-center" aria-hidden>
-                  <Image src="/assets/vous-orienter-page-conditions.png" alt="" width={160} height={160} className="h-[160px] w-auto object-contain pointer-events-none" />
+                  <Image src="/assets/vous-orienter-page-conditions.png" alt="Illustration – trouver la bonne condition" width={160} height={160} className="h-[160px] w-auto object-contain pointer-events-none" />
                 </div>
               </div>
 
@@ -277,7 +277,7 @@ export async function ConditionsPage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 right-0 flex h-[170px] w-[160px] items-end justify-center" aria-hidden>
-                  <Image src="/assets/receptionnist-siteweb.png" alt="" width={160} height={160} className="h-[160px] w-auto object-contain pointer-events-none" />
+                  <Image src="/assets/receptionnist-siteweb.png" alt="Réceptionniste de la clinique Chiropratique St-Roch" width={160} height={160} className="h-[160px] w-auto object-contain pointer-events-none" />
                 </div>
               </div>
 
@@ -297,7 +297,7 @@ export async function ConditionsPage() {
                   </div>
                 </div>
                 <div className="flex w-[110px] items-center justify-center self-stretch" aria-hidden>
-                  <Image src="/assets/calendrier-page-conditions.png" alt="" width={110} height={110} className="h-[110px] w-auto object-contain pointer-events-none" />
+                  <Image src="/assets/calendrier-page-conditions.png" alt="Calendrier de prise de rendez-vous" width={110} height={110} className="h-[110px] w-auto object-contain pointer-events-none" />
                 </div>
               </div>
 

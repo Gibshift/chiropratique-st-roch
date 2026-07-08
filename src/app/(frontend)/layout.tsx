@@ -73,12 +73,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: 'Chiropratique St-Roch | Clinique multidisciplinaire à Québec',
+    default: 'Chiropratique St-Roch | Clinique à Québec',
     template: '%s | Chiropratique St-Roch',
   },
 
   description:
-    'Chiropratique St-Roch est une clinique multidisciplinaire située à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
+    "Clinique multidisciplinaire à Québec : chiropratique, ostéopathie, massothérapie, kinésithérapie et orthothérapie. Une équipe dédiée à votre santé.",
 
   openGraph: {
     type: 'website',
