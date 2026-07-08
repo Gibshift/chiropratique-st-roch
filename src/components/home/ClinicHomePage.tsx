@@ -222,7 +222,7 @@ export async function ClinicHomePage() {
           <div className="relative h-full">
             <Image
               src="/assets/salle-chiro-ville-fused-watercolor.png"
-              alt=""
+              alt="Salle de soins de la clinique Chiropratique St-Roch à Québec"
               fill
               sizes="100vw"
               className="object-cover"

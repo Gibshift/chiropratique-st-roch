@@ -74,10 +74,11 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     professional.seo?.title ||
     professional.name
 
-  const description =
+  const rawDesc =
     professional.seo?.description ||
     professional.shortBio ||
     `Découvrez le profil de ${professional.name}, ${professional.title}, chez Chiropratique St-Roch à Québec.`
+  const description = rawDesc.length > 155 ? rawDesc.slice(0, 152) + '…' : rawDesc
 
   const url = `/professionnels/${professional.slug}`
   const images = getOpenGraphImages(professional.photo, professional.name)
