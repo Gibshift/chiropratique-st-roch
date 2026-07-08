@@ -370,7 +370,7 @@ export async function ClinicHomePage() {
             <ScrollReveal><div className="relative py-12 lg:py-24">
               <div className="max-w-[520px]">
                 <div className="mb-4">
-                  <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
+                  <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-700 lg:text-[18px] lg:tracking-[0.24em]">
                     Conditions traitées
                   </p>
                 </div>
@@ -402,7 +402,7 @@ export async function ClinicHomePage() {
 
               <a
                 href="/conditions-traitees"
-                className="group mt-12 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+                className="group mt-12 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
               >
                 Voir toutes les conditions
                 <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
@@ -491,7 +491,7 @@ export async function ClinicHomePage() {
 
               {/* En-tête section */}
               <div className="mb-12">
-                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-700 lg:text-[18px] lg:tracking-[0.24em]">
                   Blogue santé
                 </p>
                 <h2 className="mt-4 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1] tracking-[-0.03em] text-zinc-950">
@@ -513,7 +513,7 @@ export async function ClinicHomePage() {
                       Article du jour
                     </span>
                     {dailyPost.publishedAt && (
-                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-zinc-500">{formatDateFR(dailyPost.publishedAt)}</span>
+                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-zinc-300">{formatDateFR(dailyPost.publishedAt)}</span>
                     )}
                   </div>
 
@@ -551,7 +551,7 @@ export async function ClinicHomePage() {
                         }`}
                       >
                         <div>
-                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] text-red-600">
+                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] text-red-700">
                             {label}
                           </span>
                         </div>
@@ -564,11 +564,11 @@ export async function ClinicHomePage() {
 
                         <div className="flex items-center justify-between">
                           {op.publishedAt && (
-                            <span className={`text-xs font-medium uppercase tracking-[0.14em] ${isWhite ? 'text-zinc-400' : 'text-stone-400'}`}>
+                            <span className={`text-xs font-medium uppercase tracking-[0.14em] ${isWhite ? 'text-zinc-600' : 'text-stone-600'}`}>
                               {formatDateFR(op.publishedAt)}
                             </span>
                           )}
-                          <span className="text-[1rem] font-semibold text-red-600 transition group-hover:text-zinc-950">
+                          <span className="text-[1rem] font-semibold text-red-700 transition group-hover:text-zinc-950">
                             Lire l&apos;article →
                           </span>
                         </div>
@@ -580,7 +580,7 @@ export async function ClinicHomePage() {
 
               <a
                 href="/blogue"
-                className="group mt-8 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+                className="group mt-8 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
               >
                 Voir tous les articles
                 <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>

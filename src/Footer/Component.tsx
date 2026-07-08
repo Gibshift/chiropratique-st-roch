@@ -72,7 +72,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-600">
+            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-500">
               Navigation
             </h2>
 
@@ -90,7 +90,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-600">
+            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-500">
               Coordonnées
             </h2>
 
@@ -122,7 +122,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-600">
+            <h2 className="font-[var(--font-barlow-condensed)] text-sm font-semibold uppercase tracking-wide text-red-500">
               Heures d’ouverture
             </h2>
 
