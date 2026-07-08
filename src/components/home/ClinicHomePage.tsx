@@ -52,6 +52,12 @@ const SERVICE_ORDER = [
 
 
 
+function pickUnique(preferred: number, taken: number[], n: number): number {
+  let idx = ((preferred % n) + n) % n
+  while (taken.includes(idx)) idx = (idx + 1) % n
+  return idx
+}
+
 function formatDateFR(dateStr: string) {
   return new Intl.DateTimeFormat('fr-CA', {
     day: 'numeric',
@@ -197,9 +203,12 @@ export async function ClinicHomePage() {
   const _dayIndex     = Math.floor(Date.now() / (1000 * 60 * 60 * 24))
   const _fourDayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 4))
   const _len          = posts.docs.length
-  const dailyPost     = _len > 0 ? posts.docs[_dayIndex % _len] : null
-  const _popularIdx   = _len > 1 ? (_fourDayIndex + Math.floor(_len / 2)) % _len : -1
-  const _recentIdx    = _len > 2 ? (_dayIndex + Math.ceil(_len / 3)) % _len : -1
+
+  const _duJourIdx    = _len > 0 ? _dayIndex % _len : -1
+  const _popularIdx   = _len > 1 ? pickUnique((_fourDayIndex + Math.floor(_len / 2)) % _len, [_duJourIdx], _len) : -1
+  const _recentIdx    = _len > 2 ? pickUnique((_dayIndex + Math.ceil(_len / 3)) % _len, [_duJourIdx, _popularIdx], _len) : -1
+
+  const dailyPost     = _duJourIdx >= 0 ? posts.docs[_duJourIdx] : null
 
   const conditionsSectionImageUrl =
     siteSettings &&
@@ -213,7 +222,7 @@ export async function ClinicHomePage() {
 
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
-      {/* HERO */}
+      {/* ─── Section 1 — Hero ─────────────────────────────────────────── */}
       <section className="relative min-h-[640px] overflow-hidden bg-[#f6f1e8] lg:min-h-[68svh]">
 
         {/* Photo en fond absolu — toutes tailles */}
@@ -281,7 +290,7 @@ export async function ClinicHomePage() {
 
       </section>
 
-      {/* SERVICES */}
+      {/* ─── Section 2 — Services ────────────────────────────────────── */}
       {hasServices && (
         <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes holds={SHAPES_SERVICES} />
@@ -346,7 +355,7 @@ export async function ClinicHomePage() {
         </section>
       )}
 
-      {/* CONDITIONS */}
+      {/* ─── Section 3 — Conditions traitées ────────────────────────── */}
       {hasConditions && (
         <section className="relative z-20 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes holds={SHAPES_CONDITIONS} />
@@ -411,7 +420,7 @@ export async function ClinicHomePage() {
         </section>
       )}
 
-      {/* PROFESSIONNELS */}
+      {/* ─── Section 4 — Professionnels ─────────────────────────────── */}
       {hasProfessionals && (
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes holds={SHAPES_PROFESSIONNELS} />
@@ -477,7 +486,7 @@ export async function ClinicHomePage() {
         </section>
       )}
 
-      {/* BLOGUE */}
+      {/* ─── Section 5 — Blogue ─────────────────────────────────────── */}
       {dailyPost && (() => {
         const popularPost = _popularIdx >= 0 ? posts.docs[_popularIdx] : null
         const recentPost  = _recentIdx  >= 0 ? posts.docs[_recentIdx]  : null

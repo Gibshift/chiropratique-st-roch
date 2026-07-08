@@ -31,7 +31,8 @@ export async function ContactPage() {
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+            {/* ─── Section 1 — En-tête & CTA ──────────────────────────────── */}
+          <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
                   Nous joindre.
@@ -70,6 +71,7 @@ export async function ContactPage() {
               </div>
             </div>
 
+            {/* ─── Section 2 — Coordonnées & carte ────────────────────────── */}
             <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
 
               <div className="flex flex-col gap-3">

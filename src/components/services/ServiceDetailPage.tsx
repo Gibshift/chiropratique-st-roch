@@ -62,7 +62,7 @@ export async function ServiceDetailPage({ slug }: Props) {
     <main className="relative bg-white text-zinc-950">
       <GeometricShapes />
 
-      {/* Hero */}
+      {/* ─── Section 1 — Hero ─────────────────────────────────────────── */}
       <section className="relative pt-32 pb-0 lg:pt-48">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
@@ -106,7 +106,7 @@ export async function ServiceDetailPage({ slug }: Props) {
         </ScrollReveal>
       </section>
 
-      {/* Contenu */}
+      {/* ─── Section 2 — Contenu (article + sidebar) ────────────────── */}
       <section className="relative z-10 mx-auto max-w-[1200px] px-6 pb-12 lg:px-8 lg:pb-24">
         <div className="border-t border-zinc-400 pt-0 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10">
         <article className="min-w-0">

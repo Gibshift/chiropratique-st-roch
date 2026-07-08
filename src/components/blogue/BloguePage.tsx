@@ -26,6 +26,12 @@ function getIconForSlug(slug: string): string | null {
   return null
 }
 
+function pickUnique(preferred: number, taken: number[], n: number): number {
+  let idx = ((preferred % n) + n) % n
+  while (taken.includes(idx)) idx = (idx + 1) % n
+  return idx
+}
+
 function seededShuffle<T>(arr: T[], seed: number): T[] {
   const result = [...arr]
   let s = seed
@@ -158,12 +164,15 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
 
   const dayIndex     = Math.floor(Date.now() / (1000 * 60 * 60 * 24))
   const fourDayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 4))
+  const n = posts.length
 
-  const articleDuJour    = posts.length > 0 ? posts[dayIndex % posts.length] : null
-  const popularRawIndex  = posts.length > 1 ? (fourDayIndex + Math.floor(posts.length / 2)) % posts.length : -1
-  const articlePopulaire = popularRawIndex >= 0 ? posts[popularRawIndex] : null
-  const recentRawIndex   = posts.length > 2 ? (dayIndex + Math.ceil(posts.length / 3)) % posts.length : -1
-  const articleRecent    = recentRawIndex >= 0 ? posts[recentRawIndex] : null
+  const duJourIdx    = n > 0 ? dayIndex % n : -1
+  const populaireIdx = n > 1 ? pickUnique((fourDayIndex + Math.floor(n / 2)) % n, [duJourIdx], n) : -1
+  const recentIdx    = n > 2 ? pickUnique((dayIndex + Math.ceil(n / 3)) % n, [duJourIdx, populaireIdx], n) : -1
+
+  const articleDuJour    = duJourIdx    >= 0 ? posts[duJourIdx]    : null
+  const articlePopulaire = populaireIdx >= 0 ? posts[populaireIdx] : null
+  const articleRecent    = recentIdx    >= 0 ? posts[recentIdx]    : null
 
   const shuffled = seededShuffle(posts, dayIndex)
 
@@ -212,7 +221,7 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            {/* Header */}
+            {/* ─── Section 1 — En-tête ─────────────────────────────────────── */}
             <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <h1 className="whitespace-nowrap font-[var(--font-barlow-condensed)] text-[clamp(2rem,7vw,4.5rem)] font-medium uppercase leading-[1.05] text-zinc-950">
@@ -237,7 +246,7 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
               </div>
             </div>
 
-            {/* Article du jour (noir) + Populaire (blanc) + À lire aussi (beige) */}
+            {/* ─── Section 2 — Articles mis en vedette ─────────────────────── */}
             {(articleDuJour || articlePopulaire || articleRecent) && (
               <div className="mb-16 grid gap-1 lg:grid-cols-[1.6fr_1fr]">
                 {articleDuJour && (
@@ -254,7 +263,7 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
               </div>
             )}
 
-            {/* Grille unifiée : catégories + recherche + articles + pagination */}
+            {/* ─── Section 3 — Grille filtrée (catégories + recherche + articles + pagination) */}
             <BlogueGrid
               allPosts={allPosts}
               shuffledPosts={shuffledPosts}
