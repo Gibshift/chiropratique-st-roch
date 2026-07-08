@@ -5,7 +5,6 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
-import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -69,7 +68,7 @@ export default buildConfig({
     },
     push: true,
   }),
-  collections: [Services, Conditions, ConditionCategories, Professionals, Pages, Posts, Media, Categories, Users],
+  collections: [Services, Conditions, ConditionCategories, Professionals, Pages, Posts, Media, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins: [
