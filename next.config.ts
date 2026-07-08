@@ -33,6 +33,8 @@ const nextConfig: NextConfig = {
               "frame-src https://chiropratiquestroch.janeapp.com",
               "object-src 'none'",
               "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'self'",
             ].join('; '),
           },
         ],
