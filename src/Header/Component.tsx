@@ -4,7 +4,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
+import { JANE_BASE_URL } from '@/utilities/jane'
 
 export async function Header() {
   const payload = await getPayload({ config: configPromise })
@@ -22,7 +22,7 @@ export async function Header() {
   const janeUrl =
     typeof settings.mainJaneUrl === 'string' && settings.mainJaneUrl.length > 0
       ? settings.mainJaneUrl
-      : FALLBACK_JANE_URL
+      : JANE_BASE_URL
 
   const phone: string | null = settings.phone || null
   const openingHours = Array.isArray(settings.openingHours) ? settings.openingHours : []

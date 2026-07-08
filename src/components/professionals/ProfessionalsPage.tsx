@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
-const JANE_URL = 'https://chiropratiquestroch.janeapp.com'
+import { JANE_BASE_URL } from '@/utilities/jane'
 
 function getDesktopCols(count: number) {
   const map: Record<number, string> = {
@@ -54,7 +54,7 @@ export async function ProfessionalsPage() {
                 </p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <a
-                    href={JANE_URL}
+                    href={JANE_BASE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
@@ -206,7 +206,7 @@ export async function ProfessionalsPage() {
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a
-                    href={JANE_URL}
+                    href={JANE_BASE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"

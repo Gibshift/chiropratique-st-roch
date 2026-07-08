@@ -6,7 +6,7 @@ import React from 'react'
 
 import { CMSLink } from '@/components/Link'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
+import { JANE_BASE_URL } from '@/utilities/jane'
 
 export async function Footer() {
   const payload = await getPayload({ config: configPromise })
@@ -24,7 +24,7 @@ export async function Footer() {
   const settings: any = siteSettings || {}
 
   const clinicName = settings.clinicName || 'Chiropratique St-Roch'
-  const janeUrl = settings.mainJaneUrl || FALLBACK_JANE_URL
+  const janeUrl = settings.mainJaneUrl || JANE_BASE_URL
   const phone = settings.phone || null
   const email = settings.email || null
   const openingHours = Array.isArray(settings.openingHours) ? settings.openingHours : []

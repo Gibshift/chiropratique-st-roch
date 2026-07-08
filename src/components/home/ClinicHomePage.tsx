@@ -4,8 +4,7 @@ import Link from 'next/link'
 import { getPayload } from 'payload'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
-
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
+import { JANE_BASE_URL } from '@/utilities/jane'
 
 const SHAPES_SERVICES = [
   { type: 'circle'   as const, x: '5%',  y: '18%', size: 7, rotate: 0   },
@@ -186,7 +185,7 @@ export async function ClinicHomePage() {
     typeof siteSettings.mainJaneUrl === 'string' &&
     siteSettings.mainJaneUrl.length > 0
       ? siteSettings.mainJaneUrl
-      : FALLBACK_JANE_URL
+      : JANE_BASE_URL
 
   const hasServices = services.docs.length > 0
   const hasConditions = conditionCategories.docs.length > 0

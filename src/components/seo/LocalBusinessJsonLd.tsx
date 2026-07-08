@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 
 import { getAbsoluteUrl } from '@/utilities/seo'
 
-const FALLBACK_JANE_URL = 'https://chiropratiquestroch.janeapp.com'
+import { JANE_BASE_URL } from '@/utilities/jane'
 
 const dayMap: Record<string, string> = {
   dimanche: 'Sunday',
@@ -73,7 +73,7 @@ export async function LocalBusinessJsonLd() {
   })
 
   const clinicName = siteSettings?.clinicName || 'Chiropratique St-Roch'
-  const janeUrl = siteSettings?.mainJaneUrl || FALLBACK_JANE_URL
+  const janeUrl = siteSettings?.mainJaneUrl || JANE_BASE_URL
   const phone = siteSettings?.phone || '581.742.3808'
 
   const address = siteSettings?.address || {}

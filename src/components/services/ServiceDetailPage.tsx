@@ -10,13 +10,7 @@ type Props = {
   slug: string
 }
 
-const JANE_SERVICE_URLS: Record<string, string> = {
-  'chiropratique': 'https://chiropratiquestroch.janeapp.com/#/chiropratique',
-  'osteopathie': 'https://chiropratiquestroch.janeapp.com/#/osteopathie',
-  'massotherapie': 'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
-  'kinesitherapie': 'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
-  'orthotherapie': 'https://chiropratiquestroch.janeapp.com/#/orthotherapie',
-}
+import { JANE_SERVICE_URLS } from '@/utilities/jane'
 
 export async function ServiceDetailPage({ slug }: Props) {
   const payload = await getPayload({ config: configPromise })

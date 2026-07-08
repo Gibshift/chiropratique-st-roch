@@ -4,15 +4,7 @@ import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 
-const JANE_URL = 'https://chiropratiquestroch.janeapp.com'
-
-const JANE_SERVICE_URLS: Record<string, string> = {
-  'chiropratique': 'https://chiropratiquestroch.janeapp.com/#/chiropratique',
-  'osteopathie':   'https://chiropratiquestroch.janeapp.com/#/osteopathie',
-  'massotherapie': 'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
-  'kinesitherapie':'https://chiropratiquestroch.janeapp.com/#/massotherapie-kinesitherapie',
-  'orthotherapie': 'https://chiropratiquestroch.janeapp.com/#/orthotherapie',
-}
+import { JANE_BASE_URL, JANE_SERVICE_URLS } from '@/utilities/jane'
 
 type ServiceMeta = { when: string; icon: React.ReactNode }
 
@@ -66,7 +58,7 @@ export async function ServicesPage() {
                 </p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <a
-                    href={JANE_URL}
+                    href={JANE_BASE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
