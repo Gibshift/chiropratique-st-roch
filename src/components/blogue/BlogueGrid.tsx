@@ -29,7 +29,7 @@ function ArticleCard({ post }: { post: PostForGrid }) {
   return (
     <Link
       href={`/blogue/${post.slug}`}
-      className="group flex flex-col border border-zinc-400 bg-white transition hover:border-zinc-950 h-full"
+      className="group flex flex-col border border-zinc-300 bg-white transition hover:border-zinc-950 h-full"
     >
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center justify-between gap-2">
@@ -76,7 +76,7 @@ function Pagination({
       {currentPage > 1 && (
         <button
           onClick={() => onPageChange(currentPage - 1)}
-          className="flex h-9 w-9 items-center justify-center border border-zinc-400 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+          className="flex h-9 w-9 items-center justify-center border border-zinc-300 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
         >
           ←
         </button>
@@ -88,7 +88,7 @@ function Pagination({
           className={`flex h-9 w-9 items-center justify-center border text-sm font-semibold transition ${
             p === currentPage
               ? 'border-zinc-950 bg-zinc-950 text-white'
-              : 'border-zinc-400 text-zinc-600 hover:border-zinc-950 hover:text-zinc-950'
+              : 'border-zinc-300 text-zinc-600 hover:border-zinc-950 hover:text-zinc-950'
           }`}
         >
           {p}
@@ -97,7 +97,7 @@ function Pagination({
       {currentPage < totalPages && (
         <button
           onClick={() => onPageChange(currentPage + 1)}
-          className="flex h-9 w-9 items-center justify-center border border-zinc-400 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
+          className="flex h-9 w-9 items-center justify-center border border-zinc-300 text-sm text-zinc-600 transition hover:border-zinc-950 hover:text-zinc-950"
         >
           →
         </button>
@@ -201,7 +201,7 @@ export function BlogueGrid({
       {/* Filtres catégorie */}
       <div className="mb-10">
         <div className="flex items-center justify-between mb-5">
-          <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">
+          <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">
             Parcourir par sujet
           </p>
           {activeCategories.size > 0 && (
@@ -213,7 +213,7 @@ export function BlogueGrid({
             </button>
           )}
         </div>
-        <div className="grid border-l border-zinc-400 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid border-l border-zinc-300 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {categories.map((category) => {
             const isActive = activeCategories.has(category.slug)
             return (
@@ -221,8 +221,8 @@ export function BlogueGrid({
                 key={category.id}
                 href={`/blogue/categorie/${category.slug}`}
                 onClick={(e) => { e.preventDefault(); toggleCategory(category.slug) }}
-                className={`group flex flex-col items-center text-center border-b border-r border-zinc-400 px-4 py-6 transition lg:border-b-0 ${
-                  isActive ? 'bg-zinc-950' : 'hover:bg-zinc-50'
+                className={`group flex flex-col items-center text-center border-b border-r border-zinc-300 px-4 py-6 transition lg:border-b-0 ${
+                  isActive ? 'bg-zinc-950' : 'hover:bg-[#f6f1e8]'
                 }`}
               >
                 <div className="h-[190px] flex items-center justify-center">
@@ -241,7 +241,7 @@ export function BlogueGrid({
                 <p className={`mt-3 font-[var(--font-barlow-condensed)] text-[0.88rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] transition ${
                   isActive ? 'text-white' : 'text-zinc-700 group-hover:text-zinc-950'
                 }`}>
-                  <span className={isActive ? 'text-red-400' : 'text-red-600'}>
+                  <span className={isActive ? 'text-red-500' : 'text-red-600'}>
                     {category.title.slice(0, 1)}
                   </span>
                   {category.title.slice(1)}
@@ -255,7 +255,7 @@ export function BlogueGrid({
       {/* Recherche + grille */}
       <div id="blogue-grid">
         <div className="flex items-center justify-between mb-5">
-          <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">
+          <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-zinc-400">
             {isFiltering
               ? `${filtered.length} article${filtered.length > 1 ? 's' : ''} trouvé${filtered.length > 1 ? 's' : ''}`
               : 'Tous les articles'}
@@ -272,7 +272,7 @@ export function BlogueGrid({
 
         {/* Barre de recherche */}
         <div className="relative mb-6">
-          <div className="flex items-center border border-zinc-400 bg-white transition focus-within:border-zinc-950">
+          <div className="flex items-center border border-zinc-300 bg-white transition focus-within:border-zinc-950">
             <svg
               className="ml-4 h-4 w-4 flex-shrink-0 text-zinc-400"
               fill="none"
@@ -318,12 +318,12 @@ export function BlogueGrid({
 
           {/* Dropdown accès rapide */}
           {dropdownOpen && dropdownResults.length > 0 && (
-            <div className="absolute left-0 right-0 top-full z-50 max-h-[26rem] overflow-y-auto border border-t-0 border-zinc-400 bg-white shadow-lg">
+            <div className="absolute left-0 right-0 top-full z-50 max-h-[26rem] overflow-y-auto border border-t-0 border-zinc-300 bg-white shadow-lg">
               {dropdownResults.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blogue/${post.slug}`}
-                  className="flex items-start gap-3 px-5 py-3 transition hover:bg-zinc-50 group"
+                  className="flex items-start gap-3 px-5 py-3 transition hover:bg-[#f6f1e8] group"
                 >
                   <div className="flex-1 min-w-0">
                     {post.categoryTitle && (
@@ -363,6 +363,30 @@ export function BlogueGrid({
             </p>
           )}
         </div>
+      </div>
+
+      {/* Bandeau rendez-vous */}
+      <div className="mt-16 border border-zinc-300 bg-[#f6f1e8] px-8 py-12 text-center lg:px-12 lg:py-14">
+        <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
+          Passer de la lecture à l&apos;action
+        </p>
+        <p className="mx-auto mt-4 max-w-[36ch] text-balance font-[var(--font-barlow-condensed)] text-[clamp(1.5rem,3.5vw,2.1rem)] font-medium uppercase leading-[1.05] text-zinc-950">
+          Une douleur vous préoccupe? On peut vous aider.
+        </p>
+        <p className="mx-auto mt-4 max-w-[46ch] text-[0.95rem] leading-6 text-zinc-600">
+          Prenez rendez-vous en ligne avec l&apos;un de nos chiropraticiens et repartez avec un plan clair, adapté à votre situation.
+        </p>
+        <a
+          href="https://chiropratiquestroch.janeapp.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mt-8 inline-flex min-h-[48px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+        >
+          <span className="whitespace-nowrap">Prendre rendez-vous</span>
+          <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+            <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+          </svg>
+        </a>
       </div>
     </div>
   )

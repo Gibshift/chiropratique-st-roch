@@ -65,9 +65,12 @@ export async function Footer() {
               href={janeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-7 inline-flex border border-red-600 bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-red-600"
+              className="group mt-7 inline-flex min-h-[48px] items-center gap-3 border border-red-500 bg-red-500 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-500"
             >
-              Prendre rendez-vous
+              <span className="whitespace-nowrap">Prendre rendez-vous</span>
+              <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
+                <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+              </svg>
             </a>
           </div>
 
@@ -115,7 +118,7 @@ export async function Footer() {
 
               {!fullAddress && !phone && !email && (
                 <p className="leading-7">
-                  Ajoute les coordonnées dans les Réglages du site.
+                  Contactez-nous pour obtenir nos coordonnées.
                 </p>
               )}
             </div>
@@ -137,7 +140,7 @@ export async function Footer() {
               </div>
             ) : (
               <p className="mt-5 leading-7 text-zinc-300">
-                Ajoute les heures dans les Réglages du site.
+                Contactez-nous pour connaître nos heures d’ouverture.
               </p>
             )}
           </div>

@@ -44,7 +44,7 @@ export async function ProfessionalsPage() {
 
               {/* Gauche — message + actions */}
               <div className="flex flex-col justify-center py-8 lg:py-12 lg:pr-16">
-                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Professionnels</p>
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Professionnels</p>
                 <h1 className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(2.2rem,5.5vw,4.5rem)] font-medium uppercase leading-[1.0] text-zinc-950">
                   À votre<br />disposition.
                 </h1>
@@ -57,7 +57,7 @@ export async function ProfessionalsPage() {
                     href={JANE_BASE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group inline-flex min-h-[48px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
                     <span className="whitespace-nowrap">Prendre rendez-vous</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
@@ -66,9 +66,12 @@ export async function ProfessionalsPage() {
                   </a>
                   <a
                     href="#equipe-grid"
-                    className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white whitespace-nowrap"
+                    className="group inline-flex min-h-[48px] items-center gap-3 border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                   >
-                    Voir l&apos;équipe ↓
+                    <span className="whitespace-nowrap">Voir l&apos;équipe</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-y-0.5 rotate-90">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
                   </a>
                 </div>
               </div>
@@ -93,7 +96,7 @@ export async function ProfessionalsPage() {
                     <a
                       key={professional.id}
                       href={`/professionnels/${professional.slug}`}
-                      className="group flex items-center justify-between border border-zinc-200 bg-white px-4 py-2 transition hover:border-zinc-400 hover:bg-zinc-50"
+                      className="group flex items-center justify-between border border-zinc-300 bg-white px-4 py-2 transition hover:border-zinc-400 hover:bg-[#f6f1e8]"
                     >
                       <span className="flex min-w-0 flex-col">
                         <span className="truncate font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase tracking-[0.01em] transition">
@@ -122,12 +125,12 @@ export async function ProfessionalsPage() {
 
       {/* ─── Section 2 — Grille de l'équipe ──────────────────────────── */}
       {count > 0 && (
-        <section id="equipe-grid" className="relative z-10 -mt-4 bg-zinc-50 py-10 lg:py-20 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+        <section id="equipe-grid" className="relative z-10 -mt-4 bg-[#f6f1e8] py-14 lg:py-24 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <ScrollReveal>
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-              <div className="mb-10 border-b border-zinc-200 pb-6">
-                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
+              <div className="mb-10 border-b border-zinc-300 pb-6">
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
                   Notre équipe
                 </p>
                 <p className="mt-1 font-[var(--font-barlow-condensed)] text-[clamp(1.4rem,2.5vw,2rem)] font-medium uppercase leading-tight text-zinc-950">
@@ -148,7 +151,7 @@ export async function ProfessionalsPage() {
                     <a
                       key={professional.id}
                       href={`/professionnels/${professional.slug}`}
-                      className="group flex flex-col overflow-hidden border border-zinc-200 bg-white transition hover:border-zinc-400 hover:bg-zinc-50"
+                      className="group flex flex-col overflow-hidden border border-zinc-300 bg-white transition hover:border-zinc-400 hover:bg-[#f6f1e8]"
                     >
                       {photoUrl ? (
                         <div className="relative aspect-[3/4] w-full overflow-hidden">
@@ -165,7 +168,7 @@ export async function ProfessionalsPage() {
                           <span className="text-sm font-semibold uppercase tracking-wide text-zinc-400">Photo à venir</span>
                         </div>
                       )}
-                      <div className="flex flex-1 flex-col border-t border-zinc-200 p-4">
+                      <div className="flex flex-1 flex-col border-t border-zinc-300 p-4">
                         <h2 className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-tight tracking-[0.02em] text-zinc-950">
                           {professional.name.split(' ')[0]}<br />
                           {professional.name.split(' ').slice(1).join(' ')}
@@ -191,14 +194,14 @@ export async function ProfessionalsPage() {
       )}
 
       {/* ─── Section 3 — CTA bas ──────────────────────────────────────── */}
-      <section className="relative z-20 -mt-4 bg-white py-10 lg:py-20 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+      <section className="relative z-20 -mt-4 bg-white py-14 lg:py-24 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="grid grid-cols-1 gap-px bg-zinc-200 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-px bg-zinc-300 sm:grid-cols-2">
 
               <div className="flex flex-col justify-between bg-white px-8 py-8">
-                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
                   Prêt à consulter?
                 </p>
                 <p className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(1.2rem,2vw,1.6rem)] font-medium uppercase leading-tight text-zinc-950">
@@ -209,7 +212,7 @@ export async function ProfessionalsPage() {
                     href={JANE_BASE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group inline-flex min-h-[48px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
                     <span>Prendre rendez-vous</span>
                     <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 transition duration-200 group-hover:translate-x-1">
@@ -218,26 +221,34 @@ export async function ProfessionalsPage() {
                   </a>
                   <a
                     href="/contact"
-                    className="inline-flex min-h-[46px] items-center border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
+                    className="group inline-flex min-h-[48px] items-center gap-3 border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
                   >
-                    Nous contacter
+                    <span>Nous contacter</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
                   </a>
                 </div>
               </div>
 
               <div className="flex flex-col justify-between bg-zinc-900 px-8 py-8">
-                <p className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-red-400">
-                  Pas sûr quel soin choisir?
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-500">
+                  Pas certain du soin à choisir?
                 </p>
                 <p className="mt-4 font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug text-zinc-200">
                   Découvrez nos cinq disciplines et trouvez celle qui correspond à votre situation.
                 </p>
-                <a
-                  href="/services"
-                  className="mt-2 flex min-h-[40px] w-full items-center justify-center border border-red-400 text-[9.5px] font-bold uppercase tracking-[0.16em] text-red-400 transition hover:bg-white hover:border-white hover:text-red-600"
-                >
-                  Explorer les services
-                </a>
+                <div className="mt-8">
+                  <a
+                    href="/services"
+                    className="group inline-flex min-h-[48px] items-center gap-3 border border-red-500 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-500 transition hover:bg-red-500 hover:text-white"
+                  >
+                    <span>Explorer les services</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </a>
+                </div>
               </div>
 
             </div>

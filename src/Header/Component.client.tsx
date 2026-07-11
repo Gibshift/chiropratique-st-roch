@@ -143,7 +143,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               href={janeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden min-h-[48px] min-w-[160px] self-center items-center justify-center whitespace-nowrap border border-red-600 bg-white/90 px-4 text-red-600 backdrop-blur-sm transition hover:bg-red-600 hover:text-white lg:inline-flex xl:min-h-[54px] xl:min-w-[190px] xl:px-5"
+              className="hidden min-h-[48px] min-w-[160px] self-center items-center justify-center whitespace-nowrap border border-red-600 bg-red-600 px-4 text-white transition hover:bg-white hover:text-red-600 lg:inline-flex xl:min-h-[54px] xl:min-w-[190px] xl:px-5"
             >
               <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase leading-none tracking-[0.14em] xl:text-[15px] xl:tracking-[0.22em]">
                 Prendre rendez-vous
@@ -181,7 +181,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
         inert={!isOpen}
       >
         {/* En-tête drawer */}
-        <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-5">
+        <div className="flex items-center justify-between border-b border-zinc-300 px-6 py-5">
           <span className="font-[var(--font-barlow-condensed)] text-[13px] font-medium uppercase tracking-[0.22em] text-zinc-400">
             Navigation
           </span>
@@ -212,7 +212,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, janeUrl, phone
               href={janeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-[52px] w-full items-center justify-center border border-red-600 bg-white px-5 text-red-600 transition hover:bg-red-600 hover:text-white"
+              className="flex min-h-[52px] w-full items-center justify-center border border-red-600 bg-red-600 px-5 text-white transition hover:bg-white hover:text-red-600"
               onClick={() => setIsOpen(false)}
             >
               <span className="[-webkit-text-size-adjust:100%] [text-size-adjust:100%] whitespace-nowrap font-[var(--font-barlow-condensed)] text-[12px] font-medium uppercase leading-none tracking-[0.1em]">

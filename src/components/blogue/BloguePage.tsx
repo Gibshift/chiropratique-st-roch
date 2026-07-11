@@ -1,7 +1,6 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Link from 'next/link'
-import Image from 'next/image'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { GeometricShapes } from '@/components/ui/GeometricShapes'
 import { BlogueGrid, type PostForGrid, type CategoryForGrid } from './BlogueGrid'
@@ -55,15 +54,15 @@ const featuredStyles: Record<FeaturedVariant, {
   wrap: string; label: string; date: string; title: string; excerpt: string; cta: string
 }> = {
   dark: {
-    wrap:    'bg-zinc-950 border border-zinc-950 hover:border-red-600',
+    wrap:    'bg-zinc-950 border border-zinc-950 hover:border-red-500',
     label:   'text-red-500',
     date:    'text-zinc-500',
-    title:   'text-white group-hover:text-red-400',
+    title:   'text-white group-hover:text-red-500',
     excerpt: 'text-zinc-400',
-    cta:     'text-red-500 group-hover:text-red-400',
+    cta:     'text-red-500 group-hover:text-white',
   },
   white: {
-    wrap:    'bg-white border border-zinc-400 hover:border-zinc-950',
+    wrap:    'bg-white border border-zinc-300 hover:border-zinc-950',
     label:   'text-red-600',
     date:    'text-zinc-400',
     title:   'text-zinc-950 group-hover:text-red-600',
@@ -71,9 +70,9 @@ const featuredStyles: Record<FeaturedVariant, {
     cta:     'text-red-600 group-hover:text-zinc-950',
   },
   beige: {
-    wrap:    'bg-stone-100 border border-stone-400 hover:border-zinc-950',
+    wrap:    'bg-[#f6f1e8] border border-zinc-300 hover:border-zinc-950',
     label:   'text-red-600',
-    date:    'text-stone-400',
+    date:    'text-zinc-400',
     title:   'text-zinc-950 group-hover:text-red-600',
     excerpt: 'text-zinc-500',
     cta:     'text-red-600 group-hover:text-zinc-950',
@@ -94,20 +93,20 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
         className={`group flex lg:min-h-[360px] flex-col overflow-hidden transition p-6 lg:p-10 lg:pb-6 ${s.wrap}`}
       >
         <div className="flex items-center justify-between">
-          <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
+          <span className={`inline-flex border-l-2 border-current pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
             {label}
           </span>
           {date && <span className={`text-xs font-medium uppercase tracking-[0.14em] ${s.date}`}>{date}</span>}
         </div>
         <div className="flex flex-1 flex-col justify-start pt-4 lg:justify-center">
-          <h2 className={`text-xl font-normal leading-[1.05] tracking-[-0.03em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight transition ${s.title}`}>
+          <h2 className={`font-[var(--font-barlow-condensed)] text-[clamp(1.6rem,4.5vw,2.2rem)] font-medium uppercase leading-[1.05] transition ${s.title}`}>
             {noOrphanColon(post.title)}
           </h2>
           {excerpt && (
             <p className={`mt-3 line-clamp-3 text-[0.9rem] leading-6 ${s.excerpt}`}>{excerpt}</p>
           )}
         </div>
-        <span className={`mt-auto self-end text-[1rem] font-semibold transition ${s.cta}`}>
+        <span className={`mt-auto self-end text-[0.8rem] font-bold uppercase tracking-[0.14em] transition ${s.cta}`}>
           Lire l&apos;article →
         </span>
       </Link>
@@ -120,18 +119,18 @@ function FeaturedCard({ post, label, variant = 'white', large = false }: {
       className={`group flex flex-1 flex-col overflow-hidden transition p-6 lg:min-h-[200px] ${s.wrap}`}
     >
       <div>
-        <span className={`inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
+        <span className={`inline-flex border-l-2 border-current pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] ${s.label}`}>
           {label}
         </span>
       </div>
       <div className="flex flex-1 items-center py-4">
-        <h2 className={`text-xl font-normal leading-[1.05] tracking-[-0.03em] transition ${s.title}`}>
+        <h2 className={`font-[var(--font-barlow-condensed)] text-[1.35rem] font-medium uppercase leading-[1.1] transition ${s.title}`}>
           {noOrphanColon(post.title)}
         </h2>
       </div>
       <div className="flex items-center justify-between">
         {date && <span className={`text-xs font-medium uppercase tracking-[0.14em] ${s.date}`}>{date}</span>}
-        <span className={`text-[1rem] font-semibold transition ${s.cta}`}>
+        <span className={`text-[0.8rem] font-bold uppercase tracking-[0.14em] transition ${s.cta}`}>
           Lire l&apos;article →
         </span>
       </div>
@@ -231,15 +230,18 @@ export async function BloguePage({ page: _page = 1 }: { page?: number }) {
                 <div className="mt-6">
                   <a
                     href="#blogue-grid"
-                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+                    className="group inline-flex min-h-[48px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
                   >
-                    <span>Liste des articles ↓</span>
+                    <span className="whitespace-nowrap">Liste des articles</span>
+                    <svg aria-hidden="true" viewBox="0 0 20 12" className="h-3 w-5 transition duration-200 group-hover:translate-y-0.5">
+                      <path d="M10 1V9M5 5L10 10L15 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
                   </a>
                 </div>
               </div>
               <div className="hidden lg:block w-[1px] h-24 flex-shrink-0 self-center bg-red-600" />
               <div className="lg:max-w-[38%]">
-                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Blogue</p>
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">Blogue</p>
                 <p className="mt-3 text-[1rem] leading-7 text-zinc-800">
                   Des articles simples et utiles pour mieux comprendre les douleurs, les habitudes de travail, la posture et les bonnes raisons de consulter.
                 </p>

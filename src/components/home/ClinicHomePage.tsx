@@ -87,6 +87,26 @@ function SectionAccent({ className }: { className?: string }) {
 }
 
 
+function ArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 44 10"
+      className={className ?? 'h-3 w-9 transition duration-200 group-hover:translate-x-1'}
+    >
+      <path
+        d="M1 5H40M35 1L40 5L35 9"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.0"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
+    </svg>
+  )
+}
+
+
 function ConditionAccent({ index }: { index: number }) {
   const configs = [
     { count: 1, angle: 0 },
@@ -220,72 +240,70 @@ export async function ClinicHomePage() {
       ? (siteSettings as any).conditionsSectionImage.url
       : null
 
+  const clinicPhone =
+    siteSettings &&
+    typeof siteSettings === 'object' &&
+    'phone' in siteSettings &&
+    typeof (siteSettings as any).phone === 'string' &&
+    (siteSettings as any).phone.length > 0
+      ? (siteSettings as any).phone
+      : null
+
+  const clinicAddress =
+    siteSettings &&
+    typeof siteSettings === 'object' &&
+    'address' in siteSettings &&
+    typeof (siteSettings as any).address === 'string' &&
+    (siteSettings as any).address.length > 0
+      ? (siteSettings as any).address
+      : null
+
   return (
     <main className="bg-white text-zinc-950 selection:bg-red-50 selection:text-red-800">
       {/* ─── Section 1 — Hero ─────────────────────────────────────────── */}
-      <section className="relative min-h-[640px] overflow-hidden bg-[#f6f1e8] lg:min-h-[68svh]">
+      <section className="relative flex min-h-[640px] items-center overflow-hidden bg-[#f6f1e8] py-16 lg:min-h-[80svh] lg:py-24">
 
         {/* Photo en fond absolu — toutes tailles */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="relative h-full">
-            <Image
-              src="/assets/salle-chiro-ville-fused-watercolor.png"
-              alt="Salle de soins de la clinique Chiropratique St-Roch à Québec"
-              fill
-              sizes="(max-width: 1920px) 100vw, 1920px"
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black/15" />
-          </div>
+          <Image
+            src="/assets/salle-chiro-ville-fused-watercolor.png"
+            alt="Salle de soins de la clinique Chiropratique St-Roch à Québec"
+            fill
+            sizes="(max-width: 1920px) 100vw, 1920px"
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/25" />
         </div>
 
-        {/* Carré blanc — décalé vers le bas sur mobile pour laisser l'image apparaître */}
-        <div className="absolute inset-x-0 bottom-[90px] top-[160px] z-10 bg-white/70 backdrop-blur-md lg:inset-0 lg:bg-transparent lg:backdrop-blur-none">
-          <div className="mx-auto h-full max-w-[var(--content-max-w)] px-6 lg:px-8">
-            <div className="flex h-full flex-col items-center justify-center lg:bg-white lg:shadow-[-12px_0_24px_rgba(0,0,0,0.35),12px_0_24px_rgba(0,0,0,0.35)]">
-              <ScrollReveal>
-                <div className="flex flex-col items-center px-6 text-center lg:translate-y-8 lg:px-16">
-                  <p className="text-[0.62rem] font-medium uppercase tracking-[0.12em] text-red-600">
-                    Soins manuels · corps en mouvement
-                  </p>
+        {/* Panneau de contenu — ancré, net, lisible sur la photo */}
+        <div className="relative z-10 mx-auto w-full max-w-[var(--content-max-w)] px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="mx-auto w-full max-w-[34rem] bg-white px-8 py-12 text-center shadow-[0_24px_70px_rgba(0,0,0,0.28)] sm:px-12 lg:mx-0 lg:max-w-[42rem] lg:px-16 lg:py-16 lg:text-left">
+              <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
+                Soins manuels · corps en mouvement
+              </p>
 
-                  <h1 className="mt-3 font-[var(--font-barlow-condensed)] text-[clamp(2.4rem,9vw,8rem)] font-medium uppercase leading-[1.0] text-zinc-950">
-                    Chiropratique
-                    <span className="block text-red-600">St-Roch</span>
-                  </h1>
+              <h1 className="mt-5 font-[var(--font-barlow-condensed)] text-[clamp(3rem,10vw,7.5rem)] font-medium uppercase leading-[0.95] text-zinc-950">
+                Chiropratique
+                <span className="block text-red-600">St-Roch</span>
+              </h1>
 
-                  <p className="mt-4 text-[1rem] leading-7 text-zinc-800">
-                    Une clinique, plusieurs disciplines, une seule priorité : vous.
-                  </p>
+              <p className="mx-auto mt-6 max-w-md text-[1.05rem] leading-7 text-zinc-700 lg:mx-0">
+                Une clinique, plusieurs disciplines, une seule priorité : vous.
+              </p>
 
-                  <a
-                    href={janeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group mt-12 inline-flex min-h-[54px] w-fit items-center gap-4 border border-red-600 bg-white px-7 text-[13px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
-                  >
-                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
-
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 44 10"
-                      className="h-3 w-9 transition duration-200 group-hover:translate-x-1"
-                    >
-                      <path
-                        d="M1 5H40M35 1L40 5L35 9"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.0"
-                        strokeLinecap="square"
-                        strokeLinejoin="miter"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </ScrollReveal>
+              <a
+                href={janeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-10 inline-flex min-h-[48px] items-center gap-3 border border-red-600 bg-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-600"
+              >
+                <span className="whitespace-nowrap">Prendre rendez-vous</span>
+                <ArrowIcon />
+              </a>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
       </section>
@@ -295,7 +313,7 @@ export async function ClinicHomePage() {
         <section className="relative z-10 -mt-4 overflow-hidden bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes holds={SHAPES_SERVICES} />
           <ScrollReveal>
-          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
+          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-14 lg:px-8 lg:py-24">
 
             {/* En-tête : titre gauche + image droite */}
             <div className="mb-8 flex items-end justify-between gap-8">
@@ -322,15 +340,15 @@ export async function ClinicHomePage() {
             </div>
 
             {/* Rangée unique de cartes */}
-            <div className="grid border-l border-t border-zinc-400 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="grid border-l border-t border-zinc-300 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
               {orderedServices.slice(0, 5).map((service: any) => (
                 <Link
                   key={service.id}
                   href={`/services/${service.slug}`}
-                  className="group flex min-w-0 flex-col overflow-hidden border-b border-r border-zinc-400 bg-white px-5 py-6 transition duration-300 hover:bg-[#f8f6f1]"
+                  className="group flex min-w-0 flex-col overflow-hidden border-b border-r border-zinc-300 bg-white px-5 py-6 transition duration-300 hover:bg-[#f8f6f1]"
                 >
                   <ServiceTitle title={service.title} />
-                  <div className="mt-2 h-px w-10 bg-zinc-400" />
+                  <div className="mt-2 h-px w-10 bg-zinc-300" />
                   <p className="mt-4 flex-1 text-[0.82rem] leading-[1.65] text-zinc-700">{service.shortDescription}</p>
                   <span className="mt-4 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-red-600">
                     En savoir plus
@@ -344,10 +362,10 @@ export async function ClinicHomePage() {
 
             <Link
               href="/services"
-              className="group mt-8 inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+              className="group mt-10 inline-flex min-h-[48px] items-center gap-3 border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
             >
               Découvrir nos services
-              <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
+              <ArrowIcon />
             </Link>
 
           </div>
@@ -375,10 +393,10 @@ export async function ClinicHomePage() {
               </div>
             )}
 
-            <ScrollReveal><div className="relative py-12 lg:py-24">
+            <ScrollReveal><div className="relative py-14 lg:py-24">
               <div className="max-w-[520px]">
                 <div className="mb-4">
-                  <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-700 lg:text-[18px] lg:tracking-[0.24em]">
+                  <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
                     Conditions traitées
                   </p>
                 </div>
@@ -390,12 +408,12 @@ export async function ClinicHomePage() {
                 <SectionAccent className="mt-8" />
               </div>
 
-              <div className="mt-14 grid max-w-[600px] border-l border-zinc-400 grid-cols-3 md:grid-cols-5">
+              <div className="mt-14 grid max-w-[600px] border-l border-zinc-300 grid-cols-3 md:grid-cols-5">
                 {conditionCategories.docs.slice(0, 5).map((category: any, index: number) => (
                   <a
                     key={category.id}
                     href={`/conditions-traitees/${category.slug}`}
-                    className="group flex flex-col items-center border-r border-zinc-400 px-5 py-4 text-center transition hover:bg-[#ece5dc]/40"
+                    className="group flex flex-col items-center border-r border-zinc-300 px-5 py-4 text-center transition hover:bg-[#ece5dc]/40"
                   >
                     <p className="flex-1 font-[var(--font-barlow-condensed)] text-[0.95rem] font-semibold uppercase leading-[1.2] tracking-[0.05em] text-zinc-900 group-hover:text-zinc-950">
                       <span className="text-red-600">{category.title.slice(0, 1)}</span>
@@ -410,10 +428,10 @@ export async function ClinicHomePage() {
 
               <a
                 href="/conditions-traitees"
-                className="group mt-12 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                className="group mt-12 inline-flex min-h-[48px] items-center gap-3 border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
               >
                 Voir toutes les conditions
-                <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
+                <ArrowIcon />
               </a>
             </div></ScrollReveal>
           </div>
@@ -425,7 +443,7 @@ export async function ClinicHomePage() {
         <section className="relative z-30 -mt-4 bg-white lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
           <GeometricShapes holds={SHAPES_PROFESSIONNELS} />
           <ScrollReveal>
-          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
+          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-14 lg:px-8 lg:py-24">
 
             {/* En-tête */}
             <div className="mb-8">
@@ -451,7 +469,7 @@ export async function ClinicHomePage() {
                   <a
                     key={professional.id}
                     href={`/professionnels/${professional.slug}`}
-                    className="group relative overflow-hidden border border-zinc-400 transition hover:border-zinc-950"
+                    className="group relative overflow-hidden border border-zinc-300 transition hover:border-zinc-950"
                   >
                     <div className="relative aspect-[3/4] overflow-hidden bg-white">
                       {photoUrl && (
@@ -475,10 +493,10 @@ export async function ClinicHomePage() {
 
             <Link
               href="/professionnels"
-              className="group inline-flex items-center gap-3 border border-red-600 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+              className="group inline-flex min-h-[48px] items-center gap-3 border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
             >
-              Voir l'équipe
-              <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
+              Voir l&apos;équipe
+              <ArrowIcon />
             </Link>
 
           </div>
@@ -495,11 +513,11 @@ export async function ClinicHomePage() {
           <section className="relative z-40 -mt-4 bg-[#f6f1e8] lg:sticky lg:top-0 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
             <GeometricShapes holds={SHAPES_BLOGUE} />
             <ScrollReveal>
-            <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
+            <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-14 lg:px-8 lg:py-24">
 
               {/* En-tête section */}
               <div className="mb-12">
-                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-700 lg:text-[18px] lg:tracking-[0.24em]">
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
                   Blogue santé
                 </p>
                 <h2 className="mt-4 text-[clamp(1.8rem,6vw,3rem)] font-normal leading-[1] tracking-[-0.03em] text-zinc-950">
@@ -514,7 +532,7 @@ export async function ClinicHomePage() {
                 {/* Article du jour — même design que la page blogue */}
                 <a
                   href={`/blogue/${dailyPost.slug}`}
-                  className="group flex lg:min-h-[360px] flex-col overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 lg:pb-6 transition hover:border-red-600"
+                  className="group flex lg:min-h-[360px] flex-col overflow-hidden bg-zinc-950 border border-zinc-950 p-8 lg:p-10 lg:pb-6 transition hover:border-red-500"
                 >
                   <div className="flex items-center justify-between">
                     <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] text-red-500">
@@ -526,7 +544,7 @@ export async function ClinicHomePage() {
                   </div>
 
                   <div className="flex flex-1 flex-col justify-start pt-4 lg:justify-center">
-                    <h3 className="text-xl font-normal leading-[1.05] tracking-[-0.03em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight text-white group-hover:text-red-400 transition">
+                    <h3 className="text-xl font-normal leading-[1.05] tracking-[-0.03em] lg:text-[clamp(1.6rem,2.5vw,2.2rem)] lg:font-[var(--font-barlow-condensed)] lg:font-medium lg:uppercase lg:leading-tight text-white group-hover:text-red-500 transition">
                       {dailyPost.title}
                     </h3>
                     {dailyPost.meta?.description && (
@@ -536,7 +554,7 @@ export async function ClinicHomePage() {
                     )}
                   </div>
 
-                  <span className="mt-auto self-end text-[1rem] font-semibold text-red-500 transition group-hover:text-red-400">
+                  <span className="mt-auto self-end text-[1rem] font-semibold text-red-500 transition group-hover:text-white">
                     Lire l&apos;article →
                   </span>
                 </a>
@@ -544,22 +562,17 @@ export async function ClinicHomePage() {
                 {/* Petites cartes */}
                 <div className="flex flex-col gap-1">
                   {([
-                    { post: popularPost, label: 'Article populaire', variant: 'white' as const },
-                    { post: recentPost,  label: 'À lire aussi',      variant: 'beige' as const },
-                  ]).filter((item): item is typeof item & { post: NonNullable<typeof item['post']> } => !!item.post).map(({ post: op, label, variant }) => {
-                    const isWhite = variant === 'white'
+                    { post: popularPost, label: 'Article populaire' },
+                    { post: recentPost,  label: 'À lire aussi' },
+                  ]).filter((item): item is typeof item & { post: NonNullable<typeof item['post']> } => !!item.post).map(({ post: op, label }) => {
                     return (
                       <a
                         key={op.id}
                         href={"/blogue/" + op.slug}
-                        className={`group flex flex-1 flex-col overflow-hidden p-6 lg:min-h-[200px] transition border ${
-                          isWhite
-                            ? 'bg-white border-zinc-400 hover:border-zinc-950'
-                            : 'bg-stone-100 border-stone-400 hover:border-zinc-950'
-                        }`}
+                        className="group flex flex-1 flex-col overflow-hidden border border-zinc-300 bg-white p-6 lg:min-h-[200px] transition hover:border-zinc-950"
                       >
                         <div>
-                          <span className="inline-flex border-l-2 border-red-500 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] text-red-700">
+                          <span className="inline-flex border-l-2 border-red-600 pl-3 font-[var(--font-barlow-condensed)] text-[0.72rem] lg:text-[13px] font-medium uppercase tracking-[0.12em] lg:tracking-[0.22em] text-red-600">
                             {label}
                           </span>
                         </div>
@@ -572,11 +585,11 @@ export async function ClinicHomePage() {
 
                         <div className="flex items-center justify-between">
                           {op.publishedAt && (
-                            <span className={`text-xs font-medium uppercase tracking-[0.14em] ${isWhite ? 'text-zinc-600' : 'text-stone-600'}`}>
+                            <span className="text-xs font-medium uppercase tracking-[0.14em] text-zinc-600">
                               {formatDateFR(op.publishedAt)}
                             </span>
                           )}
-                          <span className="text-[1rem] font-semibold text-red-700 transition group-hover:text-zinc-950">
+                          <span className="text-[1rem] font-semibold text-red-600 transition group-hover:text-zinc-950">
                             Lire l&apos;article →
                           </span>
                         </div>
@@ -588,10 +601,10 @@ export async function ClinicHomePage() {
 
               <a
                 href="/blogue"
-                className="group mt-8 inline-flex items-center gap-3 border border-red-700 px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-red-700 transition-all duration-300 hover:bg-red-700 hover:text-white"
+                className="group mt-10 inline-flex min-h-[48px] items-center gap-3 border border-red-600 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-600 transition hover:bg-red-600 hover:text-white"
               >
                 Voir tous les articles
-                <span className="inline-block transition duration-300 group-hover:translate-x-2">→</span>
+                <ArrowIcon />
               </a>
 
             </div>
@@ -599,6 +612,57 @@ export async function ClinicHomePage() {
           </section>
         )
       })()}
+
+      {/* ─── Section 6 — Appel à l'action final ──────────────────────── */}
+      <section className="relative z-50 -mt-4 overflow-hidden bg-zinc-950 shadow-[0_-12px_32px_rgba(0,0,0,0.14)]">
+        <ScrollReveal>
+          <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-14 lg:px-8 lg:py-24">
+            <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-500">
+                  Prenez rendez-vous
+                </p>
+                <h2 className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(2rem,6vw,3.6rem)] font-medium uppercase leading-[1.02] text-white">
+                  <span className="text-red-500">V</span>otre mieux-être commence par un premier rendez-vous.
+                </h2>
+                <p className="mt-5 max-w-md text-[1rem] leading-7 text-zinc-300">
+                  Notre équipe multidisciplinaire vous accueille au cœur de Saint-Roch, à Québec.
+                </p>
+
+                {(clinicPhone || clinicAddress) && (
+                  <div className="mt-8 flex flex-col gap-2 text-[0.9rem] leading-6 text-zinc-300 sm:flex-row sm:gap-8">
+                    {clinicPhone && (
+                      <a href={`tel:${clinicPhone.replace(/[^0-9+]/g, '')}`} className="transition hover:text-white">
+                        {clinicPhone}
+                      </a>
+                    )}
+                    {clinicAddress && <span>{clinicAddress}</span>}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row lg:shrink-0 lg:flex-col xl:flex-row">
+                <a
+                  href={janeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex min-h-[48px] items-center justify-center gap-3 border border-red-500 bg-red-500 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-red-500"
+                >
+                  Prendre rendez-vous
+                  <ArrowIcon />
+                </a>
+                <Link
+                  href="/contact"
+                  className="group inline-flex min-h-[48px] items-center justify-center gap-3 border border-red-500 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-500 transition hover:bg-red-500 hover:text-white"
+                >
+                  Nous joindre
+                  <ArrowIcon />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
     </main>
   )
 }
