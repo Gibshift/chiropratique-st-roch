@@ -298,7 +298,7 @@ export async function ClinicHomePage() {
           <div className="mx-auto max-w-[var(--content-max-w)] px-6 py-12 lg:px-8 lg:py-24">
 
             {/* En-tête : titre gauche + image droite */}
-            <div className="mb-8 flex items-end justify-between gap-8">
+            <div className="mb-8 flex items-start justify-between gap-8">
               <div>
                 <p className="font-[var(--font-barlow-condensed)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600 lg:text-[18px] lg:tracking-[0.24em]">
                   Services

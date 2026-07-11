@@ -79,10 +79,10 @@ export function InfoBar({
     <div
       className={`overflow-hidden transition-all duration-300 ease-in-out ${
         scrolled ? 'max-h-0' : 'max-h-[40px]'
-      } ${status?.open ? 'bg-green-700' : 'bg-red-700'}`}
+      } bg-red-700`}
     >
       <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-        <div className="flex items-center justify-between py-[5px] text-[11px] text-white">
+        <div className="grid grid-cols-3 items-center py-[5px] text-[11px] text-white">
 
           {/* Gauche — téléphone */}
           <div className="flex items-center gap-4">
@@ -109,7 +109,7 @@ export function InfoBar({
           {address && (
             <Link
               href="/contact"
-              className="hidden items-center gap-1.5 tracking-wide transition hover:text-red-200 md:flex"
+              className="hidden items-center justify-center gap-1.5 tracking-wide transition hover:text-red-200 md:flex"
             >
               <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3 shrink-0">
                 <path fillRule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clipRule="evenodd" />
@@ -120,10 +120,10 @@ export function InfoBar({
 
           {/* Droite — statut ouvert/fermé */}
           {status && (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center justify-end gap-1.5">
               <span
                 className={`inline-block h-[7px] w-[7px] rounded-full ${
-                  status.open ? 'bg-green-400' : 'bg-red-300'
+                  status.open ? 'bg-green-400' : 'bg-white'
                 }`}
               />
               <span className="font-semibold uppercase tracking-[0.12em]">

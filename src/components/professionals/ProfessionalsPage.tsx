@@ -36,7 +36,7 @@ export async function ProfessionalsPage() {
       <GeometricShapes />
 
       {/* ─── Section 1 — Hero ─────────────────────────────────────────── */}
-      <section className="bg-white pt-36 pb-0 lg:pt-40">
+      <section className="bg-white pt-36 pb-16 lg:pt-40 lg:pb-20">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
@@ -195,7 +195,7 @@ export async function ProfessionalsPage() {
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="grid grid-cols-1 gap-px bg-zinc-200 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 border border-zinc-200">
 
               <div className="flex flex-col justify-between bg-white px-8 py-8">
                 <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-600">
@@ -226,18 +226,23 @@ export async function ProfessionalsPage() {
               </div>
 
               <div className="flex flex-col justify-between bg-zinc-900 px-8 py-8">
-                <p className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-red-400">
+                <p className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-red-400">
                   Pas sûr quel soin choisir?
                 </p>
-                <p className="mt-4 font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase leading-snug text-zinc-200">
+                <p className="mt-4 font-[var(--font-barlow-condensed)] text-[clamp(1.2rem,2vw,1.6rem)] font-medium uppercase leading-tight text-zinc-200">
                   Découvrez nos cinq disciplines et trouvez celle qui correspond à votre situation.
                 </p>
-                <a
-                  href="/services"
-                  className="mt-2 flex min-h-[40px] w-full items-center justify-center border border-red-400 text-[9.5px] font-bold uppercase tracking-[0.16em] text-red-400 transition hover:bg-white hover:border-white hover:text-red-600"
-                >
-                  Explorer les services
-                </a>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href="/services"
+                    className="group inline-flex min-h-[46px] items-center gap-3 border border-red-400 px-6 text-[12px] font-bold uppercase tracking-[0.16em] text-red-400 transition hover:bg-white hover:border-white hover:text-red-600"
+                  >
+                    <span>Explorer les services</span>
+                    <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-8 flex-shrink-0 transition duration-200 group-hover:translate-x-1">
+                      <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </a>
+                </div>
               </div>
 
             </div>

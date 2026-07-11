@@ -64,7 +64,7 @@ export async function ConditionsPage() {
       <GeometricShapes />
 
       {/* ─── Section 1 — Hero ─────────────────────────────────────────── */}
-      <section className="bg-white pt-36 pb-0 lg:pt-40">
+      <section className="bg-white pt-36 pb-16 lg:pt-40 lg:pb-20">
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
