@@ -272,7 +272,6 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     'Article de Chiropratique St-Roch sur la santé musculosquelettique, la prévention et les soins multidisciplinaires.'
 
   const url = `/blogue/${post.slug}`
-  const images = getOpenGraphImages(post.heroImage, post.title)
 
   return {
     title,
@@ -285,13 +284,11 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
       type: 'article',
       siteName: 'Chiropratique St-Roch',
       locale: 'fr_CA',
-      images,
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images,
     },
   }
 }

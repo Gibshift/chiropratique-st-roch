@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
 import { BloguePage } from '@/components/blogue/BloguePage'
-import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
 const title = 'Blogue santé'
 const description =
@@ -22,14 +21,12 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Chiropratique St-Roch',
     locale: 'fr_CA',
-    images: getDefaultOpenGraphImages('Blogue santé de Chiropratique St-Roch', 'Blogue santé'),
   },
 
   twitter: {
     card: 'summary_large_image',
     title,
     description,
-    images: getDefaultOpenGraphImages('Blogue santé de Chiropratique St-Roch', 'Blogue santé'),
   },
 }
 

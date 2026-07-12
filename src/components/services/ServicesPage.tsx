@@ -44,7 +44,7 @@ export async function ServicesPage() {
         <ScrollReveal>
           <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
 
-            <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] lg:min-h-[360px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr]">
 
               {/* Gauche — message + actions */}
               <div className="flex flex-col justify-center py-8 lg:py-12 lg:pr-16">
@@ -77,43 +77,16 @@ export async function ServicesPage() {
                 </div>
               </div>
 
-              {/* Droite — panneau de navigation (desktop uniquement) */}
-              <div className="hidden lg:flex relative overflow-hidden bg-white">
-
-                {/* Zone illustration — derrière les liens */}
-                <div className="absolute top-10 bottom-0 left-2 right-[260px] lg:right-[240px] xl:right-[240px]">
-                  <Image
-                    src="/assets/famille-contact-ordinateur-siteweb-droite.png"
-                    alt="Famille utilisant un ordinateur pour prendre rendez-vous à la clinique"
-                    fill
-                    sizes="400px"
-                    className="object-contain object-bottom pointer-events-none"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-white/20 pointer-events-none" />
-                </div>
-
-                {/* Liens rapides — z-10, par-dessus la photo, container transparent */}
-                <div className="relative z-10 ml-auto flex w-[300px] flex-col justify-center gap-2 self-stretch px-4 py-6">
-                  {services.docs.map((service: any) => {
-                    const title = service.title as string
-                    return (
-                      <a
-                        key={service.id}
-                        href={`/services/${service.slug}`}
-                        className="group flex items-center justify-between border border-zinc-200 bg-white px-4 py-3 transition hover:border-zinc-400 hover:bg-zinc-50"
-                      >
-                        <span className="font-[var(--font-barlow-condensed)] text-[1rem] font-medium uppercase tracking-[0.01em] text-zinc-700 transition group-hover:text-red-600">
-                          <span className="text-red-600">{title.charAt(0)}</span>{title.slice(1)}
-                        </span>
-                        <svg aria-hidden="true" viewBox="0 0 44 10" className="h-2.5 w-9 flex-shrink-0 text-red-600 transition duration-200 group-hover:translate-x-0.5">
-                          <path d="M1 5H40M35 1L40 5L35 9" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" />
-                        </svg>
-                      </a>
-                    )
-                  })}
-                </div>
-
+              {/* Droite — illustration (desktop uniquement) */}
+              <div className="hidden lg:block relative overflow-hidden">
+                <Image
+                  src="/assets/famille-contact-ordinateur-siteweb-droite.png"
+                  alt="Famille utilisant un ordinateur pour prendre rendez-vous à la clinique"
+                  fill
+                  sizes="700px"
+                  className="object-contain object-right-bottom pointer-events-none"
+                  priority
+                />
               </div>
 
             </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
 import { ServicesPage } from '@/components/services/ServicesPage'
-import { getDefaultOpenGraphImages } from '@/utilities/seo'
 
 const title = 'Services'
 const description =
@@ -22,14 +21,12 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Chiropratique St-Roch',
     locale: 'fr_CA',
-    images: getDefaultOpenGraphImages('Services de Chiropratique St-Roch', 'Nos Services'),
   },
 
   twitter: {
     card: 'summary_large_image',
     title,
     description,
-    images: getDefaultOpenGraphImages('Services de Chiropratique St-Roch', 'Nos Services'),
   },
 }
 

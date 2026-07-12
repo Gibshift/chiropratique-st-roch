@@ -13,7 +13,6 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { draftMode } from 'next/headers'
-import { getDefaultOpenGraphImages } from '@/utilities/seo'
 import { Barlow_Condensed } from 'next/font/google'
 
 import './globals.css'
@@ -86,16 +85,14 @@ export const metadata: Metadata = {
     siteName: 'Chiropratique St-Roch',
     title: 'Chiropratique St-Roch | Clinique multidisciplinaire à Québec',
     description:
-      'Clinique multidisciplinaire à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
-    images: getDefaultOpenGraphImages(),  
+      "Clinique multidisciplinaire à Québec offrant des soins de chiropratique, d'ostéopathie, de massothérapie, de kinésithérapie et d'orthothérapie.",
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'Chiropratique St-Roch | Clinique multidisciplinaire à Québec',
     description:
-      'Clinique multidisciplinaire à Québec offrant des soins de chiropratique, d’ostéopathie, de massothérapie, de kinésithérapie et d’orthothérapie.',
-    images: getDefaultOpenGraphImages(),  
+      "Clinique multidisciplinaire à Québec offrant des soins de chiropratique, d'ostéopathie, de massothérapie, de kinésithérapie et d'orthothérapie.",
   },
 
   robots: {
